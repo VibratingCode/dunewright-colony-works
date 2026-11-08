@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Post-Stasis Refresher · Dunewright Colony Works</title>
+<meta name="description" content="Safety refresher training for Dunewright Colony Works construction crews revived from stasis at Settlement Site 4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: training board tiles with completion state */
+.mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:3px solid var(--black)}
+.mod{display:grid;grid-template-columns:86px minmax(0,1fr) auto;align-items:center;text-decoration:none;color:var(--ink);border-bottom:2px solid var(--black);border-right:2px solid var(--black);min-height:84px;background:var(--paper)}
+.mod:nth-child(2n){border-right:0}
+.mod:nth-last-child(-n+2){border-bottom:0}
+.mod .num{font:400 40px/1 var(--display);height:100%;display:flex;align-items:center;justify-content:center;background:var(--c,var(--hiviz));border-right:2px solid var(--black);color:var(--fg,var(--ink))}
+.mod .tx{padding:10px 14px;min-width:0}
+.mod .tx b{display:block;font:400 24px/1.05 var(--display);text-transform:uppercase}
+.mod .tx span{font-size:13px;color:var(--muted)}
+.mod .st{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:0 14px;white-space:nowrap}
+.mod .st.done{color:var(--green)}
+.mod:hover .tx b{text-decoration:underline}
+.prog{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.bar{flex:1;min-width:200px;height:20px;border:3px solid var(--black);background:var(--paper)}
+.bar i{display:block;height:100%;background:repeating-linear-gradient(-45deg,var(--orange) 0 10px,#d94f0e 10px 20px);width:0;transition:width .3s}
+.refs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ref{border:3px solid var(--black);padding:14px;text-decoration:none;color:var(--ink);display:grid;gap:6px;align-content:start;min-width:0;background:var(--paper)}
+.ref b{font:400 24px/1.05 var(--display);text-transform:uppercase}
+.ref span{font-size:13px;color:var(--muted)}
+.ref .f{font:700 11px var(--mono);color:var(--muted)}
+.ref:hover{background:var(--hiviz)}
+.dl{columns:2;column-gap:28px;font-size:13px}
+.dl li{break-inside:avoid}
+@media (max-width:820px){.mods{grid-template-columns:minmax(0,1fr)}.mod{border-right:0!important}.mod:nth-last-child(2){border-bottom:2px solid var(--black)}.refs{grid-template-columns:repeat(2,minmax(0,1fr))}.dl{columns:1}}
+@media (max-width:480px){.refs{grid-template-columns:minmax(0,1fr)}.mod{grid-template-columns:64px minmax(0,1fr)}.mod .st{grid-column:2;padding:0 14px 10px}}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body data-page="index">
+<div class="wall">
+<article class="poster">
+
+  <header class="head">
+    <div class="meta"><span>Training board · Rev. 4</span><span>Settlement Site 4 · Stasis Revival Unit</span><span>Complete before first full shift</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>Welcome back.</h1>
+    <p class="sub">You've been asleep a long time. Before you build a city, relearn how to stay alive building it.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="callout">
+    <div class="lbl">Read first</div>
+    <div class="in">
+      <h2>Post-stasis refresher program</h2>
+      <p>All 15,210 revived workers complete nine modules and one supplement before their first full shift. Your crew lead checks your sign-offs. Work through them in order. Module 1 tells you where everything is. Module 3 starts your heat ramp.</p>
+      <p class="small">Each module ends with a sign-off. Fill in your name, colonist ID, crew and date to stamp it complete. Your progress saves in this browser only.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Modules</h2><span class="tag">HS-01 to HS-09 · Supplement A</span></div>
+    <div class="prog"><span class="k" id="progtxt">0 of 10 complete</span><div class="bar" aria-hidden="true"><i id="progbar"></i></div></div>
+    <div class="mods" id="mods"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Reference sheets</h2><span class="tag">Keep these handy</span></div>
+    <div class="refs">
+      <a class="ref" href="pocket-card.html"><span class="f">REF-PC</span><b>Pocket card</b><span>Fold-out card with your details, emergency steps, channels and key numbers.</span></a>
+      <a class="ref" href="radio.html"><span class="f">REF-RAD</span><b>Radio</b><span>Channels, call signs, prowords, the phonetic alphabet and the emergency call.</span></a>
+      <a class="ref" href="org-chart.html"><span class="f">REF-ORG</span><b>Org chart</b><span>Every station from crew member to Director, and who to go to.</span></a>
+      <a class="ref" href="hand-signals.html"><span class="f">REF-HS</span><b>Hand signals</b><span>Crane signals, site emergency signals and spotter signals.</span></a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Site tools</h2><span class="tag">From the Atmospheric Office</span></div>
+    <div class="refs" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+      <a class="ref" href="tools/weather.html"><span class="f">ATMOS</span><b>Site weather office</b><span>Today's forecast: temperature, wet bulb, WBGT, wind, alerts and heat-stress guidance.</span></a>
+      <a class="ref" href="tools/heat-field-card.html"><span class="f">ATMOS</span><b>Heat field card</b><span>The Old Earth heat data behind Module 3, from 70°F to 180°F.</span></a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Downloads</h2><span class="tag">Printable PDF and PNG of every poster</span></div>
+    <ul class="dl" id="dl"></ul>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p><b>Every worker on this site can stop unsafe work.</b> No penalty, no questions. That's the first rule and the last one.</p>
+  </section>
+
+  <footer class="foot">
+    <span>Dunewright Colony Works is a fictional employer for a roleplay setting. Safety content is adapted from real Old Earth standards (OSHA, NIOSH, ANSI, ASME, NFPA, CDC, US Army) but this site is not real-world training or medical advice.</span>
+    <span>Training board · Settlement Site 4</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+<script>
+const P=window.DCW_PAGES;
+const COLORS={m1:["var(--hiviz)"],m2:["#8cc0a6"],m3:["var(--orange)"],m4:["var(--hiviz)"],m5:["#7a4a24","#fff"],m6:["var(--orange)"],m7:["var(--blue)","#fff"],m8:["#8cc0a6"],m9:["var(--red)","#fff"],cs:["var(--black)","var(--hiviz)"]};
+const DESC={m1:"Revival clearance, site map, hard hats, sirens, first shift",m2:"Silica dust, respirators, eyes, hearing, sandstorms",m3:"Heat ramp, heat stroke, water, work/rest",m4:"Fall protection, anchors, ladders, holes, dropped objects",m5:"Permits, fire watch, filter shades, fumes, gas cylinders",m6:"Lifts, rigging, power lines, blind spots, trenching",m7:"Lockout steps, stored energy, machine guarding",m8:"Hazard symbols, SDS, polymers, resins, composites",m9:"Sirens, emergency calls, triage, bleeding, fire, floods",cs:"Air testing, entry roles, rescue"};
+let done=0;
+document.getElementById("mods").innerHTML=P.map(p=>{
+  let d=false;try{d=localStorage.getItem(`dcw-${p.id}-done`)==="1"}catch(e){}
+  if(d)done++;
+  const c=COLORS[p.id]||["var(--hiviz)"];
+  return `<a class="mod" href="${p.file}" style="--c:${c[0]};--fg:${c[1]||"var(--ink)"}"><span class="num">${p.n}</span><span class="tx"><b>${p.t}</b><span>${DESC[p.id]||""}</span></span><span class="st${d?" done":""}">${d?"✓ Signed off":"Not started"}</span></a>`;
+}).join("");
+document.getElementById("progtxt").textContent=`${done} of ${P.length} complete`;
+document.getElementById("progbar").style.width=(done/P.length*100)+"%";
+const ALL=[...P.map(p=>[p.file.replace(".html",""),`${p.n === "S-A" ? "Supplement A" : "Module "+p.n}: ${p.t}`]),["pocket-card","Pocket card"],["radio","Radio reference"],["org-chart","Org chart"],["hand-signals","Hand signals"]];
+document.getElementById("dl").innerHTML=ALL.map(([f,t])=>`<li>${t} · <a href="exports/${f}.pdf">PDF</a> · <a href="exports/${f}.png">PNG</a></li>`).join("");
+</script>
+</body>
+</html>

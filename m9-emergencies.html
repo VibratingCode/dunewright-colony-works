@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HS-09 Emergencies · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: siren waveforms, radio script, START triage flow, triage tags */
+.sirens{display:grid;border:3px solid var(--black)}
+.sir{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);border-top:2px solid var(--black)}
+.sir:first-child{border-top:0}
+.sir .w{background:var(--black);padding:14px 16px;display:flex;align-items:center}
+.sir .w svg{width:100%;height:56px;display:block}
+.sir .m{padding:12px 16px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.sir .m b{font:400 30px/1 var(--display);text-transform:uppercase}
+.sir .m span{font-size:13px}
+.script{background:var(--black);color:var(--paper);padding:16px 18px;font:600 15px/1.6 var(--mono)}
+.script .hl{color:var(--hiviz)}
+.script .c{color:#9a978b;font-weight:500}
+.flow{display:grid;gap:0;border:3px solid var(--black)}
+.fq{display:grid;grid-template-columns:minmax(0,1fr) 150px;border-top:2px solid var(--black)}
+.fq:first-child{border-top:0}
+.fq .q{padding:10px 14px;display:flex;align-items:center;gap:10px}
+.fq .q::before{content:"?";font:400 26px/1 var(--display);width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;border:2px solid var(--black);border-radius:50%;background:var(--paper)}
+.fq .a{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8px;border-left:2px solid var(--black);font:400 26px/1 var(--display);text-transform:uppercase}
+.fq .a small{font:700 11px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.fq.end .q::before{content:"→"}
+.tag-g{background:#3f9b52;color:#fff}.tag-y{background:var(--hiviz);color:var(--ink)}.tag-r{background:var(--red);color:#fff}.tag-k{background:var(--black);color:#fff}
+.tags{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tg{border:3px solid var(--black);padding:12px;position:relative;min-width:0}
+.tg::before{content:"";position:absolute;top:8px;right:8px;width:12px;height:12px;border-radius:50%;border:2px solid currentColor;background:var(--paper)}
+.tg b{display:block;font:400 30px/1 var(--display);text-transform:uppercase}
+.tg span{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.04em}
+.tg p{font-size:13px;margin-top:6px}
+.water{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--black)}
+.water div{padding:12px;border-right:2px solid var(--black);background:linear-gradient(to top,#3a7bc8 var(--h),var(--paper) var(--h));text-align:center}
+.water div:last-child{border-right:0}
+.water b{display:block;font:400 40px/1 var(--display)}
+.water span{font:700 12px/1.2 var(--mono);text-transform:uppercase;background:var(--paper);padding:2px 4px;display:inline-block;margin-top:4px}
+@media (max-width:820px){.tags{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){
+  .sir{grid-template-columns:minmax(0,1fr)}
+  .fq{grid-template-columns:minmax(0,1fr) 96px}
+  .fq .a{font-size:20px}
+  .water{grid-template-columns:minmax(0,1fr)}
+  .water div{border-right:0;border-bottom:2px solid var(--black)}
+  .water div:last-child{border-bottom:0}
+  .script{font-size:13px}
+}
+</style>
+</head>
+<body data-page="m9">
+<div class="wall">
+<article class="poster">
+
+  <header class="head red">
+    <div class="meta"><span>Form HS-09 · Rev. 4</span><span>Post-stasis refresher · Module 9 of 9</span><span>Post at every muster point &amp; shelter</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>When it goes wrong.</h1>
+    <p class="sub">15,000 people on one site means emergencies will happen. What you do in the first five minutes decides who lives.</p>
+  </header>
+  <div class="stripe red"></div>
+
+  <section class="sec">
+    <div class="sh"><h2>Know the sirens</h2><span class="tag">Site-wide · Every sector · Every shelter</span></div>
+    <div class="sirens">
+      <div class="sir">
+        <div class="w"><svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="16" width="300" height="24" fill="#f5d000"/></svg></div>
+        <div class="m"><b>Take shelter</b><span>Continuous long tone. Sandstorm or atmospheric hazard. Go to the nearest sealed shelter now.</span></div>
+      </div>
+      <div class="sir">
+        <div class="w"><svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 8 H40 V48 H80 V8 H120 V48 H160 V8 H200 V48 H240 V8 H280 V48 H300" fill="none" stroke="#f5d000" stroke-width="8"/></svg></div>
+        <div class="m"><b>Evacuate</b><span>Alternating high-low. Stop work, make your equipment safe, walk to your muster point.</span></div>
+      </div>
+      <div class="sir">
+        <div class="w"><svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true"><rect x="10" y="16" width="56" height="24" fill="#f5d000"/><rect x="110" y="16" width="56" height="24" fill="#f5d000"/><rect x="210" y="16" width="56" height="24" fill="#f5d000"/></svg></div>
+        <div class="m"><b>All stop</b><span>Three short blasts. Every crane, machine and torch stops moving. Hold in place and listen to Ch 1.</span></div>
+      </div>
+      <div class="sir" style="background:#e3f1e6">
+        <div class="w"><svg viewBox="0 0 300 56" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="16" width="60" height="24" fill="#555"/><rect x="90" y="22" width="210" height="12" fill="#8cc0a6"/></svg></div>
+        <div class="m"><b>All clear</b><span>One long tone after any of the above. Wait for your crew lead before you go back to work.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>The emergency call</h3>
+        <p class="small" style="margin-bottom:10px">Channel 1. Speak slowly. Plain language. No codes.</p>
+        <div class="script">
+          <span class="hl">"Emergency, emergency, emergency.</span><br>
+          <span class="c">[type]</span> Fall.<br>
+          <span class="c">[location]</span> Charlie-14, Deck 3.<br>
+          <span class="c">[hurt]</span> Two hurt, one not moving.<br>
+          <span class="c">[hazards]</span> Loose steel overhead.<br>
+          <span class="c">[you]</span> This is Charlie Crew 14-3.<span class="hl">"</span>
+        </div>
+        <p class="small" style="margin-top:10px">Then stay on Ch 1 and answer questions. Everyone else stays off Ch 1 until it clears. Types: Heat casualty, Man down, Fall, Fire, Gas, Structural, Struck-by, Caught-in, Electrical, Confined space, Sandstorm.</p>
+      </div>
+      <div class="box">
+        <h3>You're first on scene? You're in command.</h3>
+        <ul>
+          <li><b>One commander at a time.</b> The first person on scene runs it until someone more qualified takes over.</li>
+          <li><b>Make it safe for you first.</b> Stop equipment, kill power, look up. A second casualty helps nobody.</li>
+          <li><b>Give jobs by name.</b> "You, call it in. You, get the trauma kit. You, keep people back."</li>
+          <li><b>Hand off out loud.</b> "I'm handing command to the Charlie Super. Here's what we have." The new commander says "I have command."</li>
+          <li><b>Write down times:</b> when it happened, when the tourniquet went on, when the medic arrived.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Triage: START</h2><span class="tag">Many hurt, few helpers · About 30 seconds per person</span></div>
+    <div class="cols">
+      <div>
+        <div class="flow" aria-label="START triage flow">
+          <div class="fq"><div class="q">Can they walk? Tell everyone who can walk to move to one spot.</div><div class="a tag-g">Green<small>Minor</small></div></div>
+          <div class="fq"><div class="q">Not breathing? Open the airway once. Still not breathing?</div><div class="a tag-k">Black<small>Expectant</small></div></div>
+          <div class="fq"><div class="q">Breathing faster than 30 a minute?</div><div class="a tag-r">Red<small>Immediate</small></div></div>
+          <div class="fq"><div class="q">No pulse at the wrist, or nail-bed color takes over 2 seconds to return?</div><div class="a tag-r">Red<small>Immediate</small></div></div>
+          <div class="fq"><div class="q">Can't follow a simple command like "squeeze my hand"?</div><div class="a tag-r">Red<small>Immediate</small></div></div>
+          <div class="fq end"><div class="q">Passes every check above.</div><div class="a tag-y">Yellow<small>Delayed</small></div></div>
+        </div>
+        <p class="note">Only two things you stop to treat during triage: open the airway and stop major bleeding. Tag them and move on.</p>
+      </div>
+      <div class="tags">
+        <div class="tg tag-r"><span>Priority 1</span><b>Red</b><p>Immediate. Will die without care soon. Treat and move first.</p></div>
+        <div class="tg tag-y"><span>Priority 2</span><b>Yellow</b><p>Delayed. Serious but stable for now. Recheck often.</p></div>
+        <div class="tg tag-g"><span>Priority 3</span><b>Green</b><p>Minor. Walking wounded. Can help others.</p></div>
+        <div class="tg tag-k"><span>Expectant</span><b>Black</b><p>Not breathing, or unlikely to survive with what we have now.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="emerg">
+    <div>
+      <h2>Stop the bleed</h2>
+      <p style="margin-top:10px;font-size:16px">Someone can bleed to death in under five minutes. You are faster than any medic.</p>
+      <p class="cf">Pressure. Pack.<br>Tourniquet.</p>
+      <p class="sm">Every crew carries a trauma kit with two tourniquets. Know where yours is.</p>
+    </div>
+    <ol>
+      <li><b>Find the bleeding.</b> Cut or open clothing so you can see the wound.</li>
+      <li><b>Push hard</b> with both hands, straight down on the wound. Keep pushing.</li>
+      <li><b>Deep wound in the neck, armpit or groin?</b> Pack it full of gauze or clean cloth, then push hard on top.</li>
+      <li><b>Arm or leg bleeding that won't stop?</b> Tourniquet 2–3 inches above the wound, never on a joint. Tighten until the bleeding stops. It will hurt. That's right.</li>
+      <li><b>Write the time</b> on the tourniquet or their forehead. Never loosen it. Medics take it off.</li>
+    </ol>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>CPR</h3>
+        <div class="big3">
+          <div><b>100–120</b><span>Pushes a minute</span></div>
+          <div><b>2–2.4 in</b><span>Deep, adults</span></div>
+        </div>
+        <ol style="margin-top:12px">
+          <li>Not responding and not breathing normally? Call it on Ch 1 and send someone for the AED.</li>
+          <li>Heel of your hand in the center of the chest. Push hard and fast. Let the chest come all the way back up.</li>
+          <li>Turn on the AED and do what it says. Keep going until a medic takes over.</li>
+          <li>Swap pushers every 2 minutes. Tired hands push too shallow.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Fire</h3>
+        <ul class="steps" style="margin-bottom:12px">
+          <li><div><b>Pull</b> the pin.</div></li>
+          <li><div><b>Aim</b> low, at the base of the fire.</div></li>
+          <li><div><b>Squeeze</b> the handle.</div></li>
+          <li><div><b>Sweep</b> side to side.</div></li>
+        </ul>
+        <p class="small"><b>Leave instead</b> if the fire is bigger than a waste bin, is spreading, is filling the space with smoke, or is between you and the exit. Keep your back to the way out. Call it on Ch 1 and Ch 13. Fire & Rescue wear red helmets: do what they say.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box dark">
+        <h3>Sandstorm</h3>
+        <ol>
+          <li><b>Continuous siren or Ch 16 alert:</b> stop, make equipment safe, and walk to the nearest sealed shelter. Don't run for your own sector.</li>
+          <li>Wrap your face, goggles on. Keep a hand on your buddy or a rope line. Visibility can drop to nothing.</li>
+          <li><b>Seal the shelter.</b> Close both doors of the airlock and start the filters.</li>
+          <li><b>Headcount</b> by crew. The senior person reports the shelter count to the sector channel.</li>
+          <li>Stay until the all-clear. Don't open the door to look.</li>
+        </ol>
+      </div>
+      <div class="box">
+        <h3>Flash flood</h3>
+        <p class="small">Rare rain upstream fills dry channels in minutes, even under a clear sky over you.</p>
+        <ul style="margin-top:8px">
+          <li>Get out of wadis, trenches and low cuts the moment Ch 16 calls rain.</li>
+          <li>Climb. Higher ground beats faster ground.</li>
+          <li><b>Never walk or drive into moving water.</b></li>
+        </ul>
+        <div class="water" style="margin-top:12px">
+          <div style="--h:25%"><b>6 in</b><span>Knocks you down</span></div>
+          <div style="--h:50%"><b>12 in</b><span>Floats a vehicle</span></div>
+          <div style="--h:85%"><b>2 ft</b><span>Sweeps most vehicles away</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Evacuate &amp; muster</h3>
+        <ol>
+          <li>Alternating siren: stop, shut down, close valves and torches, lower loads if it's safe.</li>
+          <li>Walk to your crew's muster point, like MP-C1. Use the assigned route. Never go back for tools.</li>
+          <li>Crew lead counts heads and reports on the sector channel:</li>
+        </ol>
+        <div class="script" style="margin-top:10px">
+          <span class="hl">"Charlie Super, Charlie Crew 14-3.</span><br>At MP-C1. Twelve assigned, eleven present.<br>Missing: one, last seen Deck 3, east stair.<br>No injuries. <span class="hl">Over."</span>
+        </div>
+        <p class="small" style="margin-top:10px">Missing people are searched for by Rescue, not by you. Report where they were last seen.</p>
+      </div>
+      <div class="box">
+        <h3>Mass casualty: stay on your crew</h3>
+        <ul>
+          <li><b>Don't self-dispatch.</b> A thousand helpers arriving at once block the medics, the cranes and the road.</li>
+          <li><b>Stay with your crew</b> and your crew lead. Your lead will be told where you're needed.</li>
+          <li><b>Crews get roles:</b> litter carriers, scene security, runners, triage helpers, traffic control for ambulances.</li>
+          <li><b>Keep Ch 1 and Ch 14 clear.</b> Only the people working the incident talk.</li>
+          <li><b>Walking wounded</b> go to the Forward Aid Station. Central Med at the Hub takes reds first.</li>
+          <li>After it's over, everyone involved gets a medical and a debrief. It's normal to be shaken.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="saw">
+    <h2>Look before you leap</h2>
+    <p><b>Make the scene safe before you go in.</b> Stop the machine, kill the power, check the air, look up for loads. Rescuers who rush in become the next casualties.</p>
+  </section>
+
+  <section class="ack">
+    <h3>Worker acknowledgement</h3>
+    <p class="small">I know the four siren signals, my muster point, my nearest shelter, where my crew's trauma kit and AED are, and how to make an emergency call on Ch 1.</p>
+    <div class="ackrow">
+      <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
+      <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
+      <label for="a-crew">Crew / Sector<input id="a-crew" data-ack="crew" autocomplete="off"></label>
+      <label for="a-date">Date<input id="a-date" data-ack="date" autocomplete="off"></label>
+    </div>
+    <div class="stamp" hidden>Module complete</div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: FEMA Incident Command System, START triage, American College of Surgeons Stop the Bleed, American Heart Association CPR guidelines, NFPA 10 portable extinguishers, NOAA/NWS flood safety ("Turn Around, Don't Drown").</span>
+    <span>HS-09 · Dunewright Colony Works · Replace when faded</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

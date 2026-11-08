@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>REF-PC Pocket Card · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: a 4-panel fold-out card. Panels sit side by side with dashed fold lines between them. */
+.card{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:3px solid var(--black);background:var(--paper)}
+.panel{padding:14px;border-right:2px dashed var(--black);min-width:0;display:grid;gap:10px;align-content:start;font-size:12.5px;line-height:1.35}
+.panel:last-child{border-right:0}
+.panel h3{font-size:22px}
+.panel .ph{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.front{background:var(--hiviz)}
+.front h2{font-size:40px;line-height:.95}
+.fld{display:grid;gap:2px}
+.fld label{font:700 10px var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.fld input{font:600 14px var(--body);border:0;border-bottom:2px solid var(--black);background:transparent;padding:2px;color:var(--ink);width:100%;min-width:0}
+.rampbox{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.rampbox label{border:2px solid var(--black);text-align:center;font:700 11px var(--mono);padding:4px 0;cursor:pointer;background:var(--paper)}
+.rampbox input{display:block;margin:2px auto 0;accent-color:var(--orange)}
+.red{background:var(--red);color:#fff;padding:10px;display:grid;gap:6px}
+.red b{color:var(--hiviz)}
+.mini{width:100%;border-collapse:collapse;font-size:11.5px}
+.mini td,.mini th{border:1.5px solid var(--black);padding:3px 5px}
+.mini th{font-size:10px}
+.mini td:first-child{font-family:var(--mono);font-weight:700;white-space:nowrap}
+.tri{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}
+.tri div{font:700 10px/1.15 var(--mono);text-transform:uppercase;padding:5px 3px;text-align:center;border:1.5px solid var(--black)}
+.hats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 8px;font-size:11.5px}
+.hats i{display:inline-block;width:11px;height:11px;border-radius:50% 50% 2px 2px;border:1.5px solid var(--black);vertical-align:-1px;margin-right:4px}
+.how{font-size:13px}
+@media (max-width:900px){.card{grid-template-columns:repeat(2,minmax(0,1fr))}.panel:nth-child(2){border-right:0}.panel:nth-child(-n+2){border-bottom:2px dashed var(--black)}}
+@media (max-width:520px){.card{grid-template-columns:minmax(0,1fr)}.panel{border-right:0!important;border-bottom:2px dashed var(--black)}.panel:last-child{border-bottom:0}}
+</style>
+</head>
+<body data-page="ref-pc">
+<div class="wall">
+<article class="poster">
+
+  <header class="head">
+    <div class="meta"><span>Form REF-PC · Rev. 4</span><span>Post-stasis refresher · Reference sheet</span><span>Carry on your person at all times</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>Pocket card.</h1>
+    <p class="sub">Everything from the refresher on one fold-out card. Fill it in, keep it in your chest pocket.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="sec">
+    <div class="sh"><h2>The card</h2><span class="tag">Fold on the dashed lines</span></div>
+    <div class="card">
+
+      <div class="panel front">
+        <div class="ph">Panel 1 · Front</div>
+        <h2>DCW<br>Site 4</h2>
+        <div class="fld"><label for="p-name">Name</label><input id="p-name" data-ack="name" autocomplete="off"></div>
+        <div class="fld"><label for="p-cid">Colonist ID</label><input id="p-cid" data-ack="cid" autocomplete="off"></div>
+        <div class="fld"><label for="p-trade">Trade / station</label><input id="p-trade" data-ack="trade" autocomplete="off"></div>
+        <div class="fld"><label for="p-crew">Sector / crew / call sign</label><input id="p-crew" data-ack="crew" autocomplete="off"></div>
+        <div class="fld"><label for="p-blood">Blood type · allergies</label><input id="p-blood" data-ack="blood" autocomplete="off"></div>
+        <div class="fld"><label for="p-mp">My muster point · nearest shelter</label><input id="p-mp" data-ack="mp" autocomplete="off"></div>
+        <div class="fld"><label>Heat ramp (tick each day done)</label>
+          <div class="rampbox">
+            <label>D1 20%<input type="checkbox" id="r1" data-ramp></label><label>D2 40%<input type="checkbox" id="r2" data-ramp></label><label>D3 60%<input type="checkbox" id="r3" data-ramp></label><label>D4 80%<input type="checkbox" id="r4" data-ramp></label><label>D5 100%<input type="checkbox" id="r5" data-ramp></label>
+          </div>
+        </div>
+        <p style="font:400 26px/1 var(--display);text-transform:uppercase">Emergency: Ch 1</p>
+      </div>
+
+      <div class="panel">
+        <div class="ph">Panel 2 · Emergency</div>
+        <div class="red">
+          <h3>Emergency call · Ch 1</h3>
+          <p>"<b>Emergency, emergency, emergency.</b>"<br>Type · Location · Number hurt · Hazards · Your call sign.</p>
+          <p style="font-family:var(--mono);font-size:11px">e.g. "Man down, Charlie-14, Deck 3, one hurt, live power. Charlie Crew 14-3."</p>
+        </div>
+        <div><h3>ALL STOP</h3><p>Hear "ALL STOP" on any channel or 3 short blasts: stop all motion, hot work and lifts. Wait for the all-clear.</p></div>
+        <table class="mini"><thead><tr><th>Siren</th><th>Means</th></tr></thead><tbody>
+          <tr><td>Long steady</td><td>Take shelter</td></tr>
+          <tr><td>High-low</td><td>Evacuate to muster</td></tr>
+          <tr><td>3 short</td><td>All stop</td></tr>
+          <tr><td>1 long after</td><td>All clear</td></tr>
+        </tbody></table>
+        <div><h3>Heat stroke</h3><p>Confused or collapsed and hot. <b>Cool first, transport second.</b> Ice trough to the neck, or soak and ice them. No drinks if confused.</p></div>
+        <div><div class="ph" style="margin-bottom:4px">START triage</div>
+          <div class="tri"><div style="background:#2f8a57;color:#fff">Green<br>walks</div><div style="background:var(--hiviz)">Yellow<br>delayed</div><div style="background:var(--red);color:#fff">Red<br>now</div><div style="background:var(--black);color:#fff">Black<br>expectant</div></div>
+        </div>
+        <p><b>Bleeding:</b> press hard. Tourniquet 2–3 in above the wound, not on a joint. Write the time. <b>CPR:</b> 100–120 a minute, 2+ in deep, get the AED.</p>
+      </div>
+
+      <div class="panel">
+        <div class="ph">Panel 3 · Radio &amp; hats</div>
+        <table class="mini"><thead><tr><th>Ch</th><th>Use</th></tr></thead><tbody>
+          <tr><td>1</td><td><b>Site Emergency. Always monitor.</b></td></tr>
+          <tr><td>2</td><td>Site Command (Hub)</td></tr>
+          <tr><td>3–10</td><td>Sectors: A3 B4 C5 D6 E7 F8 G9 H10</td></tr>
+          <tr><td>11</td><td>Crane &amp; Lift</td></tr>
+          <tr><td>12</td><td>Heavy Equipment</td></tr>
+          <tr><td>13</td><td>Hot Work &amp; Fire Watch</td></tr>
+          <tr><td>14</td><td>Medical</td></tr>
+          <tr><td>15</td><td>Logistics / Quartermaster</td></tr>
+          <tr><td>16</td><td>Atmospheric / Weather</td></tr>
+        </tbody></table>
+        <p>Location: <b>sector-grid, deck</b>. "Charlie-14, Deck 3." Check in with your crew lead every 30 min.</p>
+        <div><div class="ph" style="margin-bottom:4px">Hard hats</div>
+          <div class="hats">
+            <span><i style="background:#fff"></i>Supervision</span><span><i style="background:#f5d000"></i>Crew, operators</span>
+            <span><i style="background:#ec5b13"></i>Rigging, signals</span><span><i style="background:#1d5fa8"></i>Electrical</span>
+            <span><i style="background:#7a4a24"></i>Welding, hot work</span><span><i style="background:#2f8a57"></i>Safety</span>
+            <span><i style="background:#c4161c"></i>Fire, rescue</span><span><i style="background:#9a9a9a"></i>Survey, QA/QC</span>
+          </div>
+          <p style="margin-top:4px">Orange <b>RAMP</b> sticker = revived in the last 5 days. Watch out for them.</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">Panel 4 · Numbers that keep you alive</div>
+        <table class="mini"><tbody>
+          <tr><td>8 oz</td><td>Water every 15–20 min. Max 48 oz/hr.</td></tr>
+          <tr><td>90 WBGT</td><td>Black flag. Heavy work 10 on / 50 off.</td></tr>
+          <tr><td>125°F+</td><td>Cooling vest, pairs, 30 min max.</td></tr>
+          <tr><td>160°F+</td><td>Site closed. Shelter.</td></tr>
+          <tr><td>6 ft</td><td>Fall protection required.</td></tr>
+          <tr><td>5,000 lb</td><td>Anchor strength per worker.</td></tr>
+          <tr><td>4 : 1</td><td>Ladder angle. 3 ft above landing.</td></tr>
+          <tr><td>5 ft</td><td>Trench needs slope, shoring or shield.</td></tr>
+          <tr><td>35 ft</td><td>Clear combustibles from hot work.</td></tr>
+          <tr><td>60 min</td><td>Fire watch after hot work (site rule).</td></tr>
+          <tr><td>20 ft</td><td>Crane clearance from power up to 350 kV.</td></tr>
+          <tr><td>19.5–23.5%</td><td>Safe oxygen. Test before entry.</td></tr>
+          <tr><td>15 min</td><td>Flush eyes or skin after a chemical splash.</td></tr>
+          <tr><td>85 dBA</td><td>Hearing protection. Shouting at arm's length? Plug up.</td></tr>
+        </tbody></table>
+        <p><b>Stop-work authority:</b> anyone can stop unsafe work. No penalty.</p>
+        <p><b>Lockout:</b> one person, one lock, one key.</p>
+      </div>
+    </div>
+    <p class="note">Your entries save in this browser only. Fill in name and colonist ID once and every module's sign-off picks them up.</p>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box how">
+        <h3>How to carry it</h3>
+        <ul>
+          <li>Print it, or use the PDF, and fold it into four along the dashed lines with Panel 1 on the outside.</li>
+          <li>Keep it in a chest pocket, not your pants. Responders check the chest.</li>
+          <li>Update your sector, crew and muster point every time you're reassigned.</li>
+          <li>Lost card? The Quartermaster issues a new one on Ch 15.</li>
+        </ul>
+      </div>
+      <div class="box how">
+        <h3>Where it comes from</h3>
+        <p>Every line on this card comes from a refresher module. If something on the card doesn't make sense, go back to that module: <a href="index.html">see the full list</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 1926 (falls, excavation, cranes, hot work), OSHA/NIOSH heat and noise guidance, US Army TB MED 507, START triage, AHA CPR, Stop the Bleed, ANSI Z358.1.</span>
+    <span>REF-PC · Dunewright Colony Works · Keep it dry</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+<script>
+document.querySelectorAll("[data-ramp]").forEach(cb=>{
+  const k="dcw-pc-"+cb.id;
+  try{cb.checked=localStorage.getItem(k)==="1"}catch(e){}
+  cb.addEventListener("change",()=>{try{localStorage.setItem(k,cb.checked?"1":"")}catch(e){}});
+});
+</script>
+</body>
+</html>

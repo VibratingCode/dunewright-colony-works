@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HS-01 Wake-Up &amp; Orientation · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: site map and hard-hat swatches */
+.map{border:3px solid var(--black);background:#efe6c8;padding:10px}
+.map svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:10px;font:700 12px var(--mono);text-transform:uppercase}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.hat{display:inline-block;width:28px;height:16px;border:2px solid var(--black);border-radius:14px 14px 3px 3px;vertical-align:-3px;margin-right:8px}
+.loc{font:400 clamp(30px,6vw,56px)/1 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.locparts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:3px solid var(--black);margin-top:10px}
+.locparts div{padding:10px;border-right:2px solid var(--black);min-width:0}
+.locparts div:last-child{border-right:0}
+@media (max-width:480px){.locparts{grid-template-columns:minmax(0,1fr)}.locparts div{border-right:0;border-bottom:2px solid var(--black)}.locparts div:last-child{border-bottom:0}}
+</style>
+</head>
+<body data-page="m1">
+<div class="wall">
+<article class="poster">
+
+  <header class="head">
+    <div class="meta"><span>Form HS-01 · Rev. 4</span><span>Post-stasis refresher · Module 1 of 9</span><span>Issued at the revival bay exit</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>Welcome back.</h1>
+    <p class="sub">You've been asleep a long time. Learn the site before the site teaches you.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="callout">
+    <div class="lbl">Revival clearance</div>
+    <div class="in">
+      <h2>You are not cleared to work until Med Bay says so.</h2>
+      <p>Stasis leaves you dehydrated, weak and slow to react for the first days. Your balance, vision and grip strength come back gradually. You may feel fine and still fail the checks.</p>
+      <div class="big3">
+        <div><b>4</b><span>Checks to pass</span></div>
+        <div><b>0</b><span>Vehicles or machines until cleared</span></div>
+        <div><b>5</b><span>Days on the RAMP sticker</span></div>
+      </div>
+      <ul>
+        <li><b>Weigh-in and hydration check</b> at Med Bay. Your baseline weight goes on your badge record for the heat program.</li>
+        <li><b>Balance and vision check.</b> Fail either and you stay on ground-level light duty. No ladders, no height work.</li>
+        <li><b>Grip and reaction check.</b> Required before you touch powered tools, cranes or vehicles.</li>
+        <li><b>RAMP sticker</b> on your helmet for Days 1–5. Everyone who sees it knows to watch you.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Site map</h2><span class="tag">Settlement Site 4 · North at top<br>Not to scale</span></div>
+    <div class="map">
+      <svg viewBox="0 0 600 600" role="img" aria-label="Site map: the Hub at center, eight sectors Alpha to Hotel arranged around it, Polymer Works in Golf, Fabrication Yards on the outer edge">
+        <defs>
+          <pattern id="dune" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 12 Q4 8 8 12 T16 12" fill="none" stroke="#d7c79b" stroke-width="1.5"/></pattern>
+        </defs>
+        <rect width="600" height="600" fill="url(#dune)"/>
+        <g stroke="#141414" stroke-width="3" font-family="Anton,Impact,sans-serif" text-anchor="middle">
+          <!-- sector wedges: 8 x 45deg around center 300,300, inner r 80 outer r 250 -->
+          <g id="wedges"></g>
+        </g>
+        <circle cx="300" cy="300" r="80" fill="#141414" stroke="#141414" stroke-width="3"/>
+        <circle cx="300" cy="300" r="70" fill="none" stroke="#f5d000" stroke-width="3"/>
+        <text x="300" y="296" fill="#f5d000" font-family="Anton,Impact,sans-serif" font-size="30" text-anchor="middle">THE HUB</text>
+        <text x="300" y="318" fill="#f7f4e8" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700" text-anchor="middle">COMMAND · CENTRAL MED</text>
+        <text x="300" y="331" fill="#f7f4e8" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700" text-anchor="middle">FIRE &amp; RESCUE · ATMOS</text>
+        <g id="marks"></g>
+        <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="700" fill="#141414">
+          <text x="300" y="22" text-anchor="middle">N ▲</text>
+        </g>
+      </svg>
+      <div class="legend">
+        <span><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="#c4161c" stroke="#141414" stroke-width="2"/><path d="M8 3v10M3 8h10" stroke="#fff" stroke-width="2.5"/></svg>Forward Aid Station</span>
+        <span><svg width="16" height="16"><circle cx="8" cy="8" r="6.5" fill="#2f8a57" stroke="#141414" stroke-width="2"/></svg>Muster point</span>
+        <span><svg width="16" height="16"><path d="M1 15 L8 2 L15 15 Z" fill="#1d5fa8" stroke="#141414" stroke-width="2"/></svg>Storm shelter</span>
+        <span><svg width="22" height="12"><rect x="1" y="1" width="20" height="10" fill="#9a978b" stroke="#141414" stroke-width="2"/></svg>Fabrication Yard</span>
+        <span><svg width="22" height="12"><rect x="1" y="1" width="20" height="10" fill="#ec5b13" stroke="#141414" stroke-width="2"/></svg>Polymer Works</span>
+      </div>
+    </div>
+    <p class="note">Every grid block has a sealed, cooled storm shelter. Shelters shown are the large ones. Find the one nearest your work face on your first shift.</p>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Say where you are</h3>
+        <p class="small">Every radio call, report and request uses the same location format. Medics, rescue and cranes find you by it.</p>
+        <div class="loc" style="margin-top:10px">Charlie-14, Deck 3</div>
+        <div class="locparts">
+          <div><span class="k">Sector</span><p class="small">Alpha through Hotel. Named by the NATO letter.</p></div>
+          <div><span class="k">Grid</span><p class="small">1–40 inside each sector. Painted on every grid post.</p></div>
+          <div><span class="k">Deck</span><p class="small">Level of the structure. Deck 0 is the ground.</p></div>
+        </div>
+      </div>
+      <div class="box dark">
+        <h3>Channel 1 rule</h3>
+        <p style="font-size:16px"><b>Every radio on site monitors Ch 1, Site Emergency, at all times.</b> Work on your crew channel, but keep Ch 1 on scan.</p>
+        <ul style="margin-top:10px">
+          <li>Ch 1 is for emergencies only. No chatter, no checks.</li>
+          <li>Emergency call: <b>"Emergency, emergency, emergency"</b>, then type, location, number hurt.</li>
+          <li><b>"ALL STOP, ALL STOP"</b> on any channel stops every crane, machine and torch in earshot until cleared.</li>
+          <li>Full channel plan: see the radio reference (REF-RAD).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Sirens</h2><span class="tag">Heard site-wide · Know them before your first shift</span></div>
+    <div class="scale">
+      <div class="zr" style="background:var(--blue)"><div class="t" style="color:#fff">▬▬▬▬</div><div class="n" style="color:#fff">Take shelter<small>Continuous long tone</small></div><div class="r">Sandstorm or atmospheric hazard. Make your work safe in seconds, then go to the nearest sealed shelter. Don't wait to see it.</div></div>
+      <div class="zr dk" style="background:var(--red)"><div class="t">▲▼▲▼</div><div class="n">Evacuate<small>Alternating high-low</small></div><div class="r">Leave the structure and go to your <b>muster point</b>. Check in with your crew lead. Never go back for tools.</div></div>
+      <div class="zr" style="background:var(--hiviz)"><div class="t">• • •</div><div class="n">All stop<small>3 short blasts</small></div><div class="r">Stop all motion: cranes, equipment, hot work. Hold position. Listen to Ch 1.</div></div>
+      <div class="zr" style="background:var(--z1)"><div class="t">▬</div><div class="n">All clear<small>1 long after any of the above</small></div><div class="r">Return to work only when your crew lead confirms it.</div></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Hard hats by station</h2><span class="tag">Color tells you who to ask</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Color</th><th>Station</th><th>Go to them for</th></tr></thead>
+      <tbody>
+        <tr><td><span class="hat" style="background:#ffffff"></span>White</td><td>Managers, superintendents, engineers, foremen</td><td>Work orders, plans, permits</td></tr>
+        <tr><td><span class="hat" style="background:var(--hiviz)"></span>Yellow</td><td>General crew, laborers, equipment operators</td><td>Your crew and the work face</td></tr>
+        <tr><td><span class="hat" style="background:var(--orange)"></span>Orange</td><td>Riggers, signal persons, lift crew</td><td>Anything under or near a load</td></tr>
+        <tr><td><span class="hat" style="background:var(--blue)"></span>Blue</td><td>Electricians and power techs</td><td>Power, cables, energized gear</td></tr>
+        <tr><td><span class="hat" style="background:#7a4a22"></span>Brown</td><td>Welders, cutters, hot-work crews</td><td>Hot-work zones and permits</td></tr>
+        <tr><td><span class="hat" style="background:var(--green)"></span>Green</td><td>Safety &amp; Health officers</td><td>Hazards, near misses, PPE</td></tr>
+        <tr><td><span class="hat" style="background:var(--red)"></span>Red</td><td>Fire &amp; Rescue, fire watch, emergency response</td><td>Emergencies. Follow their orders.</td></tr>
+        <tr><td><span class="hat" style="background:#8f9396"></span>Grey</td><td>Survey, QA/QC, inspectors</td><td>Layout, measurements, inspections</td></tr>
+        <tr><td><span class="hat" style="background:var(--paper);box-shadow:inset 0 0 0 4px var(--orange)"></span>RAMP sticker</td><td>Any color: newly revived, Days 1–5</td><td>Watch them. Check on them first.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>First shift</h2><span class="tag">In this order · Your crew lead signs each step</span></div>
+    <ol class="steps">
+      <li><div><b>Pass revival clearance</b> at Med Bay and collect your badge, radio and RAMP sticker.</div></li>
+      <li><div><b>Draw PPE</b> from the Quartermaster: helmet, boots, gloves, eye and hearing protection, cooling vest. Get fit-tested for your respirator (Module 2).</div></li>
+      <li><div><b>Report to your crew lead</b> at your sector muster point. Get your crew channel and buddy.</div></li>
+      <li><div><b>Walk the route</b> with your buddy: nearest Forward Aid Station, storm shelter, cooling station and muster point.</div></li>
+      <li><div><b>Radio check</b> on your crew channel. Confirm Ch 1 is on scan.</div></li>
+      <li><div><b>Light duty only</b> for your ramp share of the shift (20% on Day 1). Your crew lead logs it.</div></li>
+      <li><div><b>Finish the refresher modules</b> before you take on any task they cover. Modules are posted at every muster point and on the refresher index.</div></li>
+    </ol>
+  </section>
+
+  <section class="sec">
+    <div class="cols three">
+      <div class="box">
+        <h3>Chain of command</h3>
+        <p class="small">Crew of 10–12 → Crew Lead → Foreman → General Foreman → Sector Superintendent → Deputy Director → Colony Construction Director.</p>
+        <p class="small" style="margin-top:8px">Go to your crew lead first. Safety concerns can go straight to any green helmet. Full chart: <a href="org-chart.html">REF-ORG org chart</a>.</p>
+      </div>
+      <div class="box">
+        <h3>Badge rules</h3>
+        <ul class="small">
+          <li>Wear it on your chest, photo out, every shift.</li>
+          <li>Your badge lists every machine, permit and module you're cleared for. No badge entry, no task.</li>
+          <li>Never lend it. Never badge someone else through a gate.</li>
+          <li>Lost badge: report to Security on Ch 2 the same shift.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Report near misses</h3>
+        <p class="small">A near miss is an accident that didn't happen this time. Report every one to your crew lead or a green helmet before the end of shift.</p>
+        <p class="small" style="margin-top:8px">No blame for reporting. The next crew depends on what you tell us.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p><b>Every worker on this site can stop work</b> when something looks unsafe. No penalty, no questions. Stop it, make it safe, tell your crew lead. Refresher modules: <a href="index.html" style="color:var(--hiviz)">index</a>.</p>
+  </section>
+
+  <section class="ack">
+    <h3>Worker acknowledgement</h3>
+    <p class="small">I have passed revival clearance, I know my sector, muster point, nearest shelter and aid station, I keep Ch 1 on scan, and I know the siren signals.</p>
+    <div class="ackrow">
+      <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
+      <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
+      <label for="a-crew">Crew / Sector<input id="a-crew" data-ack="crew" autocomplete="off"></label>
+      <label for="a-date">Date<input id="a-date" data-ack="date" autocomplete="off"></label>
+    </div>
+    <div class="stamp" hidden>Module complete</div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 1926 Subpart C (general safety and training), OSHA 1910.165 employee alarm systems, ANSI/ISEA Z89.1 head protection, NIMS/ICS incident communications practice.</span>
+    <span>HS-01 · Dunewright Colony Works · Replace when faded</span>
+  </footer>
+</article>
+</div>
+<script>
+// draw the 8 sector wedges and map markers
+(function(){
+  const NS="http://www.w3.org/2000/svg",cx=300,cy=300,ri=80,ro=250;
+  const names=["ALPHA","BRAVO","CHARLIE","DELTA","ECHO","FOXTROT","GOLF","HOTEL"];
+  const fills=["#f3e7bf","#ece0b4","#f3e7bf","#ece0b4","#f3e7bf","#ece0b4","#f3e7bf","#ece0b4"];
+  const W=document.getElementById("wedges"),M=document.getElementById("marks");
+  const pt=(r,a)=>[cx+r*Math.sin(a),cy-r*Math.cos(a)];
+  const el=(t,at,p)=>{const e=document.createElementNS(NS,t);for(const k in at)e.setAttribute(k,at[k]);(p||M).appendChild(e);return e};
+  for(let i=0;i<8;i++){
+    const a0=(i*45-22.5)*Math.PI/180,a1=(i*45+22.5)*Math.PI/180,am=i*45*Math.PI/180;
+    const [x0,y0]=pt(ri,a0),[x1,y1]=pt(ro,a0),[x2,y2]=pt(ro,a1),[x3,y3]=pt(ri,a1);
+    el("path",{d:`M${x0} ${y0} L${x1} ${y1} A${ro} ${ro} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${ri} ${ri} 0 0 0 ${x0} ${y0} Z`,fill:fills[i]},W);
+    // fab yard on outer edge
+    const [fx,fy]=pt(ro+18,am);
+    el("rect",{x:fx-20,y:fy-9,width:40,height:18,fill:i===6?"#ec5b13":"#9a978b",stroke:"#141414","stroke-width":2,transform:`rotate(${i*45} ${fx} ${fy})`});
+    const [tx,ty]=pt(170,am);
+    const t=el("text",{x:tx,y:ty+6,"font-size":24,fill:"#141414",stroke:"none","font-family":"Anton,Impact,sans-serif","text-anchor":"middle"});t.textContent=names[i];
+    const s=el("text",{x:tx,y:ty+22,"font-size":10,fill:"#141414","font-family":"IBM Plex Mono,monospace","font-weight":700,"text-anchor":"middle"});s.textContent=`CH ${i+3}`;
+    if(i===6){const g=el("text",{x:tx,y:ty+36,"font-size":10,fill:"#ec5b13","font-family":"IBM Plex Mono,monospace","font-weight":700,"text-anchor":"middle"});g.textContent="POLYMER WORKS";}
+    // FAS
+    const [ax,ay]=pt(120,am+0.22);
+    el("rect",{x:ax-7,y:ay-7,width:14,height:14,fill:"#c4161c",stroke:"#141414","stroke-width":2});
+    el("path",{d:`M${ax} ${ay-5}v10M${ax-5} ${ay}h10`,stroke:"#fff","stroke-width":2.5});
+    // muster points
+    [[215,-0.25],[215,0.25]].forEach(([r,o],j)=>{const [mx,my]=pt(r,am+o);el("circle",{cx:mx,cy:my,r:7,fill:"#2f8a57",stroke:"#141414","stroke-width":2});
+      const l=el("text",{x:mx,y:my-11,"font-size":9,fill:"#141414","font-family":"IBM Plex Mono,monospace","font-weight":700,"text-anchor":"middle"});l.textContent=`MP-${names[i][0]}${j+1}`;});
+    // shelter
+    const [sx,sy]=pt(125,am-0.22);
+    el("path",{d:`M${sx-8} ${sy+7} L${sx} ${sy-8} L${sx+8} ${sy+7} Z`,fill:"#1d5fa8",stroke:"#141414","stroke-width":2});
+  }
+})();
+</script>
+<script src="assets/site.js"></script>
+</body>
+</html>

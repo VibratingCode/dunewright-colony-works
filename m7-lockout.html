@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HS-07 Lockout/Tagout · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: padlock + tag illustration and lock color legend */
+.lockrow{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:20px;align-items:center}
+.lockrow svg{width:100%;max-width:160px;height:auto}
+.locks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.locks div{border:2px solid var(--black);padding:10px;display:grid;gap:4px;min-width:0}
+.locks i{display:block;height:14px;border:2px solid var(--black)}
+.locks b{font:800 13px var(--body);text-transform:uppercase}
+.locks span{font-size:12px}
+.phase{font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--black);color:var(--hiviz);padding:6px 12px;margin:14px 0 0;display:inline-block}
+@media (max-width:600px){.lockrow{grid-template-columns:minmax(0,1fr)}.lockrow svg{margin:0 auto}.locks{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body data-page="m7">
+<div class="wall">
+<article class="poster">
+
+  <header class="head blue">
+    <div class="meta"><span>Form HS-07 · Rev. 4</span><span>Post-stasis refresher · Module 7 of 9</span><span>Post at every machine shop and isolation point</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>Lock it out.</h1>
+    <p class="sub">Before you put any part of your body inside a machine, every source of energy goes to zero, under your own lock.</p>
+  </header>
+  <div class="stripe blue"></div>
+
+  <section class="callout">
+    <div class="lbl">Your lock</div>
+    <div class="in">
+      <h2>One person. One lock. One key.</h2>
+      <div class="lockrow">
+        <svg viewBox="0 0 160 180" role="img" aria-label="A red padlock with a danger tag">
+          <path d="M45 70 V45 a35 35 0 0 1 70 0 V70" fill="none" stroke="#141414" stroke-width="12"/>
+          <rect x="25" y="68" width="110" height="80" rx="6" fill="#c4161c" stroke="#141414" stroke-width="4"/>
+          <circle cx="80" cy="100" r="9" fill="#141414"/><rect x="76" y="104" width="8" height="20" fill="#141414"/>
+          <rect x="40" y="152" width="80" height="24" fill="#f7f4e8" stroke="#141414" stroke-width="3"/>
+          <text x="80" y="169" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="15" fill="#c4161c">DANGER · DO NOT OPERATE</text>
+        </svg>
+        <div style="display:grid;gap:8px">
+          <p>Every worker who goes into a machine puts on <b>their own lock</b>. You hold the only key. Nobody else's lock protects you. Ten workers on one machine means ten locks.</p>
+          <p>Your tag shows your name, colonist ID, crew, date and the reason. A tag alone is a warning. <b>Only a lock stops the machine.</b></p>
+          <p class="small">Your personal lock is issued by Stasis Revival Unit with your kit and engraved with your colonist ID. Lost it? Report it to your foreman the same shift.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>The lockout sequence</h2><span class="tag">OSHA 1910.147 · every time, no shortcuts</span></div>
+    <span class="phase">Lock out</span>
+    <ol class="steps">
+      <li><div><b>Prepare.</b> Read the machine's lockout procedure card. Know every energy source on it and where each isolation point is.</div></li>
+      <li><div><b>Notify.</b> Tell the operator and everyone who works on or near the machine that it is going down and why.</div></li>
+      <li><div><b>Shut down</b> using the normal stop. Never kill it with the emergency stop alone.</div></li>
+      <li><div><b>Isolate every energy source.</b> Open the disconnect, close the valves, unplug, decouple. Pushing a control button is not isolation.</div></li>
+      <li><div><b>Apply your lock and tag</b> to each isolation point. Use a hasp when more than one person locks out.</div></li>
+      <li><div><b>Release or block stored energy.</b> Bleed pressure, drain capacitor banks, block raised parts, let flywheels stop, let hot parts cool.</div></li>
+      <li><div><b>Verify zero energy.</b> Clear everyone away, then try to start it. Test electrical with a meter you have checked on a live source. Return controls to off.</div></li>
+      <li><div><b>Do the work.</b></div></li>
+    </ol>
+    <span class="phase">Restore</span>
+    <ol class="steps">
+      <li><div><b>Tools and parts out.</b> Count them. Nothing left inside the machine.</div></li>
+      <li><div><b>Guards back on</b> and secured.</div></li>
+      <li><div><b>People clear.</b> Everyone accounted for and out of the danger zone.</div></li>
+      <li><div><b>Notify</b> the operator and affected workers that power is coming back.</div></li>
+      <li><div><b>Remove your own lock.</b> Only yours. Then the machine can be energized.</div></li>
+    </ol>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Find every energy source</h2><span class="tag">Most machines have more than one</span></div>
+    <div class="signs">
+      <div class="sg" style="--c:var(--blue)"><h3>Electrical</h3><p>Mains, generator feeds, control circuits. Isolate at the disconnect. Test before touch.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Power cells &amp; capacitor banks</h3><p>Stored charge stays after disconnect. Discharge through the rated grounding stick and verify zero on the meter. Some banks need minutes to bleed down.</p></div>
+      <div class="sg" style="--c:var(--z3)"><h3>Mechanical</h3><p>Flywheels, springs, belts and gears still moving or under tension. Wait for full stop. Block or release springs.</p></div>
+      <div class="sg" style="--c:var(--z4)"><h3>Hydraulic</h3><p>Pressure stays trapped in lines and accumulators. Bleed to zero. Hydraulic fluid injected under skin is a surgical emergency.</p></div>
+      <div class="sg" style="--c:var(--z2)"><h3>Pneumatic</h3><p>Close the supply, then bleed the line. A charged air line can whip or fire a cylinder.</p></div>
+      <div class="sg" style="--c:var(--z6)"><h3>Gravity</h3><p>Raised booms, rams, platforms, loads. Lower them or block them with rated blocks and pins. Never trust hydraulics to hold.</p></div>
+      <div class="sg" style="--c:var(--orange)"><h3>Thermal</h3><p>Ovens, presses, printer heads, pipes. Lock out the heat source and wait for safe touch temperature.</p></div>
+      <div class="sg" style="--c:var(--green)"><h3>Chemical</h3><p>Feed lines for resins, gases, coolants. Close and lock valves, blind or disconnect the line, drain it.</p></div>
+      <div class="sg" style="--c:var(--black)"><h3>Magnetic field rigs</h3><p>Lifting magnets and field-forming rigs. A field rig can hold or fling steel after the switch is off until its coils are dumped. Lower the load first, dump the coils, verify zero field with the gauss meter.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Group lockout &amp; shift change</h3>
+        <ul>
+          <li><b>Big jobs use a lockbox.</b> The lead locks every isolation point with job locks, puts the keys in the yellow lockbox, and every worker puts a personal lock on the box.</li>
+          <li>The box can't open until <b>the last worker removes their lock.</b></li>
+          <li><b>Shift change:</b> the incoming worker puts their lock on <b>before</b> the outgoing worker takes theirs off. The machine is never unprotected.</li>
+          <li>Walk the incoming crew through what is isolated and what is still live.</li>
+        </ul>
+      </div>
+      <div class="box fill">
+        <h3>Someone else's lock</h3>
+        <p style="margin-bottom:8px">You never cut, open or remove another worker's lock. The only exception is the formal procedure:</p>
+        <ul>
+          <li>The <b>foreman</b> confirms the worker is not at the machine.</li>
+          <li>Every reasonable effort is made to <b>reach the worker</b>: radio, their sector channel, their barracks.</li>
+          <li>The foreman removes it, logs it, and <b>tells the worker before they return to work.</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Lock colors</h2><span class="tag">DCW site standard</span></div>
+    <div class="locks">
+      <div><i style="background:var(--red)"></i><b>Red · Personal</b><span>Everyone's own lock. Engraved with your colonist ID. Only you hold the key.</span></div>
+      <div><i style="background:var(--hiviz)"></i><b>Yellow · Job lock</b><span>Group lockout. Keys go in the lockbox.</span></div>
+      <div><i style="background:var(--blue)"></i><b>Blue · Power isolation</b><span>Electrical &amp; Power division locks on substations and feeders. Their work, their release.</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Machine guarding</h2><span class="tag">For machinists and fab yard crews</span></div>
+    <div class="signs four">
+      <div class="sg" style="--c:var(--z5)"><h3>Point of operation</h3><p>Where the cut, press, punch or bend happens. Guards, light curtains or two-hand controls keep your hands out.</p></div>
+      <div class="sg" style="--c:var(--z4)"><h3>Rotating parts</h3><p>Shafts, spindles, couplings, chucks. They grab cloth, hair and gloves and pull you in.</p></div>
+      <div class="sg" style="--c:var(--z3)"><h3>Nip points</h3><p>Where two parts turn toward each other: belts and pulleys, gears, rollers. Never reach in to clear them.</p></div>
+      <div class="sg" style="--c:var(--z2)"><h3>Flying chips</h3><p>Chips, sparks and broken tools. Safety glasses always, face shield on grinders, chip shields in place.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="dd">
+      <div class="do">
+        <h3>Do</h3>
+        <ul>
+          <li>Roll or button sleeves tight. Tie back and cover long hair.</li>
+          <li>Remove rings, watches, chains and lanyards before running lathes, mills and drill presses.</li>
+          <li>Clamp the work. Never hold small parts by hand on a drill press.</li>
+          <li>Use a brush or hook for chips. Stop the machine first.</li>
+          <li>Report a missing or damaged guard and tag the machine out.</li>
+        </ul>
+      </div>
+      <div class="dont">
+        <h3>Don't</h3>
+        <ul>
+          <li><b>No gloves</b> near rotating lathes, mills or drill presses. A glove gets caught and pulls in the whole hand.</li>
+          <li><b>Never leave the chuck key in the chuck.</b> It becomes a projectile at startup.</li>
+          <li>Never reach around, over or under a guard.</li>
+          <li>Never bypass, tape over or jumper an interlock or light curtain.</li>
+          <li>Never clear a jam with the machine running.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="emerg">
+    <div>
+      <h2>Caught in</h2>
+      <p class="cf">Stop the machine.<br>Then help.</p>
+      <p class="sm">Reaching in to pull someone out of a running machine puts two people in it.</p>
+    </div>
+    <ol>
+      <li><b>Hit the emergency stop</b> or kill the disconnect.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Caught-in,"</b> with sector-grid, deck and number hurt.</li>
+      <li><b>Don't reverse the machine</b> to free them unless the medic or rescue says so. It can cause more injury.</li>
+      <li><b>Control bleeding</b> with direct pressure. Apply a tourniquet above a limb wound that won't stop.</li>
+      <li><b>Amputated part:</b> wrap in clean damp cloth, seal in a bag, keep the bag cool on ice. Don't put the part directly on ice.</li>
+    </ol>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p>Missing guard, no lockout procedure, someone working inside a machine without their own lock: <b>stop the work</b> and call your foreman. No penalty, no questions.</p>
+  </section>
+
+  <section class="ack">
+    <h3>Worker acknowledgement</h3>
+    <p class="small">I have read this poster. I have my personal lock and tags, I know the lockout sequence, and I will never remove another worker's lock.</p>
+    <div class="ackrow">
+      <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
+      <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
+      <label for="a-crew">Crew / Sector<input id="a-crew" data-ack="crew" autocomplete="off"></label>
+      <label for="a-date">Date<input id="a-date" data-ack="date" autocomplete="off"></label>
+    </div>
+    <div class="stamp" hidden>Module complete</div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.147 (control of hazardous energy), OSHA 1910 Subpart O &amp; 1910.212 (machine guarding), ANSI/ASSP Z244.1 (lockout, tagout and alternative methods), NFPA 70E (electrical safety in the workplace).</span>
+    <span>HS-07 · Dunewright Colony Works · Replace when faded</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

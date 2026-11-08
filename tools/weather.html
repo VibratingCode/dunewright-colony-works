@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desert Weather</title>
+<style>
+:root{--bg:#1a120b;--card:#2a1d12;--card2:#33241a;--line:#4a3420;--text:#f3e6d3;--dim:#b89c7c;--sun:#ffb347;--hot:#ff5a36;--cool:#6fb7ff;--ok:#8fd16a;--warn:#ffd23f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.4 system-ui,Segoe UI,sans-serif;padding:16px;max-width:1300px;margin:auto}
+h1{margin:0 0 4px;font-size:22px;color:var(--sun)}
+h2{margin:0 0 8px;font-size:13px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.sub{color:var(--dim);margin-bottom:14px;font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+button{background:var(--sun);color:#1a120b;border:0;border-radius:6px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:14px}
+button.alt{background:var(--card);color:var(--text);border:1px solid var(--line)}
+button:active{transform:translateY(1px)}
+label{color:var(--dim);font-size:13px}
+input[type=range]{width:min(320px,80vw);accent-color:var(--sun)}
+select,input[type=number]{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:12px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:12px;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.k{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+.v{font-size:22px;font-weight:700;margin-top:2px}
+.s{color:var(--dim);font-size:13px}
+.big{font-size:42px;line-height:1.1}
+.arrow{display:inline-block;transition:transform .2s;color:var(--sun)}
+#alerts div{border-radius:6px;padding:8px 12px;margin-bottom:6px;font-weight:600;font-size:14px}
+.a-red{background:#5c1a10;border:1px solid var(--hot)}
+.a-org{background:#5a3510;border:1px solid #ff9a3c}
+.a-yel{background:#4d4210;border:1px solid var(--warn)}
+.a-blu{background:#123a55;border:1px solid var(--cool)}
+.fc p{margin:0 0 8px}
+.fc b{color:var(--sun)}
+.tblwrap{overflow:auto;max-height:420px}
+table{border-collapse:collapse;width:100%;font-size:13px;white-space:nowrap}
+th,td{padding:4px 7px;text-align:right;border-bottom:1px solid var(--line)}
+th{position:sticky;top:0;background:var(--card2);color:var(--dim);font-weight:600;text-align:right}
+td:first-child,th:first-child,td:last-child,th:last-child{text-align:left}
+tr.now td{background:#4a3016}
+tr{cursor:pointer}
+tr:hover td{background:#3a2716}
+#hours{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;align-items:end;height:100px;margin-top:8px}
+#hours div{border-radius:3px 3px 0 0;cursor:pointer}
+#hours div.now{outline:2px solid #fff}
+.hl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:10px;color:var(--dim);text-align:center}
+.flag{display:inline-block;padding:3px 10px;border-radius:4px;font-weight:800;color:#111}
+ul{margin:6px 0 0;padding-left:20px}
+li{margin-bottom:5px}
+li.key{color:var(--text)}
+li.minor{color:var(--dim)}
+#log{max-height:160px;overflow:auto;font-size:13px;color:var(--dim)}
+#log div{border-bottom:1px solid var(--line);padding:4px 0}
+.warn{color:var(--hot);font-weight:700}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+</style>
+</head>
+<body>
+<p style="margin:0 0 8px;font-size:13px"><a href="../index.html" style="color:var(--sun)">← DCW Refresher</a></p><h1>☀ Settlement Site 4 · Atmospheric Office</h1>
+<div class="sub">NOAA-style forecast for your desert · Range 75°F – 180°F</div>
+
+<div class="row">
+  <button id="roll">🎲 Roll New Forecast</button>
+  <button class="alt" id="next">Next Day →</button>
+  <button class="alt" id="event-btn">⚡ Random Event</button>
+  <label>Season
+    <select id="season">
+      <option value="cool">Cool season</option>
+      <option value="mild" selected>Mild season</option>
+      <option value="hot">Hot season</option>
+    </select>
+  </label>
+  <label>Day <b id="dayn"></b></label>
+</div>
+<div class="row">
+  <label>Time: <b id="tlabel"></b></label>
+  <input type="range" id="time" min="0" max="23.75" step="0.25" value="12">
+</div>
+
+<div id="alerts"></div>
+
+<div class="grid">
+  <div class="card"><div class="k">Temperature</div><div class="v big" id="temp"></div><div class="s" id="tempd"></div></div>
+  <div class="card"><div class="k">Feels Like (in sun)</div><div class="v" id="feel"></div><div class="s" id="feeld"></div></div>
+  <div class="card"><div class="k">Heat Index (shade)</div><div class="v" id="hi"></div><div class="s" id="hid"></div></div>
+  <div class="card"><div class="k">Wet Bulb</div><div class="v" id="wb"></div><div class="s" id="wbd"></div></div>
+  <div class="card"><div class="k">WBGT (heat stress)</div><div class="v" id="wbgt"></div><div class="s" id="wbgtd"></div></div>
+  <div class="card"><div class="k">Relative Humidity</div><div class="v" id="rh"></div><div class="s" id="rhd"></div></div>
+  <div class="card"><div class="k">Dew Point</div><div class="v" id="dew"></div><div class="s" id="dewd"></div></div>
+  <div class="card"><div class="k">Wind</div><div class="v"><span class="arrow" id="warrow">↓</span> <span id="wind"></span></div><div class="s" id="windd"></div></div>
+  <div class="card"><div class="k">Weather</div><div class="v" id="wx"></div><div class="s" id="wxd"></div></div>
+  <div class="card"><div class="k">Sky Cover / Precip</div><div class="v" id="sky"></div><div class="s" id="skyd"></div></div>
+  <div class="card"><div class="k">Visibility</div><div class="v" id="vis"></div><div class="s" id="visd"></div></div>
+  <div class="card"><div class="k">Barometer</div><div class="v" id="pres"></div><div class="s" id="presd"></div></div>
+  <div class="card"><div class="k">UV Index</div><div class="v" id="uv"></div><div class="s" id="uvd"></div></div>
+  <div class="card"><div class="k">Sand Surface</div><div class="v" id="sand"></div><div class="s" id="sandd"></div></div>
+  <div class="card"><div class="k">Sun &amp; Moon</div><div class="v" id="sunm"></div><div class="s" id="sunmd"></div></div>
+  <div class="card"><div class="k">Water Loss</div><div class="v" id="water"></div><div class="s" id="waterd"></div></div>
+</div>
+
+<div class="two">
+  <div class="card">
+    <h2>Heat Stress — What To Do Right Now</h2>
+    <div id="flag"></div>
+    <ul id="tips"></ul>
+  </div>
+  <div class="card fc">
+    <h2>Forecast Discussion</h2>
+    <div id="fc"></div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
+  <h2>24h Temperature (click a bar)</h2>
+  <div id="hours"></div>
+  <div class="hl" id="hlab"></div>
+</div>
+
+<div class="card" style="margin-bottom:12px">
+  <h2>Hourly Tabular Forecast (click a row)</h2>
+  <div class="tblwrap"><table id="tbl"></table></div>
+</div>
+
+<div class="two">
+  <div class="card">
+    <h2>RP Effects</h2>
+    <div id="danger"></div>
+  </div>
+  <div class="card">
+    <h2>Event</h2>
+    <div id="event" class="s">Hit ⚡ for something to happen.</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Log</h2>
+  <div id="log"></div>
+</div>
+
+<script>
+const MIN=75, MAX=180;
+const $=id=>document.getElementById(id);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const wpick=l=>{let t=l.reduce((s,x)=>s+x[1],0),r=Math.random()*t;for(const x of l){if((r-=x[1])<=0)return x[0]}return l[0][0]};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const F2C=f=>(f-32)*5/9, C2F=c=>c*9/5+32;
+const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const COMPASS=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+const COMPASS_LONG={N:"North",NNE:"North northeast",NE:"Northeast",ENE:"East northeast",E:"East",ESE:"East southeast",SE:"Southeast",SSE:"South southeast",S:"South",SSW:"South southwest",SW:"Southwest",WSW:"West southwest",W:"West",WNW:"West northwest",NW:"Northwest",NNW:"North northwest"};
+const card=d=>COMPASS[Math.round(((d%360)+360)%360/22.5)%16];
+
+const SEASONS={
+  cool:{sf:0.75,rise:7.1, set:17.6},
+  mild:{sf:0.9, rise:6.25,set:18.8},
+  hot: {sf:1.0, rise:5.6, set:19.8},
+};
+
+// heat = temp multiplier, wind mph range, vis miles, cloud %, pop %
+const WEATHER={
+  clear:   {name:"Clear",       icon:"☀",  d:"Cloudless, brutal sun.",                    heat:1.0, wind:[3,14], vis:[10,20],  cloud:[0,5],   pop:[0,0],  dp:0},
+  haze:    {name:"Heat Haze",   icon:"🌫", d:"Shimmering air, mirages on the horizon.",   heat:1.03,wind:[2,9],  vis:[3,8],    cloud:[5,15],  pop:[0,0],  dp:0},
+  windy:   {name:"Blowing Dust",icon:"💨", d:"Gusty, sand stinging exposed skin.",        heat:0.97,wind:[20,34],vis:[0.5,3],  cloud:[10,25], pop:[0,0],  dp:-3},
+  devils:  {name:"Dust Devils", icon:"🌪", d:"Whirling columns of sand wander the flats.",heat:1.0, wind:[10,24],vis:[3,9],    cloud:[0,10],  pop:[0,0],  dp:0},
+  storm:   {name:"Sandstorm",   icon:"🟫", d:"A wall of sand. Shelter or get buried.",    heat:0.88,wind:[40,65],vis:[0.02,0.2],cloud:[70,95],pop:[0,5],  dp:4},
+  overcast:{name:"High Clouds", icon:"🌥", d:"Thin cloud cover, a small mercy.",          heat:0.9, wind:[5,14], vis:[8,15],   cloud:[50,80], pop:[5,15], dp:8},
+  heatwave:{name:"Heatwave",    icon:"🔥", d:"The air itself burns. Metal is untouchable.",heat:1.08,wind:[0,6],  vis:[5,10],   cloud:[0,5],   pop:[0,0],  dp:-2},
+  rain:    {name:"Flash Storm", icon:"⛈", d:"Rare rain. Wadis flood in minutes.",        heat:0.78,wind:[20,45],vis:[0.5,2],  cloud:[85,100],pop:[70,95],dp:25},
+};
+const WX_WEIGHTS=[["clear",30],["haze",18],["windy",14],["devils",10],["storm",8],["overcast",10],["heatwave",7],["rain",3]];
+
+const EVENTS=[
+  "A sandstorm appears on the horizon — arrives in {n} minutes.",
+  "Mirage: travelers see an oasis that isn't there.",
+  "A dust devil crosses the party's path. DEX check or lose an item.",
+  "Distant thunder. Flash flood risk in nearby canyons.",
+  "Vultures circling ahead — something died out there.",
+  "The wind shifts and uncovers old ruins half-buried in sand.",
+  "A scorpion swarm stirs under the rocks as the ground heats.",
+  "Water skin springs a leak — lose half its contents.",
+  "Heat sickness: the weakest member feels dizzy and nauseous.",
+  "Tracks in the sand — fresh, heading the same way.",
+  "Sudden calm. No wind at all. The heat becomes crushing.",
+  "A caravan's dust plume is visible miles away.",
+  "Quicksand patch hidden under a crust of salt.",
+  "A cool breeze from the dunes — brief relief.",
+  "Sand-blasted bones of a large creature jut from the dune.",
+  "A shaded rock overhang — the only shade for miles.",
+];
+
+// ---------- physics ----------
+const es=c=>6.112*Math.exp(17.67*c/(c+243.5)); // sat vapor pressure hPa
+function rhFrom(Tf,Tdf){return clamp(100*es(F2C(Tdf))/es(F2C(Tf)),1,100)}
+function wetBulb(Tf,Tdf,pHpa){ // psychrometric solve, bisection
+  const T=F2C(Tf), e=es(F2C(Tdf)); let lo=F2C(Tdf), hi=T;
+  for(let i=0;i<40;i++){const m=(lo+hi)/2;const f=es(m)-0.00066*(1+0.00115*m)*pHpa*(T-m)-e; if(f>0)hi=m;else lo=m}
+  return C2F((lo+hi)/2);
+}
+function heatIndex(T,RH){ // NWS algorithm; valid to ~120F
+  if(T>120) return null;
+  let hi=0.5*(T+61+(T-68)*1.2+RH*0.094);
+  if((hi+T)/2>=80){
+    hi=-42.379+2.04901523*T+10.14333127*RH-.22475541*T*RH-.00683783*T*T-.05481717*RH*RH+.00122874*T*T*RH+.00085282*T*RH*RH-.00000199*T*T*RH*RH;
+    if(RH<13&&T>=80&&T<=112) hi-=((13-RH)/4)*Math.sqrt((17-Math.abs(T-95))/17);
+    if(RH>85&&T>=80&&T<=87) hi+=((RH-85)/10)*((87-T)/5);
+  }
+  return Math.round(hi);
+}
+function apparent(Tf,Tdf,mph,sunW){ // Steadman apparent temp w/ radiation
+  const Ta=F2C(Tf), e=es(F2C(Tdf)), ws=mph*0.447;
+  return Math.round(C2F(Ta+0.348*e-0.70*ws+0.70*sunW/(ws+10)-4.25));
+}
+function wbgtF(Tf,Twf,sun,cloud,mph){
+  const Ta=F2C(Tf),Tw=F2C(Twf);
+  const Tg=Ta+Math.max(0,sun*(1-cloud/100*0.75)*(16-0.9*Math.min(mph*0.447,12)));
+  return {out:C2F(0.7*Tw+0.2*Tg+0.1*Ta), shade:C2F(0.7*Tw+0.3*Ta)};
+}
+
+// ---------- generation ----------
+let days=[], dayNum=1;
+
+function makeDay(n){
+  const S=SEASONS[$("season").value], sf=S.sf;
+  const peak=Math.round(Math.min(MAX, rnd(115,180)*sf + (sf<1?0:rnd(0,8))));
+  const low=Math.round(Math.max(MIN, Math.min(peak-25, rnd(75,105)*(0.85+sf*0.15))));
+  const wxKey=wpick(WX_WEIGHTS);
+  let shift=null;
+  if(Math.random()<0.35){const k=wpick(WX_WEIGHTS);if(k!==wxKey)shift={at:Math.floor(rnd(10,20)),len:Math.floor(rnd(2,6)),key:k}}
+  const td0=rnd(8,42), dir0=wpick([[225,4],[200,2],[270,2],[315,1],[135,1],[0,1],[90,1]])+rnd(-20,20);
+  const p0=rnd(29.70,29.98), hours=[];
+  for(let h=0;h<24;h++){
+    const key=(shift&&h>=shift.at&&h<shift.at+shift.len)?shift.key:wxKey, w=WEATHER[key];
+    const aft=Math.max(0,Math.sin(Math.PI*(h-8)/12)); // winds peak afternoon
+    const spd=Math.round(w.wind[0]+(w.wind[1]-w.wind[0])*(0.25+0.75*aft)*rnd(0.75,1.15));
+    const nearStorm=shift&&["storm","rain"].includes(shift.key)&&h>=shift.at-3&&h<shift.at+shift.len;
+    hours.push({
+      key, wind:Math.max(0,spd), gust:Math.round(spd*rnd(1.3,1.75)),
+      dir:dir0+25*Math.sin(h/4)+rnd(-12,12)+(key==="storm"?rnd(-40,40):0),
+      vis:+rnd(...w.vis).toFixed(2), cloud:Math.round(rnd(...w.cloud)), pop:Math.round(rnd(...w.pop)),
+      td:td0+w.dp+4*Math.sin(h/3)+rnd(-2,2),
+      p:+(p0+0.04*Math.cos(Math.PI*(h-10)/6)-(nearStorm?0.12:0)+(wxKey==="rain"?-0.15:0)).toFixed(2),
+    });
+  }
+  return {n,peak,low,wxKey,shift,hours,S};
+}
+
+function baseTemp(d,t){
+  const {peak,low}=d, rise=d.S.rise, pk=15;
+  let x;
+  if(t>=rise&&t<=pk) x=(1-Math.cos(Math.PI*(t-rise)/(pk-rise)))/2;
+  else{const span=24-(pk-rise),since=t>pk?t-pk:t+24-pk,k=4.2;x=(Math.exp(-since/k)-Math.exp(-span/k))/(1-Math.exp(-span/k))}
+  return low+(peak-low)*x;
+}
+function tempAt(d,t){
+  const w=WEATHER[d.hours[Math.floor(t)%24].key];
+  return Math.round(clamp(d.low+(baseTemp(d,t)-d.low)*w.heat,MIN,MAX));
+}
+function derive(d,t){
+  const h=Math.floor(t)%24, H=d.hours[h], w=WEATHER[H.key];
+  const T=tempAt(d,t), Td=Math.round(Math.min(H.td,T-4));
+  const RH=Math.round(rhFrom(T,Td));
+  const Tw=wetBulb(T,Td,H.p*33.8639);
+  const night=t<d.S.rise||t>=d.S.set;
+  const sun=night?0:Math.max(0,Math.sin(Math.PI*(t-d.S.rise)/(d.S.set-d.S.rise)));
+  const sunW=sun*900*(1-H.cloud/100*0.75)*0.7;
+  const g=wbgtF(T,Tw,sun,H.cloud,H.wind);
+  const uv=Math.round(sun*13*(1-H.cloud/100*0.6)*(H.key==="storm"?0.3:1));
+  const sand=Math.round(Math.min(230,T+(night?-8:sun*55*(1-H.cloud/100*0.6))));
+  return {h,H,w,T,Td,RH,Tw:Math.round(Tw),HI:heatIndex(T,RH),AT:apparent(T,Td,H.wind,sunW),
+    wbgt:Math.round(g.out),wbgtShade:Math.round(g.shade),night,sun,uv,sand,dirC:card(H.dir)};
+}
+
+// ---------- text helpers ----------
+function fmtH(t){const h=Math.floor(t)%24,m=Math.round((t-Math.floor(t))*60);return `${h%12||12}:${String(m).padStart(2,"0")} ${h<12?"AM":"PM"}`}
+const shortH=h=>(h%12||12)+(h<12?"am":"pm");
+function color(T){const f=clamp((T-MIN)/(MAX-MIN),0,1);return `rgb(${Math.round(80+175*f)},${Math.round(170-130*f)},${Math.round(255-230*f)})`}
+const hotWord=T=>T>=165?"lethally hot":T>=145?"dangerously hot":T>=125?"extremely hot":T>=105?"very hot":T>=92?"hot":"warm";
+function skyWord(c,night){return c<10?(night?"Clear":"Sunny"):c<30?(night?"Mostly clear":"Mostly sunny"):c<60?"Partly cloudy":c<85?"Mostly cloudy":"Cloudy"}
+const weekday=n=>DAYS[(n+2)%7];
+function moon(n){const p=((n%29.5)+29.5)%29.5/29.5;const names=["🌑 New","🌒 Waxing crescent","🌓 First quarter","🌔 Waxing gibbous","🌕 Full","🌖 Waning gibbous","🌗 Last quarter","🌘 Waning crescent"];return names[Math.round(p*8)%8]}
+const visStr=v=>v<0.25?(v<0.1?`${Math.round(v*5280)} ft`:"1/4 mi"):v<1?`${v.toFixed(1)} mi`:`${Math.round(v)} mi`;
+
+// ---------- alerts (thresholds follow NWS criteria) ----------
+function alertsFor(d){
+  const out=[], hrs=d.hours.map((H,h)=>({...derive(d,h+0.5),h}));
+  const span=f=>{const m=hrs.filter(f);return m.length>=24?"all day":m.length?`${shortH(m[0].h)}–${shortH((m[m.length-1].h+1)%24)}`:null};
+  let s;
+  if(d.peak>=150) out.push(["a-red",`EXTREME HEAT EMERGENCY — highs to ${d.peak}°F. Exposure without shelter is fatal.`]);
+  else if(d.peak>=115) out.push(["a-red",`EXTREME HEAT WARNING — highs to ${d.peak}°F.`]);
+  else if(d.peak>=105) out.push(["a-org",`HEAT ADVISORY — highs to ${d.peak}°F.`]);
+  if(s=span(x=>x.H.vis<=0.25&&x.H.wind>=25)) out.push(["a-red",`DUST STORM WARNING ${s} — visibility near zero. Pull aside, stay alive.`]);
+  else if(s=span(x=>x.H.vis<=1)) out.push(["a-org",`BLOWING DUST ADVISORY ${s} — visibility 1 mile or less.`]);
+  if(s=span(x=>x.H.wind>=40||x.H.gust>=58)) out.push(["a-red",`HIGH WIND WARNING ${s} — sustained 40+ mph or gusts 58+ mph.`]);
+  else if(s=span(x=>x.H.wind>=31||x.H.gust>=46)) out.push(["a-yel",`WIND ADVISORY ${s} — sustained 31+ mph or gusts 46+ mph.`]);
+  if(s=span(x=>x.H.key==="rain")) out.push(["a-blu",`FLASH FLOOD WARNING ${s} — wadis and slot canyons will flood fast.`]);
+  if(s=span(x=>x.RH<=15&&x.H.wind>=20)) out.push(["a-yel",`RED FLAG WARNING ${s} — humidity ≤15% with 20+ mph wind. Any spark spreads.`]);
+  if(s=span(x=>x.Tw>=95)) out.push(["a-red",`WET BULB ABOVE 95°F ${s} — sweating can no longer cool the body.`]);
+  return out;
+}
+
+// ---------- forecast text ----------
+function period(d,hs,isDay,next){
+  const D=hs.map(([dd,h])=>({...derive(dd,h+0.5),h}));
+  const T=isDay?d.peak:(next?next.low:d.low);
+  const cloud=D.reduce((s,x)=>s+x.H.cloud,0)/D.length;
+  const ws=D.map(x=>x.H.wind), gmax=Math.max(...D.map(x=>x.H.gust));
+  const vx=D.reduce((s,x)=>s+Math.sin(x.H.dir*Math.PI/180),0),vy=D.reduce((s,x)=>s+Math.cos(x.H.dir*Math.PI/180),0);
+  const dir=COMPASS_LONG[card(Math.atan2(vx,vy)*180/Math.PI)];
+  const pop=Math.max(...D.map(x=>x.H.pop));
+  let txt=`${skyWord(cloud,!isDay)}${isDay?" and "+hotWord(T):""}, with a ${isDay?"high near":"low around"} ${T}°F. `;
+  const lo=Math.min(...ws),hi=Math.max(...ws);
+  txt+=hi<6?"Calm wind. ":`${dir} wind ${lo===hi||hi-lo<3?"around "+hi:lo+" to "+hi} mph${gmax>=20?`, with gusts as high as ${gmax} mph`:""}. `;
+  const specials={};D.forEach(x=>{if(!["clear","overcast"].includes(x.H.key))(specials[x.H.key]=specials[x.H.key]||[]).push(x.h)});
+  for(const k in specials){const hs2=specials[k];const nm=WEATHER[k].name.toLowerCase();
+    txt+=hs2.length>=D.length-1?`${WEATHER[k].name} expected. `:`${WEATHER[k].name} likely between ${shortH(hs2[0])} and ${shortH((hs2[hs2.length-1]+1)%24)}. `}
+  if(pop>0) txt+=`Chance of precipitation ${pop}%. `;
+  if(isDay) txt+=`Heat index ${D.some(x=>x.HI==null)?"off the scale":"up to "+Math.max(...D.map(x=>x.HI))+"°F"}; wet bulb up to ${Math.max(...D.map(x=>x.Tw))}°F.`;
+  return txt;
+}
+function forecastText(){
+  const d=days[0], n=days[1];
+  const dayH=[...Array(12)].map((_,i)=>[d,i+6]);
+  const nightH=[...Array(6)].map((_,i)=>[d,i+18]).concat([...Array(6)].map((_,i)=>[n,i]));
+  let html=`<p><b>Today (${weekday(d.n)}):</b> ${period(d,dayH,true)}</p>`;
+  html+=`<p><b>Tonight:</b> ${period(d,nightH,false,n)}</p>`;
+  for(let i=1;i<days.length;i++){
+    const x=days[i], w=WEATHER[x.wxKey];
+    html+=`<p><b>${weekday(x.n)}:</b> ${w.icon} ${w.name}, ${hotWord(x.peak)}. High ${x.peak}°F, low ${x.low}°F.${x.shift?` ${WEATHER[x.shift.key].name} possible in the ${x.shift.at<15?"afternoon":"evening"}.`:""}</p>`;
+  }
+  return html;
+}
+
+// ---------- heat stress ----------
+function stressFlag(wbgt){
+  if(wbgt<78) return {c:"#e8e8e8",n:"WHITE (below 78°F)",wr:"No work limit",q:"½ qt/hr"};
+  if(wbgt<82) return {c:"#f2f2f2",n:"CAT 1 (78–81.9°F)",wr:"Moderate work: no limit · Hard work: 40 min work / 20 min rest",q:"¾ qt/hr"};
+  if(wbgt<85) return {c:"#5fbf4a",n:"GREEN (82–84.9°F)",wr:"Moderate work: 50/10 · Hard work: 30/30",q:"¾–1 qt/hr"};
+  if(wbgt<88) return {c:"#f2d43a",n:"YELLOW (85–87.9°F)",wr:"Moderate work: 40/20 · Hard work: 30/30",q:"¾–1 qt/hr"};
+  if(wbgt<90) return {c:"#e8442e",n:"RED (88–89.9°F)",wr:"Moderate work: 30/30 · Hard work: 20/40",q:"¾–1 qt/hr"};
+  if(wbgt<100) return {c:"#111;color:#fff",n:"BLACK (90°F+)",wr:"Moderate work: 20/40 · Hard work: 10/50 — stop non-essential work",q:"1 qt/hr max (more can't be absorbed)"};
+  return {c:"#111;color:#ff5a36",n:"BEYOND BLACK (100°F+)",wr:"No work. Shelter only. Every minute exposed adds core heat.",q:"1 qt/hr max — drinking alone won't keep up"};
+}
+function tips(x){
+  const L=[], k=s=>L.push(["key",s]), m=s=>L.push(["minor",s]);
+  if(x.Tw>=95) k("<b>Wet bulb ≥95°F: sweat can't cool you anymore.</b> Even resting in shade, the body heats up. Get into cooled or underground shelter. Survival is measured in hours.");
+  else if(x.Tw>=88) k("<b>Wet bulb ≥88°F:</b> evaporative cooling is failing. Limit any exertion to minutes; rest in the deepest shade available.");
+  if(x.T>=98.6) k("<b>Air is hotter than your body.</b> Cover all skin with loose, light-colored cloth. Bare skin absorbs heat from the air, and wind makes it worse.");
+  if(!x.night&&x.T>=100) k("<b>Stay out of the sun from 10 AM to 4 PM.</b> Shade cuts the heat load by about "+Math.max(0,x.wbgt-x.wbgtShade)+"°F of WBGT right now. Move at night or at dawn.");
+  if(x.night&&x.T<100) k("<b>Travel now.</b> Night is the coolest window. Push distance before sunrise.");
+  k(`<b>Drink small amounts often:</b> about a cup every 15–20 min. Don't go over ~1 qt per hour. Ration sweat, not water: cut exertion before you cut drinking.`);
+  if(x.T>=95) k("<b>Replace salt:</b> eat salty food or take electrolytes with water. Plain water alone over many hours causes hyponatremia (dizziness, confusion).");
+  if(x.RH<25&&x.Tw<88) k("<b>Evaporative cooling works:</b> the air is dry ("+x.RH+"% RH). Wet a cloth and put it on your neck, head and wrists, and wet your shirt. It works best in moving air.");
+  if(x.RH>=40) k("<b>Humid air ("+x.RH+"%):</b> sweat evaporates slowly. Wet cloths help less. Rest more often.");
+  if(x.sand>=130) k("<b>Ground is "+x.sand+"°F:</b> wear thick-soled boots. Don't sit or lie on sand; use a mat, pack or cot. Digging 1–2 ft down reaches cooler sand for a rest pit.");
+  if(x.H.wind>=20||x.H.vis<3) k("<b>Blowing sand:</b> wrap a cloth over nose and mouth, wear goggles, and keep a hand on a companion or a rope line.");
+  if(x.uv>=8) k(`<b>UV ${x.uv}:</b> sunburn in under 15 min. Wear a brimmed hat, sunglasses and covered skin. Burned skin sweats poorly.`);
+  m("<b>Buddy checks every 30 min.</b> Heat exhaustion: heavy sweat, cramps, nausea, headache, weakness. Move them to shade, loosen clothing, sip water.");
+  m("<b>Heat stroke is an emergency:</b> confusion, slurred speech, hot skin, may stop sweating, fainting. Cool them immediately with water, wet cloths, fanning and shade, especially the neck, armpits and groin. Don't force drinks if they're confused.");
+  m("Pale yellow urine = OK. Dark urine or no urge to go = dehydrated.");
+  m("Avoid alcohol and heavy meals. Eat small, salty, watery food.");
+  m("Acclimatization takes 7–14 days of gradual exposure. Newcomers suffer far worse.");
+  return L;
+}
+function waterLoss(x){ // sweat L/hr approx, resting in shade vs walking in sun
+  const rest=clamp(0.15+(x.wbgtShade-70)*0.035,0.1,2.5), walk=clamp(0.4+(x.wbgt-65)*0.05+(x.night?0:0.2),0.3,3.5);
+  return [rest.toFixed(1),walk.toFixed(1)];
+}
+
+// ---------- RP effects ----------
+function dangerText(x){
+  const out=[], T=x.T;
+  if(T>=160||x.Tw>=95) out.push(`<span class="warn">LETHAL:</span> unprotected creatures collapse within minutes. CON save every 10 min.`);
+  else if(T>=140) out.push(`<span class="warn">Extreme heat:</span> CON save every 30 min or gain exhaustion.`);
+  else if(T>=115) out.push(`<b>Severe heat:</b> CON save every hour without shade/water.`);
+  else if(T>=100) out.push(`<b>Hot:</b> travel at half pace or risk heat exhaustion.`);
+  else out.push(`<span style="color:var(--ok)">Safe to travel.</span>`);
+  if(x.H.key==="storm") out.push(`<span class="warn">Sandstorm:</span> disadvantage on Perception, 1d4 slashing per hour exposed, easy to get lost.`);
+  if(x.H.key==="rain") out.push(`<span class="warn">Flash flood:</span> stay out of wadis and canyons.`);
+  if(x.H.key==="heatwave") out.push(`<b>Heatwave:</b> metal gear deals 1d4 fire if touched barehanded.`);
+  if(x.H.key==="devils") out.push(`<b>Dust devils:</b> small items may be snatched away.`);
+  if(x.sand>=150) out.push(`<b>Ground:</b> walking barefoot causes burns.`);
+  if(x.H.vis<1) out.push(`<b>Low visibility:</b> navigation checks at disadvantage.`);
+  return out.join("<br>");
+}
+
+// ---------- render ----------
+function render(){
+  const d=days[0], t=+$("time").value, x=derive(d,t);
+  $("tlabel").textContent=fmtH(t); $("dayn").textContent=`${d.n} (${weekday(d.n)})`;
+  $("temp").textContent=x.T+"°F"; $("temp").style.color=color(x.T);
+  $("tempd").textContent=`${Math.round(F2C(x.T))}°C · ${hotWord(x.T)} · H ${d.peak} / L ${d.low}`;
+  $("feel").textContent=x.AT+"°F"; $("feel").style.color=color(x.AT);
+  $("feeld").textContent=x.night?"No sun. Air and wind only.":"Includes sun, wind and humidity";
+  $("hi").textContent=x.HI==null?"Off scale":x.HI+"°F";
+  $("hid").textContent=x.HI==null?"NWS heat index isn't defined above 120°F":x.HI>=125?"Extreme danger":x.HI>=103?"Danger":x.HI>=90?"Extreme caution":"Caution";
+  $("wb").textContent=x.Tw+"°F"; $("wb").style.color=x.Tw>=95?"var(--hot)":x.Tw>=88?"var(--warn)":"var(--text)";
+  $("wbd").textContent=`${Math.round(F2C(x.Tw))}°C · `+(x.Tw>=95?"Above human survival limit":x.Tw>=88?"Near survival limit":x.Tw>=80?"Sweat cooling impaired":"Sweat cools effectively");
+  const fl=stressFlag(x.wbgt);
+  $("wbgt").textContent=x.wbgt+"°F"; $("wbgtd").textContent=`Shade: ${x.wbgtShade}°F · ${fl.n.split(" (")[0]} flag`;
+  $("rh").textContent=x.RH+"%"; $("rhd").textContent=x.RH<8?"Lips crack, eyes sting":x.RH<20?"Very dry":x.RH<40?"Dry":"Humid for a desert";
+  $("dew").textContent=x.Td+"°F"; $("dewd").textContent=x.Td<30?"Bone dry air":x.Td<50?"Dry":x.Td<60?"Some moisture":"Sticky";
+  $("warrow").style.transform=`rotate(${x.H.dir}deg)`;
+  $("wind").textContent=x.H.wind<3?"Calm":`${x.dirC} ${x.H.wind} mph`;
+  $("windd").textContent=`From ${Math.round(((x.H.dir%360)+360)%360)}° (${COMPASS_LONG[x.dirC]}) · Gusts ${x.H.gust} mph · `+(x.H.wind>=40?"Can't stand upright":x.H.wind>=25?"Sand blasting":x.H.wind>=15?"Blowing sand":x.H.wind>=6?"Breezy":"Still air");
+  $("wx").textContent=x.w.icon+" "+x.w.name; $("wxd").textContent=x.w.d;
+  $("sky").textContent=`${x.H.cloud}%`; $("skyd").textContent=`${skyWord(x.H.cloud,x.night)} · Precip chance ${x.H.pop}%`;
+  $("vis").textContent=visStr(x.H.vis); $("visd").textContent=x.H.vis<0.1?"Can't see your own hand":x.H.vis<1?"Lose sight of companions":x.H.vis<5?"Landmarks fade":"Clear sight lines";
+  const prev=d.hours[Math.max(0,x.h-3)].p, trend=x.H.p-prev;
+  $("pres").textContent=`${x.H.p.toFixed(2)} in`; $("presd").textContent=`${Math.round(x.H.p*33.8639)} mb · `+(trend<-0.06?"Falling fast — weather coming":trend<-0.02?"Falling":trend>0.02?"Rising":"Steady");
+  $("uv").textContent=x.uv; $("uvd").textContent=x.uv>=11?"Extreme":x.uv>=8?"Very high":x.uv>=6?"High":x.uv>=3?"Moderate":"Low";
+  $("sand").textContent=x.sand+"°F"; $("sand").style.color=color(x.sand);
+  $("sandd").textContent=x.sand>=160?"Burns bare skin instantly":x.sand>=130?"Burns through thin soles":x.sand>=110?"Painful to touch":"Bearable";
+  $("sunm").textContent=x.night?"🌙 Night":x.sun>0.85?"☀ Overhead":x.sun>0.4?"🌤 High":"🌅 Low";
+  $("sunmd").textContent=`Rise ${fmtH(d.S.rise)} · Set ${fmtH(d.S.set)} · ${moon(d.n)}`;
+  const [wr,ww]=waterLoss(x);
+  $("water").textContent=`${ww} L/hr`; $("waterd").textContent=`Sweat walking in the open · ${wr} L/hr resting in shade`+(+ww>1.2?" · more than you can absorb":"");
+
+  $("flag").innerHTML=`<span class="flag" style="background:${fl.c}">${fl.n}</span><div class="s" style="margin-top:6px">WBGT ${x.wbgt}°F · Work/rest: ${fl.wr} · Water: ${fl.q}</div>`;
+  $("tips").innerHTML=tips(x).map(([c,s])=>`<li class="${c}">${s}</li>`).join("");
+  $("danger").innerHTML=dangerText(x);
+
+  // bars
+  const box=$("hours"); box.innerHTML="";
+  for(let i=0;i<24;i++){
+    const Ti=tempAt(d,i+0.5), el=document.createElement("div");
+    el.style.height=(12+88*(Ti-MIN)/(MAX-MIN))+"%"; el.style.background=color(Ti);
+    el.title=`${fmtH(i)} — ${Ti}°F, ${WEATHER[d.hours[i].key].name}`;
+    if(i===x.h) el.className="now";
+    el.onclick=()=>{$("time").value=i+0.5;render()};
+    box.appendChild(el);
+  }
+  // table
+  let rows=`<tr><th>Hour</th><th>Temp</th><th>Dew</th><th>RH</th><th>Wet bulb</th><th>Heat idx</th><th>Feels</th><th>WBGT</th><th>Wind</th><th>Gust</th><th>Sky</th><th>Precip</th><th>Vis</th><th>Baro</th><th>Weather</th></tr>`;
+  for(let i=0;i<24;i++){
+    const r=derive(d,i);
+    rows+=`<tr data-h="${i}" class="${i===x.h?"now":""}"><td>${shortH(i)}</td><td style="color:${color(r.T)}">${r.T}°</td><td>${r.Td}°</td><td>${r.RH}%</td><td style="${r.Tw>=95?"color:var(--hot)":r.Tw>=88?"color:var(--warn)":""}">${r.Tw}°</td><td>${r.HI??"—"}</td><td>${r.AT}°</td><td>${r.wbgt}°</td><td>${r.H.wind<3?"Calm":r.dirC+" "+r.H.wind}</td><td>${r.H.gust}</td><td>${r.H.cloud}%</td><td>${r.H.pop}%</td><td>${visStr(r.H.vis)}</td><td>${r.H.p.toFixed(2)}</td><td>${r.w.icon} ${r.w.name}</td></tr>`;
+  }
+  $("tbl").innerHTML=rows;
+  $("tbl").querySelectorAll("tr[data-h]").forEach(tr=>tr.onclick=()=>{$("time").value=+tr.dataset.h;render()});
+}
+function renderDay(){
+  $("alerts").innerHTML=alertsFor(days[0]).map(([c,s])=>`<div class="${c}">⚠ ${s}</div>`).join("");
+  $("fc").innerHTML=forecastText();
+  $("hlab").innerHTML=Array.from({length:24},(_,i)=>`<span>${i%3===0?shortH(i):""}</span>`).join("");
+  render();
+}
+function logDay(){const d=days[0];log(`Day ${d.n} (${weekday(d.n)}): ${WEATHER[d.wxKey].name}, H ${d.peak}°F / L ${d.low}°F`+(d.shift?` — ${WEATHER[d.shift.key].name} ~${shortH(d.shift.at)}`:""))}
+function log(s){const el=document.createElement("div");el.textContent=s;$("log").prepend(el)}
+
+$("roll").onclick=()=>{days=[0,1,2,3,4].map(i=>makeDay(dayNum+i));logDay();renderDay()};
+$("next").onclick=()=>{dayNum++;days.shift();days.push(makeDay(dayNum+4));logDay();renderDay()};
+$("season").onchange=$("roll").onclick;
+$("time").oninput=render;
+$("event-btn").onclick=()=>{const e=pick(EVENTS).replace("{n}",Math.floor(rnd(10,60)));$("event").innerHTML=`<b style="color:var(--text)">${fmtH(+$("time").value)}:</b> ${e}`;log("Event: "+e)};
+$("roll").onclick();
+</script>
+</body>
+</html>

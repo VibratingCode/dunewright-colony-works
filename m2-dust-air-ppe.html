@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HS-02 Dust, Air &amp; PPE · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: respirator ladder bars, PPE matrix marks */
+.apf{display:grid;gap:0;border:3px solid var(--black)}
+.apf .row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr);border-top:2px solid var(--black)}
+.apf .row:first-child{border-top:0}
+.apf .nm{padding:10px 12px;border-right:2px solid var(--black);min-width:0}
+.apf .nm b{display:block;font-weight:800}
+.apf .nm span{font:500 11px var(--mono);color:var(--muted)}
+.apf .bar{position:relative;padding:10px 12px;display:flex;align-items:center;min-width:0}
+.apf .bar i{position:absolute;left:0;top:0;bottom:0;background:var(--hiviz);border-right:2px solid var(--black)}
+.apf .bar b{position:relative;font:400 30px/1 var(--display)}
+.apf .bar small{position:relative;font:700 11px var(--mono);margin-left:8px;text-transform:uppercase}
+.mx td,.mx th{text-align:center}
+.mx td:first-child,.mx th:first-child{text-align:left}
+.y{font:400 18px/1 var(--display)}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--black)}
+.half{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid var(--black)}
+@media (max-width:480px){.apf .row{grid-template-columns:minmax(0,1fr)}.apf .nm{border-right:0;border-bottom:2px solid var(--black)}}
+</style>
+</head>
+<body data-page="m2">
+<div class="wall">
+<article class="poster">
+
+  <header class="head black">
+    <div class="meta"><span>Form HS-02 · Rev. 4</span><span>Post-stasis refresher · Module 2 of 9</span><span>Post at every PPE issue point</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+    </div>
+    <h1>Breathe clean.</h1>
+    <p class="sub" style="color:var(--paper)">The sand under your boots is ground glass for your lungs. Dust you can't see does the damage.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="callout">
+    <div class="lbl">The sand is silica</div>
+    <div class="in">
+      <h2>Silicosis has no cure.</h2>
+      <p>This world's sand is rich in crystalline silica. Cutting, grinding, drilling, blasting or just driving over it throws up <b>respirable dust</b>, particles small enough to reach deep into your lungs. Your lungs scar around them, and the scarring never heals. It keeps getting worse after exposure stops.</p>
+      <div class="signs four">
+        <div class="sg" style="--c:var(--z5)"><h3>Silicosis</h3><p>Scarred, stiff lungs. Shortness of breath that never goes away. Can kill.</p></div>
+        <div class="sg" style="--c:var(--z6)"><h3>Lung cancer</h3><p>Crystalline silica is a known human carcinogen.</p></div>
+        <div class="sg" style="--c:var(--z4)"><h3>COPD</h3><p>Chronic bronchitis and emphysema. Every breath is work.</p></div>
+        <div class="sg" style="--c:var(--z3)"><h3>Kidney disease</h3><p>Silica exposure is linked to kidney damage.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>The limits</h2><span class="tag">Respirable crystalline silica<br>8-hour average</span></div>
+    <div class="big3">
+      <div style="background:var(--z5);color:#fff"><b>50 µg/m³</b><span>Exposure limit (PEL)</span></div>
+      <div style="background:var(--z2)"><b>25 µg/m³</b><span>Action level: monitoring and medical checks begin</span></div>
+      <div><b>Invisible</b><span>Respirable silica is too fine to see. Visible dust means far more is there.</span></div>
+    </div>
+    <p class="note">The Atmospheric Office samples dust at every active work face. Results post at muster. If a reading tops the action level, your crew goes on the medical surveillance list.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Controls first</h2><span class="tag">Respirators are the last line of defense</span></div>
+    <ol class="steps">
+      <li><div><b>Wet it.</b> Cut, grind, core and drill with water fed to the blade or bit. Wet sweep, never dry sweep. Never clear dust with compressed air.</div></li>
+      <li><div><b>Vacuum it.</b> Tools with shrouds connected to a HEPA dust collector. Clean up with a HEPA vacuum.</div></li>
+      <li><div><b>Pull it away.</b> Local exhaust at fixed cutting and grinding stations in the Fabrication Yards.</div></li>
+      <li><div><b>Enclose yourself.</b> Equipment cabs sealed, filtered and pressurized. Keep the doors shut.</div></li>
+      <li><div><b>Then wear a respirator</b> sized for the job. See the ladder below.</div></li>
+    </ol>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Respirator ladder</h2><span class="tag">Assigned protection factor (APF)<br>Higher = cleaner air inside</span></div>
+    <div class="apf">
+      <div class="row"><div class="nm"><b>N95 filtering facepiece</b><span>Disposable. Short, light dust tasks.</span></div><div class="bar"><i style="width:4%"></i><b>10</b><small>× cleaner</small></div></div>
+      <div class="row"><div class="nm"><b>Half-mask elastomeric</b><span>P100 cartridges. Routine cutting and grinding.</span></div><div class="bar"><i style="width:4%"></i><b>10</b><small>× cleaner</small></div></div>
+      <div class="row"><div class="nm"><b>Loose-fitting PAPR</b><span>Powered hood. Works with beards. Cool airflow.</span></div><div class="bar"><i style="width:8%"></i><b>25</b><small>× cleaner</small></div></div>
+      <div class="row"><div class="nm"><b>Full-facepiece elastomeric</b><span>P100. Heavy dust, protects eyes too.</span></div><div class="bar"><i style="width:14%"></i><b>50</b><small>× cleaner</small></div></div>
+      <div class="row"><div class="nm"><b>Tight-fitting full-face PAPR</b><span>Abrasive blasting, sandstorm work, highest dust.</span></div><div class="bar"><i style="width:100%"></i><b>1000</b><small>× cleaner</small></div></div>
+    </div>
+    <div class="cols" style="margin-top:14px">
+      <div class="dd" style="grid-column:1/-1">
+        <div class="do"><h3>Do</h3><ul>
+          <li><b>Get fit-tested</b> on your exact model and size. Repeat every year and whenever your face changes.</li>
+          <li><b>Seal check every time</b> you put it on: cover the cartridges and inhale. The mask should pull in.</li>
+          <li><b>Be clean-shaven</b> where the seal touches your face. Beards go under a loose PAPR hood only.</li>
+          <li>Change cartridges when breathing gets hard or on the schedule your lead posts.</li>
+        </ul></div>
+        <div class="dont"><h3>Don't</h3><ul>
+          <li>Wear a mask you weren't fit-tested on.</li>
+          <li>Wear a tight-fitting mask over stubble or a beard.</li>
+          <li>Hang it around your neck between cuts. The inside fills with dust.</li>
+          <li>Use a dust mask for gas, fumes or low oxygen. Different hazard (Modules 5, 8, S-A).</li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Eyes</h3>
+        <ul>
+          <li>Safety glasses marked <b>ANSI Z87.1</b> (look for "Z87" on the frame) at all times on site.</li>
+          <li><b>Sealed goggles</b> whenever sand is blowing, when cutting or grinding, and outside a cab in wind over 15 mph.</li>
+          <li>Face shield <b>over</b> glasses or goggles for grinding and chemical pours. A shield alone isn't eye protection.</li>
+          <li>Sand in your eye: don't rub. Flush with the eyewash station for at least 15 minutes, then go to the FAS.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Hearing</h3>
+        <div class="big3">
+          <div><b>85</b><span>dBA action level</span></div>
+          <div style="background:var(--z5);color:#fff"><b>90</b><span>dBA 8-hr limit</span></div>
+        </div>
+        <ul style="margin-top:10px">
+          <li>Old Earth rules allow 90 dBA for 8 hours, halving the time for every 5 dB louder. The stricter health guideline is 85 dBA, halving every <b>3 dB</b>. This site follows the stricter one.</li>
+          <li><b>Rule of thumb:</b> if you have to shout to be heard at arm's length, you need protection.</li>
+          <li>Plugs rolled tight and fully in, or muffs sealed over your ears. Double up near chipping guns, generators and impact tools.</li>
+          <li>Hearing loss from noise is permanent. Ringing ears after a shift means damage already happened.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>PPE by trade</h2><span class="tag">● always · ○ for the listed tasks</span></div>
+    <div class="tw"><table class="mx">
+      <thead><tr><th>Trade</th><th>Helmet</th><th>Z87 eyes</th><th>Goggles / shield</th><th>Respirator</th><th>Hearing</th><th>Gloves</th><th>Other</th></tr></thead>
+      <tbody>
+        <tr><td>Welder</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td class="small">Welding helmet, FR leathers (Module 5)</td></tr>
+        <tr><td>Machinist</td><td><i class="half"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td class="small">No gloves at rotating spindles. No loose sleeves or jewelry (Module 7)</td></tr>
+        <tr><td>Equipment operator</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td><i class="dot"></i></td><td class="small">Sealed cab. Respirator if cab filter fails.</td></tr>
+        <tr><td>Rigger / signal</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td class="small">Hi-vis vest, orange helmet (Module 6)</td></tr>
+        <tr><td>Polymer tech</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td class="small">Chemical gloves and suit per the SDS (Module 8)</td></tr>
+        <tr><td>Laborer</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td class="small">N95 minimum for dry sweeping and demolition</td></tr>
+        <tr><td>Electrician</td><td><i class="dot"></i></td><td><i class="dot"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="half"></i></td><td><i class="dot"></i></td><td class="small">Class E helmet, arc-rated clothing, insulated gloves (Module 7)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Boots: safety-toe, puncture-resistant, heat-rated soles for everyone. Sand surfaces pass 150°F by midday.</p>
+  </section>
+
+  <section class="emerg" style="background:var(--blue)">
+    <div>
+      <h2>Sandstorm</h2>
+      <p style="margin-top:10px;font-size:16px">Continuous long siren, or a wall of dust on the horizon. Visibility can drop to zero in minutes. Wind-driven sand strips skin and chokes filters.</p>
+      <p class="cf">Make safe.<br>Get sealed in.</p>
+      <p class="sm">Ch 16 Atmospheric broadcasts storm warnings. Keep it on scan when you're working outside.</p>
+    </div>
+    <ol>
+      <li><b>Make your work safe</b> in seconds: torch off, load landed, machine parked with the bucket down.</li>
+      <li><b>Goggles and respirator on</b> before you move. Full-face if you have it.</li>
+      <li><b>Go to the nearest sealed shelter</b> with your buddy. Every grid block has one. Don't try to reach the muster point.</li>
+      <li>Caught in the open? <b>Get low behind solid cover</b>, back to the wind, face covered. Stay put. Call Ch 1 with your location.</li>
+      <li><b>Head count</b> in the shelter. Report missing crew on Ch 1. Leave only on the all-clear.</li>
+    </ol>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p><b>Every worker on this site can stop work</b> when dust is visible in the air, a dust collector is down, or a crew member has no respirator for the job. Wet it, fix it, then restart.</p>
+  </section>
+
+  <section class="ack">
+    <h3>Worker acknowledgement</h3>
+    <p class="small">I have been fit-tested on my respirator, I know how to seal-check it, I know the controls for silica dust, and I know the sandstorm procedure and my nearest shelter.</p>
+    <div class="ackrow">
+      <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
+      <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
+      <label for="a-crew">Crew / Sector<input id="a-crew" data-ack="crew" autocomplete="off"></label>
+      <label for="a-date">Date<input id="a-date" data-ack="date" autocomplete="off"></label>
+    </div>
+    <div class="stamp" hidden>Module complete</div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926.1153 respirable crystalline silica, OSHA 1910.134 respiratory protection (APFs), NIOSH silica and noise criteria (REL 85 dBA, 3 dB exchange), OSHA 1926.52 / 1910.95 occupational noise, ANSI/ISEA Z87.1 eye protection.</span>
+    <span>HS-02 · Dunewright Colony Works · Replace when faded</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
