@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: channel dial grid, radio script, phonetic grid */
+/* page-local: channel dial grid, radio script, phonetic grid, call-sign table */
 .dial{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:3px solid var(--black)}
 .ch{padding:10px 12px;border-right:2px solid var(--black);border-bottom:2px solid var(--black);display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:center;min-width:0}
 .ch:nth-child(4n){border-right:0}
@@ -19,7 +19,8 @@
 .ch small{font:500 11px/1.25 var(--mono);color:var(--muted)}
 .ch.e{background:var(--red);color:#fff}.ch.e small{color:#ffd9c9}
 .ch.c{background:var(--hiviz)}
-.script{background:var(--black);color:var(--paper);padding:16px 18px;font:600 15px/1.6 var(--mono)}
+.ch.s{background:#dbe7f5}
+.script{background:var(--black);color:var(--paper);padding:16px 18px;font:600 15px/1.6 var(--mono);overflow-wrap:anywhere}
 .script .hl{color:var(--hiviz)}
 .script .c{color:#9a978b;font-weight:500}
 .script + .script{margin-top:10px}
@@ -29,6 +30,13 @@
 .pho span{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.02em;overflow-wrap:anywhere}
 .pho .n{background:#ebe6d2}
 .pw td:first-child{font-family:var(--mono);white-space:nowrap}
+.cs td:nth-child(2){font-family:var(--mono);font-size:12px}
+.cs td:nth-child(3){font-size:12px}
+.emerg ul{font-size:15px}
+.emerg .script{margin-bottom:12px}
+.box p + p,.box p + ul,.box ul + p,.box ol + p,.box p + ol{margin-top:8px}
+.box ul.tight li,.box ol.tight li{font-size:14px}
+.box.dark a{color:var(--hiviz)}
 @media (max-width:820px){.dial{grid-template-columns:repeat(2,minmax(0,1fr))}.ch{border-right:2px solid var(--black)!important;border-bottom:2px solid var(--black)!important}.pho{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:480px){.dial{grid-template-columns:minmax(0,1fr)}.pho{grid-template-columns:repeat(3,minmax(0,1fr))}.script{font-size:13px}}
 </style>
@@ -38,70 +46,210 @@
 <article class="poster">
 
   <header class="head blue">
-    <div class="meta"><span>Form REF-RAD · Rev. 4</span><span>Reference sheet</span><span>Post at every muster point &amp; vehicle</span></div>
+    <div class="meta"><span>Form REF-RAD · Rev. 5</span><span>Post-stasis refresher · Reference sheet</span><span>Post at every muster point &amp; vehicle</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Communications</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Talk short. Talk clear.</h1>
-    <p class="sub">15,000 people share these channels. A sloppy call can bury the one that saves a life.</p>
+    <p class="sub">Over 15,000 people share these channels. A sloppy call can bury the one that saves a life.</p>
   </header>
   <div class="stripe blue"></div>
 
   <section class="sec">
-    <div class="sh"><h2>Channel plan</h2><span class="tag">Ch 1 is monitored by every radio, always</span></div>
+    <div class="sh"><h2>Channel plan</h2><span class="tag">Every radio scans Ch 1 + Ch 16 + your sector channel</span></div>
     <div class="dial">
-      <div class="ch e"><b>1</b><span>Site Emergency</span><small>Emergencies only. Always on scan.</small></div>
-      <div class="ch c"><b>2</b><span>Site Command</span><small>Hub Command, deputies, supers</small></div>
-      <div class="ch"><b>3</b><span>Alpha Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>4</b><span>Bravo Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>5</b><span>Charlie Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>6</b><span>Delta Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>7</b><span>Echo Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>8</b><span>Foxtrot Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>9</b><span>Golf Sector</span><small>Sector ops · Polymer Works</small></div>
-      <div class="ch"><b>10</b><span>Hotel Sector</span><small>Sector ops</small></div>
-      <div class="ch"><b>11</b><span>Crane &amp; Lift</span><small>Operators, riggers, signal persons</small></div>
+      <div class="ch e"><b>1</b><span>Site Emergency</span><small>Emergencies only. Always on scan. Priority channel.</small></div>
+      <div class="ch c"><b>2</b><span>Site Command</span><small>Hub Command, deputies, supers. Security monitors.</small></div>
+      <div class="ch s"><b>3</b><span>Alpha Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>4</b><span>Bravo Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>5</b><span>Charlie Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>6</b><span>Delta Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>7</b><span>Echo Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>8</b><span>Foxtrot Sector</span><small>Sector ops</small></div>
+      <div class="ch s"><b>9</b><span>Golf Sector</span><small>Sector ops · Polymer Works</small></div>
+      <div class="ch s"><b>10</b><span>Hotel Sector</span><small>Sector ops</small></div>
+      <div class="ch"><b>11</b><span>Crane &amp; Lift</span><small>Coordination only. Loads move on the lift talkgroup.</small></div>
       <div class="ch"><b>12</b><span>Heavy Equipment</span><small>Haulers, dozers, loaders, printers</small></div>
-      <div class="ch"><b>13</b><span>Hot Work &amp; Fire Watch</span><small>Welders, cutters, fire watch</small></div>
-      <div class="ch"><b>14</b><span>Medical</span><small>Medics, aid stations, Central Med</small></div>
+      <div class="ch"><b>13</b><span>Hot Work &amp; Fire Watch</span><small>Welders, fire watch. Hot-work permits opened and closed. Fire reports.</small></div>
+      <div class="ch"><b>14</b><span>Medical</span><small>Medics, aid stations, Central Med. Workers only when told.</small></div>
       <div class="ch"><b>15</b><span>Logistics</span><small>Quartermaster, deliveries, water</small></div>
-      <div class="ch"><b>16</b><span>Atmospheric</span><small>Weather, heat levels, storm alerts</small></div>
+      <div class="ch c"><b>16</b><span>Atmospheric</span><small>Atmos: weather, WBGT, wind, warnings. Always on scan.</small></div>
     </div>
-    <p class="note">Your radio scans Ch 1 plus your sector channel. Crane, equipment and hot-work crews also scan their trade channel.</p>
+    <div class="cols" style="margin-top:16px">
+      <div class="box fill">
+        <h3>Scan rule</h3>
+        <ul class="tight">
+          <li><b>Every radio scans Ch 1 + Ch 16 + your sector channel.</b> Crane, equipment and hot-work crews add their trade channel (11, 12 or 13).</li>
+          <li>Ch 1 is set as the priority channel. It cuts in over everything else (site rule).</li>
+          <li>Hub Command rebroadcasts <b>every siren</b> and <b>every sandstorm, flood and lightning warning</b> on Ch 1.</li>
+          <li>Check your scan list at every radio check.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Talkgroups</h3>
+        <ul class="tight">
+          <li><b>Foreman talkgroup</b>, e.g. "C-F14" (Charlie, Foreman 14). Crew check-ins and routine crew traffic. "Crew channel" means your foreman talkgroup.</li>
+          <li><b>Lift talkgroup</b>, e.g. "Lift C-07". Every lift gets its own, named on the lift plan. Signals that move loads go only there. Ch 11 is coordination only, never for moving loads.</li>
+          <li><b>During a lift</b> the operator's radio is hands-free, tested before the lift, and does not scan. The lift plan names someone else to scan Ch 1 + Ch 16 and relay warnings on the lift talkgroup. Sirens and strobes still reach the cab.</li>
+          <li><b>Entry talkgroup:</b> a confined-space entry uses the talkgroup named on its PTW-CS (<a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="emerg">
+    <div>
+      <h2>Emergency call</h2>
+      <p style="margin-top:10px;font-size:16px">Channel 1. Plain language only. No codes, no slang.</p>
+      <p class="cf">Type. Where. How many.<br>Hazards. Who.</p>
+      <p class="sm"><b>Types:</b> Heat casualty · Man down · Fall · Fire · Gas · Chemical · Structural · Struck-by · Caught-in · Electrical · Confined space · Flood · Sandstorm. A short qualifier after the type is fine ("Fall, worker suspended"). A burn with nothing still burning is "Man down".</p>
+    </div>
+    <div>
+      <div class="script">
+        <span class="hl">"Emergency, emergency, emergency.</span><br>
+        <span class="c">[type]</span> Struck-by.<br>
+        <span class="c">[location]</span> Delta-22, Deck 0, haul road east.<br>
+        <span class="c">[hurt]</span> One hurt, conscious, leg bleeding.<br>
+        <span class="c">[hazards]</span> Hauler stopped, engine off.<br>
+        <span class="c">[you]</span> This is Delta Crew 22-1.<span class="hl">"</span>
+      </div>
+      <ul>
+        <li><b>The caller stays on Ch 1</b> until Hub Command or the medic releases them.</li>
+        <li><b>Everyone else stays off Ch 1</b> (and off Ch 14 during a mass casualty).</li>
+        <li><b>Other channels keep working.</b> Land the load, park the machine, keep talking to your entrant.</li>
+        <li>Workers use Ch 14 only when told.</li>
+      </ul>
+    </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Call signs by station</h2><span class="tag">The station has the call sign, not the person</span></div>
+    <div class="cols">
+      <div class="box fill">
+        <h3>All stop</h3>
+        <div class="script"><span class="hl">"ALL STOP, ALL STOP."</span></div>
+        <ul class="tight" style="margin-top:10px">
+          <li>Anyone can call it, on any channel. Three short siren blasts mean the same.</li>
+          <li><b>Stop all motion, hot work and machine operation. Hold position.</b></li>
+          <li>A suspended load is landed only on the signal person's direction.</li>
+          <li>Cleared on the same channel by whoever called it, or by command.</li>
+        </ul>
+      </div>
+      <div class="box dark">
+        <h3>Lost comms</h3>
+        <p class="small"><b>During a lift:</b> the operator stops all motion and holds the load. Resume only when the radio is back and tested, or when the signal person is in the operator's full, continuous view and the operator, signal person and whoever directs the lift (the Lift Director, or the lift lead on a routine lift) agree to switch to <a href="hand-signals.html">hand signals (REF-HS)</a>. Blind lifts stay stopped.</p>
+        <p class="small"><b>Anywhere else:</b></p>
+        <ol class="tight">
+          <li>Try another channel, then try again from higher ground.</li>
+          <li>Still nothing? Stop work that needs a radio. No blind equipment moves.</li>
+          <li>Send a buddy pair to your foreman. Nobody goes alone at Caution heat or higher.</li>
+          <li>Missed your check-in? If the call-back gets no answer within 5 minutes, your foreman sends someone in person. Stay where your foreman expects you.</li>
+          <li>Siren while you're out of contact? Take cover or evacuate on the siren. Leave cover only on the voice all clear, passed on by your crew lead or a runner.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Siren signals</h2><span class="tag">Sirens beat radios for taking cover.<br>Leaving cover needs the voice all clear.</span></div>
     <div class="tw"><table>
-      <thead><tr><th>Station</th><th>Call sign</th><th>Example</th></tr></thead>
+      <thead><tr><th>Signal</th><th>Sound</th><th>Do</th></tr></thead>
       <tbody>
-        <tr><td>Colony Construction Director</td><td class="m">Hub Actual</td><td class="m">Hub Actual</td></tr>
-        <tr><td>Site command desk</td><td class="m">Hub Command</td><td class="m">Hub Command</td></tr>
-        <tr><td>Deputy directors</td><td class="m">Hub + division</td><td class="m">Hub Ops · Hub Safety · Hub Engineering · Hub Logistics · Hub Medical</td></tr>
-        <tr><td>Sector superintendent</td><td class="m">[Sector] Super</td><td class="m">Charlie Super</td></tr>
-        <tr><td>General foreman</td><td class="m">[Sector] GF [trade]</td><td class="m">Charlie GF Steel · Delta GF Electrical</td></tr>
-        <tr><td>Foreman</td><td class="m">[Sector] Foreman [grid]</td><td class="m">Charlie Foreman 14</td></tr>
-        <tr><td>Crew lead</td><td class="m">[Sector] Crew [grid]-[crew]</td><td class="m">Charlie Crew 14-3</td></tr>
-        <tr><td>Crew member</td><td class="m">Crew call sign + number</td><td class="m">Charlie Crew 14-3 Seven</td></tr>
-        <tr><td>Safety officer</td><td class="m">Safety [Sector]</td><td class="m">Safety Charlie</td></tr>
-        <tr><td>Crane operator / signal person</td><td class="m">Crane / Signal [Sector] [n]</td><td class="m">Crane Charlie 7 · Signal Charlie 7</td></tr>
-        <tr><td>Heavy equipment</td><td class="m">[Machine] [Sector] [n]</td><td class="m">Hauler Delta 22 · Dozer Echo 4 · Printer Golf 2</td></tr>
-        <tr><td>Fire watch</td><td class="m">Fire Watch [Sector] [n]</td><td class="m">Fire Watch Bravo 5</td></tr>
-        <tr><td>Medic / Forward Aid Station / Central Med</td><td class="m">Medic [n] · [Sector] Aid · Central Med</td><td class="m">Medic 12 · Charlie Aid · Central Med</td></tr>
-        <tr><td>Fire &amp; Rescue</td><td class="m">Rescue [n]</td><td class="m">Rescue 3</td></tr>
-        <tr><td>Atmospheric Office</td><td class="m">Atmos</td><td class="m">Atmos</td></tr>
-        <tr><td>Quartermaster</td><td class="m">Quartermaster</td><td class="m">Quartermaster</td></tr>
-        <tr><td>Shelter (sandstorm)</td><td class="m">Shelter [Sector]-[grid]</td><td class="m">Shelter Charlie-14</td></tr>
+        <tr><td>Take shelter</td><td>Steady tone for 3 minutes, repeated every 5 minutes while the danger lasts. Red strobes.</td><td>Make safe. Nearest sealed shelter now.</td></tr>
+        <tr><td>Evacuate to muster</td><td>Alternating high-low tone for 3 minutes, repeated. Amber strobes.</td><td>Make safe and walk to the muster point of the sector you're working in. Report to your crew lead.</td></tr>
+        <tr><td>All stop</td><td>3 short blasts, 1 second each.</td><td>Stop all motion, hot work and machines. Hold position. Listen to Ch 1.</td></tr>
+        <tr><td>All clear</td><td>One 15-second tone, then Hub Command by voice on Ch 1: "All clear, all clear, [area]."</td><td><b>Never leave a shelter or restart work on a tone alone.</b> Wait for the Ch 1 voice all clear or your crew lead.</td></tr>
       </tbody>
     </table></div>
+    <p class="note">Every siren is rebroadcast on Ch 1. Strobes in sealed cabs, high-noise areas and shelters. <b>Weekly siren test:</b> every 7th day at 1200, announced on Ch 1 before and after ("This is a test"). <b>Machine horns</b> are machine-local, never site signals: 1 = stopping, 2 = moving forward, 3 = backing up.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Staged warnings</h2><span class="tag">Atmos on Ch 16 · Rebroadcast on Ch 1</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Warning</th><th>Means</th><th>Do</th></tr></thead>
+      <tbody>
+        <tr><td>Sandstorm watch</td><td>A storm is possible within 2 hours.</td><td>Secure loose material. Plan how loads come down. Stage crews near shelter.</td></tr>
+        <tr><td>Sandstorm warning</td><td>Arrival expected within 30 minutes.</td><td>Land all loads. Booms down (tower cranes to free-slew per maker). Climbers and MEWPs down. Move to shelter. The take-shelter siren sounds no later than 15 minutes before arrival.</td></tr>
+        <tr><td>Flood warning</td><td>Called by grid on Ch 1 and Ch 16.</td><td>Leave wadis, trenches and low cuts at once. There is no flood siren, so keep your scan on.</td></tr>
+        <tr><td>Lightning alert</td><td>Strikes within 10 miles.</td><td>Booms down, off steel, out of MEWPs. Into sealed shelters or closed vehicles, never under steel. Resume 30 minutes after the last strike within 10 miles.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">What to do in each emergency: <a href="m9-emergencies.html">HS-09</a>.</p>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Check-ins</h3>
+        <ul class="tight">
+          <li><b>Buddies</b> watch each other continuously.</li>
+          <li>The <b>crew lead sees every crew member</b> at least every 30 minutes.</li>
+          <li>The <b>crew lead checks in with the foreman every 30 minutes</b> on the foreman talkgroup.</li>
+        </ul>
+        <div class="script" style="margin-top:10px">
+          <span class="hl">"Charlie Foreman 14, Charlie Crew 14-3, check-in.</span><br>Twelve on deck, all good. <span class="hl">Out."</span>
+        </div>
+        <ul class="tight" style="margin-top:10px">
+          <li><b>Missed check-in:</b> immediate call-back. No answer within 5 minutes: someone goes in person.</li>
+          <li><b>Lone work</b> (only below Caution, never at height, in confined spaces or near wadis or trenches): 15-minute check-ins and a logged location.</li>
+          <li><b>Confined space:</b> the attendant checks in with each entrant at least every 5 minutes, by the method named on the PTW-CS.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Headcounts</h3>
+        <p class="small"><b>Muster:</b> crew leads report in person to the <b>muster warden</b> (a named crew lead at each muster point). The warden reports once to the Super on the sector channel.</p>
+        <div class="script" style="margin-top:10px">
+          <span class="hl">"Charlie Super, Muster MP-C1.</span><br>Fourteen crews. One hundred sixty-two assigned, one hundred sixty present. Two missing, details follow. <span class="hl">Over."</span>
+        </div>
+        <p class="small"><b>Shelter:</b> the senior person reports as "Shelter [Sector]-[grid]" on <b>that shelter's</b> sector channel. Missing persons go on Ch 1.</p>
+        <p class="small">Crew leads also tell their own department where their people are.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Call signs by station</h2><span class="tag">Call signs belong to the station.<br>Whoever holds the station uses it.</span></div>
+    <div class="tw"><table class="cs">
+      <thead><tr><th>Station</th><th>Call sign</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Colony Construction Director</td><td>Hub Actual</td><td>"Actual" means the Director in person, as opposed to the command desk or staff.</td></tr>
+        <tr><td>Site command desk</td><td>Hub Command</td><td>Hub Command</td></tr>
+        <tr><td>Deputy directors</td><td>Hub + division</td><td>Hub Ops · Hub Safety · Hub Engineering · Hub Logistics · Hub Medical</td></tr>
+        <tr><td>Sector superintendent</td><td>[Sector] Super</td><td>Charlie Super</td></tr>
+        <tr><td>Assistant superintendent</td><td>[Sector] Assist Day / Night</td><td>Charlie Assist Night</td></tr>
+        <tr><td>General foreman</td><td>[Sector] GF [Trade]</td><td>Charlie GF Steel</td></tr>
+        <tr><td>Foreman</td><td>[Sector] Foreman [n], a fixed number</td><td>Charlie Foreman 14</td></tr>
+        <tr><td>Crew (used by the crew lead)</td><td>[Sector] Crew [foreman n]-[crew n], fixed when the crew is formed</td><td>Charlie Crew 14-3 = Charlie, foreman 14, crew 3</td></tr>
+        <tr><td>Crew member</td><td>Crew call sign + your number</td><td>Charlie Crew 14-3 Seven</td></tr>
+        <tr><td>Safety &amp; Health officer</td><td>Safety [Sector] [n]</td><td>Safety Charlie 3</td></tr>
+        <tr><td>Lift Director</td><td>Lift Director [Sector]</td><td>Lift Director Charlie</td></tr>
+        <tr><td>Crane operator</td><td>Crane [Sector] [n]</td><td>Crane Charlie 7</td></tr>
+        <tr><td>Qualified signal person</td><td>Signal [Sector] [n]</td><td>Signal Charlie 7</td></tr>
+        <tr><td>Heavy equipment &amp; printers</td><td>[Machine] [Sector] [n]</td><td>Hauler Delta 22 · Printer Golf 2</td></tr>
+        <tr><td>Fire watch</td><td>Fire Watch [Sector] [n]</td><td>Fire Watch Bravo 5</td></tr>
+        <tr><td>Medic</td><td>Medic [n]</td><td>Medic 12</td></tr>
+        <tr><td>Forward Aid Station (FAS)</td><td>[Sector] Aid</td><td>Charlie Aid</td></tr>
+        <tr><td>Central Med (Hub)</td><td>Central Med</td><td>Central Med</td></tr>
+        <tr><td>Fire &amp; Rescue</td><td>Rescue [n]</td><td>Rescue 3</td></tr>
+        <tr><td>Atmospheric Office</td><td>Atmos</td><td>Atmos</td></tr>
+        <tr><td>Industrial Hygiene</td><td>Hygiene [n]</td><td>Hygiene 2</td></tr>
+        <tr><td>Design &amp; Structures</td><td>Design [n]</td><td>Design 5</td></tr>
+        <tr><td>Stasis Revival Unit</td><td>Revival [n]</td><td>Revival 4</td></tr>
+        <tr><td>Quartermaster</td><td>Quartermaster</td><td>Quartermaster</td></tr>
+        <tr><td>Security (monitors Ch 2)</td><td>Security Desk · Security [n]</td><td>Security Desk · Security 9</td></tr>
+        <tr><td>Shelter</td><td>Shelter [Sector]-[grid]</td><td>Shelter Charlie-14</td></tr>
+        <tr><td>Muster point</td><td>Muster [MP]</td><td>Muster MP-C1</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Always say the label word (Crew, Foreman, Hauler, Shelter, Muster) so a call sign never sounds like a location. Lost badge? Tell your crew lead the same shift. The crew lead reports it to the Security Desk. Roles and stations: <a href="org-chart.html">REF-ORG</a> · <a href="roles-glossary.html">REF-GL</a>.</p>
   </section>
 
   <section class="sec">
     <div class="cols">
       <div class="box">
         <h3>How to make a call</h3>
-        <ol>
+        <ol class="tight">
           <li>Listen first. Don't talk over someone.</li>
           <li>Press, wait one second, then speak. The first word gets clipped otherwise.</li>
           <li><b>Who you want, then who you are.</b> Say it once.</li>
@@ -109,10 +257,11 @@
           <li>End with "over" if you need a reply, "out" if you're done.</li>
         </ol>
         <div class="script" style="margin-top:12px">
-          <span class="hl">"Charlie Super, this is Charlie Crew 14-3, over."</span><br>
-          <span class="c">"Charlie Crew 14-3, Charlie Super, go ahead."</span><br>
-          <span class="hl">"Deck 3 steel is set. Requesting inspection, over."</span><br>
-          <span class="c">"Copy. Safety Charlie inbound one-five minutes. Out."</span>
+          <span class="c">On talkgroup C-F14:</span><br>
+          <span class="hl">"Charlie Foreman 14, this is Charlie Crew 14-3, over."</span><br>
+          <span class="c">"Charlie Crew 14-3, Charlie Foreman 14, go ahead."</span><br>
+          <span class="hl">"Charlie-14, Tower B, Deck 3 steel is set. Requesting inspection, over."</span><br>
+          <span class="c">"Copy. Safety Charlie 3 inbound, one-five minutes. Out."</span>
         </div>
       </div>
       <div class="box">
@@ -128,7 +277,7 @@
             <tr><td>Affirmative</td><td>Yes.</td></tr>
             <tr><td>Negative</td><td>No.</td></tr>
             <tr><td>Go ahead</td><td>I'm ready for your message.</td></tr>
-            <tr><td>Break, break</td><td>Priority traffic. Everyone stop talking now.</td></tr>
+            <tr><td>Break, break</td><td>Cuts in on a work channel for urgent safety traffic: "Break, break, stop the swing, man under the load." Life at risk: use Ch 1 "Emergency". To stop all motion: "ALL STOP".</td></tr>
             <tr><td>Radio check</td><td>How do you hear me? Answer "loud and clear" or "weak".</td></tr>
           </tbody>
         </table></div>
@@ -137,79 +286,39 @@
     </div>
   </section>
 
-  <section class="emerg">
-    <div>
-      <h2>Emergency call</h2>
-      <p style="margin-top:10px;font-size:16px">Channel 1. Plain language only. No codes, no slang.</p>
-      <p class="cf">Type. Where. How many.<br>Hazards. Who.</p>
-      <p class="sm">When you hear "Emergency" on Ch 1, stop talking on every channel until the medic or command clears it.</p>
-    </div>
-    <div>
-      <div class="script">
-        <span class="hl">"Emergency, emergency, emergency.</span><br>
-        Struck-by.<br>
-        Delta-22, Deck 0, haul road east.<br>
-        One hurt, conscious, leg bleeding.<br>
-        Hauler stopped, engine off.<br>
-        This is Delta Crew 22-1.<span class="hl">"</span>
-      </div>
-      <div class="script">
-        <span class="hl">"ALL STOP, ALL STOP."</span> <span class="c">Any channel. Anyone. Every crane, machine and torch in earshot stops moving until whoever called it, or command, clears it.</span>
-      </div>
-    </div>
-  </section>
-
   <section class="sec">
     <div class="sh"><h2>Phonetic alphabet</h2><span class="tag">Spell grids, part numbers and names</span></div>
     <div class="pho" id="pho"></div>
-    <p class="note">Say numbers digit by digit: "one-four" for 14. Say "niner" for 9 so it isn't heard as "nein" or "five". Some crews also use "tree" for 3 and "fife" for 5.</p>
-  </section>
-
-  <section class="sec">
-    <div class="cols">
+    <div class="cols" style="margin-top:16px">
       <div class="box">
-        <h3>Check-ins</h3>
-        <ul>
-          <li>Every crew lead checks in with their foreman <b>every 30 minutes</b> on the sector channel.</li>
-          <li>Format: <b>"Charlie Foreman 14, Charlie Crew 14-3, check-in. Twelve on deck, all good, out."</b></li>
-          <li>A crew that misses a check-in gets one call back. Miss two and someone walks over to check in person.</li>
-          <li>Confined space entrants talk to their attendant continuously, not every 30 minutes.</li>
-          <li>Crews scan <b>Ch 16</b> for heat level changes and storm alerts.</li>
+        <h3>Numbers</h3>
+        <ul class="tight">
+          <li><b>Digit by digit</b> for grids, IDs, channels and call signs: 14 is "one-four". Charlie Crew 14-3 is "Charlie Crew one-four dash three".</li>
+          <li><b>9 is "niner"</b>, so it isn't heard as "five" or "nein".</li>
+          <li><b>Headcounts</b> may be spoken as words: "twelve on deck".</li>
+          <li>No other alternate pronunciations.</li>
         </ul>
       </div>
-      <div class="box dark">
-        <h3>Lost comms</h3>
-        <ol>
-          <li>Try another channel, then try again from higher ground.</li>
-          <li>Still nothing? <b>Stop work that needs a radio.</b> No crane lifts and no blind equipment moves.</li>
-          <li>Send a runner to your foreman, or the whole crew walks to your muster point or last check-in point.</li>
-          <li>Use the <a href="hand-signals.html" style="color:var(--hiviz)">site hand signals</a> until radios are back.</li>
-          <li>If a siren sounds while you're out of contact, follow the siren.</li>
-        </ol>
+      <div class="box">
+        <h3>Location format</h3>
+        <p class="small"><b>Sector-grid, structure, deck, landmark.</b> Grid numbers are painted on every grid post.</p>
+        <ul class="tight">
+          <li>"Charlie-14, Tower B, Deck 3, east stair."</li>
+          <li>Open ground: "Delta-22, Deck 0, haul road east."</li>
+          <li>Trenches: "Echo-7, trench, north end."</li>
+          <li>Below grade: "Deck minus 1".</li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <section class="sec">
-    <div class="sh"><h2>Siren signals</h2><span class="tag">Sirens beat radios: obey the siren</span></div>
-    <div class="tw"><table>
-      <thead><tr><th>Siren</th><th>Meaning</th><th>Do</th></tr></thead>
-      <tbody>
-        <tr><td>Continuous long tone</td><td>Take shelter</td><td>Sandstorm or atmospheric hazard. Nearest sealed shelter now.</td></tr>
-        <tr><td>Alternating high-low</td><td>Evacuate</td><td>Make equipment safe and walk to your muster point. Crew lead reports headcount.</td></tr>
-        <tr><td>3 short blasts</td><td>All stop</td><td>All motion stops. Hold in place and listen to Ch 1.</td></tr>
-        <tr><td>1 long, after any of the above</td><td>All clear</td><td>Wait for your crew lead before going back to work.</td></tr>
-      </tbody>
-    </table></div>
   </section>
 
   <section class="saw">
     <h2>Radio discipline</h2>
-    <p><b>Think, then key.</b> No chatter, no music, no jokes on work channels. Never sit on the transmit key. Use call signs, not names. Keep Ch 1 clear unless someone's life or the site is in danger.</p>
+    <p><b>Think, then key.</b> No chatter, no music, no jokes on work channels. Never sit on the transmit key. Use call signs. Never use names on air. Keep Ch 1 clear unless someone's life or the site is in danger. Check your radio and scan list at the start of every shift.</p>
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: NATO/ICAO phonetic alphabet, US military and public-safety radio procedure, FEMA NIMS plain-language communications guidance.</span>
+    <span>Adapted from Old Earth standards: ICAO Annex 10 / NATO phonetic alphabet and number pronunciation, US Army and public-safety radio procedure, FEMA NIMS plain-language communications, OSHA 29 CFR 1926.1419–1420 (crane signals and radio), 1926.35 and 1926.159 (emergency action plans and alarms), NOAA/NWS lightning safety (30-minute rule).</span>
     <span>REF-RAD · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>

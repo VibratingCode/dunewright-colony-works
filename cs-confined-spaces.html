@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: three-part definition, gas meter readout, tank test diagram, rescuer stat */
+/* page-local: three-part definition, gas meter readout, tank test diagram, rescuer stat, rescue cover table */
 .def{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--black)}
 .def div{padding:16px;border-right:2px solid var(--black);min-width:0}
 .def div:last-child{border-right:0}
@@ -19,15 +19,19 @@
 .gas{background:#0e1a12;border:2px solid #2c3a30;border-radius:4px;padding:10px;color:#9cf2a8;font-family:var(--mono);min-width:0}
 .gas .g{font:700 12px var(--mono);letter-spacing:.06em;color:#6fbf7b}
 .gas .v{font:700 26px/1.1 var(--mono);margin:4px 0;color:#c8ffd0}
-.gas .l{font-size:11px;line-height:1.35;color:#9cf2a8}
+.gas .l{font-size:11px;line-height:1.4;color:#9cf2a8}
 .gas .o{color:var(--hiviz)}
-.tank{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:center}
+.tank{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:start}
 .tank svg{width:100%;height:auto;display:block}
 .stat{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.stat > b{font:400 110px/0.9 var(--display);color:var(--hiviz)}
+.stat > b{font:400 100px/0.9 var(--display);color:var(--hiviz)}
 .stat p{flex:1;min-width:220px;font-size:16px}
+.saw a,.emerg a{color:var(--hiviz)}
+.box p + p,.box p + ul,.box ul + p{margin-top:8px}
+.box ul.tight li,.box ol.tight li{font-size:14px}
+.cover td:first-child{white-space:normal;min-width:110px}
 @media (max-width:820px){.meter{grid-template-columns:repeat(2,minmax(0,1fr))}.tank{grid-template-columns:minmax(0,1fr)}.tank svg{max-width:220px}}
-@media (max-width:480px){.def{grid-template-columns:minmax(0,1fr)}.def div{border-right:0;border-bottom:2px solid var(--black)}.def div:last-child{border-bottom:0}.stat > b{font-size:80px}}
+@media (max-width:480px){.def{grid-template-columns:minmax(0,1fr)}.def div{border-right:0;border-bottom:2px solid var(--black)}.def div:last-child{border-bottom:0}.stat > b{font-size:72px}.meter{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body data-page="cs">
@@ -35,10 +39,10 @@
 <article class="poster">
 
   <header class="head black">
-    <div class="meta"><span>Form HS-SA · Rev. 4</span><span>Post-stasis refresher · Supplement A</span><span>Post at every permit board &amp; entry hatch</span></div>
+    <div class="meta"><span>Form HS-SA · Rev. 5</span><span>Post-stasis refresher · Supplement A</span><span>Post at every permit board &amp; entry hatch</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#141414"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>The air can kill you.</h1>
     <p class="sub">Confined spaces look harmless. The danger is the air inside, and you can't see it, smell it or feel it.</p>
@@ -47,12 +51,13 @@
 
   <section class="sec">
     <div class="sh"><h2>What counts as a confined space</h2><span class="tag">All three = confined space</span></div>
+    <p style="margin-bottom:14px">This is <b>Supplement A (HS-SA): Confined Spaces</b>. Complete it, and hold the badge endorsement for your role (entrant, attendant or entry supervisor), before you take part in any entry.</p>
     <div class="def">
       <div><i>1</i><b>Big enough to get into</b><p class="small">Your whole body can enter and do work.</p></div>
       <div><i>2</i><b>Hard to get out of</b><p class="small">Limited ways in or out: a hatch, a manway, a ladder, a crawl.</p></div>
       <div><i>3</i><b>Not built for people to stay in</b><p class="small">Nobody is meant to work there all shift.</p></div>
     </div>
-    <p style="margin-top:14px">It becomes a <b>permit-required space</b> if it has, or could have, a dangerous atmosphere, something that could engulf you (sand, grain, liquid, polymer), a shape that could trap or suffocate you, or any other serious hazard. <b>On this site, treat every confined space as permit-required until the entry supervisor says otherwise.</b> <span class="chip">Site rule</span></p>
+    <p style="margin-top:14px">It becomes a <b>permit-required space</b> if it has, or could have, a dangerous atmosphere, something that could engulf you (sand, grain, liquid, polymer), a shape that could trap or suffocate you, or any other serious hazard. <b>On this site, treat every confined space as permit-required (site rule)</b> until the entry supervisor signs a written certificate at the hatch that every hazard has been removed without anyone going in. If anything changes, it's a permit space again.</p>
     <div class="signs four" style="margin-top:14px">
       <div class="sg" style="--c:var(--orange)"><h3>Tanks &amp; cisterns</h3><p>Water, fuel and coolant tanks. Cisterns can hold low oxygen from rust or rot.</p></div>
       <div class="sg" style="--c:var(--orange)"><h3>Hull voids</h3><p>Spaces between hab walls and decks. Often purged with inert gas.</p></div>
@@ -61,17 +66,17 @@
       <div class="sg" style="--c:var(--z5)"><h3>Sealed habs</h3><p>Unfinished modules with no air system running yet.</p></div>
       <div class="sg" style="--c:var(--z5)"><h3>Sand hoppers</h3><p>Flowing sand engulfs a person in seconds.</p></div>
       <div class="sg" style="--c:var(--z5)"><h3>Vaults &amp; pits</h3><p>Utility vaults, sumps and pits. Heavy gases settle here.</p></div>
-      <div class="sg" style="--c:var(--z5)"><h3>Trench boxes</h3><p>Deep trenches and shafts with poor airflow.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Trenches &amp; shafts</h3><p>Open trenches follow <a href="m6-cranes-equipment.html">HS-06</a>, using the HS-SA air limits. Shafts, tunnels, and any trench with a hazardous atmosphere or an engulfment risk outside the shield are permit-required spaces (HS-SA).</p></div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Test the air first</h2><span class="tag">Before entry · Then continuously</span></div>
-    <div class="meter" aria-label="Four-gas meter limits">
-      <div class="gas"><div class="g">1 · O₂ OXYGEN</div><div class="v">19.5–23.5%</div><div class="l">Under 19.5: too little to stay alert. Over 23.5: fire risk explodes.</div></div>
-      <div class="gas"><div class="g">2 · LEL FLAMMABLE</div><div class="v">&lt; 10%</div><div class="l">Of the lower explosive limit. At 10% or above, no entry.</div></div>
-      <div class="gas"><div class="g">3 · H₂S</div><div class="v">&lt; 10 ppm</div><div class="l">NIOSH ceiling. <span class="o">Old Earth OSHA ceiling 20 ppm.</span> Kills your sense of smell.</div></div>
-      <div class="gas"><div class="g">3 · CO</div><div class="v">&lt; 35 ppm</div><div class="l">NIOSH limit. <span class="o">Old Earth OSHA limit 50 ppm.</span> No smell, no color.</div></div>
+    <div class="sh"><h2>Test the air first</h2><span class="tag">Entry limits · Before entry, then continuously</span></div>
+    <div class="meter" aria-label="Four-gas meter entry limits">
+      <div class="gas"><div class="g">1 · O₂ OXYGEN</div><div class="v">19.5–23.5%</div><div class="l">Normal air is 20.9%. Under 19.5%, something has pushed the oxygen out. Under 16%, judgment fails. Over 23.5%, clothes and hair burn fiercely. <span class="o">OSHA limits.</span></div></div>
+      <div class="gas"><div class="g">2 · LEL FLAMMABLE</div><div class="v">&lt; 10%</div><div class="l">Of the lower explosive limit. At 10% or above, no entry. <span class="o">OSHA limit.</span> Hot work stops at 1% (site rule).</div></div>
+      <div class="gas"><div class="g">3 · H₂S</div><div class="v">&lt; 10 ppm</div><div class="l"><span class="o">NIOSH ceiling (10 min) and OSHA construction limit (8 hr).</span> At 100 ppm it is immediately dangerous to life. It kills your sense of smell.</div></div>
+      <div class="gas"><div class="g">4 · CO</div><div class="v">&lt; 35 ppm</div><div class="l"><span class="o">NIOSH 8-hour limit,</span> used here as the entry limit (site rule). OSHA limit: 50 ppm. No smell, no color.</div></div>
     </div>
     <div class="tank" style="margin-top:16px">
       <svg viewBox="0 0 200 240" aria-label="Test the top, middle and bottom of the space">
@@ -89,11 +94,14 @@
       </svg>
       <div>
         <ol class="steps">
+          <li><div><b>Who tests:</b> the entry supervisor, or a gas tester trained on that meter and named on the PTW-CS. They test from outside the hatch before entry and every hour, and initial each reading on the permit.</div></li>
+          <li><div><b>Bump-test the meter</b> before each day's use, and check the calibration sticker. Failed, or out of date? Don't use it.</div></li>
           <li><div><b>Oxygen first.</b> Most meters need enough oxygen to read flammables correctly.</div></li>
           <li><div><b>Flammables next.</b> Gas, fuel vapor, solvent and polymer off-gas.</div></li>
           <li><div><b>Toxics last.</b> H₂S, CO, and whatever the job brings, like welding fumes or resin vapor.</div></li>
-          <li><div><b>Top, middle and bottom.</b> Light gases rise. Heavy gases like argon, H₂S and fuel vapor sink. Probe ahead of you as you go deeper.</div></li>
-          <li><div><b>Keep monitoring.</b> Every entrant wears a running meter. It alarms: everyone gets out. No arguing.</div></li>
+          <li><div><b>Top, middle and bottom.</b> Light gases rise. Heavy gases like argon, H₂S and fuel vapor sink. Once inside, entrants keep their personal monitor on and probe ahead as they go deeper. Let each reading settle: about 2 seconds per foot of hose, plus the sensor time on the meter.</div></li>
+          <li><div><b>Keep monitoring.</b> Every entrant wears a running meter. Entrants may watch any test and ask for a retest.</div></li>
+          <li><div><b>It alarms: everyone gets out.</b> No arguing. The attendant tells the entry supervisor and the permit is suspended. Nobody goes back in until the cause is found, the space is ventilated and retested, and the entry supervisor signs the permit again. Treat every alarm as real.</div></li>
         </ol>
       </div>
     </div>
@@ -104,30 +112,47 @@
       <h2 style="color:var(--hiviz)">Inert gas</h2>
       <p style="margin-top:10px;font-size:16px">Argon and nitrogen are used to purge tanks, hull voids and weld zones. They push oxygen out.</p>
       <p class="cf">One breath can drop you.</p>
-      <p class="sm">In air with almost no oxygen, people collapse within seconds, often with no warning at all. You don't feel short of breath, because your body senses CO₂, not missing oxygen.</p>
+      <p class="sm">In air with almost no oxygen, people collapse within seconds, often with no warning at all. Your body senses rising CO₂. It can't sense missing oxygen, so you never feel short of breath.</p>
     </div>
     <ul>
       <li>A <b>purge tag</b> on a hatch means inert gas has been used inside. Never enter without a fresh test.</li>
-      <li><b>Ventilate</b> with forced fresh air until oxygen reads 19.5% or more at all levels, and keep the fan running.</li>
+      <li><b>No tag proves nothing.</b> Tags fall off, and gas leaks in from next-door voids. Test every hatch, every time.</li>
+      <li><b>Disconnect inert purge lines</b> before entry. A closed valve alone doesn't count.</li>
+      <li><b>Ventilate</b> with forced fresh air until every level reads normal air (about 20.9%), and keep the fan running. Can't get it to 20.5% or more? Find out why before anyone goes in (site rule).</li>
       <li>Argon is <b>heavier than air</b>. It pools in low spots, pits and the bottom of tanks.</li>
       <li>Never put your head into a hatch "just to look". That's the breath that kills.</li>
     </ul>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Four roles, every entry</h2><span class="tag">Named on the permit before anyone goes in</span></div>
-    <div class="signs four">
-      <div class="sg" style="--c:var(--hiviz)"><h3>Entrant</h3><p>Goes inside. Wears a harness and meter. Knows the hazards and the signs of trouble. Gets out the moment the attendant says so, the meter alarms, or they feel wrong.</p></div>
-      <div class="sg" style="--c:var(--orange)"><h3>Attendant</h3><p>Stays outside the whole time. Keeps count of who's in. Stays in contact by voice or radio. <b>Never enters.</b> Calls rescue and starts the retrieval winch.</p></div>
-      <div class="sg" style="--c:var(--blue)"><h3>Entry supervisor</h3><p>Checks the tests, the lockouts and the rescue plan. Signs the permit. Ends the permit when the job is done or conditions change.</p></div>
-      <div class="sg" style="--c:var(--red)"><h3>Rescue team</h3><p>Fire &amp; Rescue (red helmets), on standby and trained for this space. Called on Ch 1 with "Confined space".</p></div>
+    <div class="sh"><h2>Four roles, every entry</h2><span class="tag">Named on the permit before anyone goes in<br>Roles: <a href="roles-glossary.html">REF-GL</a></span></div>
+    <div class="signs two">
+      <div class="sg" style="--c:var(--hiviz)"><h3>Entrant</h3><p><span class="k">Badge endorsement</span></p><p>Goes inside. Wears a full-body harness and a running meter. Knows the hazards and the signs of trouble. Answers every check-in. Gets out the moment the attendant says so, the meter alarms, or they feel wrong.</p></div>
+      <div class="sg" style="--c:var(--orange)"><h3>Attendant</h3><p><span class="k">Badge endorsement</span></p><p>Stays outside at the hatch the whole time and <b>never enters</b>. Does no other job (a fire watch is a separate person). Keeps the sign-in count of who is inside. Checks in with each entrant at least every 5 minutes (site rule). Orders everyone out if the meter alarms, an entrant acts strange, something outside threatens the space, or the attendant can't do the job. Keeps out anyone not on the permit. Calls rescue and starts the retrieval winch. Needs to leave? Everyone comes out first, or a trained attendant takes over by name.</p></div>
+      <div class="sg" style="--c:var(--blue)"><h3>Entry supervisor</h3><p><span class="k">Foreman or general foreman (white hat) · HS-SA endorsement</span></p><p>Checks the tests, the isolation and the rescue plan. Confirms the rescue cover before entry. Signs the PTW-CS. Suspends it after any alarm. Ends it when the job is done, the shift ends, or conditions change.</p></div>
+      <div class="sg" style="--c:var(--red)"><h3>Rescue team</h3><p><span class="k">Fire &amp; Rescue · red helmet · call sign "Rescue [n]"</span></p><p>Trained and practiced on this type of space. Waits at the hatch or stays on call, as the permit says (see below). Called on Ch 1 with "Confined space".</p></div>
     </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Rescue cover</h2><span class="tag">Set before the permit is signed · Written on the permit</span></div>
+    <div class="tw"><table class="cover">
+      <thead><tr><th>Cover</th><th>When</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td>Team at the hatch</td><td>Inert gas used in or piped into the space. The first air test read outside the limits, even if ventilation fixed it. Engulfment risk (sand, liquid, polymer). Hot work inside. Inside heat at Extreme (125°F) or higher. Non-entry retrieval can't be used.</td><td>A Fire &amp; Rescue team waits at the hatch, suited and ready to go in, the whole time anyone is inside.</td></tr>
+        <tr><td>On-call team</td><td>Every other permit entry: air within limits, hazards isolated, non-entry retrieval in place.</td><td>Before entry, the entry supervisor confirms a Fire &amp; Rescue sector team is free and can reach the hatch and start rescue within <b>10 minutes</b> (site rule). The time goes on the permit.</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="small" style="margin-top:10px">
+      <li>Safety &amp; Health evaluates each Fire &amp; Rescue team for each type of space: can they get there in time, with the right gear, and have they practiced a rescue on that type of space in the last 12 months? (Old Earth: 1910.146(k), 1926.1211.)</li>
+      <li>Rescue team called away? They tell the entry supervisor at once, and everyone comes out until cover is back.</li>
+    </ul>
   </section>
 
   <section class="saw" style="display:block">
     <div class="stat">
-      <b>60%</b>
-      <p><b>About 6 in 10 people who die in confined spaces are would-be rescuers</b> (NIOSH). They saw a coworker collapse and went in after them. The same air dropped them too. <b>Don't go in. Pull them out with the line, and call rescue.</b></p>
+      <b>10/16</b>
+      <p><b>In one NIOSH study, 10 of the 16 people who died in confined spaces were would-be rescuers</b> (NIOSH Alert 86-110). They saw a coworker collapse and went in after them. The same air dropped them too. <b>Don't go in. Pull them out with the line, and call rescue.</b></p>
     </div>
   </section>
 
@@ -135,25 +160,74 @@
     <div class="cols">
       <div class="box">
         <h3>Rescue without going in</h3>
-        <ol>
-          <li>Every entrant wears a <b>full-body harness</b> clipped to a <b>retrieval line</b>.</li>
+        <ol class="tight">
+          <li>Every entrant wears a <b>full-body harness</b>. The <b>retrieval line</b> clips to the back D-ring between the shoulders.</li>
           <li>For vertical entries over 5 feet deep, the line runs to a <b>tripod or davit with a mechanical winch</b>.</li>
-          <li>Entrant down? The attendant calls <b>Ch 1: "Emergency, emergency, emergency. Confined space"</b> with location and how many are inside.</li>
+          <li>Non-entry retrieval is required on every entry, unless the line would add risk or wouldn't help (for example, it would snag on bends or near a mixer). Then the entry supervisor writes another rescue method on the permit, and a Fire &amp; Rescue team waits at the hatch.</li>
+          <li>Entrant down, or no answer after two calls? The attendant calls <b>Ch 1: "Emergency, emergency, emergency. Confined space"</b>, with the location and how many are inside.</li>
           <li>The attendant cranks them out with the winch from outside.</li>
-          <li>Only trained rescuers in supplied air go in if the line can't get them out.</li>
+          <li>Only Fire &amp; Rescue in supplied air go in if the line can't get them out.</li>
         </ol>
       </div>
       <div class="box">
+        <h3>The permit (PTW-CS)</h3>
+        <p class="small">Signed by the entry supervisor. Posted at the hatch and on the permit board at the structure. Entry stops at 10% LEL. It shows:</p>
+        <ul class="tight">
+          <li>the space and the job</li>
+          <li>start and end time: one shift at most (site rule)</li>
+          <li>entrants, attendant and entry supervisor by name</li>
+          <li>the hazards, and what is locked out and blanked</li>
+          <li>the air limits, plus each reading with time and initials</li>
+          <li>the heat reading inside and its heat level</li>
+          <li>how you'll talk, and the check-in interval</li>
+          <li>the rescue cover (at the hatch, or on call with its time) and how to call it</li>
+          <li>equipment: meter, fan, harness, winch, intrinsically safe lights and radios</li>
+          <li>other permits: PTW-HW for hot work, PTW-HE for Extreme heat entry</li>
+        </ul>
+        <p class="small">It ends when the job is done, the shift ends, or conditions change. Cancelled permits go to Safety &amp; Health and are kept for one year. All permits: <a href="permits.html">REF-PTW</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
         <h3>Before anyone enters</h3>
-        <ul>
-          <li><b>Permit posted</b> at the hatch, with names, tests, times and the rescue plan.</li>
-          <li><b>Lock out</b> every pipe, pump, mixer, conveyor and power feed. See <a href="m7-lockout.html">Module 7</a>.</li>
-          <li><b>Ventilate</b> with forced fresh air. Keep exhaust and engines away from the intake.</li>
-          <li><b>Hot work inside?</b> It needs its own hot-work permit and fire watch. Welding eats oxygen and makes fumes. See <a href="m5-hot-work.html">Module 5</a>.</li>
-          <li><b>Heat builds fast</b> in a tank in the sun. Use the hot-work heat level and timed entries. See <a href="m3-heat.html">Module 3</a>.</li>
-          <li><b>Lighting and comms</b> tested. Use intrinsically safe lights where flammables are possible.</li>
+        <ul class="tight">
+          <li><b>Lock out</b> every pump, mixer, conveyor and power feed (<a href="m7-lockout.html">HS-07</a>). Electrical isolation: <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</li>
+          <li><b>Pipes into the space</b> (gas, inert purge, resin, water, sand): blank them, disconnect and cap them, or use double block and bleed. A closed valve alone doesn't isolate a pipe, because valves leak.</li>
+          <li><b>Ventilate</b> with forced fresh air. Put the fan intake in the shade, upwind, away from exhaust and engines, with a sand filter.</li>
+          <li><b>Intrinsically safe (IS) gear</b> where flammables are possible. IS lights, radios and meters are built so they can't make a spark or get hot enough to set off gas. Look for the IS marking.</li>
+          <li><b>Comms tested at the hatch.</b> The permit names how you'll talk: voice, a hard-wired line, or radio on the entry talkgroup named on the permit, never a sector channel (<a href="radio.html">REF-RAD</a>).</li>
         </ul>
       </div>
+      <div class="box">
+        <h3>Heat inside</h3>
+        <p class="small">A tank in the sun can run far hotter than the air outside. <b>Measure inside the space</b>, at the work spot, before entry and every hour. Use that reading for the heat level and the WBGT work/rest table in <a href="m3-heat.html">HS-03</a>. Follow whichever is more restrictive. A sealed suit or coverall adds the clothing adjustment from HS-03 before you read the table.</p>
+        <div class="tw" style="margin-top:10px"><table>
+          <thead><tr><th>Inside</th><th>Rule</th></tr></thead>
+          <tbody>
+            <tr><td class="m">Up to 124°F</td><td>HS-03 heat level and work/rest table, from the inside reading.</td></tr>
+            <tr><td class="m">125–139°F</td><td><b>Extreme.</b> HS-03 Extreme rules. Rescue team at the hatch.</td></tr>
+            <tr><td class="m">140–159°F</td><td><b>Extreme heat entry.</b> Needs a <b>PTW-HE</b> (signed by the area general foreman, countersigned by a Safety officer) as well as the PTW-CS. Each entry is never over 15 min, then at least 30 min in a cooled space. Standby rescuer in full gear. A medic checks each entrant after every entry: pulse over 120 one minute after stopping, or temperature over 101.3°F, ends that worker's entries for the shift. Only workers past the ramp and Days 6–14, cleared for heat entry that shift by Revival Med Bay or the FAS, may enter (site rule).</td></tr>
+            <tr><td class="m">160°F+</td><td><b>Site closed.</b> No entry except rescue.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="box fill">
+      <h3>Hot work inside</h3>
+      <ul class="tight">
+        <li><b>Needs a PTW-HW</b> (<a href="m5-hot-work.html">HS-05</a>) as well as the PTW-CS. The fire watch is a separate person from the attendant.</li>
+        <li><b>No hot work at 1% LEL or above</b> (site rule; the entry limit is 10%). Keep a meter running at the work the whole time.</li>
+        <li><b>Watch the oxygen.</b> Shielding gas (argon, CO₂) pushes oxygen out. A leaking oxygen hose makes the air oxygen-rich, and clothes burn like paper. Stop and get out if O₂ goes under 19.5% or over 23.5%.</li>
+        <li><b>Cylinders and welding machines stay outside.</b></li>
+        <li><b>Every break:</b> close the torch valves, shut the gas off at the cylinders outside, and pull the torch and hoses out of the space (site rule; Old Earth requires removal at shift end).</li>
+        <li>Ventilate with fresh air. Never with oxygen.</li>
+      </ul>
     </div>
   </section>
 
@@ -163,6 +237,7 @@
         <h3>Do</h3>
         <ul>
           <li>Read the permit before you go in.</li>
+          <li>Sign in and out with the attendant.</li>
           <li>Watch your meter and your partner.</li>
           <li>Get out the first time something feels off: dizzy, headache, confused, out of breath.</li>
           <li>Tell the attendant every time you change position.</li>
@@ -180,9 +255,14 @@
     </div>
   </section>
 
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p>Anyone can stop unsafe work. No penalty, no questions. Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
+  </section>
+
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I will not enter a confined space without a permit, a fresh air test, a harness on a retrieval line and an attendant outside. I will never go in after someone who collapsed.</p>
+    <p class="small">I will not enter a confined space without a signed PTW-CS, a fresh air test, a harness on a retrieval line (or the rescue method the permit names) and an attendant outside. I will never go in after someone who collapsed. I hold the badge endorsement for my role before I take it.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -193,7 +273,7 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926 Subpart AA and 1910.146 permit-required confined spaces, NIOSH confined space guidance and recommended exposure limits, OSHA permissible exposure limits.</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.146 and 1926 Subpart AA (permit-required confined spaces, incl. 1910.146(k) and 1926.1211 rescue), 1926 Subpart P (excavations), 1910.252(b)(4) and 1926.353 (welding in confined spaces), 1926.55 (construction exposure limits); NIOSH Pocket Guide (H₂S and CO limits); NIOSH Alert 86-110; OSHA SHIB 09-30-2004 (gas monitor calibration); NFPA 51B (hot work).</span>
     <span>HS-SA · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>

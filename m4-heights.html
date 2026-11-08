@@ -9,11 +9,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: diagrams */
-.diag{border:3px solid var(--black);background:#fbf8ee;padding:12px}
+/* page-local: diagrams, definition list, wind table, link button */
+.diag{border:3px solid var(--black);background:#fbf8ee;padding:12px;min-width:0}
 .diag svg{display:block;width:100%;height:auto}
 .dgrid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+.dgrid > div{min-width:0}
+.defs{margin:0;display:grid;gap:6px}
+.defs div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.defs dt{font:400 22px/1 var(--display)}
+.defs dd{margin:0;font-size:13px;min-width:0}
+.wind th:first-child{width:34%}
+.wind td{font-size:13px}
+.link-hs{display:inline-block;margin-top:10px;font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.05em;background:var(--black);color:var(--hiviz);padding:8px 12px;text-decoration:none}
+.box.fill .link-hs{color:var(--hiviz)}
+.sg .k{display:block;margin-bottom:4px}
+.stack{display:grid;gap:12px;min-width:0}
 @media (max-width:820px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.defs div{grid-template-columns:72px minmax(0,1fr)}.defs dt{font-size:18px}}
 </style>
 </head>
 <body data-page="m4">
@@ -21,10 +33,10 @@
 <article class="poster">
 
   <header class="head orange">
-    <div class="meta"><span>Form HS-04 · Rev. 4</span><span>Post-stasis refresher · Module 4 of 9</span><span>Post at every tower base and scaffold</span></div>
+    <div class="meta"><span>Form HS-04 · Rev. 5</span><span>Post-stasis refresher · Module 4 of 9</span><span>Post at every tower base and work deck</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Tie off.</h1>
     <p class="sub">Falls kill more construction workers than anything else. A city means towers. Every deck above zero is a fall.</p>
@@ -35,21 +47,32 @@
     <div class="lbl">The 6-foot rule</div>
     <div class="in">
       <h2>At 6 feet, you need fall protection.</h2>
-      <p>Any edge, hole or opening where you could fall <b>6 feet or more</b> to a lower level needs a guardrail, a safety net, or a personal fall arrest system. Scaffolds start at <b>10 feet</b>. On this site, Deck 1 and above always counts.</p>
+      <p>Any edge, hole or opening where you could fall <b>6 feet or more</b> to a lower level needs a guardrail, a safety net, or a personal fall arrest system. Deck 1 and above always counts (site rule). At Deck 0, the edges of pits, shafts and trenches 6 ft deep count too. Rebar, starter bars or moving machinery below you get capped or guarded at any height.</p>
+      <p><b>6 ft for every trade, including steel erection, connecting and decking (site rule).</b> Old Earth let ironworkers go to 15 ft and connectors to 30 ft. Here, <b>100% tie-off</b> starts at 6 ft: you are protected every second, including while you move. Moving along steel? Use a twin-leg lanyard or an SRL, and clip the second leg before you unclip the first.</p>
       <div class="big3">
-        <div><b>6 ft</b><span>Fall protection required</span></div>
-        <div><b>10 ft</b><span>Scaffold fall protection</span></div>
+        <div><b>6 ft</b><span>Fall protection, every trade</span></div>
+        <div style="background:var(--hiviz)"><b>100%</b><span>Tie-off above 6 ft (site rule)</span></div>
         <div style="background:var(--z5);color:#fff"><b>#1</b><span>Killer in construction</span></div>
       </div>
-      <p class="small">Just revived? Fail the balance check and you stay at Deck 0 until Med Bay clears you.</p>
+      <p class="small">Just revived? Fail the balance check and you stay at Deck 0 until Revival Med Bay clears you. Back after any illness or injury? Re-clearance at Revival Med Bay first. No lone work at height (site rule): buddies stay in sight of each other.</p>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Guardrails</h2><span class="tag">First choice. Protects everyone, every time.</span></div>
+    <div class="sh"><h2>Pick in this order</h2><span class="tag">Best protection first</span></div>
+    <div class="signs four">
+      <div class="sg" style="--c:var(--green)"><span class="k">1</span><h3>Work at Deck 0</h3><p>Build or fit it on the ground, then lift it up. No height, no fall.</p></div>
+      <div class="sg" style="--c:var(--hiviz)"><span class="k">2</span><h3>Guardrail</h3><p>Protects everyone, every time, with nothing to clip.</p></div>
+      <div class="sg" style="--c:var(--z3)"><span class="k">3</span><h3>Restraint</h3><p>A lanyard short enough that you can't reach the edge.</p></div>
+      <div class="sg" style="--c:var(--orange)"><span class="k">4</span><h3>Fall arrest or nets</h3><p>Stops you after you fall. Needs clearance and a rescue plan.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Guardrails</h2><span class="tag">Protects everyone, every time</span></div>
     <div class="dgrid">
       <div class="diag">
-        <svg viewBox="0 0 420 260" role="img" aria-label="Guardrail diagram: top rail 42 inches plus or minus 3, midrail about 21 inches, toe board 3.5 inches minimum">
+        <svg viewBox="0 0 420 260" role="img" aria-label="Guardrail diagram: top rail 42 inches plus or minus 3, holds 200 pounds; midrail about 21 inches, holds 150 pounds; toe board 3.5 inches minimum">
           <rect x="0" y="220" width="420" height="40" fill="#cfc8ae"/>
           <line x1="0" y1="220" x2="420" y2="220" stroke="#141414" stroke-width="3"/>
           <g stroke="#141414" stroke-width="6"><line x1="60" y1="220" x2="60" y2="52"/><line x1="230" y1="220" x2="230" y2="52"/><line x1="400" y1="220" x2="400" y2="52"/></g>
@@ -59,19 +82,20 @@
           <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="700" fill="#141414">
             <line x1="22" y1="56" x2="22" y2="220" stroke="#141414" stroke-width="2"/><path d="M16 64 L22 56 L28 64 M16 212 L22 220 L28 212" fill="none" stroke="#141414" stroke-width="2"/>
             <text x="10" y="40">42 in ± 3</text>
-            <text x="250" y="48">TOP RAIL · holds 200 lb</text>
-            <text x="250" y="130">MIDRAIL · about 21 in</text>
-            <text x="250" y="196">TOE BOARD · 3.5 in min</text>
+            <text x="246" y="48">TOP RAIL · holds 200 lb</text>
+            <text x="246" y="130">MIDRAIL · holds 150 lb</text>
+            <text x="246" y="196">TOE BOARD · 3.5 in min</text>
           </g>
         </svg>
       </div>
       <ul>
         <li><b>Top rail 42 inches</b> above the walking surface, plus or minus 3 inches.</li>
-        <li>Top rail must hold <b>200 lb</b> of force pushed outward or down without failing.</li>
-        <li><b>Midrail about halfway</b> (around 21 inches), or mesh or screen that fills the gap.</li>
-        <li><b>Toe board at least 3.5 inches</b> tall wherever tools or material can be kicked off the edge.</li>
-        <li>Removed a section to land a load? <b>Tie off</b> until it's back. Then put it back.</li>
-        <li>Never lean on, sit on or climb a guardrail. Never hang a load from one.</li>
+        <li>Top rail holds <b>200 lb</b> pushed out or down, and stays at <b>39 in or higher</b> under that push.</li>
+        <li><b>Midrail about halfway</b> (around 21 inches), or mesh or screen that fills the gap. Midrails and screens hold 150 lb. No opening bigger than 19 in.</li>
+        <li><b>Toe board at least 3.5 inches</b> tall, no more than ¼ in off the floor, holds 50 lb. Fit one wherever tools or material can be kicked off the edge.</li>
+        <li>Wire rope top rail: flag it every 6 ft.</li>
+        <li>Guardrail section out to land a load? <b>Everyone in that hoist area ties off.</b> When no load is coming in, a chain or gate closes the gap. Put the rail back when the landing is done.</li>
+        <li>Never lean on, sit on or climb a guardrail. Never hang a load or a lanyard from one.</li>
       </ul>
     </div>
   </section>
@@ -80,46 +104,76 @@
     <div class="sh"><h2>Fall clearance</h2><span class="tag">Know how far you'll drop before you clip in</span></div>
     <div class="dgrid">
       <div class="diag">
-        <svg viewBox="0 0 420 470" role="img" aria-label="Fall clearance diagram: 6 ft lanyard, 3.5 ft deceleration, 5 ft D-ring to feet, 1 ft harness stretch, 3 ft safety margin, total about 18.5 feet below the anchor">
-          <!-- scale: 22 px per ft, anchor at y=30 -->
+        <svg viewBox="0 0 420 470" role="img" aria-label="Fall clearance diagram, anchor at D-ring height: 6 ft free fall, 3.5 ft deceleration, 1 ft harness stretch, 5 ft from D-ring to feet, 3 ft safety margin, total 18.5 ft below the anchor. The worker hangs with the D-ring on the upper back and the head above it.">
+          <!-- scale: 22 px per ft. anchor point y=40. lanyard 40-172, pack 172-249, stretch 249-271, D-ring 271, feet 381, ground 447 -->
           <rect x="40" y="18" width="150" height="12" fill="#141414"/>
-          <circle cx="115" cy="34" r="7" fill="none" stroke="#f5d000" stroke-width="4"/>
+          <circle cx="115" cy="35" r="6" fill="none" stroke="#f5d000" stroke-width="4"/>
           <text x="200" y="30" font-family="IBM Plex Mono,monospace" font-size="12" font-weight="700" fill="#141414">ANCHOR · 5,000 lb</text>
-          <!-- lanyard 6ft = 132px, decel 3.5 = 77, body 5 = 110, stretch 1 = 22, margin 3 = 66 -->
-          <line x1="115" y1="41" x2="115" y2="173" stroke="#ec5b13" stroke-width="5" stroke-dasharray="6 5"/>
-          <rect x="105" y="173" width="20" height="77" fill="#f5d000" stroke="#141414" stroke-width="2"/>
-          <!-- worker figure: D-ring at y=250, feet at 250+110+22=382 -->
+          <line x1="115" y1="41" x2="115" y2="172" stroke="#ec5b13" stroke-width="5" stroke-dasharray="6 5"/>
+          <rect x="105" y="172" width="20" height="77" fill="#f5d000" stroke="#141414" stroke-width="2"/>
+          <text x="98" y="215" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700" fill="#141414">PACK OPENS</text>
+          <line x1="115" y1="249" x2="115" y2="268" stroke="#141414" stroke-width="3"/>
+          <circle cx="115" cy="271" r="4" fill="#f7f4e8" stroke="#ec5b13" stroke-width="3"/>
+          <text x="98" y="275" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="10" font-weight="700" fill="#141414">D-RING</text>
+          <!-- hanging worker: D-ring on upper back, head above and in front of the lanyard, feet 5 ft below the D-ring -->
           <g stroke="#141414" stroke-width="5" stroke-linecap="round" fill="none">
-            <circle cx="115" cy="262" r="10" fill="#f7f4e8"/>
-            <line x1="115" y1="272" x2="115" y2="330"/>
-            <line x1="115" y1="282" x2="92" y2="260"/><line x1="115" y1="282" x2="138" y2="260"/>
-            <line x1="115" y1="330" x2="100" y2="382"/><line x1="115" y1="330" x2="130" y2="382"/>
+            <circle cx="133" cy="258" r="10" fill="#f7f4e8"/>
+            <line x1="127" y1="270" x2="119" y2="326"/>
+            <line x1="126" y1="278" x2="146" y2="302"/><line x1="124" y1="280" x2="138" y2="308"/>
+            <line x1="119" y1="326" x2="112" y2="381"/><line x1="119" y1="326" x2="127" y2="381"/>
           </g>
-          <rect x="0" y="448" width="420" height="22" fill="#cfc8ae"/>
-          <line x1="0" y1="448" x2="420" y2="448" stroke="#141414" stroke-width="3"/>
-          <text x="10" y="464" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="700" fill="#141414">NEXT DECK OR OBSTRUCTION</text>
-          <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="700" fill="#141414" stroke-width="2">
-            <g stroke="#141414"><line x1="260" y1="41" x2="260" y2="448"/>
-            <line x1="252" y1="41" x2="268" y2="41"/><line x1="252" y1="173" x2="268" y2="173"/><line x1="252" y1="250" x2="268" y2="250"/><line x1="252" y1="360" x2="268" y2="360"/><line x1="252" y1="382" x2="268" y2="382"/><line x1="252" y1="448" x2="268" y2="448"/></g>
-            <text x="276" y="112">6 ft lanyard</text>
-            <text x="276" y="216">3.5 ft deceleration</text>
-            <text x="276" y="310">5 ft D-ring to feet</text>
-            <text x="276" y="375">1 ft stretch</text>
-            <text x="276" y="420">3 ft margin</text>
+          <rect x="0" y="447" width="420" height="23" fill="#cfc8ae"/>
+          <line x1="0" y1="447" x2="420" y2="447" stroke="#141414" stroke-width="3"/>
+          <text x="10" y="463" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="700" fill="#141414">NEXT DECK OR OBSTRUCTION</text>
+          <text x="258" y="463" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="700" fill="#141414">TOTAL 18.5 FT</text>
+          <rect x="252" y="249" width="12" height="22" fill="#ec5b13" opacity=".55"/>
+          <g font-family="IBM Plex Mono,monospace" font-size="12" font-weight="700" fill="#141414">
+            <g stroke="#141414" stroke-width="2"><line x1="258" y1="40" x2="258" y2="447"/>
+            <line x1="250" y1="40" x2="266" y2="40"/><line x1="250" y1="172" x2="266" y2="172"/><line x1="250" y1="249" x2="266" y2="249"/><line x1="250" y1="271" x2="266" y2="271"/><line x1="250" y1="381" x2="266" y2="381"/><line x1="250" y1="447" x2="266" y2="447"/></g>
+            <text x="272" y="104">6 ft free fall</text>
+            <text x="272" y="120" font-size="11" font-weight="500">(lanyard length)</text>
+            <text x="272" y="214">3.5 ft deceleration</text>
+            <text x="272" y="265">1 ft harness stretch</text>
+            <text x="272" y="330">5 ft D-ring to feet</text>
+            <text x="272" y="418">3 ft safety margin</text>
           </g>
-          <rect x="300" y="438" width="0" height="0"/>
         </svg>
       </div>
-      <div style="display:grid;gap:12px">
-        <div class="big3"><div style="background:var(--hiviz)"><b>18.5 ft</b><span>Clearance needed below the anchor</span></div></div>
+      <div class="stack">
+        <div class="big3"><div style="background:var(--hiviz)"><b>18.5 ft</b><span>Example: clearance below the anchor, 6 ft lanyard</span></div></div>
+        <dl class="defs">
+          <div><dt>6 ft</dt><dd><b>Free fall:</b> how far you drop before the lanyard starts to stop you. Anchor at your D-ring: free fall = lanyard length. 6 ft is the most allowed. Anchor overhead to cut it.</dd></div>
+          <div><dt>3.5 ft</dt><dd><b>Deceleration:</b> how far the shock pack tears open while it stops you. 3.5 ft is the Old Earth maximum (OSHA). ANSI Z359.13 packs can open up to 4 ft. Use the number on your lanyard's label.</dd></div>
+          <div><dt>1 ft</dt><dd><b>Harness stretch:</b> the webbing stretches and the D-ring slides up your back.</dd></div>
+          <div><dt>5 ft</dt><dd><b>D-ring to feet:</b> your body hangs below the D-ring.</dd></div>
+          <div><dt>3 ft</dt><dd><b>Safety margin:</b> space left between your boots and the next deck, beam or obstruction.</dd></div>
+        </dl>
         <ul>
-          <li><b>Free fall: 6 feet max.</b> Anchor at or above your D-ring so the lanyard can't let you drop farther.</li>
-          <li><b>Deceleration: up to 3.5 feet</b> while the shock absorber tears open.</li>
-          <li>Add your body below the D-ring (about 5 ft), harness stretch (about 1 ft) and a 3 ft margin.</li>
-          <li><b>Less than 18.5 ft below?</b> A 6 ft shock-absorbing lanyard will hit the deck or steel before it stops you. Use a self-retracting lifeline (SRL) instead.</li>
-          <li><b>Anchors:</b> 5,000 lb per worker attached, or designed by a qualified engineer with a 2:1 safety factor. Never anchor to guardrails, conduit, pipe or a load.</li>
-          <li>Swing fall: an anchor off to the side swings you into structure. Anchor overhead.</li>
+          <li><b>Add it up from the anchor:</b> 6 + 3.5 + 1 + 5 + 3 = 18.5 ft. Less than that below the anchor? A 6 ft shock-absorbing lanyard hits the deck or steel before it stops you.</li>
+          <li><b>Short on clearance?</b> Use a self-retracting lifeline (SRL) anchored overhead. An SRL still needs clearance. Check its label.</li>
+          <li><b>Anchor at your feet, or working a leading edge</b> (decking, forming, slab and roof edges)? Use only an SRL rated for leading edges (marked LE), and add the extra clearance on its label.</li>
+          <li>No controlled access zones or safety monitors in place of fall protection (site rule).</li>
+          <li><b>Swing fall:</b> an anchor off to the side swings you into structure. Anchor overhead, as close above you as you can.</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Anchors</h3>
+        <ul>
+          <li><b>5,000 lb per worker attached</b>, or engineered by a qualified person (Design &amp; Structures) with a <b>2:1 safety factor</b> for the whole system.</li>
+          <li>Never anchor to guardrails, conduit, pipe or a load.</li>
+          <li>Your lifeline anchor is never the anchor that holds a swing stage or platform.</li>
+          <li>Not sure an anchor is rated? Don't use it. Ask the competent person for fall protection.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Scaffolds &amp; aerial lifts</h3>
+        <p>Scaffolds (fall protection from 10 ft), swing stages and MEWPs (boom and scissor lifts) have their own rules in <b>Supplement C (HS-SC)</b>. Read it, and get the badge endorsement, before you use one.</p>
+        <a class="link-hs" href="sc-scaffolds-aerial-lifts.html">Supplement C (HS-SC) →</a>
       </div>
     </div>
   </section>
@@ -129,30 +183,49 @@
       <h2>Fall arrested</h2>
       <p style="margin-top:10px;font-size:16px">Hanging in a harness cuts off blood flow from the legs. <b>Suspension trauma</b> can make a conscious worker pass out in minutes and can kill.</p>
       <p class="cf">No rescue plan,<br>no climb.</p>
-      <p class="sm">Your crew lead names the rescue method and the rescue gear before anyone goes up. Waiting for Fire &amp; Rescue to arrive from the Hub takes too long.</p>
+      <p class="sm">Plan to reach a hanging worker within 6 minutes (ANSI Z359.2). Waiting for Fire &amp; Rescue from the Hub or a sector team takes too long. Your crew does the rescue.</p>
     </div>
     <ol>
-      <li><b>Ch 1: "Emergency, emergency, emergency. Fall, worker suspended"</b>, with sector-grid and deck.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Fall, worker suspended."</b> Then location, number hurt, hazards, your call sign: "Charlie-14, Tower B, Deck 3, east stair. One hurt. Hanging over open steel. Charlie Crew 14-3 Seven." Stay on Ch 1 until Hub Command or the medic releases you.</li>
       <li><b>Talk to them.</b> Keep them calm and moving their legs. Have them stand in their relief straps or push against the structure.</li>
-      <li><b>Run the rescue plan now:</b> rescue ladder, lift, rescue descent device or haul system. Don't wait for medics.</li>
-      <li><b>Once down, lay them flat.</b> Treat as a trauma patient. Watch breathing.</li>
-      <li>Take the harness and lanyard out of service. Tag it. It goes to Safety for inspection.</li>
+      <li><b>Run the rescue plan now</b> with the deck's fall-rescue kit. Rescuers clip in before they reach out. Don't wait for medics.</li>
+      <li><b>Once down, lay them flat.</b> Unconscious but breathing: recovery position. Treat as a trauma patient. Watch breathing. Not breathing normally: first aider starts CPR and someone brings the AED from the cooling station.</li>
+      <li><b>Everyone who hung in a harness goes to the Forward Aid Station (FAS)</b>, even if they feel fine.</li>
+      <li>Take the harness, lanyard or SRL out of service. Tag it. Safety &amp; Health inspects it.</li>
     </ol>
   </section>
 
   <section class="sec">
     <div class="cols">
       <div class="box">
-        <h3>Harness check, every use</h3>
+        <h3>Rescue plan &amp; kits</h3>
         <ul>
-          <li><b>Webbing:</b> no cuts, frays, burns, weld spatter holes, chemical stains or hard, glazed spots.</li>
+          <li><b>Every job at height has a written rescue plan</b> before anyone goes up: the method, the named rescuers and the gear. Your crew lead and the competent person for fall protection make it. It's posted at the job (site rule).</li>
+          <li><b>Fall-rescue kits at every structure</b>, kept on each active deck beside the cooling station (site rule): a pre-rigged haul-and-lower system, anchor slings and a reach pole.</li>
+          <li>Rescuers are trained on that kit. Know where yours is before you clip in.</li>
+          <li>Kit seal broken or gear missing? Nobody climbs on that deck until it's restocked.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Harness check, every use</h3>
+        <ul class="small">
+          <li><b>Webbing:</b> no cuts, frays, burns, weld spatter holes, chemical stains, or hard, glazed spots. Faded, stiff or powdery webbing = out. Sun and sand wear gear fast.</li>
           <li><b>Stitching:</b> no pulled or broken threads.</li>
           <li><b>Hardware:</b> D-rings and buckles not bent, cracked or pitted. Snap hooks lock and close by themselves.</li>
-          <li><b>Lanyard:</b> shock-absorber pack intact. Torn pack or red indicator showing = it already caught a fall.</li>
+          <li><b>Lanyard or SRL:</b> shock pack intact. Torn pack or red indicator showing = it already caught a fall. SRL line pulls out and locks.</li>
+          <li><b>Heat rating:</b> every harness, lanyard and SRL label shows a temperature range. DCW issues desert-rated gear. Check the max °F on yours. Air or steel hotter than the label? Don't use it. Switch to hot-rated gear or stop work. Store gear in cooled lockers. Keep lines off hot steel edges.</li>
+          <li><b>Capacity:</b> standard gear holds 130–310 lb: you, tools and clothes. Heavier? Draw heavy-rated gear.</li>
+          <li><b>Connecting:</b> never clip two snap hooks together, or two into one D-ring unless both are rated for it. Park the spare leg of a twin lanyard on the lanyard keeper. Never on a D-ring.</li>
           <li><b>Fit:</b> chest strap mid-chest, leg straps snug enough for a flat hand under them, D-ring between your shoulder blades.</li>
+          <li>The competent person for fall protection inspects every harness and lanyard at least yearly, more often here. Check the inspection label.</li>
           <li>Any doubt: tag it out. Draw a new one from the Quartermaster.</li>
         </ul>
       </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
       <div class="box">
         <h3>Ladders</h3>
         <div class="big3">
@@ -161,11 +234,24 @@
           <div><b>3</b><span>Points of contact</span></div>
         </div>
         <ul style="margin-top:10px">
-          <li>Set the base 1 foot out for every 4 feet up.</li>
-          <li>Extend the rails 3 feet above the landing, and tie the top off.</li>
-          <li>Always 2 hands and a foot, or 2 feet and a hand. Carry tools on your belt or haul them up.</li>
-          <li>Face the ladder going up and down. Never stand on the top two rungs of a stepladder.</li>
+          <li>Set the base 1 foot out for every 4 feet up. Extend the rails 3 feet above the landing, and tie the top off.</li>
+          <li><b>Never set a ladder straight on loose sand.</b> Use a base board or ladder mat. Someone foots it until the top is tied.</li>
+          <li><b>Check it before each use:</b> rails, rungs, feet, locks. Bent, cracked, or fiberglass showing fibers or a chalky bloom = red tag.</li>
+          <li>Type IA (300 lb) or heavier. That rating covers you plus tools and gear.</li>
+          <li>Always 2 hands and a foot, or 2 feet and a hand. Face the ladder. Carry tools on your belt or haul them up. Never stand on the top two rungs of a stepladder.</li>
           <li>Metal ladders conduct and get hot. Fiberglass near power. Gloves on sun-baked rungs.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Holes</h3>
+        <ul>
+          <li>A <b>hole</b> is any gap 2 in or more across in a floor, roof or deck.</li>
+          <li>Every hole gets a <b>cover or a guardrail</b>.</li>
+          <li>Covers hold <b>twice</b> the heaviest load that could cross them: workers, equipment, material. Where vehicles run: twice the axle load of the heaviest vehicle.</li>
+          <li>Secured so wind, equipment or feet can't shift them. Marked <b>"HOLE"</b> or <b>"COVER"</b>.</li>
+          <li>Sand buries paint. After a sandstorm, check every marking, and add a raised or tagged marker.</li>
+          <li>Need a cover off? Only with your crew lead's OK, with the hole guarded or you tied off. Put it back.</li>
+          <li>Never lift a cover you didn't set.</li>
         </ul>
       </div>
     </div>
@@ -174,33 +260,124 @@
   <section class="sec">
     <div class="cols three">
       <div class="box">
-        <h3>Holes</h3>
-        <ul class="small">
-          <li>Every floor hole gets a <b>cover or a guardrail</b>.</li>
-          <li>Covers hold <b>twice</b> the heaviest load that could cross them: workers, equipment, material.</li>
-          <li>Secured so wind, equipment or feet can't shift them.</li>
-          <li>Marked <b>"HOLE"</b> or <b>"COVER"</b> in paint or on the cover.</li>
-          <li>Never lift a cover you didn't set. Tell your lead.</li>
-        </ul>
-      </div>
-      <div class="box">
         <h3>Dropped objects</h3>
         <ul class="small">
           <li>A wrench dropped from Deck 10 can kill someone at Deck 0.</li>
-          <li><b>Tool lanyards</b> on every hand tool used at height.</li>
-          <li>Toe boards and netting on open edges.</li>
-          <li><b>Exclusion zone</b> roped off below overhead work. Nobody walks through it.</li>
-          <li>Never throw anything down. Lower it.</li>
+          <li><b>Tool lanyards</b> on every hand tool used at height. Tools over 5 lb tether to the structure. Never to your wrist or belt.</li>
+          <li>Toe boards, screens or netting on open edges.</li>
+          <li><b>Drop zone</b> below overhead work: roped off at least 10 ft out from the edge, wider for higher decks and in wind, with signs on every side (site rule). Nobody walks through it.</li>
+          <li>Chin strap on above Deck 0 (site rule).</li>
+          <li>Never throw anything down. Lower it or use a chute.</li>
         </ul>
       </div>
-      <div class="box fill">
-        <h3>Wind limits</h3>
-        <p class="small" style="margin-bottom:6px"><b>Site rule.</b> Ch 16 Atmospheric posts wind at every structure.</p>
+      <div class="box">
+        <h3>Housekeeping</h3>
         <ul class="small">
-          <li><b>25 mph sustained or gusts to 35:</b> no work on open steel, roofs or swing stages.</li>
-          <li><b>Blowing sand:</b> goggles and respirator on, or come down.</li>
-          <li><b>Continuous siren:</b> clip in, make safe, climb down, go to shelter.</li>
-          <li>Loose material at height gets tied down before you leave it.</li>
+          <li><b>Sand on steel decks rolls like ball bearings.</b> Wet-sweep decks and stairs every shift. Never dry-sweep (<a href="m2-dust-air-ppe.html">HS-02</a>).</li>
+          <li>Cords and hoses run overhead or along the edge of the walkway. Never across stairs, ladders or landings. Cord rules: <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</li>
+          <li>No stored material within 6 ft of a floor opening or hoistway, or within 10 ft of an open outside edge.</li>
+          <li>Debris goes down a chute or in a lowered bin.</li>
+          <li>End of shift: walkways clear, loose material tied down.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Lighting at height</h3>
+        <ul class="small">
+          <li><b>Lights fail while you're up: stop and hold.</b> Stay clipped in. Don't move until the lights are back, or your crew lead brings light and guides you down.</li>
+          <li>Ladders, stairs, holes, edges and landing zones are lit before night work starts.</li>
+          <li>Dark spot or failed light? Tell your crew lead before work goes on there.</li>
+          <li>Light levels and night-shift rules: <a href="sd-night-fatigue-fitness.html">Supplement D (HS-SD)</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Steel erection &amp; temporary works</h3>
+        <ul>
+          <li><b>100% tie-off at 6 ft</b> for every trade, including connectors and decking crews (site rule).</li>
+          <li>Columns stand on at least 4 anchor rods before steel goes on them.</li>
+          <li><b>Bolt before you release the load line:</b> at least 2 bolts per connection, wrench-tight, before the hook lets go.</li>
+          <li><b>Temporary bracing</b>, guys and shoring go in as the structure goes up. They stay until the permanent structure takes the load.</li>
+          <li><b>Design &amp; Structures approves all temporary works</b> (bracing, shoring, formwork, temporary supports) and when they come out.</li>
+          <li><b>Printed walls</b> (FerroLattice-7) carry no load, bracing or anchor until their cure time is up and Design &amp; Structures releases them.</li>
+          <li>Something cracks, sags, shifts or groans? Get everyone off it. Ch 1: "Emergency, emergency, emergency. Structural."</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Who's who at height</h3>
+        <ul class="small">
+          <li><b>Competent person (fall protection):</b> a trained worker named by your foreman, able to spot fall hazards, with authority to stop work. Badge endorsement. Checks anchors, gear, kits and the rescue plan.</li>
+          <li><b>Qualified person:</b> has the training or proven skill to solve the problem, for example a Design &amp; Structures engineer who designs an anchor or temporary works.</li>
+          <li><b>Lift Director</b> (white hat): Crane &amp; Lift supervisor who approves lift plans prepared by Design &amp; Structures and directs critical lifts.</li>
+          <li><b>Qualified signal person</b> and <b>qualified rigger</b> (orange hats): run every load landed on your deck. Badge endorsements.</li>
+          <li><b>Crew lead:</b> names buddies, rescuers and the rescue method before anyone goes up.</li>
+          <li>Full list: <a href="roles-glossary.html">REF-GL roles &amp; glossary</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box fill">
+        <h3>ALL STOP</h3>
+        <ul class="small">
+          <li><b>"ALL STOP, ALL STOP"</b> on any channel, or <b>3 short siren blasts</b>: stop all motion, hot work and machine operation.</li>
+          <li><b>Hold position.</b> At height, stay clipped in where you are.</li>
+          <li>A suspended load is landed only on the signal person's direction.</li>
+          <li>Cleared on the same channel by whoever called it, or by command. Nothing moves until you hear it cleared.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Loads landed on your deck</h3>
+        <ul class="small">
+          <li>Only the qualified signal person signals the operator. Anyone can give STOP.</li>
+          <li>Stay out of the fall zone: under the load and anywhere it could land if it drops or swings. Hands on the load only once it's lowered to working height and steady.</li>
+          <li><b>Radio lost during a lift:</b> the operator stops all motion and holds the load. Resume only when the radio is back and tested, or when the signal person is in the operator's full, continuous view and the operator, signal person and whoever directs the lift (the Lift Director, or the lift lead on a routine lift) agree to switch to hand signals. Blind lifts stay stopped.</li>
+          <li>Lift rules: <a href="m6-cranes-equipment.html">HS-06</a>. Signals: <a href="hand-signals.html">REF-HS</a>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Wind, storms &amp; lightning</h2><span class="tag">Every radio scans Ch 1 + Ch 16 + your sector channel<br>Hub Command repeats every warning on Ch 1</span></div>
+    <h3 style="font-size:26px;margin-bottom:6px">Wind table (site rule)</h3>
+    <p class="small" style="margin-bottom:8px"><b>Wind</b> = the higher of the local anemometer (crane, MEWP or crew meter) and the Ch 16 posting. <b>Gust</b> = 3-second gust. Wind is stronger high up: at height, read the crew meter at your work spot.</p>
+    <div class="tw"><table class="wind">
+      <thead><tr><th>Wind</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="m" style="background:var(--z2)">15+ mph</td><td>Goggles outside cabs. Secure sheet goods and loose material.</td></tr>
+        <tr><td class="m" style="background:var(--z3)">20+ mph sustained or gust</td><td>No outdoor hot work. No crane personnel platforms. High-sail loads need Lift Director approval.</td></tr>
+        <tr><td class="m" style="background:var(--z4)">25 mph sustained or 30 mph gust</td><td>Off open steel, roofs, leading edges, swing stages and outdoor scaffolds above Deck 1. MEWPs down (or the maker's limit if lower).</td></tr>
+        <tr><td class="m" style="background:var(--z5);color:#fff">30 mph sustained or gust</td><td>All crane loads landed; booms secured per maker.</td></tr>
+        <tr><td class="m" style="background:#cfc8ae">Blowing-dust advisory (visibility 1 mile or less)</td><td>No outdoor hot work. Lifts stop whenever the operator loses sight of the load or signal person.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="cols three" style="margin-top:20px">
+      <div class="box dark">
+        <h3>Lightning alert</h3>
+        <p class="small"><b>Strikes within 10 miles.</b> Booms down, off steel, out of MEWPs, into sealed shelters or closed vehicles (never under steel). Resume 30 minutes after the last strike within 10 miles (NWS 30-minute rule; the 10-mile trigger is a site rule).</p>
+        <p class="small" style="margin-top:6px">At height: stay clipped in as you move, come down by the stair or ladder, leave the tools.</p>
+      </div>
+      <div class="box">
+        <h3>Sandstorm</h3>
+        <ul class="small">
+          <li><b>Watch</b> (possible within 2 hours): secure loose material, plan how loads come down, stage crews near shelter.</li>
+          <li><b>Warning</b> (arrival within 30 minutes): land all loads, booms down, climbers and MEWPs down, move to shelter.</li>
+          <li>The take-shelter siren sounds no later than 15 minutes before arrival. Start down when the warning is called. Don't wait for the siren.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Sirens</h3>
+        <ul class="small">
+          <li><b>Take shelter:</b> steady tone for 3 minutes, repeated every 5. Red strobes. Clip in, make safe, climb down, go to shelter.</li>
+          <li><b>Evacuate:</b> alternating high-low tone for 3 minutes, repeated. Amber strobes. Climb down, go to your muster point.</li>
+          <li><b>All stop:</b> 3 short blasts. Hold position.</li>
+          <li><b>All clear:</b> one 15-second tone, then Hub Command on Ch 1: "All clear, all clear, [area]." Never leave a shelter or restart work on a tone alone.</li>
         </ul>
       </div>
     </div>
@@ -212,21 +389,28 @@
       <p>A harness traps heat against your body. Steel decks and beams pass <b>158°F</b> in direct sun and burn skin in about a second. Heat dizziness at Deck 0 is a stumble. At Deck 12 it's a fall.</p>
       <ul style="margin-top:8px">
         <li>Gloves and full coverage for any work on sun-baked steel. Kneel on a pad.</li>
-        <li>Water and shade on the deck you're working on, not 12 decks down.</li>
-        <li>Dizzy, cramping or confused? Clip in, sit down, call your buddy. Come down with help. (Module 3)</li>
-        <li>Climbing counts as heavy work on the WBGT table.</li>
+        <li>Water, shade and a cooling station with an ice trough on the deck you're working on. Never 12 decks down.</li>
+        <li>Dizzy, cramping or confused? Clip in, sit down, call your buddy. Come down with help (<a href="m3-heat.html" style="color:var(--hiviz)">HS-03</a>).</li>
+        <li>Climbing counts as heavy work on the DCW work/rest table.</li>
       </ul>
     </div>
   </section>
 
   <section class="saw">
     <h2>Stop-work authority</h2>
-    <p><b>Every worker on this site can stop work</b> when someone is working at an edge without protection, a guardrail is down, a hole is open, or there is no rescue plan. Stop it, make it safe, tell your crew lead.</p>
+    <p><b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged. Stop it when someone is at an edge without protection, a guardrail is down, a hole is open, or there is no rescue plan.</p>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <h3>Report it</h3>
+      <p class="small">Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form <b>HS-IR</b> with your Colonist ID. Don't move anything except to rescue. Safety &amp; Health investigates with the crew; findings are shared at muster. No retaliation. Every arrested fall and every dropped object counts.</p>
+    </div>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I know the 6-foot rule, I can inspect and fit my harness, I know how to figure fall clearance, and I will not climb without a rescue plan.</p>
+    <p class="small">I know the 6-foot rule and 100% tie-off, I can inspect and fit my harness, I know how to figure fall clearance, I know where the fall-rescue kit is, and I will not climb without a rescue plan.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -237,8 +421,8 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926 Subpart M (1926.501 duty to have fall protection, 1926.502 guardrails, covers and personal fall arrest), Subpart L scaffolds (1926.451), Subpart X ladders (1926.1053), ANSI/ASSP Z359 fall protection code.</span>
-    <span>HS-04 · Dunewright Colony Works · Replace when faded</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926 Subpart M (1926.500 definitions, 1926.501 duty to have fall protection, 1926.502 guardrails, covers, personal fall arrest and positioning), 1926.250 material storage, 1926.701(b) rebar impalement, Subpart R steel erection (1926.755, 1926.756, 1926.760), Subpart X ladders (1926.1053); ANSI/ASSP Z359.2, Z359.11, Z359.13, Z359.14 fall protection code; ANSI A14 ladder duty ratings; ANSI/ISEA 121 dropped-object prevention; OSHA SHIB 03-24-2004 and UK HSE RR708 on suspension trauma; NOAA NWS lightning safety (30-minute rule).</span>
+    <span>HS-04 · Rev. 5 · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>
 </div>

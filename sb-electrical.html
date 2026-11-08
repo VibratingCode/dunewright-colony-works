@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HS-SB Electrical &amp; Temporary Power · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: qualified / unqualified split, smaller big numbers, glove swatches, spacing helpers */
+.who{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.who > div{border:3px solid var(--black);padding:12px 14px;min-width:0;display:grid;gap:6px;align-content:start}
+.who h3{font-size:24px}
+.who .q{background:var(--blue);color:#fff}
+.who .k{margin-top:4px}
+.big3.sm b{font-size:40px}
+.mt{margin-top:16px}
+.box .k{display:block;margin:8px 0 4px}
+.box .tw{margin:4px 0 8px}
+.sw.beige{background:#e8d9b5}.sw.red{background:var(--red)}.sw.white{background:#fff}.sw.yellow{background:var(--hiviz)}.sw.green{background:var(--green)}.sw.orange{background:var(--orange)}
+@media (max-width:600px){.who{grid-template-columns:minmax(0,1fr)}.big3.sm b{font-size:34px}}
+</style>
+</head>
+<body data-page="sb">
+<div class="wall">
+<article class="poster">
+
+  <header class="head blue">
+    <div class="meta"><span>Form HS-SB · Rev. 5</span><span>Post-stasis refresher · Supplement B</span><span>Post at every temporary panel, generator &amp; charging bay</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
+    </div>
+    <h1>Assume it's live.</h1>
+    <p class="sub">Electricity gives no warning. Power cells never switch off. Every wire, cell and panel is live until a qualified worker proves it dead.</p>
+  </header>
+  <div class="stripe blue"></div>
+
+  <section class="callout">
+    <div class="lbl">Blue hats</div>
+    <div class="in">
+      <h2>Only qualified electrical workers test for voltage or touch live parts.</h2>
+      <div class="who">
+        <div class="q">
+          <h3>Qualified electrical worker</h3>
+          <p class="small">Electrical &amp; Power, blue hat, with the qualified electrical worker endorsement on the badge (<a href="roles-glossary.html">REF-GL</a>).</p>
+          <ul class="small">
+            <li>Trained on the equipment, its hazards, the approach boundaries and the PPE.</li>
+            <li>The only workers who test for voltage, open panels, work on or near exposed live parts, or work on power-cell terminals and capacitor banks.</li>
+            <li>Live work only under a signed <b>PTW-EE</b>.</li>
+            <li>Pre-stasis electricians: your qualification is re-verified by a practical test before you use it.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Everyone else</h3>
+          <p class="k">You may</p>
+          <ul class="small">
+            <li>Use cords and cord-and-plug tools after you inspect them.</li>
+            <li>Test a GFCI, and reset it once.</li>
+            <li>Unplug a tool and keep the plug under your control. That is its lockout.</li>
+            <li>Put your personal lock on an isolation Electrical &amp; Power has set (<a href="m7-lockout.html">HS-07</a>).</li>
+          </ul>
+          <p class="k">You may not</p>
+          <ul class="small">
+            <li>Open a panel, remove a cover or reach into an enclosure.</li>
+            <li>Use a meter or tester on electrical systems.</li>
+            <li>Repair a cord, plug or tool. Tape is not a repair.</li>
+            <li>Reset a breaker in a panel (site rule).</li>
+            <li>Cross a limited approach boundary unless a qualified worker escorts you.</li>
+            <li>Touch power-cell terminals or capacitor banks.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="big3 sm">
+        <div><b>5 mA</b><span>About where a GFCI trips</span></div>
+        <div><b>6–30 mA</b><span>You may not be able to let go</span></div>
+        <div style="background:var(--z5);color:#fff"><b>50+ mA</b><span>Breathing can stop. Death possible.</span></div>
+      </div>
+      <p class="small">Sweat cuts your skin's resistance about a hundredfold. With wet skin, an ordinary 120 V tool can push over 100 mA through you. On this site you are always sweating.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>De-energize first</h2><span class="tag">Electrically safe work condition<br>NFPA 70E Art. 120 · OSHA 1926.417</span></div>
+    <ol class="steps">
+      <li><div><b>Find every source.</b> Feeders, generators, power cells, capacitor banks and backfeed from other panels. Use current drawings and the lockout card.</div></li>
+      <li><div><b>Stop the load, then open the disconnect</b> for each source. A control button or emergency stop is not isolation.</div></li>
+      <li><div><b>See it open.</b> Blades visibly open, or the breaker racked fully out, wherever you can see it.</div></li>
+      <li><div><b>Lock and tag.</b> Electrical &amp; Power puts on its blue lock. Everyone who works on the equipment adds their own red lock (<a href="m7-lockout.html">HS-07</a>).</div></li>
+      <li><div><b>Release stored energy.</b> Capacitor banks are discharged and grounded. Power cells are isolated and covered, never grounded (see below).</div></li>
+      <li><div><b>Test for absence of voltage.</b> A qualified worker checks a rated tester on a known live source, tests every conductor phase to phase and phase to ground, then checks the tester on the live source again.</div></li>
+      <li><div><b>Ground it</b> wherever voltage could be induced or stored energy could return. Every temporary ground is logged and removed before power comes back.</div></li>
+    </ol>
+    <p class="note">Until step 6 is done, it is live. A cord-and-plug tool is locked out when it is unplugged and the plug stays where only you control it.</p>
+
+    <div class="box fill mt">
+      <h3>Live work needs a PTW-EE</h3>
+      <p class="small">De-energizing is the rule. Live work is allowed only when de-energizing is infeasible (testing, troubleshooting, equipment design) or would create a greater hazard (it would shut down shelter cooling, life support, alarms or ventilation). Permit details: <a href="permits.html">REF-PTW</a>.</p>
+      <ul class="small" style="margin-top:8px">
+        <li><b>Signed by the Electrical &amp; Power general foreman.</b> Posted at the job and the permit board. One task, one shift; the general foreman closes it when the equipment is closed up (site rule).</li>
+        <li>The permit names the circuit and equipment, why it can't be de-energized, the shock and arc flash risk assessments (voltage, boundaries, incident energy or PPE category), the PPE, the work method, how unqualified people are kept out, and the job briefing.</li>
+        <li>A second person trained to free someone from contact and to give CPR stands by outside the boundary (site rule).</li>
+        <li>No PTW-EE is needed for testing, troubleshooting and voltage measuring by a qualified worker in the right PPE. They still do a risk assessment and a job briefing first.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Boundaries &amp; arc flash</h2><span class="tag">NFPA 70E-2024</span></div>
+    <div class="signs">
+      <div class="sg" style="--c:var(--z2)"><h3>Limited approach</h3><p>Shock boundary. <b>Unqualified workers stop here.</b> Cross only with a qualified worker who briefs you and stays with you.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Restricted approach</h3><p>Shock boundary close to live parts. <b>Qualified workers only</b>, in voltage-rated gloves with insulated tools, under a PTW-EE or a test task. Nothing conductive on you.</p></div>
+      <div class="sg" style="--c:var(--z7)"><h3>Arc flash boundary</h3><p>Inside it, an arc flash could give you a second-degree burn (1.2 cal/cm²). <b>Everyone inside wears arc-rated PPE.</b> It can be bigger or smaller than the limited approach boundary.</p></div>
+    </div>
+
+    <div class="cols mt">
+      <div class="box">
+        <h3>Shock approach distances</h3>
+        <p class="small">AC, phase to phase. A moving line is an overhead conductor that can sway.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Voltage</th><th>Limited · moving line</th><th>Limited · fixed part</th><th>Restricted</th></tr></thead>
+          <tbody>
+            <tr><td class="m">50–150 V</td><td class="m">10 ft</td><td class="m">3 ft 6 in</td><td class="m">Avoid contact</td></tr>
+            <tr><td class="m">151–750 V</td><td class="m">10 ft</td><td class="m">3 ft 6 in</td><td class="m">1 ft</td></tr>
+            <tr><td class="m">751 V–15 kV</td><td class="m">10 ft</td><td class="m">5 ft</td><td class="m">2 ft 2 in</td></tr>
+            <tr><td class="m">15.1–36 kV</td><td class="m">10 ft</td><td class="m">6 ft</td><td class="m">2 ft 7 in</td></tr>
+          </tbody>
+        </table></div>
+        <p class="note">Power cells and other DC gear: Electrical &amp; Power uses the DC table in NFPA 70E. Overhead lines for non-electrical work: see below.</p>
+      </div>
+      <div class="box">
+        <h3>Arc flash PPE categories</h3>
+        <p class="small">The equipment label gives a PPE category or an incident energy. Your clothing's arc rating must meet or beat it.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Cat.</th><th>Min. rating</th><th>What you wear</th></tr></thead>
+          <tbody>
+            <tr><td class="m">1</td><td class="m">4 cal/cm²</td><td>Arc-rated shirt and pants or coverall, arc-rated face shield, hard hat, safety glasses, hearing protection, leather gloves or rated gloves with protectors, leather boots.</td></tr>
+            <tr><td class="m">2</td><td class="m">8 cal/cm²</td><td>Category 1 kit, plus an arc-rated balaclava under the face shield, or an arc-rated flash-suit hood.</td></tr>
+            <tr><td class="m">3</td><td class="m">25 cal/cm²</td><td>Arc-rated flash suit: jacket, pants or coverall, and hood. Arc-rated gloves or rated gloves with protectors. Hard hat, glasses, hearing protection, leather boots.</td></tr>
+            <tr><td class="m">4</td><td class="m">40 cal/cm²</td><td>As category 3, rated at 40 cal/cm² or more.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <div class="cols mt">
+      <div class="box">
+        <h3>Dress for the arc</h3>
+        <ul class="small">
+          <li><b>Read the label</b> on every panel, switchboard, cell bank and capacitor bank: voltage, arc flash boundary, and the incident energy or PPE category.</li>
+          <li><b>No label? Don't open it.</b> Electrical &amp; Power assesses it first (site rule).</li>
+          <li><b>Every layer inside the arc flash boundary</b> is arc-rated or non-melting natural fiber. Most cooling vests, hi-vis vests and sports shirts melt. Wear the arc-rated cooling vest and hi-vis from Electrical &amp; Power stores (site rule).</li>
+          <li><b>Hard hat:</b> non-vented Class E. Vented helmets are Class C and give no electrical protection.</li>
+          <li><b>No metal</b> rings, watches, chains or badge clips near live parts.</li>
+          <li><b>Flash suits are heavy, non-breathable gear.</b> Add 10° to the WBGT for light work, 20° for moderate or heavier, before you read the work/rest table (<a href="m3-heat.html">HS-03</a>). Keep suited tasks short.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Voltage-rated gloves</h3>
+        <div class="tw"><table>
+          <thead><tr><th>Class</th><th>Max use (AC)</th><th>Cuff label</th></tr></thead>
+          <tbody>
+            <tr><td class="m">00</td><td class="m">500 V</td><td class="m"><i class="sw beige"></i>Beige</td></tr>
+            <tr><td class="m">0</td><td class="m">1,000 V</td><td class="m"><i class="sw red"></i>Red</td></tr>
+            <tr><td class="m">1</td><td class="m">7,500 V</td><td class="m"><i class="sw white"></i>White</td></tr>
+            <tr><td class="m">2</td><td class="m">17,000 V</td><td class="m"><i class="sw yellow"></i>Yellow</td></tr>
+            <tr><td class="m">3</td><td class="m">26,500 V</td><td class="m"><i class="sw green"></i>Green</td></tr>
+            <tr><td class="m">4</td><td class="m">36,000 V</td><td class="m"><i class="sw orange"></i>Orange</td></tr>
+          </tbody>
+        </table></div>
+        <ul class="small">
+          <li>Pick the class for the highest voltage you could touch.</li>
+          <li><b>Air test</b> them (roll the cuff, trap air, look and listen for leaks) before every shift and after anything that could damage them.</li>
+          <li><b>Test date</b> stamped on the glove: electrical retest every 6 months. Overdue means don't use.</li>
+          <li><b>Leather protectors over the rubber, always</b> (site rule; Old Earth allows a narrow exception for class 00 and 0).</li>
+          <li>Heat, sun and ozone crack rubber. Store gloves unfolded in their bag, out of the sun, in a cooled store (site rule).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Temporary power</h2><span class="tag">OSHA 1926.404–405 · NEC Art. 590</span></div>
+    <div class="cols three">
+      <div class="box">
+        <h3>GFCI on temporary outlets</h3>
+        <ul class="small">
+          <li><b>Old Earth rule</b> (OSHA 1926.404(b)(1)): every temporary 120 V, 15 or 20 A receptacle has GFCI protection, or the site runs an assured equipment grounding conductor program (AEGCP).</li>
+          <li><b>DCW does both</b> (site rule): GFCI on every temporary receptacle, generator outlets included, and AEGCP testing of every cord set and cord-connected tool.</li>
+          <li>Press <b>TEST</b>, then <b>RESET</b>, before you plug in each shift. No click and no power cut: tag it out.</li>
+          <li>Check the quarterly test tag on every cord and tool. Missing or out of date: don't use it.</li>
+          <li>GFCI trips: unplug everything on it and look for damage or water. Reset once. Trips again: tag out the cord or tool and tell your crew lead.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Cords</h3>
+        <ul class="small">
+          <li>Outdoor-rated, hard or extra-hard usage, 3-wire with ground. Look for <b>W</b> on the jacket (SOOW, SJOOW).</li>
+          <li><b>Inspect before every shift:</b> cuts, crushed spots, exposed inner wires, cracked or loose plugs, missing ground pin, scorch marks, sand packed in the socket.</li>
+          <li>Damaged? Unplug it, hang a yellow <b>OUT OF SERVICE</b> tag (from the Quartermaster), and hand it to your crew lead for Electrical &amp; Power. Only the foreman takes the tag off. Report the fault on HS-IR.</li>
+          <li>Never cut or bend off the ground pin. No adapters that skip the ground.</li>
+          <li><b>No daisy-chains.</b> One cord from outlet to tool. Never plug cords or power strips into each other.</li>
+          <li>Keep cords off walkways, stairs and ladders. Cross vehicle routes under a cord ramp or overhead on insulated hangers. Never hang cords on nails, staples or wire.</li>
+          <li>Sun, heat and sand wear jackets fast. Keep cords off sun-baked steel, uncoil them fully in use, and keep dust caps on unused plugs.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Generators</h3>
+        <ul class="small">
+          <li><b>Feeding only its own outlets:</b> the frame is bonded to the outlet grounds. No ground rod needed.</li>
+          <li><b>Feeding a panel, a structure or a distribution system:</b> Electrical &amp; Power grounds it and tests the ground. Dry sand is a poor ground, so a single rod is rarely enough.</li>
+          <li>Driving a ground rod is digging. It needs a <b>PTW-DG</b> first.</li>
+          <li><b>Never connect a generator to building wiring</b> without a transfer switch. Backfeed can make a "dead" line live.</li>
+          <li>Exhaust is carbon monoxide. Never run one in a shelter, hab, cab or confined space, and keep it at least 20 ft from shelter air intakes, doors and openings.</li>
+          <li>Shut it off and let it cool before refueling. Bond the fuel can (see static, below).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Temporary lighting</h3>
+        <ul class="small">
+          <li>Every lamp has a guard or a covered fixture.</li>
+          <li>Hang light strings from hangers, never by the cord, unless the string is built for it.</li>
+          <li>Tanks, drums, wet spots and other conductive spaces: 12 V lights, or 120 V lights on GFCI. Confined spaces: <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>.</li>
+          <li>Keep strings off the ground, out of sand drifts, and away from water and coolant.</li>
+          <li>A dead light at a stair, ladder, hole or edge: stop work there and tell your crew lead.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Panels &amp; power boxes</h3>
+        <ul class="small">
+          <li>Doors closed and latched, covers on, every opening filled. That keeps out hands and sand.</li>
+          <li>Keep at least 3 ft clear in front of every panel (more for higher voltages). Never stack material there.</li>
+          <li>Breakers labeled. Only blue hats open a panel or reset a panel breaker (site rule).</li>
+          <li>Panels and power boxes sit off the ground, out of water, and protected from vehicles.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Tools</h3>
+        <ul class="small">
+          <li>Double-insulated or grounded 3-prong tools only.</li>
+          <li>Inspect before use. Cracked housing, loose switch or damaged cord: tag it out.</li>
+          <li>Wet hands, a wet tool, or standing in water or coolant: stop and get dry first.</li>
+          <li>Never carry or lower a tool by its cord.</li>
+          <li>Unplug before you change a blade, bit or disc.</li>
+          <li>Fiberglass ladders for electrical work and near lines. Metal ladders conduct.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Power cells &amp; capacitor banks</h2><span class="tag">Cells are always live · capacitors hold a charge</span></div>
+    <div class="cols">
+      <div class="box">
+        <h3>Power cells</h3>
+        <p class="small" style="margin-bottom:6px">A power cell is a battery. It is always live and you can't drain it. Opening the feed does not make the cell side safe.</p>
+        <ul class="small">
+          <li>Open and lock the cell's own disconnect. Cover the terminals.</li>
+          <li>Treat everything on the cell side as live.</li>
+          <li><b>Only qualified electrical workers (blue hats) work on cell terminals.</b></li>
+          <li><b>Never put a grounding stick or any metal across a cell.</b> That is a dead short: arc flash, explosion, fire.</li>
+          <li>Insulated tools only near open terminals. No rings, watches or chains.</li>
+          <li>Move cells only with rated lifting gear. A dropped or dented cell is out of service until Electrical &amp; Power checks it.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Capacitor banks</h3>
+        <p class="small" style="margin-bottom:6px">A capacitor bank holds its charge after the power is off, and the charge can build back up.</p>
+        <ul class="small">
+          <li>Open and lock the disconnect.</li>
+          <li>Wait the bleed-down time printed on the bank.</li>
+          <li>A qualified worker discharges it with the rated grounding stick and tests for zero on the meter.</li>
+          <li><b>The ground clamp stays on until the work is finished.</b></li>
+          <li>Back from a break? Check the ground is still on before you touch anything.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box mt">
+      <h3>Charging bays</h3>
+      <ul class="small">
+        <li><b>Charge cells, lift batteries and tool batteries only in a marked charging bay.</b> Bays are ventilated, clear of fuel and other combustibles, and protected from vehicles.</li>
+        <li>Bays are shaded and cooled. Never charge a cell in direct sun or on hot deck plate. Follow the temperature limit on the cell label (site rule).</li>
+        <li>No smoking, open flames or hot work in a bay.</li>
+        <li>Handling a leaking cell: face shield, apron and chemical gloves. Eyewash within 10 seconds of every bay.</li>
+        <li>Never charge a swollen, dented, dropped, wet or hot cell. It goes to Electrical &amp; Power quarantine.</li>
+        <li>Tool batteries are small power cells. Keep them out of the sun. A swollen or hot one goes in the sand bucket outdoors, away from people, and you report it (site rule).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="emerg" style="background:var(--black)">
+    <div>
+      <h2 style="color:var(--hiviz)">Cell fire</h2>
+      <p style="margin-top:10px;font-size:16px">A damaged, overheated or overcharged cell can heat itself until it vents, burns or explodes. This is thermal runaway.</p>
+      <p class="cf">Back off.<br>Call it in.</p>
+      <p class="sm">Cell fires burn very hot, give off toxic gas, and can reignite hours after they look out.</p>
+    </div>
+    <ul>
+      <li><b>Warning signs:</b> swelling, hissing or popping, a sweet or chemical smell, smoke or vapor, a case too hot to touch.</li>
+      <li><b>Never fight a power-cell fire.</b> Don't touch it, move it or cover it.</li>
+      <li>Get everyone at least <b>50 ft back and upwind</b> (site rule).</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Fire"</b>, location, "power cell", number hurt, your call sign. Fire &amp; Rescue takes command.</li>
+      <li><b>Any other electrical fire:</b> kill the power first if you can do it safely. Fight it only if it's waste-bin size, your exit is behind you, and you have the right extinguisher (Class C: CO₂ or dry chemical, never water on live gear). If it isn't out in about 10 seconds, leave and call Ch 1 "Fire".</li>
+      <li>Never fight a polymer, power-cell or gas-fed fire. A polymer fire is a fire in bulk feedstock, a curing resin mass, a printed structure or panel stack, or a spray zone. A waste-bin-size fire in rags or scrap may be fought. Smother a rag can with its lid. A fire that's out: tell your foreman, who logs it on Ch 13.</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Overhead lines</h2><span class="tag">Non-crane work · OSHA 1910.333(c)(3), 1926.451(f)(6)</span></div>
+    <div class="cols">
+      <div style="display:grid;gap:12px;align-content:start;min-width:0">
+        <div class="big3 sm">
+          <div style="background:var(--hiviz)"><b>10 ft</b><span>Minimum, lines up to 50 kV</span></div>
+          <div><b>+4 in</b><span>For every 10 kV over 50 kV</span></div>
+        </div>
+        <p class="small">Example: a 138 kV line needs about 13 ft. Cranes, booms and their loads use the larger crane distances in <a href="m6-cranes-equipment.html">HS-06</a>.</p>
+      </div>
+      <ul>
+        <li><b>Treat every overhead line as live and uninsulated</b> until Electrical &amp; Power tells you otherwise.</li>
+        <li>Ladders, scaffolds, MEWPs, long tools, pipe, rebar and conduit: <b>no part of you or what you hold</b> comes inside the distance. Scaffolds and lifts: <a href="sc-scaffolds-aerial-lifts.html">Supplement C (HS-SC)</a>.</li>
+        <li>Lines sway in wind. Leave extra room.</li>
+        <li><b>Voltage unknown? Stop.</b> Electrical &amp; Power marks the voltage and the distance before work starts.</li>
+        <li>Can't keep the distance? Electrical &amp; Power de-energizes and grounds the line, or the work doesn't happen.</li>
+        <li><b>Lightning alert</b> (Ch 16, rebroadcast on Ch 1): stop outdoor electrical work, get off steel and out of MEWPs, into a sealed shelter or closed vehicle, never under steel. Resume 30 min after the last strike within 10 miles.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Static in dry air</h3>
+        <p class="small" style="margin-bottom:6px">Dry desert air and blowing sand build static fast. One spark can light fuel or solvent vapor.</p>
+        <ul class="small">
+          <li><b>Bond before you pour.</b> Clip a bonding wire between the metal container you pour from and the one you fill. Drums and tanks are grounded.</li>
+          <li>Fill portable cans on the ground, never in a vehicle bed or on a plastic liner. Keep the nozzle touching the can.</li>
+          <li>Approved metal safety cans for fuel and solvents. No plastic buckets.</li>
+          <li>Pour slowly. Splashing builds charge.</li>
+          <li>Spraying VeilCoat or another solvent coating: ground the spray rig and the part.</li>
+          <li>Touch grounded metal away from the vapor before you handle fuel.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Welding power</h3>
+        <p class="small" style="margin-bottom:6px">An arc welder can kill through sweat. Full welding rules: <a href="m5-hot-work.html">HS-05</a>.</p>
+        <ul class="small">
+          <li>Welder frame grounded. Work lead clamped close to the weld.</li>
+          <li>Never use a gas or fuel pipeline, or electrical conduit, as the return path.</li>
+          <li>Hang the electrode holder on an insulated hook. Never leave it on steel or near cylinders.</li>
+          <li>Dry gloves, dry leathers, dry insulating mat. Change gloves when they get damp.</li>
+          <li>Tight, damp or confined spots: a DC welder or a voltage-reducing device (site rule).</li>
+          <li>Damaged leads are tagged out and replaced. Never wrap leads around your body.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="emerg">
+    <div>
+      <h2>Shock</h2>
+      <p style="margin-top:10px;font-size:16px">Someone is stuck to a tool, cord, panel or line, or down near electrical gear.</p>
+      <p class="cf">Kill the power.<br>Then help.</p>
+      <p class="sm">Touch them while the power is on and the current goes through you too. Two casualties help nobody.</p>
+    </div>
+    <ol>
+      <li><b>Don't touch them.</b> Kill the power: unplug it, open the disconnect, or hit the emergency stop.</li>
+      <li><b>Overhead line, downed line or substation:</b> stay at least 35 ft back. Only Electrical &amp; Power makes it dead. <b>Power cell:</b> only a blue hat frees them, with an insulated rescue hook.</li>
+      <li>Can't kill a cord or tool in seconds? Stand on something dry and push the cord or the person clear with dry wood or fiberglass. Never metal, never anything damp.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Electrical"</b>, location, number hurt, hazards ("power still on"), your call sign. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Power confirmed off:</b> check breathing. Not breathing normally? Start CPR (100–120 a minute, 2–2.4 in deep) and send for the AED.</li>
+      <li>Cool burns under cool running water for 20 min. A shock at height can mean a fall: treat it as a spine injury.</li>
+      <li><b>Everyone shocked goes to the FAS</b>, even if they feel fine. Heart rhythm problems can show up later.</li>
+    </ol>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p>Anyone can stop unsafe work. No penalty, no questions. Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <h3>Every shock gets reported</h3>
+      <p class="small">A tingle from a tool is a near miss. Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form HS-IR with your Colonist ID. Don't move anything except to rescue. Safety &amp; Health investigates with the crew; findings are shared at muster. No retaliation.</p>
+    </div>
+  </section>
+
+  <section class="ack">
+    <h3>Worker acknowledgement</h3>
+    <p class="small">I know I am not a qualified electrical worker unless my badge says so. I will inspect cords and tools, use GFCI power, stay outside the boundaries, never touch a power cell's terminals, and kill the power before I help someone who is being shocked.</p>
+    <div class="ackrow">
+      <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
+      <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
+      <label for="a-crew">Crew / Sector<input id="a-crew" data-ack="crew" autocomplete="off"></label>
+      <label for="a-date">Date<input id="a-date" data-ack="date" autocomplete="off"></label>
+    </div>
+    <div class="stamp" hidden>Supplement complete</div>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926 Subpart K (1926.403 working space, 1926.404(b)(1) GFCI and assured equipment grounding, 1926.404(f)(3) generators, 1926.405 temporary wiring and lighting, 1926.416–417 work practices and lockout, 1926.441 batteries and charging), OSHA 1910.137 (insulating gloves), 1910.333–334 (safety-related work practices, portable equipment), OSHA 1926.351 (arc welding), NFPA 70E-2024 (Art. 120 electrically safe work condition, Art. 130 approach boundaries and arc flash PPE categories, Art. 320 batteries, Art. 360 capacitors), NFPA 70 (NEC) Art. 590, ASTM D120 and F496 (rubber insulating gloves), ANSI/ISEA Z89.1 (helmet classes), NFPA 77 (static electricity), NFPA 10 (extinguishers), CDC generator carbon monoxide guidance, AHA CPR guidelines.</span>
+    <span>HS-SB · Dunewright Colony Works · Replace when faded</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

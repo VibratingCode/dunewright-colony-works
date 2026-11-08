@@ -6,8 +6,9 @@ Safety refresher training for a roleplay setting: a 15,000-person construction c
 
 ## What's here
 
-- **Modules 1–9 + Supplement A**: orientation, dust and PPE, heat, working at height, hot work, cranes and heavy equipment, lockout/tagout, advanced materials, emergencies, confined spaces
-- **Reference sheets**: pocket card, radio, org chart (by station), hand signals (crane, spotter, site emergency)
+- **Modules 1–9**: orientation, dust and PPE, heat, working at height, hot work, cranes and heavy equipment, lockout/tagout, advanced materials, emergencies
+- **Supplements A–D**: confined spaces; electrical and temporary power; scaffolds and aerial lifts; night work, fatigue and fitness for duty
+- **Reference sheets**: pocket card, radio, org chart (by station), hand signals (crane, spotter, site emergency), permits at a glance, roles and glossary, review record and site-rules register
 - **Tools**: site weather office, heat field card
 - **exports/**: a one-page PDF and a PNG of every poster
 

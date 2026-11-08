@@ -9,15 +9,29 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: the 5-day ramp bars and the urine color strip */
+/* page-local: the 5-day ramp bars, the RAMP band, the work/rest table and the urine color strip */
 .ramp{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:4px}
-.ramp div{border:2px solid var(--black);text-align:center;padding:6px 2px;background:linear-gradient(to top,var(--orange) var(--p),transparent var(--p));min-width:0}
+.ramp div{border:2px solid var(--black);text-align:center;padding:6px 2px;background:linear-gradient(to top,var(--hiviz) var(--p),transparent var(--p));min-width:0}
 .ramp b{display:block;font:400 26px/1 var(--display)}
 .ramp span{font:700 11px var(--mono);text-transform:uppercase}
+.ramp i{display:block;font:700 10px var(--mono);font-style:normal;text-transform:uppercase}
+.band{position:relative;height:38px;border:2px solid var(--black);border-bottom:6px solid #c9cdd0;display:flex;align-items:center;justify-content:center;max-width:320px;overflow:hidden}
+.band::before,.band::after{content:"";position:absolute;top:0;bottom:0}
+.band::before{left:0;right:50%;background:repeating-linear-gradient(45deg,var(--black) 0 7px,var(--hiviz) 7px 14px)}
+.band::after{left:50%;right:0;background:repeating-linear-gradient(-45deg,var(--black) 0 7px,var(--hiviz) 7px 14px)}
+.band span{position:relative;z-index:1;background:var(--hiviz);border:2px solid var(--black);font:400 20px/1 var(--display);letter-spacing:.14em;padding:3px 10px 2px}
+.bandrow{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:12px;align-items:center}
+.wr caption{caption-side:top;text-align:left;font:700 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:0 0 6px}
+.wr td small{font:700 10px var(--mono);text-transform:uppercase}
+.wr td.stop{background:#eadccd;font-weight:700}
+.notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;margin-top:10px}
+.notes p{font-size:13px}
+.stack{display:grid;gap:28px;align-content:start;min-width:0}
 .urine{display:flex;border:2px solid var(--black);margin-top:10px}
 .urine div{flex:1;height:30px}
 .ul{display:flex;justify-content:space-between;font:700 11px var(--mono);text-transform:uppercase;margin-top:4px;gap:8px}
-@media (max-width:480px){.ramp b{font-size:20px}.ramp span{font-size:9px}.ramp{gap:3px}}
+@media (max-width:820px){.notes{grid-template-columns:minmax(0,1fr)}.bandrow{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.ramp b{font-size:20px}.ramp span,.ramp i{font-size:9px}.ramp{gap:3px}}
 </style>
 </head>
 <body data-page="m3">
@@ -25,10 +39,10 @@
 <article class="poster">
 
   <header class="head">
-    <div class="meta"><span>Form HS-03 · Rev. 4</span><span>Post-stasis refresher · Module 3 of 9</span><span>Post at every muster point</span></div>
+    <div class="meta"><span>Form HS-03 · Rev. 5</span><span>Post-stasis refresher · Module 3 of 9</span><span>Post at every muster point</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Heat kills.</h1>
     <p class="sub">This world is hotter than anything your body remembers. Read every line before your first shift.</p>
@@ -39,58 +53,100 @@
     <div class="lbl">Just woke up?</div>
     <div class="in">
       <h2>Your heat tolerance did not survive stasis.</h2>
-      <p>However many seasons you've worked in heat before, <b>you are a new worker now.</b> Your body has to rebuild its heat tolerance from zero over 7–14 days. Most heat deaths happen in a worker's <b>first few days</b> on a hot site. Report to Med Bay for a weigh-in and a hydration check before your first shift. Wear the orange <b>RAMP</b> sticker on your helmet until Day 5.</p>
-      <div class="ramp" aria-label="Five day exposure ramp">
-        <div style="--p:20%"><b>20%</b><span>Day 1</span></div>
-        <div style="--p:40%"><b>40%</b><span>Day 2</span></div>
-        <div style="--p:60%"><b>60%</b><span>Day 3</span></div>
-        <div style="--p:80%"><b>80%</b><span>Day 4</span></div>
-        <div style="--p:100%"><b>100%</b><span>Day 5</span></div>
+      <p>However many seasons you worked in heat before, <b>you are a new worker now.</b> Your body rebuilds heat tolerance from zero over 7–14 days. Most heat deaths happen in a worker's <b>first few days</b> on a hot site. Before your first shift, Revival Med Bay weighs you in, checks your hydration and issues your RAMP band.</p>
+      <p><b>Day 1</b> is your first shift with any heat exposure after Revival Med Bay clears you.</p>
+      <div class="ramp" aria-label="Five day heat ramp">
+        <div style="--p:20%"><b>20%</b><span>Day 1</span><i>½ time</i></div>
+        <div style="--p:40%"><b>40%</b><span>Day 2</span><i>½ time</i></div>
+        <div style="--p:60%"><b>60%</b><span>Day 3</span><i>½ time</i></div>
+        <div style="--p:80%"><b>80%</b><span>Day 4</span><i>½ time</i></div>
+        <div style="--p:100%"><b>100%</b><span>Day 5</span><i>Full table</i></div>
       </div>
-      <p class="small">Share of a full shift's heat exposure you may work. Light duty first. Your crew lead logs your ramp day on the roster. A fever, a stomach bug or a week off-site sends you back to Day 1.</p>
+      <p class="small">Each bar is the most of your shift you may spend in the heat. <b>On Days 1–4, also work half the table's minutes</b> and rest for the rest of the hour: 40/20 becomes 20/40, 30/30 becomes 15/45, 10/50 becomes 5/55, and "No limit" becomes 30/30 (site rule). <b>Day 1: light work only</b>, no heavy lifting, digging or hauling (site rule). Spend the rest of a ramp shift in cool-room training or on light duty out of the heat. Your crew lead logs your ramp day on the roster.</p>
+      <ul class="small">
+        <li><b>Days 6–14: acclimatizing.</b> Full table. At WBGT 85 or higher, your crew lead checks you every 15 min.</li>
+        <li><b>When the ramp applies:</b> whenever the heat level is Caution or higher, or the WBGT is 78 or higher.</li>
+        <li><b>Reset to Day 1</b> (RAMP band back on) after a fever, vomiting or diarrhea, any heat illness, or 7 or more days away from heat work. It applies to every worker, however long ago they were revived (site rule). After an illness absence, Revival Med Bay clears you again first.</li>
+        <li><b>Medicines and health.</b> Tell Revival Med Bay at clearance, or the FAS later, about any medicine you take (water pills, allergy pills, blood-pressure or heart pills, some mood medicines, stimulants) and about a past heat stroke or any heart, kidney or blood-sugar problem. Your ramp may change.</li>
+      </ul>
+      <div class="bandrow">
+        <div class="band" role="img" aria-label="RAMP band: black-and-yellow chevrons with the word RAMP and a reflective strip"><span>RAMP</span></div>
+        <p class="small"><b>RAMP band:</b> black-and-yellow chevron band reading "RAMP", with a reflective strip, worn on the front and back of your helmet. On at Day 1. It comes off only after your crew lead logs Day 5 complete. See one on a helmet? Watch out for that worker.</p>
+      </div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Site heat levels</h2><span class="tag">Posted at muster each shift and every hour<br>by your crew lead · Ch 16 broadcasts changes</span></div>
+    <div class="sh"><h2>Site heat levels</h2><span class="tag">Posted at muster and every hour<br>by your crew lead · Ch 16 broadcasts changes</span></div>
+    <p class="small" style="margin-bottom:10px"><b>Each level keeps every rule from the levels below it.</b> At every level: buddy pairs, anyone with heat symptoms is pulled, the work/rest table applies whenever the WBGT is 78 or higher, and every active deck has a stocked cooling station with an ice trough.</p>
     <div class="scale">
-      <div class="zr" style="background:var(--z1)"><div class="t">70–79°</div><div class="n">Green<small>Normal ops</small></div><div class="r">Water on your belt. Heavy suits and hard labor can still drop you. <b>Watch new wakers.</b></div></div>
-      <div class="zr" style="background:var(--z2)"><div class="t">80–89°</div><div class="n">Caution<small>Heat plan active</small></div><div class="r">Cool water and shade within reach of every crew. 1 cup every 15–20 min. New wakers follow the ramp.</div></div>
-      <div class="zr" style="background:var(--z3)"><div class="t">90–102°</div><div class="n">Extreme caution<small>Buddy system</small></div><div class="r">At least a <b>15-min shade break every 2 hours</b>. Buddies check each other. Crew lead walks the line.</div></div>
-      <div class="zr" style="background:var(--z4)"><div class="t">103–124°</div><div class="n">Danger<small>Restricted work</small></div><div class="r">Heavy work moves to night shift. Work/rest by the table below. Cooling station on every deck. <b>Anyone with symptoms is pulled.</b></div></div>
-      <div class="edge">Above this line: Old Earth heat charts stop. Rules from here on are site rules.</div>
-      <div class="zr dk" style="background:var(--z5)"><div class="t">125–139°</div><div class="n">Extreme<small>Essential work only</small></div><div class="r">Air is hotter than your skin, so wind heats you and fans don't help. <b>Cooling vest mandatory.</b> Pairs only. Exposures of 30 min or less, then a cooled shelter.</div></div>
-      <div class="zr dk" style="background:var(--z6)"><div class="t">140–159°</div><div class="n">Hot work<small>Permit required</small></div><div class="r">Cooled suit or supplied cool air. Entries timed in minutes, logged on the board. Standby rescuer at the hatch. Medical check after every entry.</div></div>
-      <div class="zr dk" style="background:var(--z7)"><div class="t">160–180°</div><div class="n">Site closed<small>Emergency only</small></div><div class="r">All crews to shelter. Steel, rebar and sand <b>burn skin in about one second</b>. Entry only for rescue, in full reflective cooling gear with a timed return.</div></div>
+      <div class="zr" style="background:var(--z1)"><div class="t">70–79°</div><div class="n">Normal<small>Normal ops</small></div><div class="r">Water on your belt. Heavy suits and hard labor can still drop you. <b>Watch anyone wearing a RAMP band.</b></div></div>
+      <div class="zr" style="background:var(--z2)"><div class="t">80–89°</div><div class="n">Caution<small>Heat plan active</small></div><div class="r">Cool drinking water and shade within reach of every crew. 8 oz every 15–20 min. Ramp rules apply. <b>No lone work</b> (site rule).</div></div>
+      <div class="zr" style="background:var(--z3)"><div class="t">90–102°</div><div class="n">Extreme caution<small>Buddies in sight</small></div><div class="r">At least a <b>15-min break in shade or a cooling station every 2 hours</b>. Buddies stay within sight of each other. Crew lead walks the line.</div></div>
+      <div class="zr" style="background:var(--z4)"><div class="t">103–124°</div><div class="n">Danger<small>Restricted work</small></div><div class="r">Heavy and very heavy work moves to the night shift. Work/rest by the table below. <b>No working ice trough on a deck: stop work on that deck</b> until it's fixed (site rule).</div></div>
+      <div class="edge">Below this line: 125° and hotter, as air temperature. Site rules. Old Earth heat charts end at the NWS Extreme Danger band.</div>
+      <div class="zr dk" style="background:var(--z5)"><div class="t">125–139°</div><div class="n">Extreme<small>Essential work only · site rule</small></div><div class="r">Essential work is work the Sector Superintendent approves for that shift: life safety or stopping damage. <b>Cooling vest mandatory.</b> Buddies in sight. No more than 30 min outside, then at least 30 min in a cooled shelter. Swap or recharge your vest and drink before you go back out. The air is hotter than your skin, so wind heats you and fans on dry skin don't help.</div></div>
+      <div class="zr dk" style="background:var(--z6)"><div class="t">140–159°</div><div class="n">Extreme heat entry<small>Heat Entry Permit PTW-HE · site rule</small></div><div class="r">No one goes out without a <b>Heat Entry Permit (PTW-HE)</b>, signed by the area general foreman and countersigned by a Safety officer (<a href="permits.html">REF-PTW</a>). A PTW-HE is not a hot-work permit. Cooled suit or supplied cool air. The permit sets each entry time, never more than 15 minutes, then at least 30 minutes in a cooled space. Every entry is logged on the permit board. A standby rescuer in full gear waits at the entry point. A medic checks pulse and temperature after every entry: a pulse over 120 one minute after stopping, or a temperature over 101.3°, ends that worker's entries for the shift (ACGIH basis). <b>Only workers who have finished the ramp and Days 6–14, and are cleared for heat entry that shift by Revival Med Bay or the FAS, may enter (site rule).</b></div></div>
+      <div class="zr dk" style="background:var(--z7)"><div class="t">160–180°</div><div class="n">Site closed<small>Emergency only</small></div><div class="r">All crews to shelter. Ch 16 calls the move when the forecast will reach 160° within the hour. Don't wait for the reading. Steel, rebar and deck plate <b>burn skin in about one second</b>. Entry only for rescue, in full reflective cooling gear with a timed return.</div></div>
     </div>
-    <p class="note">Levels up to 124° are heat index in shade. Direct sun adds up to 15°. Your lead also posts the WBGT heat-stress reading (see the work/rest table).</p>
+    <p class="note"><b>Which number?</b> Levels up to 124° use the NWS heat index in shade. From 125° up they use air temperature in shade. Your crew lead posts the heat level and the WBGT. <b>Follow whichever of the two is more restrictive.</b> WBGT runs much lower than air temperature or heat index, so never read a WBGT number against these levels: a WBGT of 90° is near the top of the work/rest table, while a heat index of 90° is only Extreme caution.</p>
   </section>
 
   <section class="emerg">
     <div>
       <h2>Heat stroke</h2>
-      <p style="margin-top:10px;font-size:16px">Confused, slurring, stumbling, collapsed or seizing, hot to the touch. <b>They may still be sweating.</b> Don't wait to be sure.</p>
+      <p style="margin-top:10px;font-size:16px"><b>Anyone who collapses or isn't fully alert on a hot site is a heat-stroke case until a medic says otherwise.</b> Confused, slurring, stumbling, seizing, hot to the touch. They may still be sweating. Don't wait for a thermometer: only a medic's rectal reading counts.</p>
       <p class="cf">Cool first.<br>Transport second.</p>
-      <p class="sm">Nearly everyone survives if their body temperature is brought under 104° within 30 minutes. Every minute you wait costs them.</p>
+      <p class="sm">Start cooling within minutes. Brought below about 102° within 30 minutes of collapse, nearly everyone survives (Korey Stringer Institute). The medic decides when to stop cooling.</p>
     </div>
     <ol>
-      <li><b>Ch 1: "Emergency, emergency, emergency. Heat casualty"</b>, with sector-grid and deck. The medic is coming to you.</li>
-      <li><b>Get them out of the heat.</b> Strip off suit, vest and helmet.</li>
-      <li><b>Dunk them in the ice trough</b> at the nearest cooling station, up to the neck, holding the head up.</li>
-      <li>No trough? <b>Soak them</b>, cover them in ice-water towels, pack ice at the neck, armpits and groin, and fan hard.</li>
-      <li><b>No drinks if they're confused.</b> Stay with them and keep cooling until the medic takes over.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Heat casualty"</b>, then location (Sector-grid, structure, deck, landmark), number hurt, hazards and your call sign. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Get them out of the heat</b> into the cooling station. Strip off suit, vest and helmet.</li>
+      <li><b>Ice trough, water up to the neck.</b> Hold the head up and keep the airway clear. Stir the water.</li>
+      <li>No trough? <b>Douse them</b> with the coldest water you have, without stopping. Lay ice-water towels on them and swap each one for a freshly iced towel every 2–3 min. Ice at the neck, armpits and groin. Fan only while the skin is soaking wet.</li>
+      <li><b>No drinks if they're confused.</b> Never leave them. Keep cooling until the medic takes over.</li>
     </ol>
   </section>
 
   <section class="sec">
     <div class="sh"><h2>Know the signs</h2><span class="tag">In yourself and in your crew</span></div>
     <div class="signs">
-      <div class="sg" style="--c:var(--z1)"><h3>Heat rash</h3><p>Clusters of red bumps on the neck, chest or groin.</p><p><span class="k">Do:</span> keep the skin dry, cool off, use powder.</p></div>
-      <div class="sg" style="--c:var(--z2)"><h3>Heat cramps</h3><p>Painful spasms in the legs, arms or belly during heavy sweating.</p><p><span class="k">Do:</span> shade, water plus electrolytes. Report it if cramps last over an hour.</p></div>
-      <div class="sg" style="--c:var(--z3)"><h3>Fainting</h3><p>Dizziness or blacking out after standing or getting up fast.</p><p><span class="k">Do:</span> sit or lie down somewhere cool and sip water. Tell your lead.</p></div>
-      <div class="sg" style="--c:var(--z4)"><h3>Heat exhaustion</h3><p>Heavy sweat, clammy skin, headache, nausea, weakness, short temper, dark urine.</p><p><span class="k">Do:</span> pull off the line, cool down, sip water. Forward Aid Station if not better in an hour. Done for the day.</p></div>
-      <div class="sg" style="--c:var(--z5)"><h3>Rhabdo</h3><p>Muscle pain and weakness, urine dark like tea or cola after hard work.</p><p><span class="k">Do:</span> stop work and go to the Forward Aid Station now. It can wreck your kidneys.</p></div>
-      <div class="sg" style="--c:var(--z7)"><h3>Heat stroke</h3><p>Confusion, slurred speech, collapse, seizures, body at 104° or above.</p><p><span class="k">Do:</span> follow the red box. Cool them on the spot.</p></div>
+      <div class="sg" style="--c:var(--z1)"><h3>Heat rash</h3><p>Clusters of red bumps on the neck, chest or groin.</p><p><span class="k">Do:</span> keep the skin dry, cool off, use powder. No creams.</p></div>
+      <div class="sg" style="--c:var(--z2)"><h3>Heat cramps</h3><p>Painful spasms in the legs, arms or belly during heavy sweating.</p><p><span class="k">Do:</span> rest in shade, drink water with electrolyte mix. Go to the FAS if cramps last over an hour, or right away if you have a heart condition or are on a low-salt diet.</p></div>
+      <div class="sg" style="--c:var(--z3)"><h3>Fainting</h3><p>Dizzy or light-headed after standing still or getting up fast.</p><p><span class="k">Do:</span> sit or lie down in the cool, sip water, tell your crew lead. <b>Anyone who passes out, or isn't fully alert when they come to, is a heat-stroke case: Ch 1 and start cooling.</b></p></div>
+      <div class="sg" style="--c:var(--z4)"><h3>Heat exhaustion</h3><p>Heavy sweat, clammy skin, headache, nausea, dizziness, weakness, short temper, thirst, dark urine.</p><p><span class="k">Do:</span> pull them off the line into a cooling station. Cool the head, face and neck. Give sips of water. <b>Someone walks them to the Forward Aid Station (FAS) now, never alone.</b> Done for the day. Revival Med Bay clears them before their next shift. Confused or getting worse: it's heat stroke, call Ch 1.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Rhabdo</h3><p>Rhabdomyolysis, muscle breakdown: muscle pain and weakness, urine dark like tea or cola after hard work.</p><p><span class="k">Do:</span> stop work. Someone walks you to the FAS now. It can wreck your kidneys.</p></div>
+      <div class="sg" style="--c:var(--z7)"><h3>Heat stroke</h3><p>Confusion, slurred speech, collapse, seizures, hot skin. They may still be sweating.</p><p><span class="k">Do:</span> follow the red box. Cool them on the spot.</p></div>
+    </div>
+    <p class="note">Any heat illness resets the ramp to Day 1. Report every case, even cramps or a dizzy spell (see "Report it" below).</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Work / rest by WBGT</h2><span class="tag">Minutes of work / rest per hour · water per hour<br>Old Earth data: <a href="tools/heat-field-card.html">TOOL-HFC</a></span></div>
+    <div class="box">
+      <p class="small" style="margin-bottom:10px"><b>WBGT (wet-bulb globe temperature)</b> is the heat-stress number your crew lead measures where you work. It counts air temperature, humidity, sun and wind together. Find your WBGT row and your work type. Each cell shows <b>minutes of work / minutes of rest per hour</b>, then water per hour.</p>
+      <div class="tw"><table class="wr">
+        <caption>DCW table: the stricter of TB MED 507 (2003 and 2022) in every cell</caption>
+        <thead><tr><th>WBGT °F</th><th>Light</th><th>Moderate</th><th>Heavy</th><th>Very heavy</th></tr></thead>
+        <tbody>
+          <tr><td class="m" style="background:var(--z1)">78–81.9</td><td class="m">No limit · ½ qt</td><td class="m">No limit · ¾ qt</td><td class="m">40/20 · ¾ qt</td><td class="m">20/40 · 1 qt</td></tr>
+          <tr><td class="m" style="background:var(--z2)">82–84.9</td><td class="m">No limit · ½ qt</td><td class="m">50/10 · ¾ qt</td><td class="m">30/30 · 1 qt</td><td class="m">15/45 · 1 qt</td></tr>
+          <tr><td class="m" style="background:var(--z3)">85–87.9</td><td class="m">No limit · ¾ qt</td><td class="m">40/20 · ¾ qt</td><td class="m">30/30 · 1 qt</td><td class="m">10/50 · 1 qt</td></tr>
+          <tr><td class="m" style="background:var(--z4)">88–89.9</td><td class="m">No limit · ¾ qt</td><td class="m">30/30 · ¾ qt</td><td class="m">20/40 · 1 qt</td><td class="m">10/50 · 1 qt</td></tr>
+          <tr><td class="m" style="background:var(--z5);color:#fff">90–91.9</td><td class="m">50/10 · 1 qt</td><td class="m">20/40 · 1 qt</td><td class="m">10/50 · 1 qt</td><td class="m">10/50 · 1 qt</td></tr>
+          <tr><td class="m" style="background:var(--z6);color:#fff">92–94.9<br><small>Site rule</small></td><td class="m">50/10 · 1 qt</td><td class="m">10/50 with cooling vest · 1 qt</td><td class="m stop">Not outside cooled spaces</td><td class="m stop">Not outside cooled spaces</td></tr>
+          <tr><td class="m" style="background:var(--z7);color:#fff">95+<br><small>Site rule</small></td><td class="m stop" colspan="4">Essential work only, under Extreme-level rules: Sector Superintendent approval, cooling vest, buddies in sight, 30 min out then at least 30 min in a cooled shelter.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="notes">
+        <p><b>Follow the more restrictive</b> of this table and your heat level. If your crew lead's local WBGT is higher than the Ch 16 value, the local reading wins. No working meter: use the Ch 16 WBGT for your grid, read the table one row hotter, and get a meter from the Quartermaster on Ch 15 (site rule).</p>
+        <p><b>Heavy or non-breathable gear</b> (chemical suit, FR leathers, sealed coverall): add 10° to the WBGT for light work, or 20° for moderate, heavy or very heavy work (very heavy: site rule), before you read the table. Cooled suits: follow the PTW-HE.</p>
+        <p><b>Ramp:</b> on Days 1–4, work half the minutes shown (see "Just woke up?"). Days 6–14 use the full table, with a crew lead check every 15 min at WBGT 85+.</p>
+        <p><b>Rest</b> means sitting or standing still in a cooling station or shade, with gear loosened. <b>No limit</b> means no limit to work per hour, up to 4 hours straight. The times and water amounts hold for at least 4 hours of work.</p>
+        <p><b>Water:</b> full sun adds about ¼ qt per hour. Never drink more than 1½ qt (48 oz) in an hour or 12 qt in a day.</p>
+        <p><b>The 92+ and 95+ rows are site rules.</b> The Old Earth table's top row is 90 and above. At 92–94.9, moderate work needs a cooling vest. No vest, no work.</p>
+      </div>
+      <p class="small" style="margin-top:10px"><b>Light:</b> inspection, survey, operating from an AC cab. <b>Moderate:</b> framing, tying rebar, carrying panels, walking on loose sand with a light load, welding (FR leathers add the clothing adjustment; never count them twice). <b>Heavy:</b> trenching, shoveling, concrete finishing, climbing. <b>Very heavy:</b> hauling or carrying heavy loads by hand on loose sand, two-person panel carries, fast digging.</p>
     </div>
   </section>
 
@@ -105,58 +161,62 @@
         </div>
         <ul style="margin-top:12px">
           <li>Drink before you're thirsty. Thirst runs behind your losses.</li>
-          <li>Past 48 oz an hour your gut can't keep up, and too much plain water thins your blood salt. Eat the salt tabs or rations with it.</li>
-          <li>Weigh in and out at the hatch. Drink 16 oz for every pound lost.</li>
+          <li>No more than 48 oz (1½ qt) an hour or 12 qt a day. More thins your blood salt (hyponatremia).</li>
+          <li>Use the electrolyte drink mix, or eat your rations, with your water. <b>No salt tablets</b> unless a medic gives them to you.</li>
+          <li>Weigh in and out at the <b>shift weigh station</b> in the cooling station. Measure against that day's starting weight (your revival weight is too low to use). Down 2% (3.6 lb for a 180-lb worker): pull off, rehydrate in the cooling station and check in at the FAS before you go back.</li>
+          <li>Drink 16–24 oz for every pound lost, spread over the next few hours.</li>
+          <li>Confused after drinking a lot? Don't give more water. Call Ch 1. The medic tells heat stroke apart from low blood salt.</li>
           <li>No alcohol within 24 hrs of a shift. No stim drinks on deck.</li>
         </ul>
+        <p class="small" style="margin-top:10px"><b>Drinking water and toilets:</b> drink only from blue-labeled <b>DRINKING WATER</b> taps and coolers. Recycled water and coolant are never drinking water. Coolers stay shaded and insulated, with water at 50–60°F. Use your own bottle. Toilets are within a short walk of every deck, so never drink less to avoid a trip.</p>
         <div class="urine" aria-label="Urine color check">
           <div style="background:#f7f5d5"></div><div style="background:#f1eb9a"></div><div style="background:#e9dc72"></div><div style="background:#ddc447"></div>
           <div style="background:#cfa62a"></div><div style="background:#b5841a"></div><div style="background:#8f5d15"></div><div style="background:#663812"></div>
         </div>
-        <div class="ul"><span>Good</span><span>Drink now</span><span>Tea or cola: aid station</span></div>
+        <div class="ul"><span>Good</span><span>Drink now</span><span>Tea or cola: FAS now</span></div>
       </div>
 
       <div class="box">
-        <h3>Work / rest by WBGT</h3>
-        <p class="small" style="margin-bottom:8px"><b>WBGT (wet-bulb globe temperature)</b> is the heat-stress number your crew lead reads off the site meter. Unlike plain air temperature, it counts everything that heats your body: air temperature, humidity, direct sun and wind. That's why a humid 88° WBGT can be more dangerous than a dry 110° air reading.</p>
-        <p class="small" style="margin-bottom:8px">Each cell shows <b>minutes of work / minutes of rest per hour</b>, plus water per hour. These times are for workers who have finished the 5-day post-stasis ramp. <b>On Days 1–4 of your ramp, work half these times.</b></p>
-        <div class="tw"><table>
-          <thead><tr><th>WBGT °F</th><th>Light</th><th>Moderate</th><th>Heavy</th></tr></thead>
-          <tbody>
-            <tr><td class="m" style="background:var(--z1)">78–81.9</td><td class="m">No limit · ½ qt</td><td class="m">No limit · ¾ qt</td><td class="m">40/20 · ¾ qt</td></tr>
-            <tr><td class="m" style="background:var(--z2)">82–84.9</td><td class="m">No limit · ½ qt</td><td class="m">50/10 · ¾ qt</td><td class="m">30/30 · 1 qt</td></tr>
-            <tr><td class="m" style="background:var(--z3)">85–87.9</td><td class="m">No limit · ¾ qt</td><td class="m">40/20 · ¾ qt</td><td class="m">30/30 · 1 qt</td></tr>
-            <tr><td class="m" style="background:var(--z4)">88–89.9</td><td class="m">No limit · ¾ qt</td><td class="m">30/30 · ¾ qt</td><td class="m">20/40 · 1 qt</td></tr>
-            <tr><td class="m" style="background:var(--z5);color:#fff">90+</td><td class="m">50/10 · 1 qt</td><td class="m">20/40 · 1 qt</td><td class="m">10/50 · 1 qt</td></tr>
-          </tbody>
-        </table></div>
-        <p class="small" style="margin-top:8px"><b>Light:</b> inspections, survey, operating equipment from an AC cab. <b>Moderate:</b> framing, tying rebar, carrying panels. <b>Heavy:</b> trenching, hauling, shoveling, concrete finishing.</p>
+        <h3>On the build</h3>
+        <ul>
+          <li><b>Metal burns.</b> Sun-baked steel, rebar and deck plate pass 158°. Gloves on every time you touch metal.</li>
+          <li><b>Pours, lifts and heavy work go at night.</b> Concrete, heavy rigging and welding in leathers get scheduled for the cool hours.</li>
+          <li><b>Enclosed modules trap heat.</b> Unfinished habs and hull sections can run far hotter than outside. Your crew lead takes the WBGT inside before anyone goes in. One way in or poor airflow? Check it against <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a> first.</li>
+          <li><b>Cover up.</b> Loose, light-colored, full-coverage clothing, a brimmed hard-hat shade and a neck flap. Bare skin soaks up heat when the air is hotter than you.</li>
+          <li><b>Sun and UV.</b> Atmos posts the UV index on Ch 16. Skin burns in minutes. Cover up, put sunscreen on any bare skin, and wear tinted, UV-rated safety glasses or goggles. Burned skin sweats poorly.</li>
+          <li><b>Wet cloth works in dry air.</b> A soaked neck wrap cools you through evaporation. It stops working when it's humid.</li>
+          <li><b>Never sit on bare sand or deck plate.</b> Sit on a mat or a cooling-station bench.</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="sec">
     <div class="cols">
-      <div class="box">
-        <h3>On the build</h3>
-        <ul>
-          <li><b>Metal burns.</b> Sun-baked steel, rebar and hull plate pass 158°. Gloves on every time you touch metal.</li>
-          <li><b>Pours and lifts go at night.</b> Concrete, welding and heavy rigging get scheduled for the cool hours.</li>
-          <li><b>Enclosed modules trap heat.</b> Unfinished habs and hull sections can run far hotter than outside. Check the reading before you go in.</li>
-          <li><b>Cover up.</b> Loose, light-colored, full-coverage clothing, a brimmed hard-hat shade, goggles. Bare skin soaks up heat when the air is hotter than you.</li>
-          <li><b>Wet cloth works in dry air.</b> A soaked neck wrap cools you through evaporation. It stops working when it's humid.</li>
-          <li><b>Never sit on bare sand or deck plate.</b> Use your mat.</li>
-        </ul>
+      <div class="stack">
+        <div class="box">
+          <h3>Buddies, check-ins, lone work</h3>
+          <ul>
+            <li><b>Buddy pairs always.</b> Buddies watch each other all shift. From Extreme caution up, buddies stay within sight of each other.</li>
+            <li>Your <b>crew lead</b> sees every crew member at least every 30 min, and checks in with the foreman every 30 min on the foreman talkgroup.</li>
+            <li><b>Missed check-in:</b> immediate call-back. No answer within 5 minutes: someone goes in person.</li>
+            <li><b>Lone work:</b> none at Caution or higher, at height, in confined spaces, or near wadis or trenches. Otherwise only with 15-minute check-ins and a logged location.</li>
+          </ul>
+        </div>
+        <div class="box">
+          <h3>Report it</h3>
+          <p class="small">Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form HS-IR with your Colonist ID. That includes heat cramps and dizzy spells. Don't move anything except to rescue. Safety &amp; Health investigates with the crew and shares the findings at muster. No retaliation.</p>
+        </div>
       </div>
       <div class="box">
-        <h3>Crew leads &amp; construction managers</h3>
+        <h3>Crew leads &amp; foremen</h3>
         <ul>
-          <li>Take the <b>WBGT reading</b> at muster and every hour after. Post the level and the work/rest cycle.</li>
-          <li>Assign a <b>buddy pair</b> to every worker. Check every crew member at least every 30 min.</li>
-          <li>Keep <b>water, shade and a cooling station</b> no more than a short walk from any work face. Stock an ice trough on every deck.</li>
-          <li>Track each new waker's <b>ramp day</b>. No one skips the ramp because the schedule slipped.</li>
-          <li>Run a <b>radio check</b> every 30 min with each crew. A crew that misses one gets checked in person.</li>
-          <li>Brief the <b>heat casualty plan</b> at every muster: nearest trough, Ch 14 medical, evac route.</li>
+          <li>Take the <b>WBGT where the crew works</b> (same deck, same sun or shade) at muster and every hour, and inside any enclosed module before entry. Post the heat level, the WBGT and the work/rest cycle.</li>
+          <li>Track each worker's <b>ramp day</b> on the roster. Log Day 5 complete before a RAMP band comes off. Reset anyone who qualifies to Day 1. No one skips the ramp because the schedule slipped.</li>
+          <li>Keep <b>water, shade and a cooling station</b> on the same deck as the work, within 2 minutes' walk, with no ladder climb in between (site rule).</li>
+          <li>Check your deck's <b>ice trough</b> at muster and every 2 hours: full, ice floating, clean, and big enough for an adult lying down. Low or warm: call the Quartermaster on Ch 15. Clean it after every use.</li>
+          <li>Brief the <b>heat casualty plan</b> at every muster: the nearest cooling station and ice trough, the Ch 1 call ("Emergency, emergency, emergency. Heat casualty"), and the route to the FAS. Ch 14 is for medics. The first call always goes on Ch 1.</li>
+          <li>At Extreme, get the Sector Superintendent's approval before any essential work.</li>
           <li>Plan heavy tasks for the night shift. <b>Cut scope before you cut rest.</b></li>
         </ul>
       </div>
@@ -165,12 +225,12 @@
 
   <section class="saw">
     <h2>Stop-work authority</h2>
-    <p><b>Every worker on this site can stop work</b> when a crew member shows heat symptoms or water, shade or cooling isn't available. No penalty, no questions. A late habitat is better than a dead crew.</p>
+    <p><b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged. Stop work when anyone shows heat symptoms, or when water, shade, a cooling station or the ice trough isn't there.</p>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I have read this poster, I know where my nearest cooling station and ice trough are, and I understand that I must follow the post-stasis ramp.</p>
+    <p class="small">I have read this poster, I know where my nearest cooling station and ice trough are, and I understand that I must follow the heat ramp.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -181,8 +241,8 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA &amp; NIOSH heat guidance (2016 criteria), NOAA National Weather Service heat index, US Army TB MED 507, CDC heat illness first aid, Korey Stringer Institute heat stroke protocol.</span>
-    <span>HS-03 · Dunewright Colony Works · Replace when faded</span>
+    <span>Adapted from Old Earth standards: NIOSH Criteria for a Recommended Standard, Occupational Exposure to Heat and Hot Environments (2016-106); OSHA proposed Heat Injury and Illness Prevention rule (2024, not final); NOAA National Weather Service heat index; US Army TB MED 507 (2003, and April 2022 Table 3-2); ACGIH heat stress and strain TLV; CDC/NIOSH heat illness first aid; Korey Stringer Institute exertional heat stroke guidance.</span>
+    <span>HS-03 · Rev. 5 · Dunewright Colony Works · See also <a href="m1-orientation.html">HS-01</a> · <a href="m9-emergencies.html">HS-09</a> · <a href="permits.html">REF-PTW</a> · <a href="tools/heat-field-card.html">TOOL-HFC</a> · <a href="tools/weather.html">TOOL-WX</a> · Replace when faded</span>
   </footer>
 </article>
 </div>

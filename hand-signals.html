@@ -18,8 +18,7 @@
 .sig p{font-size:13px}
 .sig .chip{justify-self:start;margin-bottom:2px}
 .sigs.site .sig svg{background:#fbe3d6}
-.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px;margin-bottom:14px}
-.legend i{display:inline-block;width:22px;height:4px;vertical-align:middle;margin-right:6px}
+.callout .in p + p{margin-top:0}
 @media (max-width:820px){
   .sigs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sig{border-right:2px solid var(--black)!important}
@@ -33,13 +32,13 @@
 <article class="poster">
 
   <header class="head">
-    <div class="meta"><span>Form REF-HS · Rev. 4</span><span>Reference sheet · Post-stasis refresher</span><span>Post in every crane cab, lift muster and equipment yard</span></div>
+    <div class="meta"><span>Form REF-HS · Rev. 5</span><span>Post-stasis refresher · Reference sheet</span><span>Post in every crane cab, lift muster and equipment yard</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Crane &amp; Lift</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Hand signals.</h1>
-    <p class="sub">When the radio is drowned out by engines, wind or sand, your arms do the talking.</p>
+    <p class="sub">In full view of the operator, your arms do the talking. Lose sight, and the lift stops.</p>
   </header>
   <div class="stripe"></div>
 
@@ -47,7 +46,10 @@
     <div class="lbl">Read first</div>
     <div class="in">
       <h2>One signal person. Anyone can stop.</h2>
-      <p>Each lift has <b>one</b> qualified signal person in an orange hard hat. The operator takes signals only from them, except <b>STOP and EMERGENCY STOP, which the operator obeys from anyone.</b> Signals are given facing the operator, in clear view. If the operator loses sight of the signal person, they stop. Lost the radio? Switch to hand signals and confirm on Ch 11 when it's back.</p>
+      <p>Each lift has <b>one</b> qualified signal person (orange hard hat, badge endorsement). The operator takes signals only from them, except <b>STOP and EMERGENCY STOP, which the operator obeys from anyone.</b> Signals are given facing the operator, in clear view. If the operator loses sight of the signal person or the load, the operator stops.</p>
+      <p><b>Radio drops during a lift?</b> The operator stops all motion and holds the load. Resume only when the radio is back and tested, or when the signal person is in the operator's full, continuous view and the operator, signal person and whoever directs the lift (the Lift Director, or the lift lead on a routine lift) agree to switch to hand signals. Blind lifts stay stopped. Radio signals go on the lift talkgroup named on the lift plan, never on Ch 11 (<a href="radio.html">REF-RAD</a>, <a href="m6-cranes-equipment.html">HS-06</a>).</p>
+      <p><b>Site signals are for people, never for operators, except ALL STOP</b> (the EMERGENCY STOP signal). Give EMERGENCY STOP first, then the site signal once the load is held.</p>
+      <p>At night, use lighted wands or lighted gloves. Sand, haze or dark so thick the operator can't clearly see every signal? Stop the lift.</p>
       <p class="small">Figures face you, the way the operator sees the signal person. <span style="color:var(--orange);font-weight:800">Orange arrows</span> show the motion.</p>
     </div>
   </section>
@@ -55,27 +57,29 @@
   <section class="sec">
     <div class="sh"><h2>Crane signals</h2><span class="tag">Old Earth standard · ASME B30.5 mobile cranes</span></div>
     <div class="sigs" id="crane"></div>
+    <p class="note">Crawler and telescoping-boom signals apply only to those cranes. Any signal not on this sheet is used only if the operator, signal person and whoever directs the lift (the Lift Director, or the lift lead on a routine lift) agree on it before the lift.</p>
   </section>
 
   <section class="sec">
     <div class="sh"><h2>Equipment spotter signals</h2><span class="tag">Backing and positioning haul trucks, loaders, carriers</span></div>
     <div class="sigs" id="spot"></div>
-    <p class="note">Spotters stand where the operator can see them in a mirror or camera, never directly behind the machine. Lose sight of your spotter: stop.</p>
+    <p class="note">Spotters stand where the operator can see them in a mirror or camera, never directly behind the machine. Lose sight of your spotter: stop. Machine horns are about that machine only, never site signals: 1 = stopping, 2 = moving forward, 3 = backing up. Hear 3 horn blasts near you? Get out of its path.</p>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>DCW site emergency signals</h2><span class="tag">Site signals · Dunewright only, not an Old Earth standard</span></div>
+    <div class="sh"><h2>DCW site emergency signals</h2><span class="tag">Site rule · Dunewright only, not an Old Earth standard</span></div>
     <div class="sigs site" id="site"></div>
-    <p class="note">After any emergency signal, call it in on Ch 1 as soon as you can: "Emergency, emergency, emergency", type, sector-grid, deck, number hurt.</p>
+    <p class="note">Site signals are for people, never for operators, except ALL STOP (EMERGENCY STOP). Near a lift, give EMERGENCY STOP first, then the site signal once the load is held. After any emergency signal, call it in on Ch 1 as soon as you can: "Emergency, emergency, emergency," type, location, number hurt, hazards, your call sign. The caller stays on Ch 1 until Hub Command or the medic releases them.</p>
+    <p class="note">Fighting a fire (<a href="m9-emergencies.html">HS-09</a>): fight it only if it's waste-bin size, your exit is behind you, and you have the right extinguisher. Not out in about 10 seconds? Leave and call Ch 1 "Fire". Never fight a polymer, power-cell or gas-fed fire. A polymer fire is a fire in bulk feedstock, a curing resin mass, a printed structure or panel stack, or a spray zone. A waste-bin-size fire in rags or scrap may be fought. Smother a rag can with its lid. A fire that's out: tell your foreman, who logs it on Ch 13.</p>
   </section>
 
   <section class="saw">
     <h2>STOP beats everything</h2>
-    <p>Two arms out, palms down, waving back and forth means <b>everything stops now</b>: cranes, machines, hot work. It works the same on the crane line, the haul road and the deck. The siren version is <b>3 short blasts</b>.</p>
+    <p>One arm out, palm down, swung forward and back = <b>STOP</b>. Both arms = <b>EMERGENCY STOP</b>, the site ALL STOP. Every operator obeys it from anyone: cranes, machines and hot work stop, and everyone holds position. A suspended load is landed only on the signal person's direction. The voice version is "ALL STOP, ALL STOP" on any channel. The siren version is <b>3 short blasts</b>. Cleared only by whoever called it, or by command.</p>
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: ASME B30.5 (Mobile and Locomotive Cranes) standard hand signals, OSHA 1926 Subpart CC Appendix A, common earthmoving spotter practice. Site emergency signals are Dunewright Colony Works rules.</span>
+    <span>Adapted from Old Earth standards: ASME B30.5 (Mobile and Locomotive Cranes) standard hand signals, OSHA 1926 Subpart CC Appendix A, OSHA 1926.1419 (signals), 1926.1420 (radio signals) and 1926.1428 (signal person qualification), common earthmoving spotter practice. Site emergency signals are Dunewright Colony Works site rules.</span>
     <span>REF-HS · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>
@@ -84,6 +88,8 @@
 <script>
 // Stick-figure signal generator. Coordinates in a -8 -16 136 160 box, angles in degrees
 // (0 = right, 90 = down, -90 = up, 180 = left) as seen by the viewer.
+// Arm spec: u = upper-arm angle (or e = elbow point), f = forearm angle (or to = hand point),
+// hand = none | fist | bigfist | point | thumb | palm, hd = direction of finger, thumb or palm.
 (function(){
   let uid=0;
   const rad=a=>a*Math.PI/180;
@@ -110,16 +116,18 @@
     if(t==="palm"){const p=seg(a.h,d,11);return `<line x1="${f(x)}" y1="${f(y)}" x2="${f(p[0])}" y2="${f(p[1])}" ${st} stroke-width="7"/>`}
     return "";
   }
-  // motion arrows
+  // motion arrows and marks
+  const tick=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${OR};stroke-width:2.5;stroke-linecap:round"/>`;
   const A={
     line:(x1,y1,x2,y2,both)=>({d:`M${x1} ${y1}L${x2} ${y2}`,both}),
-    arc:(cx,cy,r,a0,a1,both)=>{const p0=seg([cx,cy],a0,r),p1=seg([cx,cy],a1,r);const sw=a1>a0?1:0;
-      return {d:`M${f(p0[0])} ${f(p0[1])}A${r} ${r} 0 0 ${sw} ${f(p1[0])} ${f(p1[1])}`,both}},
+    arc:(cx,cy,r,a0,a1,both)=>{const p0=seg([cx,cy],a0,r),p1=seg([cx,cy],a1,r);const sw=a1>a0?1:0;const la=Math.abs(a1-a0)>180?1:0;
+      return {d:`M${f(p0[0])} ${f(p0[1])}A${r} ${r} 0 ${la} ${sw} ${f(p1[0])} ${f(p1[1])}`,both}},
     circ:(cx,cy,rx)=>{const ry=rx*0.42;const p0=[cx-rx*Math.cos(rad(30)),cy+ry*Math.sin(rad(30))],p1=[cx+rx*Math.cos(rad(30)),cy+ry*Math.sin(rad(30))];
       return {d:`M${f(p0[0])} ${f(p0[1])}A${rx} ${f(ry)} 0 1 1 ${f(p1[0])} ${f(p1[1])}`}},
-    tap:(x,y)=>({raw:[[-9,-7,-5,-4],[0,-11,0,-6],[9,-7,5,-4]].map(([a,b,c,d])=>`<line x1="${x+a}" y1="${y+b}" x2="${x+c}" y2="${y+d}" style="stroke:${OR};stroke-width:2.5;stroke-linecap:round"/>`).join("")}),
+    // tap marks above a point, or (tapL) to the left of a point
+    tap:(x,y)=>({raw:[[-9,-7,-5,-4],[0,-11,0,-6],[9,-7,5,-4]].map(([a,b,c,d])=>tick(x+a,y+b,x+c,y+d)).join("")}),
+    tapL:(x,y)=>({raw:[[-11,0,-6,0],[-9,-7,-5,-4],[-9,7,-5,4]].map(([a,b,c,d])=>tick(x+a,y+b,x+c,y+d)).join("")}),
     flex:(x,y)=>({raw:`<path d="M${x-7} ${y+9}q3 -4 0 -8M${x} ${y+11}q3 -4 0 -8M${x+7} ${y+9}q3 -4 0 -8" style="fill:none;stroke:${OR};stroke-width:2.2;stroke-linecap:round"/>`}),
-    x:(x,y)=>({raw:`<path d="M${x-6} ${y-6}L${x+6} ${y+6}M${x+6} ${y-6}L${x-6} ${y+6}" style="stroke:${OR};stroke-width:3;stroke-linecap:round"/>`}),
   };
 
   function figure(spec){
@@ -127,7 +135,6 @@
     const L=arm(SL,spec.L,{u:100,f:95}), R=arm(SR,spec.R,{u:80,f:85});
     const armPath=a=>`<path d="M${a.sh[0]} ${a.sh[1]}L${f(a.e[0])} ${f(a.e[1])}L${f(a.h[0])} ${f(a.h[1])}" style="fill:none;stroke:${INK};stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round"/>`;
     const ex=(spec.ex?spec.ex({L,R}):[]).map(o=>o.raw||`<path d="${o.d}" style="fill:none;stroke:${OR};stroke-width:2.6;stroke-linecap:round" marker-end="url(#${id})"${o.both?` marker-start="url(#${id})"`:""}/>`).join("");
-    const front=spec.front||[];
     return `<svg viewBox="-8 -16 136 160" role="img" aria-label="${spec.n}">
       <defs><marker id="${id}" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:${OR}"/></marker></defs>
       <path d="M55 82L50 130M65 82L70 130" style="fill:none;stroke:${INK};stroke-width:6;stroke-linecap:round"/>
@@ -136,90 +143,97 @@
       <circle cx="60" cy="21" r="9.5" style="fill:var(--paper);stroke:${INK};stroke-width:2.5"/>
       <path d="M49.5 18A10.5 10.5 0 0 1 70.5 18Z" style="fill:${spec.hat||"var(--orange)"};stroke:${INK};stroke-width:2"/>
       <line x1="46" y1="18.5" x2="74" y2="18.5" style="stroke:${INK};stroke-width:2.5;stroke-linecap:round"/>
-      ${spec.behindArms?"":""}
       ${armPath(L)}${armPath(R)}${hand(L)}${hand(R)}${ex}
     </svg>`;
   }
 
   const UP=-90, DN=90;
+  // level, double-headed swing arrows under an arm held out to the right (R) or left (L)
+  const swingR=()=>A.line(96,50,122,50,true), swingL=()=>A.line(-2,50,24,50,true);
   const CRANE=[
     {n:"Hoist",d:"Forearm vertical, forefinger pointing up. Move hand in small horizontal circles.",
       R:{u:-10,f:UP,hand:"point",hd:UP},ex:P=>[A.circ(f(P.R.h[0]),-3,9)]},
     {n:"Lower",d:"Arm extended downward, forefinger pointing down. Move hand in small horizontal circles.",
       R:{u:60,f:62,hand:"point",hd:DN},ex:P=>[A.circ(f(P.R.h[0])+4,P.R.h[1]+19,9)]},
     {n:"Use main hoist",d:"Tap fist on top of head. Then give regular signals.",
-      R:{u:-40,to:[63,5],hand:"fist"},ex:()=>[A.tap(63,3)]},
+      R:{u:-76,to:[63,5],hand:"fist"},ex:()=>[A.tap(63,3)]},
     {n:"Use whipline",d:"Tap the elbow with one hand (auxiliary hoist). Then give regular signals.",
-      L:{u:180,f:UP,hand:"fist"},R:{u:160,to:[37,42],hand:"palm",hd:195},ex:()=>[A.tap(32,46)]},
+      L:{u:180,f:UP,hand:"fist"},R:{u:160,to:[37,42],hand:"palm",hd:195},ex:()=>[A.tap(30,55)]},
     {n:"Raise boom",d:"Arm extended, fingers closed, thumb pointing upward.",
       R:{u:0,f:0,hand:"thumb",hd:UP}},
     {n:"Lower boom",d:"Arm extended, fingers closed, thumb pointing downward.",
       R:{u:0,f:0,hand:"thumb",hd:DN}},
     {n:"Move slowly",d:"One hand gives any motion signal. The other hand is held still, flat, in front of it. Shown: hoist slowly.",
-      R:{u:5,f:UP,hand:"point",hd:UP},L:{e:[66,58],to:[83,5],hand:"palm",hd:0}},
+      R:{u:30,f:UP,hand:"point",hd:UP},L:{e:[70.7,32.9],to:[77,16],hand:"palm",hd:0}},
     {n:"Raise boom & lower load",d:"Arm extended, thumb up. Flex fingers in and out as long as load movement is wanted.",
-      R:{u:0,f:0,hand:"thumb",hd:UP},ex:P=>[A.flex(105,44)]},
+      R:{u:0,f:0,hand:"thumb",hd:UP},ex:()=>[A.flex(105,44)]},
     {n:"Lower boom & raise load",d:"Arm extended, thumb down. Flex fingers in and out as long as load movement is wanted.",
-      R:{u:0,f:0,hand:"thumb",hd:DN},ex:P=>[A.flex(105,22)]},
+      R:{u:0,f:0,hand:"thumb",hd:DN},ex:()=>[A.flex(105,22)]},
     {n:"Swing",d:"Arm extended, point with finger in the direction to swing the boom.",
-      R:{u:0,f:0,hand:"point",hd:0},ex:()=>[A.arc(68,40,50,-34,-10)]},
-    {n:"Stop",d:"Arm extended, palm down. Move arm back and forth horizontally.",
-      R:{u:0,f:0,hand:"palm",hd:0},ex:()=>[A.arc(68,40,47,10,30,true)]},
-    {n:"Emergency stop",d:"Both arms extended, palms down. Move arms back and forth horizontally.",
-      L:{u:180,f:180,hand:"palm",hd:180},R:{u:0,f:0,hand:"palm",hd:0},
-      ex:()=>[A.arc(68,40,47,10,30,true),A.arc(52,40,47,150,170,true)]},
-    {n:"Travel",d:"Arm extended forward, hand open and slightly raised. Make a pushing motion in the direction of travel.",
+      R:{u:0,f:0,hand:"point",hd:0},ex:()=>[A.line(94,31,121,31)]},
+    {n:"Stop",d:"Arm extended, palm down. Move arm back and forth horizontally: swing it forward and back, level with your shoulder.",
+      R:{u:0,f:0,hand:"palm",hd:0},ex:()=>[swingR()]},
+    {n:"Emergency stop",d:"Both arms extended, palms down. Move arms back and forth horizontally, level with your shoulders. Obeyed from anyone.",
+      L:{u:180,f:180,hand:"palm",hd:180},R:{u:0,f:0,hand:"palm",hd:0},ex:()=>[swingR(),swingL()]},
+    {n:"Travel",d:"Arm extended forward, hand open and slightly raised. Make a pushing motion in the direction of travel. (Arm drawn to the side so you can see it.)",
       R:{u:-5,f:-5,hand:"palm",hd:-80},ex:()=>[A.line(96,58,120,58)]},
     {n:"Dog everything",d:"Clasp hands in front of body. Stop all motion and hold everything where it is.",
       L:{u:125,to:[60,66],hand:"none"},R:{u:55,to:[60,66],hand:"bigfist"}},
+    {n:"Travel, both tracks",d:"Both fists in front of body, circling each other forward or back in the direction of travel. Crawler cranes only.",
+      L:{u:115,to:[55,62],hand:"fist"},R:{u:65,to:[65,54],hand:"fist"},ex:()=>[A.arc(60,58,15,-150,150)]},
+    {n:"Travel, one track",d:"Raised fist locks the track on that side. The other fist circles vertically in front of body, in the direction the other track travels. Crawler cranes only.",
+      L:{u:180,f:UP,hand:"fist"},R:{u:60,f:150,hand:"fist"},ex:()=>[A.arc(62,66,12,-150,150)]},
     {n:"Extend boom",d:"Both fists in front of body, thumbs pointing outward (telescoping boom).",
       L:{u:140,to:[45,64],hand:"thumb",hd:180},R:{u:40,to:[75,64],hand:"thumb",hd:0},
       ex:()=>[A.line(34,76,22,76),A.line(86,76,98,76)]},
     {n:"Retract boom",d:"Both fists in front of body, thumbs pointing toward each other (telescoping boom).",
       L:{u:140,to:[40,64],hand:"thumb",hd:0},R:{u:40,to:[80,64],hand:"thumb",hd:180},
       ex:()=>[A.line(22,76,36,76),A.line(98,76,84,76)]},
+    {n:"Extend boom, one hand",d:"One fist in front of chest, thumb tapping chest (telescoping boom).",
+      R:{e:[80,60],to:[76,49],hand:"thumb",hd:180},ex:()=>[A.tapL(59,49)]},
+    {n:"Retract boom, one hand",d:"One fist in front of chest, thumb pointing outward, heel of fist tapping chest (telescoping boom).",
+      R:{e:[80,60],to:[66,50],hand:"thumb",hd:0},ex:()=>[A.tapL(59,50)]},
   ];
   const SPOT=[
-    {n:"Back up / come to me",d:"Both hands up, palms toward you. Wave the machine back toward you.",
+    {n:"Back up / come to me",d:"Both hands up at head height, palms facing your own face. Pull your hands toward yourself again and again: keep coming back toward me.",
       L:{u:170,f:-80,hand:"palm",hd:UP},R:{u:10,f:-100,hand:"palm",hd:UP},ex:()=>[A.line(20,12,34,12),A.line(100,12,86,12)]},
-    {n:"Stop",d:"Both arms up, fists closed. Hold until the machine has stopped.",
-      L:{u:170,f:-80,hand:"fist"},R:{u:10,f:-100,hand:"fist"}},
+    {n:"Stop",d:"Same as the crane STOP: arm out, palm down, swing it forward and back, level with your shoulder. Both arms = emergency stop. Hold it until the machine has stopped.",
+      R:{u:0,f:0,hand:"palm",hd:0},ex:()=>[swingR()]},
     {n:"Turn",d:"Point the direction to steer with one arm. Keep beckoning with the other hand.",
       R:{u:0,f:0,hand:"point",hd:0},L:{u:170,f:-80,hand:"palm",hd:UP},ex:()=>[A.line(102,52,118,52),A.arc(36,24,14,200,250)]},
     {n:"Distance left",d:"Palms facing each other. The gap between hands is the distance left. Close them as it nears. Hands together = stop.",
       L:{u:168,f:UP,hand:"palm",hd:UP},R:{u:12,f:UP,hand:"palm",hd:UP},ex:()=>[A.line(38,28,47,28),A.line(82,28,73,28)]},
   ];
   const SITE=[
-    {n:"All stop",d:"Same as crane emergency stop. Every machine, crane and torch in sight stops.",
-      L:{u:180,f:180,hand:"palm",hd:180},R:{u:0,f:0,hand:"palm",hd:0},
-      ex:()=>[A.arc(68,40,47,10,30,true),A.arc(52,40,47,150,170,true)]},
-    {n:"Are you OK? / I'm OK",d:"Arm arched over your head, fist on top of your helmet. Ask with it. Answer with the same signal.",
-      R:{u:-60,to:[61,4],hand:"fist"}},
-    {n:"Need help / come to me",d:"Arm straight up, wave it side to side overhead. Keep waving until someone comes.",
+    {n:"All stop",d:"Same as the crane EMERGENCY STOP, and the one site signal operators obey. Every machine, crane and torch in sight stops. Hold position.",
+      L:{u:180,f:180,hand:"palm",hd:180},R:{u:0,f:0,hand:"palm",hd:0},ex:()=>[swingR(),swingL()]},
+    {n:"Are you OK? / I'm OK",d:"Arm arched over your head, open hand resting flat on top of your helmet. Hold it still, never tap. Ask with it, answer with the same signal. No answer? Go to them.",
+      R:{u:-70,to:[64,6],hand:"palm",hd:160}},
+    {n:"Need help",d:"Arm straight up, open hand, waved side to side overhead. Keep waving until someone reaches you.",
       R:{u:-78,f:-86,hand:"palm",hd:UP},ex:()=>[A.arc(68,40,54,-115,-65,true)]},
     {n:"Man down",d:"Cross both arms overhead in an X. Then point at the casualty.",
-      L:{u:-62,to:[75,-2],hand:"fist"},R:{u:-118,to:[45,-2],hand:"fist"}},
+      L:{e:[50,20],to:[65,4],hand:"fist"},R:{e:[70,20],to:[55,4],hand:"fist"}},
     {n:"Heat casualty",d:"Forearm across your brow, then point at the casualty. Bring ice and the medic.",
-      L:{e:[36,26],to:[66,17],hand:"palm",hd:5},R:{u:15,f:15,hand:"point",hd:15}},
-    {n:"Evacuate to muster",d:"Arm straight up, circle it overhead. Then point toward your muster point.",
-      R:{u:-80,f:UP,hand:"point",hd:UP},ex:P=>[A.circ(f(P.R.h[0]),-9,14)]},
-    {n:"Take shelter",d:"Both hands on top of your helmet, elbows out. Then point to the nearest shelter.",
-      L:{u:-140,to:[55,6],hand:"fist"},R:{u:-40,to:[65,6],hand:"fist"}},
+      L:{e:[44,22],to:[62,18],hand:"palm",hd:5},R:{u:15,f:15,hand:"point",hd:15}},
+    {n:"Evacuate to muster",d:"Whole arm straight, open hand, swung in big circles at your side like a windmill. Then point toward your muster point.",
+      R:{u:-45,f:-45,hand:"palm",hd:-45},ex:()=>[A.arc(68,40,52,-120,70)]},
+    {n:"Take shelter",d:"Both hands form a pointed roof above your head, fingertips touching, hands clear of the helmet. Then point to the nearest shelter.",
+      L:{e:[40,24],to:[51,8],hand:"palm",hd:-42},R:{e:[80,24],to:[69,8],hand:"palm",hd:-138}},
     {n:"Can't breathe / air problem",d:"Flat hand slicing across your throat. Respirator, cooling suit or air supply failing. Get them to clean air.",
-      R:{u:60,to:[64,32],hand:"palm",hd:180},ex:()=>[A.line(80,30,96,30,true)]},
-    {n:"Radio failure",d:"Fist tapping beside your ear, then thumb down. Switch to hand signals and find a working radio.",
-      R:{u:-20,to:[73,22],hand:"fist"},L:{u:180,f:180,hand:"thumb",hd:DN},ex:()=>[A.tap(77,22)]},
-    {n:"Fire",d:"Fist pumped straight up and down overhead. Then point at the fire. Grab an extinguisher only if it's small.",
-      R:{u:-80,f:UP,hand:"fist"},ex:P=>[A.line(88,6,88,-12,true)]},
+      R:{u:-40,to:[66,32],hand:"palm",hd:180},ex:()=>[A.line(24,30,48,30,true)]},
+    {n:"Radio failure",d:"Open hand cupped behind your ear, held still: my radio is dead, or I can't hear you. Move closer, find a working radio or send a runner.",
+      R:{e:[84,28],to:[72,27],hand:"palm",hd:UP}},
+    {n:"Fire",d:"Fist pumped straight up and down overhead. Then point at the fire and follow the fire rule below.",
+      R:{u:-80,f:UP,hand:"fist"},ex:()=>[A.line(88,6,88,-12,true)]},
     {n:"Gas / bad air",d:"Hand flat over your mouth and nose, then point upwind. Everyone moves upwind and out.",
-      L:{e:[42,54],to:[54,27],hand:"palm",hd:0},R:{u:15,f:15,hand:"point",hd:15}},
+      L:{e:[35.3,29.1],to:[53,26],hand:"palm",hd:0},R:{u:15,f:15,hand:"point",hd:15}},
     {n:"Hold position",d:"Forearm up, flat hand facing the person. Stay where you are until waved on.",
       R:{u:15,f:UP,hand:"palm",hd:UP}},
   ];
   const card=(s,tag)=>`<div class="sig">${figure(s)}${tag?`<span class="chip">${tag}</span>`:""}<h3>${s.n}</h3><p>${s.d}</p></div>`;
   document.getElementById("crane").innerHTML=CRANE.map(s=>card(s)).join("");
   document.getElementById("spot").innerHTML=SPOT.map(s=>card(Object.assign({hat:"var(--hiviz)"},s))).join("");
-  document.getElementById("site").innerHTML=SITE.map(s=>card(Object.assign({hat:"var(--paper)"},s),"Site signal")).join("");
+  document.getElementById("site").innerHTML=SITE.map(s=>card(Object.assign({hat:"var(--hiviz)"},s),"Site signal")).join("");
 })();
 </script>
 <script src="assets/site.js"></script>

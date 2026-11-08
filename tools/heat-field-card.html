@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Heat Survival Field Card</title>
+<title>TOOL-HFC Heat Field Card · Dunewright Colony Works</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -116,6 +116,12 @@ td.c{font-family:var(--mono);white-space:nowrap}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:13px}
 
 .src li{margin-bottom:4px;font-size:13px}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 18px;font:700 12px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.brand{font:700 13px/1.3 var(--mono);letter-spacing:.03em}
+.dcw{border:2px solid var(--ink);border-left:8px solid var(--z2);border-radius:4px;padding:10px 12px;font-size:13px;margin-top:10px}
+.dcw b:first-child{font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--z2);color:#111;padding:1px 6px;border-radius:2px;margin-right:4px}
+#tbmed td.c{white-space:normal}
+#tbmed td.c:first-child{white-space:nowrap}
 footer{color:var(--muted);font-size:12px;max-width:80ch}
 
 @media (max-width:760px){
@@ -129,14 +135,16 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
 @media (prefers-reduced-motion:no-preference){.zone,.ill{transition:transform .15s}.zone:hover{transform:translateX(3px)}}
 </style>
 </head><body>
-<p style="max-width:1180px;margin:0 auto;padding:12px 16px 0;font:600 13px system-ui"><a href="../index.html">← DCW Refresher</a></p>
+<p style="max-width:1180px;margin:0 auto;padding:12px 16px 0;font:600 13px system-ui"><a href="../index.html">← DCW Refresher</a> · <a href="../m3-heat.html">HS-03 Heat</a> · <a href="weather.html">TOOL-WX Site Weather Office</a></p>
 
 <div class="wrap">
   <header style="display:grid;gap:12px">
     <div class="hazard"></div>
-    <div class="eyebrow">Worker reference · 70°F to 180°F</div>
+    <div class="meta"><span>Form TOOL-HFC · Rev. 5</span><span>Site tool · Old Earth reference</span><span>Behind Module 3 (HS-03)</span></div>
+    <div class="brand">Dunewright Colony Works · Settlement Site 4 · Construction Division · Safety &amp; Health</div>
+    <div class="eyebrow">Old Earth heat data · 70°F to 180°F</div>
     <h1>Heat Survival Field Card</h1>
-    <p class="lede">What OSHA, NIOSH, CDC, NOAA's National Weather Service, the US Army and heat-physiology research say a worker needs to know to stay safe in severe heat. Find your temperature on the scale, read across, and follow the actions.</p>
+    <p class="lede">What OSHA, NIOSH, CDC, NOAA's National Weather Service, the US Army and heat-physiology research say about working in severe heat. This is the real-world data behind <a href="../m3-heat.html">HS-03</a>. Where DCW site rules are stricter, a <b>DCW</b> note says so. On site, follow HS-03 and your crew lead's posted heat level.</p>
   </header>
 
   <section class="panel" aria-label="Temperature scale">
@@ -147,9 +155,10 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
     </div>
     <div class="marks">
       <div><b>70–124°F</b> = NWS heat index in shade. Full sun adds up to <b>15°F</b>.</div>
-      <div><b>125–180°F</b> = air temperature, dry air. These zones are past the NWS chart.</div>
+      <div><b>125–180°F</b> = air temperature, dry air. These zones are past the NWS heat index chart.</div>
       <div><b>95°F</b> ≈ skin temp. <b>104°F</b> core = heat stroke.</div>
     </div>
+    <p class="dcw"><b>DCW</b> Zone names match the HS-03 heat levels. Your crew lead posts the heat level and the WBGT. Follow whichever is more restrictive. If the crew lead's local WBGT is higher than the Ch 16 value, the local reading wins.</p>
   </section>
 
   <section style="display:grid;gap:10px" id="zones" aria-label="Zones"></section>
@@ -160,10 +169,10 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
     <div class="nums">
       <div class="num"><div class="n">95<small>°F</small></div><p>Roughly skin temperature. When the air is hotter, it adds heat to you. Only sweat evaporating takes heat away, and fans stop helping.</p></div>
       <div class="num"><div class="n">104<small>°F</small></div><p>Core body temperature that marks heat stroke, along with confusion or collapse. Brain and organ damage starts here.</p></div>
-      <div class="num"><div class="n">88<small>°F</small></div><p>Wet-bulb limit measured in young, healthy adults (Penn State, 2022). Above it, core temperature keeps rising even at rest. The older theoretical limit was 95°F.</p></div>
+      <div class="num"><div class="n">77–88<small>°F</small></div><p>Wet-bulb limit measured in young, healthy adults doing light activity (Penn State, 2022): about 86–88°F in humid heat, but only about 77–82°F in hot, dry air like a desert. Above it, core temperature keeps rising. The older theoretical limit was 95°F.</p></div>
       <div class="num"><div class="n">48<small> oz/hr</small></div><p>About the most fluid the gut can absorb (1.5 qt). Heavy work in heat can sweat out more than that, so you fall behind no matter how much you drink.</p></div>
       <div class="num"><div class="n">2<small>%</small></div><p>Body weight lost as sweat before strength, judgment and heat tolerance drop noticeably.</p></div>
-      <div class="num"><div class="n">158<small>°F</small></div><p>Surface temperature that burns skin in about one second of contact. Sun-baked metal, sand and pavement get there.</p></div>
+      <div class="num"><div class="n">158<small>°F</small></div><p>Bare metal this hot burns skin in about one second of contact (ISO 13732-1). Sun-baked metal, sand and pavement get there.</p></div>
     </div>
   </section>
 
@@ -179,29 +188,30 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
     <div>
       <div class="eyebrow" style="color:#ffd9c9">Emergency</div>
       <h2 style="margin-top:6px">Heat stroke</h2>
-      <p style="margin-top:10px">Confusion, slurred speech, collapse, seizure, or very hot skin. They may still be sweating. If it could be heat stroke, treat it as heat stroke.</p>
+      <p style="margin-top:10px">Confusion, slurred speech, collapse, seizure, or very hot skin. They may still be sweating. If it could be heat stroke, treat it as heat stroke. Don't wait for a thermometer: after hard work in heat, only a rectal reading is reliable. Mouth, ear and forehead readings read low.</p>
       <p class="big">Cool first, transport second.</p>
-      <p class="small" style="opacity:.9;margin-top:6px">Korey Stringer Institute: nearly everyone survives when core temperature is brought under 104°F within 30 minutes.</p>
+      <p class="small" style="opacity:.9;margin-top:6px">Korey Stringer Institute: when cold-water immersion starts right away and core temperature drops below about 102°F within 30 minutes of collapse, survival is close to 100%. Medics stop cooling at about 101–102°F.</p>
     </div>
     <ol>
-      <li><b>Call 911</b> or your site emergency number. Give the exact location.</li>
-      <li><b>Get them out of the heat</b> and into shade or a cool space. Take off extra clothing and gear.</li>
-      <li><b>Cold-water immersion</b> is the fastest method. Put them in a tub or tarp of ice water up to the neck, keeping the head supported.</li>
-      <li>No tub? <b>Soak them</b> with cold water and lay ice-water towels all over the body. Put ice packs at the neck, armpits and groin, and fan hard.</li>
-      <li><b>Stay with them.</b> Don't give fluids if they're confused or can't swallow. Keep cooling until help takes over.</li>
+      <li><b>Radio Ch 1: “Emergency, emergency, emergency. Heat casualty”</b>, then location (Sector-grid, structure, deck, landmark), number hurt, hazards and your call sign. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Get them out of the heat</b> into the cooling station. Take off extra clothing and gear.</li>
+      <li><b>Cold-water immersion</b> is the fastest method. On site, use the <b>ice trough</b> at the nearest cooling station: water up to the neck, head supported, water stirred.</li>
+      <li>No trough? <b>Douse them</b> with cold water without stopping. Lay ice-water towels on them and swap each one for a freshly iced towel every 2–3 minutes. Put ice packs at the neck, armpits and groin. Fan only while the skin is soaking wet: in air over 95°F, fanning dry skin adds heat.</li>
+      <li><b>Stay with them.</b> Don't give fluids if they're confused or can't swallow. Keep cooling until the medic takes over.</li>
     </ol>
   </section>
 
   <section class="two">
     <div class="panel">
-      <div class="eyebrow">US Army TB MED 507</div>
+      <div class="eyebrow">US Army TB MED 507, April 2022, Table 3-2</div>
       <h3 style="margin:6px 0 4px">Work / rest and water by WBGT</h3>
-      <p class="small muted">WBGT (wet-bulb globe temperature) combines heat, humidity, sun and wind. Minutes of work / minutes of rest each hour, for acclimatized workers in light clothing.</p>
+      <p class="small muted">WBGT (wet-bulb globe temperature) combines heat, humidity, sun and wind. Each cell: minutes of work / minutes of rest each hour, then water per hour, for heat-acclimatized workers in light clothing.</p>
       <div class="tw"><table>
-        <thead><tr><th>WBGT °F</th><th>Easy work</th><th>Moderate</th><th>Hard</th></tr></thead>
+        <thead><tr><th>WBGT °F</th><th>Light</th><th>Moderate</th><th>Heavy</th><th>Very heavy</th></tr></thead>
         <tbody id="tbmed"></tbody>
       </table></div>
-      <p class="small muted" style="margin-top:8px">Easy: walking on a hard surface, light hand work. Moderate: patrolling, light digging, carrying a light load. Hard: heavy digging, carrying heavy loads, climbing. Rest means sitting in shade. Never drink more than 1½ qt per hour or 12 qt per day.</p>
+      <p class="small muted" style="margin-top:8px">TB MED 507 calls the light column "Easy" (about 250 W); moderate is about 425 W, heavy 600 W, very heavy 800 W. Its examples: easy = weapon maintenance, drill; moderate = patrolling with a 30-lb load, digging a defensive position; heavy = patrolling with a 45-lb load, four-person litter carry, jogging 4 mph; very heavy = two-person litter carry, obstacle course. HS-03 gives site examples. No limit = no limit to work per hour, up to 4 continuous hours. The times and water amounts sustain at least 4 hours of work. Water needs vary by about ¼ qt per hour with the person and with full sun or full shade. Rest means minimal activity (sitting or standing), in shade if possible. Never drink more than 1½ qt per hour or 12 qt per day. Heavy protective clothing (chemical protective suits): add 10°F to the WBGT for easy work and 20°F for moderate and heavy work.</p>
+      <p class="dcw"><b>DCW</b> The <a href="../m3-heat.html">HS-03</a> table is stricter. It takes the stricter of the 2003 and 2022 editions in every cell: for example moderate work 50/10 at 82–84.9 (2022: no limit), light work 50/10 at 90+ (2022: no limit), heavy work 10/50 at 90+ (2022: 15/45). DCW also adds site-rule rows: at WBGT 92+, no heavy or very heavy work outside cooled spaces, and moderate work only with a cooling vest (no vest, no work); at 95+, essential work only. On site, use the HS-03 table.</p>
     </div>
 
     <div class="panel">
@@ -209,9 +219,9 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
       <h3 style="margin:6px 0 4px">Hydration</h3>
       <ul class="rules">
         <li><b>1 cup (8 oz) every 15–20 minutes</b> while working in heat. Don't wait for thirst; it lags behind real losses.</li>
-        <li><b>No more than 48 oz an hour.</b> Drinking too much plain water can dilute blood sodium (hyponatremia). Signs are confusion, headache, nausea and swelling.</li>
-        <li><b>Sweating for more than 2 hours:</b> add electrolytes, either a sports drink or salty food with your water.</li>
-        <li><b>Weigh in and out.</b> Every pound lost is about 16 oz to replace. Losing more than 2% of body weight means drink more and work less.</li>
+        <li><b>No more than 48 oz an hour, or 12 qt a day.</b> Drinking too much plain water can dilute blood sodium (hyponatremia). Signs are confusion, headache, nausea and swelling. Confused after drinking a lot? Don't give more water. Treat it as an emergency: only a medic can tell low blood sodium from heat stroke.</li>
+        <li><b>Sweating for more than 2 hours:</b> add electrolytes, either a sports drink or food with your water. <b>Avoid salt tablets</b> (CDC/NIOSH, TB MED 507). DCW: no salt tablets unless a medic gives them.</li>
+        <li><b>Weigh in and out.</b> Replace each pound lost with about 16–24 oz over the next few hours (sports-medicine guidance: 1.25–1.5 L per kg), within the hourly limit. Measure against that day's starting weight. Down more than 2%: stop heat work, cool off and rehydrate. DCW: pull off at 2% and check in at the FAS before going back.</li>
         <li>Skip alcohol before shifts, and skip high-caffeine energy drinks during work.</li>
       </ul>
       <div class="urine" aria-label="Urine color chart">
@@ -230,6 +240,7 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
       <p class="small muted">OSHA: 50–70% of outdoor heat deaths happen in a worker's first few days on the job. Heat tolerance builds over 7–14 days and fades after a week or more away.</p>
       <div class="acc" id="acc"></div>
       <p class="small muted" style="margin-top:10px">New workers: no more than 20% of a normal shift's heat exposure on day 1, adding no more than 20% a day. Experienced workers returning, or at the start of a heat wave: 50%, 60%, 80%, then 100% by day 4.</p>
+      <p class="dcw"><b>DCW</b> Stricter (<a href="../m3-heat.html">HS-03</a>). Every reset restarts at <b>Day 1 (20%)</b>, for every worker: after a fever, vomiting or diarrhea, any heat illness, or 7+ days away from heat work. Days 1–4 also use half the table's work minutes. “No limit” cells become 30/30 (site rule). Days 6–14: the crew lead checks every 15 min at WBGT 85+. A black-and-yellow RAMP band on the helmet marks Days 1–5.</p>
     </div>
 
     <div class="panel">
@@ -247,7 +258,7 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
     <div class="panel">
       <div class="eyebrow">NOAA National Weather Service</div>
       <h3 style="margin:6px 0 4px">Heat index chart</h3>
-      <p class="small muted">Feels-like temperature in the shade, calculated with the NWS formula. Full sun adds up to 15°F. The chart stops above about 125°F.</p>
+      <p class="small muted">Feels-like temperature in the shade, calculated with the NWS formula (including its low-humidity adjustment). Rows start at 5% humidity to cover desert air. Full sun adds up to 15°F. Blank cells are off the chart.</p>
       <div class="tw" style="margin-top:10px"><div class="hi-grid" id="hig"></div></div>
       <div class="legend">
         <span><i class="sw" style="background:var(--z2)"></i>Caution 80–90</span>
@@ -276,49 +287,50 @@ footer{color:var(--muted);font-size:12px;max-width:80ch}
   <section class="panel">
     <div class="eyebrow">Sources</div>
     <ul class="src" style="margin:8px 0 0;padding-left:18px">
-      <li><a href="https://www.osha.gov/heat-exposure" target="_blank" rel="noopener">OSHA — Heat exposure hub, Water. Rest. Shade.</a> · <a href="https://www.osha.gov/heat-exposure/rulemaking" target="_blank" rel="noopener">Proposed heat rule (Aug 2024, not final as of late 2026)</a></li>
+      <li><a href="https://www.osha.gov/heat-exposure" target="_blank" rel="noopener">OSHA: Heat exposure hub, Water. Rest. Shade.</a> · <a href="https://www.osha.gov/heat-exposure/rulemaking" target="_blank" rel="noopener">Proposed heat rule (Aug 2024, not final as of late 2026)</a></li>
       <li><a href="https://www.cdc.gov/niosh/docs/2016-106/" target="_blank" rel="noopener">NIOSH Criteria for a Recommended Standard: Occupational Exposure to Heat and Hot Environments (2016)</a></li>
-      <li><a href="https://www.cdc.gov/niosh/heat-stress/" target="_blank" rel="noopener">CDC / NIOSH — Heat stress, heat-related illness and first aid</a></li>
-      <li><a href="https://www.weather.gov/safety/heat-index" target="_blank" rel="noopener">NWS — Heat index</a> · <a href="https://www.weather.gov/news/250310-heat-hazard" target="_blank" rel="noopener">NWS heat product rename (2025)</a></li>
-      <li><a href="https://www.preventionweb.net/news/how-hot-too-hot-human-body-our-lab-found-heat-humidity-gets-dangerous-faster-many-people" target="_blank" rel="noopener">Penn State Noll Lab — wet-bulb limit near 31°C / 88°F</a></li>
-      <li><a href="https://ksi.uconn.edu/emergency-conditions/heat-illnesses/exertional-heat-stroke/" target="_blank" rel="noopener">Korey Stringer Institute — Exertional heat stroke, cold-water immersion</a></li>
-      <li><a href="https://www.cdc.gov/mmwr/volumes/67/wr/mm6726a1.htm" target="_blank" rel="noopener">CDC MMWR — Heat exposure limits in outdoor worker deaths, 2011–2016</a></li>
-      <li>US Army TB MED 507, Heat Stress Control and Heat Casualty Management (work/rest and water table)</li>
+      <li><a href="https://www.cdc.gov/niosh/heat-stress/" target="_blank" rel="noopener">CDC / NIOSH: Heat stress</a> · <a href="https://www.cdc.gov/niosh/heat-stress/about/illnesses.html" target="_blank" rel="noopener">Heat-related illnesses and first aid</a></li>
+      <li><a href="https://www.weather.gov/safety/heat-index" target="_blank" rel="noopener">NWS: Heat index</a> · <a href="https://www.weather.gov/news/250310-heat-hazard" target="_blank" rel="noopener">NWS heat product rename (2025)</a></li>
+      <li><a href="https://www.preventionweb.net/news/how-hot-too-hot-human-body-our-lab-found-heat-humidity-gets-dangerous-faster-many-people" target="_blank" rel="noopener">Penn State Noll Lab: how hot is too hot</a> · Vecellio et al., Journal of Applied Physiology 2022 (critical wet-bulb 25–28°C in hot, dry air; 30–31°C in warm, humid air)</li>
+      <li><a href="https://ksi.uconn.edu/emergency-conditions/heat-illnesses/exertional-heat-stroke/" target="_blank" rel="noopener">Korey Stringer Institute: Exertional heat stroke, cold-water immersion</a></li>
+      <li><a href="https://www.cdc.gov/mmwr/volumes/67/wr/mm6726a1.htm" target="_blank" rel="noopener">CDC MMWR: Heat exposure limits in outdoor worker deaths, 2011–2016</a></li>
+      <li><a href="https://www.govinfo.gov/content/pkg/GOVPUB-D101-PURL-gpo216616/pdf/GOVPUB-D101-PURL-gpo216616.pdf" target="_blank" rel="noopener">US Army TB MED 507, Heat Stress Control and Heat Casualty Management (April 2022), Table 3-2</a></li>
+      <li>American College of Sports Medicine, Exercise and Fluid Replacement position stand (fluid per pound lost) · ISO 13732-1 (contact burn times for hot surfaces)</li>
     </ul>
   </section>
 
-  <footer>Zones up to 124°F follow the NWS heat index categories and the triggers in OSHA's proposed rule. Zones from 125°F to 180°F are past every official chart. They are built from heat physiology and from how industries manage hot work like foundries, furnaces and mines. This is a reference card, not medical advice or a substitute for your site's heat plan.</footer>
+  <footer><b>TOOL-HFC · Rev. 5 · Dunewright Colony Works · Safety &amp; Health.</b> Zones up to 124°F follow the NWS heat index categories and the triggers in OSHA's proposed heat rule (2024, not final). Zones from 125°F to 180°F are past every official chart. They are built from heat physiology and from how foundries, furnaces and deep mines manage extreme heat. This is a reference card, not medical advice. On DCW sites, <a href="../m3-heat.html">HS-03</a> and your crew lead's posted heat level set the rules. <a href="../index.html">Back to the refresher index</a>.</footer>
 </div>
 
 <script>
 const Z=[
- {lo:70,hi:80,c:"var(--z1)",n:"Baseline",src:"Below NWS caution",
+ {lo:70,hi:80,c:"var(--z1)",n:"Normal",b:"Normal",src:"Below NWS Caution (heat index under 80)",
   body:["Body sheds heat easily at rest.","Hard work, full sun or heavy PPE can still cause heat illness. Outdoor WBGT can top 80°F."],
   act:["Drink water through the shift.","Start acclimatizing new workers.","Watch anyone in heavy PPE or suits."]},
- {lo:80,hi:90,c:"var(--z2)",n:"Caution",src:"NWS caution · OSHA proposed initial trigger (HI 80)",
+ {lo:80,hi:90,c:"var(--z2)",n:"Caution",b:"Caution",src:"NWS Caution · OSHA proposed initial trigger (HI 80)",
   body:["Steady sweating.","Fatigue builds with long or heavy work."],
-  act:["Cool drinking water close by: about 1 qt per worker per hour.","Shaded or cooled break area.","Acclimatization plan and heat illness training."]},
- {lo:90,hi:103,c:"var(--z3)",n:"Extreme caution",src:"NWS extreme caution · OSHA proposed high-heat trigger (HI 90)",
+  act:["Cool drinking water close by: about 1 qt per worker per hour.","Shaded or cooled break area.","Acclimatization plan and heat illness training.","<b>DCW:</b> ramp rules apply. No lone work."]},
+ {lo:90,hi:103,c:"var(--z3)",n:"Extreme caution",b:"Ext. caution",src:"NWS Extreme Caution · OSHA proposed high-heat trigger (HI 90)",
   body:["Heat cramps and heat exhaustion possible with long exposure.","Thirst falls behind sweat loss."],
-  act:["15-minute rest break every 2 hours, at minimum.","Buddy system and supervisor checks for symptoms.","Heat warning at the start of each shift."]},
- {lo:103,hi:125,c:"var(--z4)",n:"Danger",src:"NWS danger",
+  act:["15-minute rest break every 2 hours, at minimum.","Buddy system and supervisor checks for symptoms.","Heat warning at the start of each shift.","<b>DCW:</b> buddies stay within sight of each other."]},
+ {lo:103,hi:125,c:"var(--z4)",n:"Danger",b:"Danger",src:"NWS Danger",
   body:["Heat exhaustion likely, heat stroke possible.","Heavy work drives core temperature up within an hour."],
-  act:["Move heavy work to early morning or night.","Cut work time per hour (see the WBGT table).","Cooling stations, and a cup of water every 15–20 min.","Stop anyone who shows symptoms."]},
- {lo:125,hi:140,c:"var(--z5)",n:"Extreme danger",src:"NWS extreme danger · end of heat index chart",dk:1,
-  body:["Heat stroke highly likely with exertion.","Air is far hotter than skin, so every breeze adds heat. Fans don't help.","Sweat losses top 1.5 L/hr, more than the gut can absorb."],
-  act:["Essential work only, in short exposures.","Cooling vests and a cooled shelter to recover in.","Always work in pairs. Watch each other drink."]},
- {lo:140,hi:160,c:"var(--z6)",n:"Hot-work environment",src:"Industrial hot work: foundries, furnaces, deep mines",dk:1,
+  act:["Move heavy work to early morning or night.","Cut work time per hour (see the WBGT table).","Cooling stations, and a cup of water every 15–20 min.","Stop anyone who shows symptoms.","<b>DCW:</b> heavy and very heavy work moves to the night shift."]},
+ {lo:125,hi:140,c:"var(--z5)",n:"Extreme",b:"Extreme",src:"Past the NWS heat index chart (air temperature). NWS Extreme Danger starts at heat index 125.",dk:1,
+  body:["Heat stroke highly likely with exertion.","Air is far hotter than skin, so every breeze adds heat. Fans on dry skin don't help.","Sweat losses top 1.5 L/hr, more than the gut can absorb."],
+  act:["Essential work only, in short exposures.","Cooling vests and a cooled shelter to recover in.","Always work in pairs. Watch each other drink.","<b>DCW (site rule):</b> Sector Superintendent approves essential work. 30 min out, then at least 30 min in a cooled shelter."]},
+ {lo:140,hi:160,c:"var(--z6)",n:"Extreme heat entry",b:"Heat entry",src:"Industrial extreme heat: foundries, furnaces, deep mines",dk:1,
   body:["Unprotected exertion leads to heat stroke within tens of minutes.","Radiant heat from surfaces adds to air heat."],
-  act:["Engineered cooling: supplied cool air, spot coolers, radiant shields.","Reflective clothing and ice or phase-change vests.","Entries timed in minutes, with medical monitoring and a cool recovery room."]},
- {lo:160,hi:181,c:"var(--z7)",n:"Sauna air",src:"Comparable to a dry sauna",dk:1,
+  act:["Engineered cooling: supplied cool air, spot coolers, radiant shields.","Reflective clothing and ice or phase-change vests.","Entries timed in minutes, with medical monitoring and a cool recovery room.","<b>DCW (site rule):</b> work only under a Heat Entry Permit (PTW-HE). It is not a hot-work permit."]},
+ {lo:160,hi:181,c:"var(--z7)",n:"Site closed",b:"Closed",src:"Air as hot as a dry sauna",dk:1,
   body:["Healthy people at rest tolerate a dry 160–195°F sauna for 10–20 minutes.","Humid air at this temperature kills quickly.","Metal, sand and tools burn on contact."],
-  act:["Entry only with cooling suits or reflective PPE.","A rescuer on standby and timed entries.","Insulated gloves and boots."]},
+  act:["Entry only with cooling suits or reflective PPE.","A rescuer on standby and timed entries.","Insulated gloves and boots.","<b>DCW (site rule):</b> site closed. All crews to shelter. Entry only for rescue."]},
 ];
 const MIN=70,MAX=180,span=MAX-MIN;
 const bar=document.getElementById("bar"),ticks=document.getElementById("ticks"),zones=document.getElementById("zones");
 Z.forEach((z,i)=>{
-  const a=document.createElement("a");a.href="#z"+i;a.style.flex=(Math.min(z.hi,MAX)-z.lo);a.style.background=z.c;a.textContent=z.n;if(z.dk)a.className="dk";a.title=`${z.lo}–${Math.min(z.hi,181)-1}°F`;bar.appendChild(a);
-  if(i===4){const b=document.createElement("div");b.className="beyond";b.textContent="Past NOAA / OSHA charts · physiology and industrial practice";zones.appendChild(b)}
+  const a=document.createElement("a");a.href="#z"+i;a.style.flex=(Math.min(z.hi,MAX)-z.lo);a.style.background=z.c;a.textContent=z.b||z.n;a.setAttribute("aria-label",z.n);if(z.dk)a.className="dk";a.title=`${z.lo}–${Math.min(z.hi,181)-1}°F`;bar.appendChild(a);
+  if(i===4){const b=document.createElement("div");b.className="beyond";b.textContent="Past NOAA / OSHA charts · physiology and industrial practice · DCW site rules";zones.appendChild(b)}
   const el=document.createElement("article");el.className="zone";el.id="z"+i;
   el.innerHTML=`<div class="tag${z.dk?" dk":""}" style="background:${z.c}"><div class="rng">${z.lo}–${z.hi>180?180:z.hi-1}°F</div><div class="nm">${z.n}</div><div class="src">${z.src}</div></div>
   <div class="col"><div class="lab">What happens</div><ul>${z.body.map(s=>`<li>${s}</li>`).join("")}</ul></div>
@@ -329,22 +341,23 @@ Z.forEach((z,i)=>{
 
 const ILL=[
  {n:"Heat rash",sev:"Mild",c:"var(--z1)",s:"Red clusters of small blisters or pimples on the neck, chest, groin or in elbow creases.",d:"Move somewhere cooler and less humid. Keep the rash dry. Use powder, not creams."},
- {n:"Heat cramps",sev:"Mild",c:"var(--z2)",s:"Painful muscle cramps or spasms in the legs, arms or belly, usually with heavy sweating.",d:"Rest in shade. Drink water plus an electrolyte drink or salty snack every 15–20 min. Get medical help if cramps last over an hour."},
- {n:"Heat syncope",sev:"Moderate",c:"var(--z3)",s:"Fainting, dizziness or light-headedness, often after standing a long time or standing up fast.",d:"Sit or lie down in a cool place. Slowly drink water or a sports drink. Report it, because it can signal worse to come."},
- {n:"Heat exhaustion",sev:"Serious",c:"var(--z4)",s:"Heavy sweating, cool clammy skin, headache, nausea or vomiting, dizziness, weakness, irritability, thirst, little urine.",d:"Move to a cool area and loosen or remove clothing. Cool the head, face and neck. Sip water. Get medical care if it doesn't improve within an hour. No more work that day."},
- {n:"Rhabdomyolysis",sev:"Serious",c:"var(--z5)",s:"Muscle pain and cramping, weakness, and dark tea- or cola-colored urine after hard work in heat.",d:"Stop work. Drink fluids and get medical care right away. A blood test (CK) confirms it, and it can damage the kidneys."},
- {n:"Heat stroke",sev:"Life-threatening",c:"var(--z7)",s:"Confusion, slurred speech, collapse, seizures, very hot skin (dry or still sweating), core temperature 104°F or higher.",d:"Call 911 and cool them immediately. Cold-water immersion works best; soak and ice them if you can't. See the emergency box."},
+ {n:"Heat cramps",sev:"Mild",c:"var(--z2)",s:"Painful muscle cramps or spasms in the legs, arms or belly, usually with heavy sweating.",d:"Rest in shade. Drink water plus an electrolyte drink or a snack every 15–20 min. Avoid salt tablets. Get medical help if cramps last over an hour, or right away for anyone with heart problems or on a low-sodium diet."},
+ {n:"Heat syncope",sev:"Moderate",c:"var(--z3)",s:"Fainting, dizziness or light-headedness, often after standing a long time or standing up fast.",d:"Sit or lie down in a cool place. Slowly drink water or a sports drink. Report it, because it can signal worse to come. Anyone who passes out, or isn't fully alert when they come to, is treated as heat stroke until a medic rules it out (<b>DCW</b>, HS-03)."},
+ {n:"Heat exhaustion",sev:"Serious",c:"var(--z4)",s:"Heavy sweating, cool clammy skin, headache, nausea or vomiting, dizziness, weakness, irritability, thirst, little urine.",d:"Take them for medical evaluation now, and someone stays with them. Move them somewhere cool and remove extra clothing. Cool the head, face and neck. Give frequent sips of cool water. No more work that day. If they get confused or worse, it's heat stroke. <b>DCW:</b> someone walks them to the FAS now, never alone, and Revival Med Bay clears them before the next shift."},
+ {n:"Rhabdomyolysis",sev:"Serious",c:"var(--z5)",s:"Muscle pain and cramping, weakness, and dark tea- or cola-colored urine after hard work in heat.",d:"Stop work. Drink fluids and get medical care right away (<b>DCW:</b> the FAS, now). A blood test (CK) confirms it, and it can damage the kidneys."},
+ {n:"Heat stroke",sev:"Life-threatening",c:"var(--z7)",s:"Confusion, slurred speech, collapse, seizures, very hot skin (dry or still sweating), core temperature 104°F or higher.",d:"<b>DCW:</b> radio Ch 1, “Emergency, emergency, emergency. Heat casualty”. Cool them on the spot: the ice trough, water up to the neck, works best. No trough: douse and ice them. See the emergency box."},
 ];
 document.getElementById("ladder").innerHTML=ILL.map(x=>`<article class="ill" style="--sev:${x.c}"><div class="sev">${x.sev}</div><h3>${x.n}</h3><dl><dt>Signs</dt><dd>${x.s}</dd><dt>Do</dt><dd>${x.d}</dd></dl></article>`).join("");
 
+// TB MED 507 (April 2022) Table 3-2: [WBGT, swatch, light, moderate, heavy, very heavy]
 const TB=[
- ["78–81.9","var(--z1)","No limit · ½ qt","No limit · ¾ qt","40/20 · ¾ qt"],
- ["82–84.9","var(--z2)","No limit · ½ qt","50/10 · ¾ qt","30/30 · 1 qt"],
- ["85–87.9","var(--z3)","No limit · ¾ qt","40/20 · ¾ qt","30/30 · 1 qt"],
- ["88–89.9","var(--z4)","No limit · ¾ qt","30/30 · ¾ qt","20/40 · 1 qt"],
- ["90+","var(--z7)","50/10 · 1 qt","20/40 · 1 qt","10/50 · 1 qt"],
+ ["78–81.9","var(--z1)","No limit · ½ qt","No limit · ¾ qt","40/20 · ¾ qt","20/40 · 1 qt"],
+ ["82–84.9","var(--z2)","No limit · ½ qt","No limit · ¾ qt","30/30 · 1 qt","15/45 · 1 qt"],
+ ["85–87.9","var(--z3)","No limit · ¾ qt","No limit · ¾ qt","30/30 · 1 qt","10/50 · 1 qt"],
+ ["88–89.9","var(--z4)","No limit · ¾ qt","50/10 · ¾ qt","20/40 · 1 qt","10/50 · 1 qt"],
+ ["90+","var(--z7)","No limit · 1 qt","20/40 · 1 qt","15/45 · 1 qt","10/50 · 1 qt"],
 ];
-document.getElementById("tbmed").innerHTML=TB.map(r=>`<tr><td class="c"><i class="sw" style="background:${r[1]}"></i>${r[0]}</td><td class="c">${r[2]}</td><td class="c">${r[3]}</td><td class="c">${r[4]}</td></tr>`).join("");
+document.getElementById("tbmed").innerHTML=TB.map(r=>`<tr><td class="c"><i class="sw" style="background:${r[1]}"></i>${r[0]}</td><td class="c">${r[2]}</td><td class="c">${r[3]}</td><td class="c">${r[4]}</td><td class="c">${r[5]}</td></tr>`).join("");
 
 const ACC=[["Day 1",20,50],["Day 2",40,60],["Day 3",60,80],["Day 4",80,100],["Day 5",100,100]];
 document.getElementById("acc").innerHTML=`<div class="r small muted"><span></span><span>New worker <span style="opacity:.6">(top)</span> · Experienced <span style="opacity:.6">(bottom)</span></span><span></span></div>`+
@@ -354,7 +367,7 @@ function HI(T,RH){let h=0.5*(T+61+(T-68)*1.2+RH*0.094);if((h+T)/2>=80){h=-42.379
 const hig=document.getElementById("hig");let g=`<div class="h">RH·°F</div>`;
 const Ts=[];for(let t=80;t<=110;t+=2)Ts.push(t);
 Ts.forEach(t=>g+=`<div class="h">${t}</div>`);
-for(let rh=40;rh<=100;rh+=5){g+=`<div class="h">${rh}%</div>`;Ts.forEach(t=>{const h=HI(t,rh);if(h>137){g+=`<div style="background:transparent"></div>`;return}
+for(let rh=5;rh<=100;rh+=5){g+=`<div class="h">${rh}%</div>`;Ts.forEach(t=>{const h=HI(t,rh);if(h>137){g+=`<div style="background:transparent"></div>`;return}
  const c=h>=125?"var(--z5)":h>=103?"var(--z4)":h>=90?"var(--z3)":h>=80?"var(--z2)":"var(--z1)";g+=`<div style="background:${c};${h>=125?"color:#fff":""}">${h}</div>`})}
 hig.innerHTML=g;
 </script>

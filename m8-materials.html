@@ -33,6 +33,10 @@
 .signal div{padding:14px 18px;min-width:0}
 .signal div:first-child{background:var(--red);color:#fff;border-right:2px solid var(--black)}
 .signal b{display:block;font:400 44px/1 var(--display);text-transform:uppercase}
+.wx{text-decoration:line-through;text-decoration-thickness:2px}
+.warnline{margin-top:10px;border:3px solid var(--black);background:var(--hiviz);padding:8px 10px;font-size:13px}
+.box ul li,.box ol li{font-size:14px}
+.box p + ul,.box p + ol{margin-top:6px}
 @media (max-width:820px){
   .ghs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .ghs > div{border-right:2px solid var(--black)!important;border-bottom:2px solid var(--black)!important}
@@ -51,10 +55,10 @@
 <article class="poster">
 
   <header class="head orange">
-    <div class="meta"><span>Form HS-08 · Rev. 4</span><span>Post-stasis refresher · Module 8 of 9</span><span>Post at Polymer Works and every chem store</span></div>
+    <div class="meta"><span>Form HS-08 · Rev. 5</span><span>Post-stasis refresher · Module 8 of 9</span><span>Post at Polymer Works and every chem store</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Read the label.</h1>
     <p class="sub">The polymers, resins and coatings that build this city can blind you, burn you or ruin your lungs for life.</p>
@@ -65,23 +69,23 @@
     <div class="lbl">Sensitized?</div>
     <div class="in">
       <h2>Some chemicals only give you one warning.</h2>
-      <p><b>Isocyanates</b> (spray foams, polyurethane coatings) and <b>epoxy resins</b> can make your body allergic to them. It can happen after one big exposure or after months of small ones. Once you are sensitized, <b>even a trace can set off an asthma attack or a skin reaction.</b> It does not go away.</p>
-      <p>Sensitized workers are moved off that material for good. Report wheezing, chest tightness, or an itchy rash on your hands or face to the Forward Aid Station the same shift.</p>
+      <p><b>Isocyanates</b> (spray foams, polyurethane coatings, QuickSet C-4X) and <b>epoxy resins</b> can make your body allergic to them. It can happen after one big exposure or after months of small ones. Once you are sensitized, <b>even a trace can set off an asthma attack or a skin reaction.</b> It does not go away.</p>
+      <p>Report wheezing, chest tightness, a cough at night, or an itchy rash on your hands or face to the Forward Aid Station (FAS) the same shift. <b>Symptoms can start hours later, even at night in barracks. Report them anyway.</b> Sensitized workers are moved off that material for good.</p>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>The 9 hazard symbols</h2><span class="tag">GHS pictograms · on every container</span></div>
+    <div class="sh"><h2>The 9 hazard symbols</h2><span class="tag">GHS (Globally Harmonized System) pictograms · on every label</span></div>
     <div class="ghs" id="ghs"></div>
-    <p class="note">Red diamond, black symbol, white background. If a container has no label, don't use it. Tag it and call Ch 15 Quartermaster.</p>
+    <p class="note">Red diamond border, black symbol, white background. <b>No label?</b> Don't touch or move it. Keep people back. <b>Leaking or fuming:</b> get everyone out upwind and call Ch 1 "Emergency, emergency, emergency. Chemical." yourself. Otherwise tell your foreman, who calls Ch 15 Quartermaster.</p>
   </section>
 
   <section class="sec">
     <div class="signal">
       <div><b>Danger</b><p>The more severe hazards. Can kill, blind, cause cancer, or burn on contact.</p></div>
-      <div><b>Warning</b><p>Less severe, still harmful. Irritation, mild burns, harm with repeated exposure.</p></div>
+      <div><b>Warning</b><p>Less severe, still harmful. Skin or eye irritation, harmful if swallowed, can make you drowsy, suspected of causing cancer.</p></div>
     </div>
-    <p class="note">Every label carries one signal word, never both. The label also lists the hazard statements ("Causes severe skin burns") and what to do ("Wear protective gloves").</p>
+    <p class="note">Every label carries one signal word, never both. A supplier label shows the product name, signal word, pictograms, hazard statements ("Causes severe skin burns"), precautions ("Wear protective gloves"), and the supplier's name, address and phone number.</p>
   </section>
 
   <section class="sec">
@@ -95,11 +99,11 @@
           <div><b>3</b>Ingredients</div>
           <div class="hot"><b>4</b>First aid</div>
           <div class="hot"><b>5</b>Firefighting</div>
-          <div><b>6</b>Spill response</div>
+          <div class="hot"><b>6</b>Spill response</div>
           <div class="hot"><b>7</b>Handling &amp; storage</div>
           <div class="hot"><b>8</b>Exposure limits &amp; PPE</div>
           <div><b>9</b>Physical properties</div>
-          <div><b>10</b>Stability &amp; reactivity</div>
+          <div class="hot"><b>10</b>Stability &amp; reactivity</div>
           <div class="hot"><b>11</b>Health effects</div>
           <div><b>12</b>Ecology</div>
           <div><b>13</b>Disposal</div>
@@ -111,7 +115,7 @@
       <div class="box">
         <h3>The fire diamond</h3>
         <div class="nfpa">
-          <svg viewBox="0 0 200 200" role="img" aria-label="NFPA 704 diamond example: health 3, flammability 1, instability 1">
+          <svg viewBox="0 0 200 200" role="img" aria-label="NFPA 704 diamond example: health 3, flammability 1, instability 1, special hazard W with a line through it, meaning reacts with water">
             <g stroke="#141414" stroke-width="4">
               <polygon points="100,4 148,52 100,100 52,52" fill="#c4161c"/>
               <polygon points="52,52 100,100 52,148 4,100" fill="#1d5fa8"/>
@@ -124,15 +128,17 @@
               <text x="148" y="116" fill="#141414">1</text>
               <text x="100" y="162" fill="#141414" font-size="26">W</text>
             </g>
+            <line x1="86" y1="152" x2="114" y2="152" stroke="#141414" stroke-width="3"/>
           </svg>
           <ul class="small">
             <li><b style="color:var(--blue)">Blue · Health</b></li>
             <li><b style="color:var(--red)">Red · Flammability</b></li>
             <li><b>Yellow · Instability</b> (reactivity)</li>
-            <li><b>White · Special</b>: W = reacts with water, OX = oxidizer, SA = simple asphyxiant</li>
-            <li><b>0 = minimal, 4 = severe.</b> Example: QuickSet C-4X hardener (H3, F1, I1).</li>
+            <li><b>White · Special</b>: <span class="wx">W</span> = reacts with water, OX = oxidizer, SA = simple asphyxiant gas</li>
+            <li><b>0 = minimal, 4 = severe.</b> Example: QuickSet C-4X hardener (Health 3, Flammability 1, Instability 1, <span class="wx">W</span> = reacts with water).</li>
           </ul>
         </div>
+        <p class="warnline"><b>Careful: the SDS runs the other way.</b> In SDS Section 2, Category 1 is the WORST and higher numbers are milder. On the diamond, 4 is the worst. The diamond is for Fire &amp; Rescue. For your own work, go by the label and the SDS.</p>
         <p class="note">Fire &amp; Rescue reads this diamond from 50 ft away. Keep it visible on every store and tank.</p>
       </div>
     </div>
@@ -142,32 +148,34 @@
     <div class="sh"><h2>Site materials</h2><span class="tag">Hazard cards · full SDS at the chem store</span></div>
     <div class="signs two">
       <div class="sg mat" style="--c:var(--z4)">
-        <div class="what">Printable structural polymer</div>
+        <div class="what">Printed structural polymer</div>
         <h3>FerroLattice-7</h3>
         <div class="chips"><span class="chip">Health hazard</span><span class="chip">Exclamation mark</span></div>
         <p>Extruded at about 500°F by the structure printers. Printing releases ultrafine particles and irritating fumes. The bead stays hot enough to burn for minutes after it looks set.</p>
-        <p><span class="k">PPE:</span> heat gloves, face shield at the head, half-mask with P100 + organic vapor cartridges inside print enclosures. Printer exhaust on before the head heats.</p>
+        <p><span class="k">PPE:</span> heat gloves, face shield at the head, half-mask with P100 + organic vapor cartridges inside print enclosures. Printer exhaust on before the head heats. Going inside the printer barrier: lock out first (<a href="m7-lockout.html">HS-07</a>).</p>
       </div>
       <div class="sg mat" style="--c:var(--z5)">
-        <div class="what">Two-part fast-cure composite resin</div>
+        <div class="what">Epoxy-isocyanate fast-cure resin</div>
         <h3>QuickSet C-4X</h3>
         <div class="chips"><span class="chip">Corrosion</span><span class="chip">Health hazard</span><span class="chip">Exclamation mark</span></div>
-        <p>Epoxy-isocyanate hybrid. Causes allergic skin rash and asthma. Mixing makes heat. <b>A large mixed batch can run away</b>, smoke, and ignite. Desert heat shortens pot life.</p>
-        <p><span class="k">PPE:</span> nitrile gloves (double), goggles, sleeves, respirator when spraying. Mix only the pot size on the label. Put leftover mix in the sand-filled cure bucket, spread thin, outside.</p>
+        <p>Causes allergic skin rash and asthma. Mixing makes heat. <b>A large mixed batch can run away</b>, smoke, and ignite. Desert heat shortens pot life. The hardener reacts with water: keep it sealed and dry.</p>
+        <p><span class="k">PPE:</span> nitrile gloves (double), goggles, sleeves. <b>Spraying: supplied-air respirator only</b> (site rule). Brushing or rolling in open air: full-face respirator, organic vapor + P100 cartridges, new every shift (site rule). Eyewash right beside the mixing point.</p>
+        <p><span class="k">Leftover mix:</span> mix only the pot size on the label. Pour leftovers out thin (under ½ in) on the sand in the cure tray, in the shade, at least 10 ft from anything that burns (site rule). Leave it until it is hard and cool, then bin it. Never put mixed resin in a closed container, a bin, or the sun.</p>
       </div>
       <div class="sg mat" style="--c:var(--z3)">
-        <div class="what">Nano-ceramic heat-shield coating</div>
+        <div class="what">Nano-ceramic heat-shield spray</div>
         <h3>VeilCoat</h3>
         <div class="chips"><span class="chip">Flame</span><span class="chip">Health hazard</span><span class="chip">Exclamation mark</span></div>
         <p>Sprayed on hulls and roofs to reflect sun. The solvent carrier is flammable. Spray mist carries nanoparticles deep into the lungs.</p>
-        <p><span class="k">PPE:</span> full-face respirator with P100 + organic vapor cartridges, coveralls, gloves. No hot work within 35 ft while spraying or until the solvent flashes off (see HS-05).</p>
+        <p><span class="k">PPE:</span> full-face respirator with P100 + organic vapor cartridges, coveralls, gloves.</p>
+        <p><span class="k">Hot work:</span> none within 35 ft while spraying. Hot work starts again only after a gas test reads below 1% LEL at the work spot and in any low or enclosed space nearby (site rule), and the PTW-HW is signed again (<a href="m5-hot-work.html">HS-05</a>). Spraying inside a hull, tank or other confined space needs a PTW-CS: <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>.</p>
       </div>
       <div class="sg mat" style="--c:var(--z2)">
-        <div class="what">Sand-polymer binder (local sand)</div>
+        <div class="what">Alkaline sand-polymer binder</div>
         <h3>Dunecrete</h3>
         <div class="chips"><span class="chip">Corrosion</span><span class="chip">Health hazard</span></div>
-        <p>Strongly alkaline when wet, like cement. Causes chemical burns that start painless and get worse for hours. Dry mix and cutting cured Dunecrete make silica dust (see HS-02).</p>
-        <p><span class="k">PPE:</span> alkali-resistant gloves and boots, goggles, long sleeves. Wet cutting or vacuum shrouds only. Wash skin contact with water right away.</p>
+        <p>Strongly alkaline when wet, like cement. Causes chemical burns that start painless and get worse for hours. Dry mix and cutting cured Dunecrete make silica dust (<a href="m2-dust-air-ppe.html">HS-02</a>).</p>
+        <p><span class="k">PPE:</span> alkali-resistant gloves and boots, goggles, long sleeves. Wet cutting or vacuum shrouds only. Wash skin contact with water right away. Eyewash right beside every mixing point and pour.</p>
       </div>
     </div>
   </section>
@@ -175,12 +183,63 @@
   <section class="sec">
     <div class="sh"><h2>Old Earth hazards that still apply</h2><span class="tag">Real chemistry behind the site materials</span></div>
     <div class="signs">
-      <div class="sg" style="--c:var(--z5)"><h3>Isocyanates</h3><p>In spray foams and polyurethane coatings. The leading cause of work-related asthma. Spray only with supplied air or the respirator on the permit. Keep bystanders out of the spray zone.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Isocyanates</h3><p>In spray foams, polyurethane coatings and C-4X. A leading cause of work-related asthma. They harm you at levels you can't smell. Spray only in supplied air (site rule). Keep bystanders out of the marked spray zone.</p></div>
       <div class="sg" style="--c:var(--z4)"><h3>Epoxy resins</h3><p>Uncured resin and hardener cause allergic dermatitis. It starts as a red, itchy rash on hands and wrists. Never wipe resin off skin with solvent. Use soap and water.</p></div>
       <div class="sg" style="--c:var(--z3)"><h3>Curing heat</h3><p>Resins give off heat as they cure. Mass speeds it up. A bucket of mixed resin can reach smoking temperature. Never leave mixed batches in a closed container or a trash bin.</p></div>
-      <div class="sg" style="--c:var(--z2)"><h3>Styrene</h3><p>Vapor from polyester and vinyl ester resins. Headache, dizziness, eye and throat irritation. Ventilate, and use organic vapor cartridges in tight spaces.</p></div>
-      <div class="sg" style="--c:var(--z6)"><h3>Fiber dust</h3><p>Cutting or sanding carbon fiber and fiberglass throws fine fibers and resin dust. They irritate skin, eyes and lungs. Wet cut or vacuum shroud, P100 respirator, sealed goggles.</p></div>
-      <div class="sg" style="--c:var(--z7)"><h3>Burning polymers</h3><p>Polyurethane smoke releases <b>hydrogen cyanide</b>. PVC releases <b>hydrogen chloride</b>. All of them make <b>carbon monoxide</b>. Never fight a polymer fire without breathing air. Get out and call it in.</p></div>
+      <div class="sg" style="--c:var(--z2)"><h3>Styrene</h3><p>Vapor from polyester and vinyl ester resins. Headache, dizziness, eye and throat irritation. <b>Styrene vapor burns.</b> It can catch fire from about 88°F, so on most days here open resin gives off vapor that can ignite. No sparks, flames or hot work near open resin. Lids on. Fans rated for flammable vapor. Organic vapor cartridges in tight spaces.</p><p>Long term: probably causes cancer (IARC), and adds to hearing damage from noise.</p></div>
+      <div class="sg" style="--c:var(--z6)"><h3>Fiber dust</h3><p>Cutting or sanding carbon fiber and fiberglass throws fine fibers and resin dust. They irritate skin, eyes and lungs. Wet cut or vacuum shroud, P100 respirator, sealed goggles.</p><p><b>Carbon fiber dust conducts electricity.</b> Keep it out of panels, drives and printers. Clean up with a HEPA-filter vacuum. Never blow it around with air.</p></div>
+      <div class="sg" style="--c:var(--z7)"><h3>Burning polymers</h3><p>Polyurethane smoke releases <b>hydrogen cyanide</b>. PVC releases <b>hydrogen chloride</b>. All of them make <b>carbon monoxide</b>. <b>Never fight a polymer fire</b> (bulk feedstock, a curing resin mass, a printed structure or panel stack, a spray zone). Get out, stay upwind, and call Ch 1 "Fire".</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Respirators for spray and resin work</h3>
+        <ul>
+          <li><b>Industrial Hygiene runs the respirator program.</b> You get a respirator only after the medical evaluation and fit test (<a href="m2-dust-air-ppe.html">HS-02</a>). IH names the respirator for each job and sets the cartridge change schedule.</li>
+          <li><b>Spraying any isocyanate product</b> (C-4X, spray foam, polyurethane coatings): supplied-air respirator, full-face or hood (site rule).</li>
+          <li><b>Spray permit (PTW-SP)</b> for all isocyanate and VeilCoat spraying: Industrial Hygiene sets the respirator and the spray zone, and the area foreman signs. One location, one shift (site rule). See <a href="permits.html">REF-PTW</a>.</li>
+          <li>Supplied air is <b>Grade D breathing air</b>. Compressor intakes stay away from sand, dust and engine exhaust.</li>
+          <li><b>Brushing or rolling C-4X</b> in open air: full-face respirator, organic vapor + P100 cartridges. New cartridges every shift (site rule), sooner if IH's schedule says so. Heat shortens cartridge life.</li>
+          <li>Never wait to smell it. Isocyanates harm you below the level you can smell.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Medical checks <span class="k">(site rule)</span></h3>
+        <ul>
+          <li>Before your first job with isocyanates or epoxies, and every year after: a <b>breathing questionnaire, a lung function test and a skin check</b>.</li>
+          <li>Industrial Hygiene and Central Med run the checks. Your results stay private. Your foreman only learns whether you are cleared.</li>
+          <li>Report symptoms any time, between checks too.</li>
+          <li>Sensitized? You are moved off that material for good, with no penalty.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box fill">
+        <h3>Eyewash &amp; drench showers</h3>
+        <ul>
+          <li>Within <b>10 seconds</b> of every chemical hazard, on the same level, with a clear path. <b>Right beside the work for corrosives</b> like Dunecrete and C-4X hardener.</li>
+          <li>Water must be <b>lukewarm, 60–100°F</b>. Units are shaded and insulated or chilled (site rule).</li>
+          <li><b>Before you open a container, run the eyewash and feel the water.</b> Too hot or too cold? Report it. No work with corrosives until it's fixed.</li>
+          <li>Every unit is run <b>weekly</b> (date on its tag) and inspected <b>yearly</b>.</li>
+          <li>Keep the path and the unit clear. Never stack stock in front of it.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Every shift</h3>
+        <ul>
+          <li><b>Check the label and the SDS</b> before you open anything new to you.</li>
+          <li><b>Wear the PPE in SDS Section 8.</b> Not the PPE you happen to have.</li>
+          <li><b>Cap it when you're not pouring.</b> Open containers off-gas in the heat.</li>
+          <li><b>Label every secondary container</b> with the product name and its hazards, in words or symbols (for example "VeilCoat: flammable, lung hazard"). Never use a food or water bottle.</li>
+          <li><b>Pouring solvent or VeilCoat from a drum?</b> Bond and ground the drum and the can. Dry air builds static fast.</li>
+          <li><b>Wash hands</b> before eating, drinking or using the latrine. Resin on your hands ends up on your face.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -188,55 +247,88 @@
     <div>
       <h2>Splash</h2>
       <p class="cf">10 seconds to water.<br>15 minutes under it.</p>
-      <p class="sm">Every eyewash and drench shower on site is within 10 seconds of the hazard, on the same level, with a clear path (ANSI Z358.1). Know where yours is before you open a container.</p>
+      <p class="sm">Know where your eyewash and drench shower are before you open a container.</p>
+      <p class="sm">Example call: "Emergency, emergency, emergency. Chemical. Golf-6, Polymer Works, Deck 0, mixing bay. One hurt. C-4X hardener splash to the eyes. Golf Crew 12-3 Four."</p>
     </div>
     <ol>
-      <li><b>Eyes:</b> get to the eyewash. Hold your eyelids open and roll your eyes. Flush <b>at least 15 minutes</b>. Take out contact lenses while you flush.</li>
+      <li><b>Eyes:</b> get to the eyewash. Hold your eyelids open and roll your eyes. Flush <b>at least 15 minutes</b> at the station. Take out contact lenses while you flush. The medic comes to you.</li>
       <li><b>Skin or clothing:</b> under the drench shower. Pull off contaminated clothing while the water runs. Flush 15 minutes.</li>
-      <li><b>Breathed it in:</b> get to fresh air. Don't go back in for anyone without breathing air.</li>
-      <li><b>Ch 1: "Emergency, emergency, emergency,"</b> with sector-grid, deck, the material, and how many are hurt. Then Ch 14 for the medic.</li>
-      <li><b>Bring the SDS</b> or the container label to the medic. Section 4 tells them what to do.</li>
+      <li><b>Breathed it in:</b> get to fresh air, upwind. Don't go back in for anyone. Fire &amp; Rescue goes in with breathing air.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Chemical."</b> Then location, number hurt, hazards (name the material), your call sign. <b>Stay on Ch 1</b> until Hub Command or the medic releases you. Hub Command alerts the medics. Don't switch to Ch 14 unless you are told to.</li>
+      <li><b>Helpers:</b> gloves on before you touch them. Bag their clothes. Tell the medic what the chemical is before they touch the casualty, and hand over the SDS or the label. Section 4 is first aid.</li>
+      <li><b>Alkali in the eye</b> (Dunecrete, cement): keep flushing at the station until the medic says stop. The medic comes to you.</li>
     </ol>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Storage: keep apart</h2><span class="tag">Check SDS Section 10 for what reacts</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Keep this</th><th>Away from</th><th>Why / how</th></tr></thead>
+      <tbody>
+        <tr><td>Oxidizers</td><td>Flammables, fuels, resins</td><td>Feed fire. Can ignite on contact.</td></tr>
+        <tr><td>Acids</td><td>Bases (alkalis), Dunecrete mix</td><td>Violent heat and spatter.</td></tr>
+        <tr><td>Acids</td><td>Cyanide or sulfide compounds</td><td>Releases toxic gas.</td></tr>
+        <tr><td>Water-reactives</td><td>Water, humid storage, sprinklers</td><td>Release flammable or toxic gas.</td></tr>
+        <tr><td>Isocyanate parts</td><td>Water, amines, heat</td><td>React, pressurize, burst drums.</td></tr>
+        <tr><td>Peroxide catalysts (MEKP)</td><td>Accelerators (cobalt), metals, heat above the label limit, sun</td><td>Can burn or explode. Mix each one into the resin separately, never into each other. Own cooled cabinet (site rule).</td></tr>
+        <tr><td>Flammables</td><td>Sun, heat, sparks</td><td>Desert sun can push drums past flash point. Safety cans and flammable-storage cabinets, in the shade.</td></tr>
+        <tr><td>Gas cylinders</td><td>Sun and heat over 125°F. Oxygen 20 ft from fuel gas, or behind a 5 ft fire wall.</td><td>Heat raises the pressure. Store in the cooled cylinder shelter; stage on a shaded, insulated cart.</td></tr>
+      </tbody>
+    </table></div>
   </section>
 
   <section class="sec">
     <div class="cols">
       <div class="box">
-        <h3>Storage: keep apart</h3>
-        <div class="tw"><table>
-          <thead><tr><th>Keep this</th><th>Away from</th><th>Why</th></tr></thead>
-          <tbody>
-            <tr><td>Oxidizers</td><td>Flammables, fuels, resins</td><td>Feed fire. Can ignite on contact.</td></tr>
-            <tr><td>Acids</td><td>Bases (alkalis), Dunecrete mix</td><td>Violent heat and spatter.</td></tr>
-            <tr><td>Acids</td><td>Cyanide or sulfide compounds</td><td>Releases toxic gas.</td></tr>
-            <tr><td>Water-reactives</td><td>Water, humid storage, sprinklers</td><td>Release flammable or toxic gas.</td></tr>
-            <tr><td>Isocyanate parts</td><td>Water, amines, heat</td><td>React, pressurize, burst drums.</td></tr>
-            <tr><td>Flammables</td><td>Sun, heat, sparks</td><td>Desert sun can push drums past flash point.</td></tr>
-          </tbody>
-        </table></div>
+        <h3>Spills</h3>
+        <p class="small">Spill kits sit at every Polymer Works station and every chem store (site rule). Know where yours is.</p>
+        <ul>
+          <li><b>Small spill, you handle it:</b> you know what it is, you're trained, the kit is at your station, you're wearing the PPE from SDS Section 8, one person can handle it, and it's under 5 gal (site rule). Contain it, soak it up, bag it, label it, tell your foreman. Your foreman restocks the kit through the Quartermaster on Ch 15.</li>
+          <li><b>Anything else</b> (over 5 gal, unknown, fuming, going into a drain, someone hurt, or you're not sure): get everyone out, upwind. <b>Ch 1: "Emergency, emergency, emergency. Chemical."</b> Fire &amp; Rescue's hazmat team handles it and takes command.</li>
+          <li><b>Isocyanate spill:</b> cover it with absorbent, then the neutralizer from the kit. Leave the waste drum lid loose. It makes gas.</li>
+        </ul>
       </div>
       <div class="box">
-        <h3>Every shift</h3>
+        <h3>Hazardous waste</h3>
         <ul>
-          <li><b>Check the label and the SDS</b> before you open anything new to you.</li>
-          <li><b>Wear the PPE in SDS section 8.</b> Not the PPE you happen to have.</li>
-          <li><b>Cap it when you're not pouring.</b> Open containers off-gas in the heat.</li>
-          <li><b>Never decant into an unlabeled container.</b> Secondary containers get a label too.</li>
-          <li><b>Wash hands</b> before eating, drinking or using the latrine. Resin on your hands ends up on your face.</li>
-          <li><b>Spills:</b> stop the source if it's safe, keep people back, call Ch 15 for the spill kit. Big or unknown spill: Ch 1.</li>
+          <li><b>Never mix waste types.</b> Every waste container is labeled with what's in it.</li>
+          <li><b>Resin:</b> leftover mix cures in the cure tray first. Empty mixing buckets, cups and sticks stay open in the shaded cure area until hard and cool, then go in the cured-resin bin.</li>
+          <li><b>Solvent and VeilCoat rags:</b> covered metal rag can, emptied every shift.</li>
+          <li><b>Isocyanate waste and used neutralizer:</b> open-top drum, lid loose, until the chem store collects it.</li>
+          <li><b>Used gloves, suits and cartridges:</b> bagged and labeled.</li>
+          <li>Full containers go back to your sector chem store. Never in general trash, a drain or the sand.</li>
         </ul>
       </div>
     </div>
   </section>
 
+  <section class="sec">
+    <div class="cols three">
+      <div class="box dark">
+        <h3>Fighting a fire</h3>
+        <p class="small">Fight it only if it's waste-bin size, your exit is behind you, and you have the right extinguisher. If it isn't out in about 10 seconds, leave and call Ch 1 "Fire". <b>Never fight a polymer, power-cell or gas-fed fire.</b> A polymer fire is a fire in bulk feedstock, a curing resin mass, a printed structure or panel stack, or a spray zone. A waste-bin-size fire in rags or scrap may be fought. Smother a rag can with its lid. A fire that's out: tell your foreman, who logs it on Ch 13.</p>
+        <p class="small" style="margin-top:8px">Resin, polymer and coating smoke carries cyanide and CO: get out upwind. SDS Section 5 names the right extinguisher. Never use water on a water-reactive (<span class="wx">W</span>).</p>
+      </div>
+      <div class="box fill">
+        <h3>Unknown? Don't touch.</h3>
+        <p class="small">No label, a leaking drum, a smell you don't recognize, or a material you haven't been trained on: <b>don't touch or move it.</b> Keep people back. <b>Leaking or fuming:</b> get everyone out upwind and call Ch 1 "Emergency, emergency, emergency. Chemical." yourself, as for any spill you can't handle. Otherwise tell your foreman, who calls Ch 15.</p>
+      </div>
+      <div class="box">
+        <h3>Report it</h3>
+        <p class="small">Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form HS-IR with your Colonist ID. Don't move anything except to rescue. Safety &amp; Health investigates with the crew; findings are shared at muster. No retaliation.</p>
+        <p class="small" style="margin-top:8px">Every splash, spill and exposure counts, even with no symptoms.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="saw">
-    <h2>Unknown? Don't touch.</h2>
-    <p>No label, a leaking drum, a smell you don't recognize, or a material you haven't been trained on: <b>stop work</b>, keep people back and call your foreman. No penalty, no questions.</p>
+    <h2>Stop-work authority</h2>
+    <p><b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I have read this poster. I can read a GHS label and an SDS, I know where my nearest eyewash and drench shower are, and I will report any sign of sensitization.</p>
+    <p class="small">I have read this poster. I can read a GHS label and an SDS, I know where my nearest eyewash and drench shower are and how to check the water, and I will report any sign of sensitization.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -247,7 +339,7 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.1200 Hazard Communication (UN GHS), NFPA 704 hazard identification, ANSI/ISEA Z358.1 emergency eyewash and shower equipment, NIOSH isocyanate and epoxy guidance, OSHA styrene and respiratory protection (1910.134) standards.</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.1200 Hazard Communication (UN GHS, App. A–D), NFPA 704 hazard identification, ANSI/ISEA Z358.1-2014 emergency eyewash and shower equipment, OSHA 1910.134 respiratory protection (incl. Grade D air), OSHA 1910.120(q) emergency response, OSHA 1926.150, 1926.152 and 1926.252(e) (fire protection, flammable liquids, waste), OSHA 1926.350(a) and CGA P-1 (cylinders), NIOSH Alert 96-111 and OSHA isocyanates NEP (CPL 03-00-017), NIOSH Pocket Guide (styrene), IARC Monograph 121.</span>
     <span>HS-08 · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>
@@ -270,15 +362,15 @@
     environment:`<g stroke="#141414" stroke-width="3" stroke-linecap="round" fill="none"><path d="M36 66 V36"/><path d="M36 44 L28 36"/><path d="M36 50 L44 40"/><path d="M36 40 L42 32"/><path d="M24 70 H76"/></g><ellipse cx="60" cy="61" rx="9" ry="4.5" fill="#141414"/><path d="M68 61 l7 -5 v10z" fill="#141414"/><circle cx="56" cy="60" r="1.2" fill="#fff"/>`
   };
   const L=[
-    ["bomb","Exploding bomb","Explosives, self-reactives, organic peroxides.","Blasting charges, some curing agents"],
-    ["flame","Flame","Flammable gas, liquid or solid. Can self-heat or ignite in air.","Solvents, fuel gas, VeilCoat"],
-    ["flamecircle","Flame over circle","Oxidizer. Makes other things burn hotter and faster.","Oxygen cylinders, peroxides"],
-    ["cylinder","Gas cylinder","Gas under pressure. Can explode if heated or damaged.","Welding gases, argon, nitrogen"],
-    ["corrosion","Corrosion","Burns skin and eyes. Corrodes metal.","Dunecrete mix, acids, C-4X hardener"],
-    ["skull","Skull and crossbones","Toxic. Can kill in small amounts.","Cyanide compounds, some fumigants"],
-    ["exclaim","Exclamation mark","Irritant, skin sensitizer, narcotic, harmful.","Most resins and cleaners"],
-    ["health","Health hazard","Cancer, lung sensitizer, organ damage, reproductive harm.","Isocyanates, silica, hex chrome"],
-    ["environment","Environment","Toxic to water life. Not required on site, still used.","Coolants, some coatings"],
+    ["bomb","Exploding bomb","Explosives, self-reactives, organic peroxides.","Blasting charges, the most reactive organic peroxides"],
+    ["flame","Flame","Flammable gas, liquid or solid. Can self-heat, ignite in air, or give off flammable gas with water.","Solvents, fuel gas, VeilCoat, styrene resins, most resin catalysts (MEKP)"],
+    ["flamecircle","Flame over circle","Oxidizer. Makes other things burn hotter and faster.","Oxygen, strong hydrogen peroxide, nitrates, chlorates"],
+    ["cylinder","Gas cylinder","Gas under pressure. Can explode if heated. Very cold liquefied gas causes frostbite burns.","Welding gases, argon, nitrogen"],
+    ["corrosion","Corrosion","Burns skin, causes serious eye damage, corrodes metal.","Dunecrete mix, acids, C-4X hardener"],
+    ["skull","Skull and crossbones","Toxic. Can kill in small amounts, breathed in, swallowed or through skin.","Cyanide compounds, some fumigants"],
+    ["exclaim","Exclamation mark","Irritant, skin sensitizer, harmful, can make you drowsy or dizzy.","Most resins and cleaners"],
+    ["health","Health hazard","Cancer, lung sensitizer, organ damage, reproductive harm, lung damage if a swallowed liquid gets into the lungs.","Isocyanates, silica, hex chrome, styrene"],
+    ["environment","Environment","Toxic to water life. Optional under OSHA. You will still see it.","Coolants, some coatings"],
   ];
   document.getElementById("ghs").innerHTML=L.map(([k,n,d,e])=>`<div><svg viewBox="0 0 100 100" role="img" aria-label="${n} pictogram">${D}${S[k]}</svg><div style="min-width:0"><b>${n}</b><p>${d}</p><p class="eg">e.g. ${e}</p></div></div>`).join("");
 })();

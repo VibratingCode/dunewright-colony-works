@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>REF-GL Roles &amp; Glossary · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: hat dots, site-rule labels, stacked tables on phones, glossary columns */
+.hat{display:inline-block;width:12px;height:12px;border-radius:50% 50% 2px 2px;border:2px solid var(--black);vertical-align:-1px;margin-right:5px}
+.hat.lead{background:linear-gradient(var(--hiviz) 0 40%,#fff 40% 70%,var(--hiviz) 70%)}
+.sr{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;opacity:.7;white-space:nowrap}
+.rt td{overflow-wrap:anywhere}
+.rt td.cs{font-family:var(--mono);font-size:12px}
+.rt tr.grp td{background:var(--black);color:var(--hiviz);font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.gl{columns:3 250px;column-gap:26px;margin:0}
+.gl > div{break-inside:avoid;padding:6px 0 7px;border-bottom:1px solid var(--rule)}
+.gl dt{font:700 13px/1.3 var(--mono);letter-spacing:.02em}
+.gl dd{margin:2px 0 0;font-size:13px;line-height:1.4}
+.glh{font:400 26px/1 var(--display);text-transform:uppercase;margin:18px 0 6px}
+.glh:first-child{margin-top:0}
+@media (max-width:760px){
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{border:2px solid var(--black);margin-bottom:8px}
+  table.stack td{border:0;border-top:1px solid var(--rule);padding:6px 10px}
+  table.stack td:first-child{border-top:0}
+  table.stack tr:not(.grp) td:first-child{background:var(--hiviz)}
+  table.stack td[data-l]::before{content:attr(data-l);display:block;font:700 10px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+}
+</style>
+</head>
+<body data-page="ref-gl">
+<div class="wall">
+<article class="poster">
+
+  <header class="head black">
+    <div class="meta"><span>Form REF-GL · Rev. 5</span><span>Post-stasis refresher · Reference sheet</span><span>Post at every sector office &amp; muster point</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
+    </div>
+    <h1>Who's who.</h1>
+    <p class="sub">Every role, every badge endorsement and every term in the refresher. One word for each thing, on every page.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="sec">
+    <div class="sh"><h2>Roles</h2><span class="tag">Station · hat · call sign · authority</span></div>
+    <p class="small" style="margin-bottom:12px">Hats follow station (<a href="m1-orientation.html">HS-01</a>). A call sign belongs to the station and stays with it when people rotate (<a href="radio.html">REF-RAD</a>). The chain of command is on <a href="org-chart.html">REF-ORG</a>. Permits and signers are on <a href="permits.html">REF-PTW</a>.</p>
+    <div class="tw"><table class="rt stack">
+      <thead><tr><th>Role</th><th>Station · hat</th><th>Call sign</th><th>May sign or stop</th><th>Badge endorsement</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="5">Command and supervision</td></tr>
+        <tr><td>Colony Construction Director</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>The Hub · white</td><td class="cs" data-l="Call sign">Hub Actual</td><td data-l="May sign or stop">Heads the build. Can stop any work.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Deputy Directors</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>The Hub · white</td><td class="cs" data-l="Call sign">Hub Ops · Hub Safety · Hub Engineering · Hub Logistics · Hub Medical</td><td data-l="May sign or stop">Run their divisions. The Deputy for Safety &amp; Health can stop work site-wide.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Command desk</td><td data-l="Station · hat">The Hub</td><td class="cs" data-l="Call sign">Hub Command</td><td data-l="May sign or stop">Rebroadcasts every siren and warning on Ch 1. Gives the voice all clear. Can clear an ALL STOP and release a caller from Ch 1.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Sector Superintendent</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>One sector · white</td><td class="cs" data-l="Call sign">[Sector] Super</td><td data-l="May sign or stop">Runs all work in the sector, plus muster and headcount.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Assistant Superintendent</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>One sector, day or night · white</td><td class="cs" data-l="Call sign">[Sector] Assist Day / Night</td><td data-l="May sign or stop">Runs the sector on their shift. Settles permit conflicts the general foremen can't.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>General foreman</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>One trade, one sector · white</td><td class="cs" data-l="Call sign">[Sector] GF [Trade]</td><td data-l="May sign or stop">Area general foreman signs PTW-HE. Electrical &amp; Power general foreman signs PTW-EE. Second person when a lock is removed.</td><td data-l="Badge endorsement">Entry supervisor, to sign PTW-CS</td></tr>
+        <tr><td>Foreman</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>About 4 crews · white</td><td class="cs" data-l="Call sign">[Sector] Foreman [n]</td><td data-l="May sign or stop">Signs PTW-HW for their work area, PTW-DG and PTW-SP. Names competent persons. Removes another worker's lock by the formal procedure.</td><td data-l="Badge endorsement">PTW-HW signer, to sign PTW-HW · Entry supervisor, to sign PTW-CS</td></tr>
+        <tr><td>Crew lead</td><td data-l="Station · hat"><i class="hat lead"></i>One crew of about 12 · yellow with white LEAD band</td><td class="cs" data-l="Call sign">[Sector] Crew [n]-[n]</td><td data-l="May sign or stop">Posts WBGT. Sees every crew member every 30 min. Logs ramp days. Names the fall-rescue method. Confirms the fix before work restarts after a stop.</td><td data-l="Badge endorsement">For each task they do</td></tr>
+        <tr><td>Crew member</td><td data-l="Station · hat"><i class="hat" style="background:var(--hiviz)"></i>Yellow, or your trade's color</td><td class="cs" data-l="Call sign">Crew call sign + number</td><td data-l="May sign or stop">Can stop unsafe work.</td><td data-l="Badge endorsement">For each task they do</td></tr>
+        <tr><td>Buddy</td><td data-l="Station · hat">Your assigned partner</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">Watches you all shift. Can stop work.</td><td data-l="Badge endorsement">None needed</td></tr>
+
+        <tr class="grp"><td colspan="5">Safety, health and emergencies</td></tr>
+        <tr><td>Safety &amp; Health officer</td><td data-l="Station · hat"><i class="hat" style="background:var(--green)"></i>About 1 per 75 workers · green</td><td class="cs" data-l="Call sign">Safety [Sector] [n]</td><td data-l="May sign or stop">Can stop any work. Countersigns PTW-HE. Second person when a lock is removed.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Industrial Hygiene</td><td data-l="Station · hat"><i class="hat" style="background:var(--green)"></i>Safety &amp; Health · green</td><td class="cs" data-l="Call sign">Hygiene [n]</td><td data-l="May sign or stop">Samples air, silica, noise and chemicals. Runs the respirator and hearing programs and fit tests. Sets the respirator and spray zone on a spray permit (PTW-SP).</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Atmospheric Office field staff</td><td data-l="Station · hat"><i class="hat" style="background:var(--green)"></i>Safety &amp; Health · green</td><td class="cs" data-l="Call sign">Atmos</td><td data-l="May sign or stop">Weather, WBGT, wind, watches and warnings on Ch 16.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Fire &amp; Rescue</td><td data-l="Station · hat"><i class="hat" style="background:var(--red)"></i>Hub HQ and sector teams · red</td><td class="cs" data-l="Call sign">Rescue [n]</td><td data-l="May sign or stop">Takes command of fire, rescue and hazmat scenes on arrival.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Medic</td><td data-l="Station · hat"><i class="hat" style="background:var(--red)"></i>FAS or Central Med · red with a white cross</td><td class="cs" data-l="Call sign">Medic [n] · [Sector] Aid · Central Med</td><td data-l="May sign or stop">Takes over casualties. Can release a caller from Ch 1. Restricts or clears duty.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Stasis Revival Unit</td><td data-l="Station · hat"><i class="hat" style="background:var(--red)"></i>Revival Med Bay · red with a white cross</td><td class="cs" data-l="Call sign">Revival [n]</td><td data-l="May sign or stop">Revival clearance and re-clearance. Issues badge, radio and RAMP band.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Security</td><td data-l="Station · hat"><i class="hat" style="background:var(--black)"></i>Director's staff · black</td><td class="cs" data-l="Call sign">Security Desk · Security [n]</td><td data-l="May sign or stop">Badges, gates, lost badges. Monitors Ch 2.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Incident commander</td><td data-l="Station · hat">First person on scene, any hat</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">Runs the scene until relieved, then hands over command out loud.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Muster warden</td><td data-l="Station · hat"><i class="hat lead"></i>A named crew lead for each muster point</td><td class="cs" data-l="Call sign">Muster [MP-C1]</td><td data-l="May sign or stop">Collects crew headcounts and reports once to the Super on the sector channel.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>First aider</td><td data-l="Station · hat">One in every crew, any hat</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">CPR, Stop the Bleed and first aid until a medic takes over.</td><td data-l="Badge endorsement">First aid / CPR / Stop the Bleed</td></tr>
+        <tr><td>Fire watch</td><td data-l="Station · hat">Trained crew member · own hat plus a red FIRE WATCH vest</td><td class="cs" data-l="Call sign">Fire Watch [Sector] [n]</td><td data-l="May sign or stop">Stops hot work. Reports "watch complete". No rescue or command authority.</td><td data-l="Badge endorsement">Fire watch</td></tr>
+
+        <tr class="grp"><td colspan="5">Lifting and equipment</td></tr>
+        <tr><td>Lift Director</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>Crane &amp; Lift supervisor · white</td><td class="cs" data-l="Call sign">Lift Director [Sector]</td><td data-l="May sign or stop">Approves LP- plans prepared by Design &amp; Structures. Directs critical lifts. Approves high-sail loads at 20+ mph. Can stop any lift.</td><td data-l="Badge endorsement">Lift Director</td></tr>
+        <tr><td>Crane operator</td><td data-l="Station · hat"><i class="hat" style="background:var(--hiviz)"></i>Crane &amp; Lift · yellow</td><td class="cs" data-l="Call sign">Crane [Sector] [n]</td><td data-l="May sign or stop">Can refuse an unsafe lift. Obeys STOP from anyone.</td><td data-l="Badge endorsement">Crane operator, by crane type</td></tr>
+        <tr><td>Qualified signal person</td><td data-l="Station · hat"><i class="hat" style="background:var(--orange)"></i>Crane &amp; Lift · orange</td><td class="cs" data-l="Call sign">Signal [Sector] [n]</td><td data-l="May sign or stop">The only person who signals a lift. Directs any landing after an ALL STOP.</td><td data-l="Badge endorsement">Qualified signal person</td></tr>
+        <tr><td>Qualified rigger</td><td data-l="Station · hat"><i class="hat" style="background:var(--orange)"></i>Crane &amp; Lift · orange</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Rigs loads. Rejects damaged or untagged gear: no tag, no lift. As the lift lead named in the lift briefing, directs routine lifts.</td><td data-l="Badge endorsement">Qualified rigger</td></tr>
+        <tr><td>Spotter</td><td data-l="Station · hat">Trained worker, own hat</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Guides moving equipment from the operator's view. Stops the machine.</td><td data-l="Badge endorsement">Spotter</td></tr>
+        <tr><td>Equipment operator</td><td data-l="Station · hat"><i class="hat" style="background:var(--hiviz)"></i>Heavy Equipment Pool · yellow</td><td class="cs" data-l="Call sign">[Machine] [Sector] [n]</td><td data-l="May sign or stop">Can refuse an unsafe move. Stops for any STOP.</td><td data-l="Badge endorsement">That machine type</td></tr>
+        <tr><td>Design &amp; Structures engineer</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>Engineering · white</td><td class="cs" data-l="Call sign">Design [n]</td><td data-l="May sign or stop">Prepares lift plans and temporary works designs.</td><td data-l="Badge endorsement">None needed</td></tr>
+
+        <tr class="grp"><td colspan="5">Permits, entry and energy</td></tr>
+        <tr><td>Competent person</td><td data-l="Station · hat">Trained worker named by the foreman, any hat</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">Inspects excavations, scaffolds or fall protection. Spots hazards and can stop work.</td><td data-l="Badge endorsement">Competent person: excavation, scaffold or fall protection</td></tr>
+        <tr><td>Entry supervisor</td><td data-l="Station · hat"><i class="hat" style="background:#fff"></i>Foreman or general foreman · white</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">Checks tests, lockouts and the rescue plan. Signs and ends PTW-CS.</td><td data-l="Badge endorsement">Entry supervisor</td></tr>
+        <tr><td>Attendant</td><td data-l="Station · hat">Crew member, own hat</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Stays outside the whole entry. Counts entrants, orders them out, calls rescue. Never enters.</td><td data-l="Badge endorsement">Attendant</td></tr>
+        <tr><td>Entrant</td><td data-l="Station · hat">Crew member, own hat</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Goes inside. Gets out at once on an alarm or the attendant's order.</td><td data-l="Badge endorsement">Entrant</td></tr>
+        <tr><td>Hot-work worker</td><td data-l="Station · hat"><i class="hat" style="background:#7a4a24"></i>Welders, cutters · brown</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Does the hot work. Never signs their own PTW-HW.</td><td data-l="Badge endorsement">Hot work</td></tr>
+        <tr><td>Authorized employee (lockout)</td><td data-l="Station · hat">Any trained worker, own hat</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Locks out with their own red lock and verifies zero energy.</td><td data-l="Badge endorsement">Lockout-authorized</td></tr>
+        <tr><td>Group-lockout lead</td><td data-l="Station · hat">The authorized employee named in charge</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">Puts yellow job locks on every isolation point and the keys in the yellow lockbox.</td><td data-l="Badge endorsement">Lockout-authorized</td></tr>
+        <tr><td>Qualified electrical worker</td><td data-l="Station · hat"><i class="hat" style="background:var(--blue)"></i>Electrical &amp; Power · blue</td><td class="cs" data-l="Call sign">Crew call sign</td><td data-l="May sign or stop">The only workers who test for voltage on electrical systems or work on power-cell terminals. Does PTW-EE work.</td><td data-l="Badge endorsement">Qualified electrical worker</td></tr>
+        <tr><td>Survey, QA/QC, inspectors</td><td data-l="Station · hat"><i class="hat" style="background:#9a9a9a"></i>Engineering · grey</td><td class="cs" data-l="Call sign">Their own</td><td data-l="May sign or stop">Survey locates and marks buried services with Electrical &amp; Power for PTW-DG. Often alone: lone-work rules apply.</td><td data-l="Badge endorsement">None needed</td></tr>
+        <tr><td>Visitor</td><td data-l="Station · hat"><i class="hat" style="background:#6a3d9a"></i>Visitors and non-construction staff · purple</td><td class="cs" data-l="Call sign">None</td><td data-l="May sign or stop">Always escorted. Can still stop unsafe work.</td><td data-l="Badge endorsement">None needed</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">The RAMP band on any helmet means heat-ramp Days 1–5. Watch that worker and check on them first.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Badge endorsements</h2><span class="tag">No badge entry, no task</span></div>
+    <div class="cols">
+      <div class="box fill">
+        <h3>The rules</h3>
+        <ul>
+          <li><b>No badge entry, no task.</b> Crew leads and foremen check the badge before they assign work.</li>
+          <li><b>Pre-stasis qualifications are re-verified by a practical test before use.</b> Stasis dulls skill and reaction time. An old card counts for nothing until you pass here.</li>
+          <li>Module or supplement first, then the endorsement, then the task.</li>
+          <li>An expired endorsement is suspended until you refresh it. The badge shows each expiry date. <span class="sr">(site rule)</span></li>
+          <li>Retrain early after an incident or near miss in that task, after unsafe work is seen, or for new equipment or methods. <span class="sr">(site rule)</span></li>
+          <li>Records are kept by the Director's staff.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Your badge lists</h3>
+        <ul>
+          <li>Completed modules and supplements.</li>
+          <li>Endorsements for machines, permits and roles, with expiry dates.</li>
+          <li>Respirator fit-test date.</li>
+          <li>Heat-ramp status.</li>
+        </ul>
+        <p class="small">Lost badge: tell your crew lead the same shift. The crew lead reports it to the Security Desk. Never lend your badge.</p>
+      </div>
+    </div>
+    <div class="tw" style="margin-top:16px"><table class="stack">
+      <thead><tr><th>Endorsement</th><th>Clears you to</th><th>Learn it in</th><th>Refresher</th></tr></thead>
+      <tbody>
+        <tr><td>Crane operator</td><td data-l="Clears you to">Operate that crane type.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a> · <a href="hand-signals.html">REF-HS</a></td><td data-l="Refresher">Certification every 5 years (OSHA 1926.1427). Practical evaluation every year <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Lift Director</td><td data-l="Clears you to">Approve LP- plans and direct critical lifts.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Qualified rigger</td><td data-l="Clears you to">Rig loads and inspect rigging gear.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Qualified signal person</td><td data-l="Clears you to">Signal crane lifts.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a> · <a href="hand-signals.html">REF-HS</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Spotter</td><td data-l="Clears you to">Guide moving equipment.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a> · <a href="hand-signals.html">REF-HS</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Competent person: excavation</td><td data-l="Clears you to">Inspect excavations and stop work.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Competent person: scaffold</td><td data-l="Clears you to">Oversee scaffold erection, inspect scaffolds and stop work.</td><td data-l="Learn it in"><a href="sc-scaffolds-aerial-lifts.html">Supplement C (HS-SC)</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Competent person: fall protection</td><td data-l="Clears you to">Inspect fall protection, check rescue plans and stop work.</td><td data-l="Learn it in"><a href="m4-heights.html">HS-04</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Entry supervisor</td><td data-l="Clears you to">Sign and end PTW-CS.</td><td data-l="Learn it in"><a href="cs-confined-spaces.html">Supplement A (HS-SA)</a></td><td data-l="Refresher">Every year <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Attendant</td><td data-l="Clears you to">Attend confined-space entries.</td><td data-l="Learn it in"><a href="cs-confined-spaces.html">HS-SA</a></td><td data-l="Refresher">Every year <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Entrant</td><td data-l="Clears you to">Enter confined spaces.</td><td data-l="Learn it in"><a href="cs-confined-spaces.html">HS-SA</a></td><td data-l="Refresher">Every year <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Fire watch</td><td data-l="Clears you to">Stand fire watch.</td><td data-l="Learn it in"><a href="m5-hot-work.html">HS-05</a> · <a href="m9-emergencies.html">HS-09</a></td><td data-l="Refresher">Every year, with hands-on extinguisher training (OSHA 1910.157(g)).</td></tr>
+        <tr><td>Hot work</td><td data-l="Clears you to">Weld, cut, braze and do torch work.</td><td data-l="Learn it in"><a href="m5-hot-work.html">HS-05</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>PTW-HW signer</td><td data-l="Clears you to">Sign PTW-HW for your work area.</td><td data-l="Learn it in"><a href="m5-hot-work.html">HS-05</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Lockout-authorized</td><td data-l="Clears you to">Lock out with your own lock. Lead a group lockout when named.</td><td data-l="Learn it in"><a href="m7-lockout.html">HS-07</a></td><td data-l="Refresher">Procedure review every year (OSHA 1910.147(c)(6)).</td></tr>
+        <tr><td>Powder-actuated tools</td><td data-l="Clears you to">Use that tool.</td><td data-l="Learn it in"><a href="m7-lockout.html">HS-07</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Qualified electrical worker</td><td data-l="Clears you to">Test for voltage, work on power-cell terminals, do PTW-EE work.</td><td data-l="Learn it in"><a href="sb-electrical.html">Supplement B (HS-SB)</a></td><td data-l="Refresher">Retraining at least every 3 years (NFPA 70E).</td></tr>
+        <tr><td>Scaffold erector</td><td data-l="Clears you to">Build, move, alter and take down scaffolds, under the scaffold competent person.</td><td data-l="Learn it in"><a href="sc-scaffolds-aerial-lifts.html">HS-SC</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>MEWP operator</td><td data-l="Clears you to">Operate that boom or scissor lift type, after familiarization on the model.</td><td data-l="Learn it in"><a href="sc-scaffolds-aerial-lifts.html">HS-SC</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Forklift / telehandler</td><td data-l="Clears you to">Operate that truck type.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td><td data-l="Refresher">Evaluation at least every 3 years (OSHA 1910.178(l)).</td></tr>
+        <tr><td>Equipment / printer operator</td><td data-l="Clears you to">Operate that machine type.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>Shuttle driver (Transport staff)</td><td data-l="Clears you to">Drive site shuttles.</td><td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a> · <a href="sd-night-fatigue-fitness.html">HS-SD</a></td><td data-l="Refresher">Every 3 years <span class="sr">(site rule)</span>.</td></tr>
+        <tr><td>First aid / CPR / Stop the Bleed</td><td data-l="Clears you to">Be your crew's first aider.</td><td data-l="Learn it in"><a href="m9-emergencies.html">HS-09</a></td><td data-l="Refresher">Every 2 years (AHA course card practice).</td></tr>
+        <tr><td>Respirator fit test (date)</td><td data-l="Clears you to">Wear that exact respirator model and size.</td><td data-l="Learn it in"><a href="m2-dust-air-ppe.html">HS-02</a></td><td data-l="Refresher">Every year, and whenever your face changes (OSHA 1910.134(f)). Medical evaluation before your first fit test (1910.134(e)).</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Glossary</h2><span class="tag">Every term on every page · A to Z<br>Radio prowords: <a href="radio.html">REF-RAD</a></span></div>
+
+    <h3 class="glh">Acronyms &amp; units</h3>
+    <dl class="gl">
+      <div><dt>AED</dt><dd>Automated external defibrillator. Talks you through shocking a stopped heart. At every FAS, shelter, structure cooling station and lift muster.</dd></div>
+      <div><dt>ALL STOP</dt><dd>"ALL STOP, ALL STOP" on any channel, or 3 short siren blasts. Stop all motion, hot work and machine operation, and hold position.</dd></div>
+      <div><dt>ANSI · ASME</dt><dd>Old Earth standards bodies: American National Standards Institute; American Society of Mechanical Engineers (crane and sling standards B30).</dd></div>
+      <div><dt>APF</dt><dd>Assigned protection factor. How much cleaner a respirator keeps your air when it fits and is worn right. APF 10 means one tenth of the outside level.</dd></div>
+      <div><dt>AR · FR</dt><dd>Arc-rated and flame-resistant clothing. FR resists catching fire. AR is also tested and rated against arc flash.</dd></div>
+      <div><dt>Ch</dt><dd>Radio channel. Ch 1 is Site Emergency. Full plan on REF-RAD.</dd></div>
+      <div><dt>CO</dt><dd>Carbon monoxide. Toxic gas with no smell or color, from engines, fires and burning polymers. Entry limit under 35 ppm.</dd></div>
+      <div><dt>CO₂</dt><dd>Carbon dioxide. Your body senses rising CO₂. It can't sense missing oxygen, so low oxygen gives no warning.</dd></div>
+      <div><dt>CPR</dt><dd>Cardiopulmonary resuscitation. Chest pushes 100–120 a minute, 2–2.4 in deep.</dd></div>
+      <div><dt>dBA</dt><dd>Decibels, A-weighted: sound level as your ear hears it. Every 3 dB more is double the sound energy. Hearing protection at 85 dBA (site rule).</dd></div>
+      <div><dt>DCW</dt><dd>Dunewright Colony Works, the employer.</dd></div>
+      <div><dt>FAS</dt><dd>Forward Aid Station. One per sector, call sign "[Sector] Aid". All injuries and illness go here.</dd></div>
+      <div><dt>fc</dt><dd>Foot-candle: the light falling on a surface. About 10.8 lux. Night minimums are on HS-SD.</dd></div>
+      <div><dt>GF</dt><dd>General foreman.</dd></div>
+      <div><dt>GFCI</dt><dd>Ground-fault circuit interrupter. Cuts the power when as little as 4–6 milliamps leaks to ground, for example through you.</dd></div>
+      <div><dt>GHS</dt><dd>Globally Harmonized System for chemical labels: red-diamond pictograms, one signal word (Danger or Warning), hazard statements.</dd></div>
+      <div><dt>GMAW · FCAW · GTAW · SMAW</dt><dd>Welding processes: MIG, flux core, TIG and stick.</dd></div>
+      <div><dt>H₂S</dt><dd>Hydrogen sulfide. Toxic gas that smells of rotten eggs, then kills your sense of smell. Entry limit under 10 ppm.</dd></div>
+      <div><dt>HEPA</dt><dd>High-efficiency particulate air filter, on dust collectors and vacuums.</dd></div>
+      <div><dt>HS-IR</dt><dd>Incident report form. Filed with your Colonist ID.</dd></div>
+      <div><dt>ICS</dt><dd>Incident Command System. One commander at a time, jobs given by name, command handed over out loud.</dd></div>
+      <div><dt>IH</dt><dd>Industrial Hygiene. Samples air, silica, noise and chemicals; runs the respirator and hearing programs. Call sign "Hygiene [n]".</dd></div>
+      <div><dt>kV</dt><dd>Kilovolt: 1,000 volts.</dd></div>
+      <div><dt>LEL</dt><dd>Lower explosive limit: the least gas or vapor in air that can ignite. Meters read % of LEL. Entry stops at 10%. No hot work at 1% or above (site rule).</dd></div>
+      <div><dt>LP-</dt><dd>Critical lift plan number.</dd></div>
+      <div><dt>MEWP</dt><dd>Mobile elevating work platform: boom lifts and scissor lifts. Supplement C (HS-SC).</dd></div>
+      <div><dt>MP</dt><dd>Muster point, MP-A1 to MP-H2. Two per sector.</dd></div>
+      <div><dt>N95</dt><dd>Disposable filtering facepiece. Filters at least 95% of particles. No use against oil mist, gas or low oxygen. APF 10.</dd></div>
+      <div><dt>NFPA 704</dt><dd>The fire diamond. Blue health, red flammability, yellow instability, white special hazards. 0 is minimal, 4 is severe.</dd></div>
+      <div><dt>NIOSH</dt><dd>Old Earth US National Institute for Occupational Safety and Health. Sets RELs.</dd></div>
+      <div><dt>NWS</dt><dd>Old Earth US National Weather Service. Source of the heat index.</dd></div>
+      <div><dt>O₂</dt><dd>Oxygen. Safe range 19.5–23.5%.</dd></div>
+      <div><dt>OSHA</dt><dd>Old Earth US Occupational Safety and Health Administration. Sets PELs and most standards on these posters.</dd></div>
+      <div><dt>OV</dt><dd>Organic vapor: the respirator cartridge for solvent vapors.</dd></div>
+      <div><dt>P100</dt><dd>Particulate filter that stops 99.97% of particles, oil mist included. Fits half- and full-face respirators.</dd></div>
+      <div><dt>PAPR</dt><dd>Powered air-purifying respirator. A battery blower pushes filtered air into a hood or mask.</dd></div>
+      <div><dt>PEL</dt><dd>Permissible exposure limit: OSHA's legal limit, usually an 8-hour TWA.</dd></div>
+      <div><dt>PPE</dt><dd>Personal protective equipment.</dd></div>
+      <div><dt>ppm</dt><dd>Parts per million.</dd></div>
+      <div><dt>psig</dt><dd>Pounds per square inch, gauge.</dd></div>
+      <div><dt>PTW</dt><dd>Permit to work: PTW-HW hot work, PTW-CS confined space, PTW-HE heat entry, PTW-EE energized electrical, PTW-DG dig permit, PTW-SP spray permit. All on REF-PTW.</dd></div>
+      <div><dt>QA/QC</dt><dd>Quality assurance and quality control. Grey hats.</dd></div>
+      <div><dt>REL</dt><dd>Recommended exposure limit: NIOSH's health-based limit, often stricter than the PEL. Usually a TWA over a workday of up to 10 hours.</dd></div>
+      <div><dt>ROPS</dt><dd>Rollover protective structure: the cage on a machine. It protects you only with your seat belt on.</dd></div>
+      <div><dt>SDS</dt><dd>Safety data sheet. 16 sections. At the chem store and on the site terminal.</dd></div>
+      <div><dt>SIMOPS</dt><dd>Simultaneous operations: jobs close enough to endanger each other. Checked before a permit is signed (REF-PTW).</dd></div>
+      <div><dt>SRL</dt><dd>Self-retracting lifeline. A lifeline on a reel that locks in a fall, like a seat belt.</dd></div>
+      <div><dt>SRU</dt><dd>Stasis Revival Unit. Runs Revival Med Bay. Red hat with a white cross. Call sign "Revival [n]".</dd></div>
+      <div><dt>START</dt><dd>Simple Triage and Rapid Treatment. Sorts casualties in about 30 seconds each: green, yellow, red, black.</dd></div>
+      <div><dt>TB MED 507</dt><dd>Old Earth US Army heat bulletin. Basis of the DCW work/rest table.</dd></div>
+      <div><dt>TWA</dt><dd>Time-weighted average: your average exposure over a shift.</dd></div>
+      <div><dt>UV</dt><dd>Ultraviolet light, from the sun and welding arcs. Burns eyes and skin, and weakens slings and helmets.</dd></div>
+      <div><dt>WBGT</dt><dd>Wet-bulb globe temperature. A heat-stress reading that counts air temperature, humidity, sun and wind. Posted by your crew lead at muster and hourly.</dd></div>
+      <div><dt>Z87</dt><dd>Mark on safety eyewear that meets ANSI Z87.1.</dd></div>
+      <div><dt>µg/m³</dt><dd>Micrograms per cubic meter. Silica PEL 50, action level 25.</dd></div>
+    </dl>
+
+    <h3 class="glh">Site &amp; safety terms</h3>
+    <dl class="gl">
+      <div><dt>Acclimatizing</dt><dd>Days 6–14 of the heat ramp. Full work/rest table. Your crew lead checks you every 15 min at WBGT 85+.</dd></div>
+      <div><dt>Action level</dt><dd>The exposure where monitoring and medical checks start. Silica: 25 µg/m³.</dd></div>
+      <div><dt>All clear</dt><dd>One 15-second tone, then Hub Command on Ch 1: "All clear, all clear, [area]." Never act on the tone alone.</dd></div>
+      <div><dt>Anchor</dt><dd>The fixed point your lanyard or SRL clips to. 5,000 lb per worker, or designed by a qualified person with a 2:1 safety factor.</dd></div>
+      <div><dt>Approach boundary</dt><dd>Shock boundary around exposed live parts (NFPA 70E). Unqualified workers stop at the limited approach boundary and cross only with a qualified worker who briefs them and stays with them. Supplement B (HS-SB).</dd></div>
+      <div><dt>Arc eye</dt><dd>A UV burn on the surface of the eye from a welding arc. The pain starts hours later.</dd></div>
+      <div><dt>Arc flash</dt><dd>An explosive burst of heat and light from an electrical fault. Supplement B (HS-SB).</dd></div>
+      <div><dt>Attendant</dt><dd>Stays outside a confined space for the whole entry, counts entrants, orders them out and calls rescue. Never enters.</dd></div>
+      <div><dt>Authorized employee</dt><dd>A worker trained to lock out a machine with their own red lock.</dd></div>
+      <div><dt>Badge endorsement</dt><dd>A badge entry that clears you for a machine, permit or role. No badge entry, no task.</dd></div>
+      <div><dt>Blind lift</dt><dd>A lift where the operator can't see the load or the signal person. Radio only. Stays stopped if comms drop.</dd></div>
+      <div><dt>Blowing-dust advisory</dt><dd>Visibility 1 mile or less. No outdoor hot work.</dd></div>
+      <div><dt>Buddy</dt><dd>Your assigned partner. You watch each other all shift.</dd></div>
+      <div><dt>Call sign</dt><dd>The radio name of a station. It stays with the station when people rotate (REF-RAD).</dd></div>
+      <div><dt>Capacitor bank</dt><dd>Holds charge after the power is off. Discharge it and keep it grounded.</dd></div>
+      <div><dt>Central Med</dt><dd>The hospital at the Hub: serious cases (reds), surgery, ICU.</dd></div>
+      <div><dt>Check-in</dt><dd>Crew lead to foreman every 30 min on the foreman talkgroup. Missed: immediate call-back, then someone goes in person after 5 min.</dd></div>
+      <div><dt>Class E</dt><dd>Hard hat tested at 20,000 volts (ANSI Z89.1). Worn by electricians.</dd></div>
+      <div><dt>Class 2 · Class 3</dt><dd>Hi-vis garment classes (ANSI/ISEA 107). Class 3 has sleeves and the most reflective area. Class 2 by day, Class 3 at night.</dd></div>
+      <div><dt>Colonist ID</dt><dd>Your ID number. On every sign-off, every HS-IR and your personal lock.</dd></div>
+      <div><dt>Competent person</dt><dd>A trained worker named by the foreman for excavation, scaffolds or fall protection, able to spot hazards and with authority to stop work. Old Earth meaning (OSHA 1926.32): can identify existing and predictable hazards and is authorized to fix them promptly.</dd></div>
+      <div><dt>Cooling station</dt><dd>Shade, water and an ice trough on every deck of an active structure. Also the shift weigh station.</dd></div>
+      <div><dt>Crew channel</dt><dd>Your foreman talkgroup.</dd></div>
+      <div><dt>Critical lift</dt><dd>75%+ of chart capacity, two or more cranes, personnel, over occupied structures, or an unusual load. Needs an LP- plan.</dd></div>
+      <div><dt>Deck</dt><dd>A level of a structure. Deck 0 is the ground. Below grade is Deck minus 1, and so on.</dd></div>
+      <div><dt>D-ring</dt><dd>The steel ring between your shoulder blades on a full-body harness. Your fall-arrest lanyard or SRL clips here.</dd></div>
+      <div><dt>Dunecrete</dt><dd>Alkaline sand-polymer binder. Burns wet skin. Cutting it makes silica dust.</dd></div>
+      <div><dt>Engulfment</dt><dd>Being swallowed by flowing sand, liquid or polymer.</dd></div>
+      <div><dt>Entrant</dt><dd>A worker cleared to go inside a confined space.</dd></div>
+      <div><dt>Entry supervisor</dt><dd>A foreman or general foreman with the HS-SA endorsement. Signs and ends PTW-CS.</dd></div>
+      <div><dt>Exclusion zone</dt><dd>An area roped off and kept clear: under overhead work and loads, around a crane's swing, on haul roads.</dd></div>
+      <div><dt>Fall clearance</dt><dd>The distance needed below your anchor to stop before you hit anything. 18.5 ft with a 6 ft shock-absorbing lanyard.</dd></div>
+      <div><dt>FerroLattice-7</dt><dd>Printed structural polymer, extruded at about 500°F.</dd></div>
+      <div><dt>Fire watch</dt><dd>A trained crew member in a red FIRE WATCH vest who watches hot work and stays 60 min after it (NFPA 51B). No rescue or command authority.</dd></div>
+      <div><dt>First aider</dt><dd>Trained in CPR and Stop the Bleed. One in every crew.</dd></div>
+      <div><dt>Foreman talkgroup</dt><dd>Radio talkgroup for crew check-ins and routine crew traffic, for example "C-F14".</dd></div>
+      <div><dt>Free fall</dt><dd>The distance you drop before your fall arrest starts to work. 6 ft max.</dd></div>
+      <div><dt>Grid · grid post</dt><dd>A numbered block, 1–40, inside a sector. The number is painted on every grid post.</dd></div>
+      <div><dt>Group lockout</dt><dd>Yellow job locks on every isolation point, keys in a yellow lockbox, and a personal lock from every worker on the box.</dd></div>
+      <div><dt>Group-lockout lead</dt><dd>The authorized employee named in charge of a group lockout.</dd></div>
+      <div><dt>Hasp</dt><dd>A clamp that holds several padlocks on one isolation point.</dd></div>
+      <div><dt>Hatch</dt><dd>An opening into a confined space, tank or hull void.</dd></div>
+      <div><dt>Heat index</dt><dd>The NWS "feels like" temperature in shade, from air temperature and humidity. Site heat levels use it up to 124°F, and air temperature from 125°F.</dd></div>
+      <div><dt>Heat levels</dt><dd>Normal, Caution, Extreme caution, Danger, Extreme, Extreme heat entry, Site closed (HS-03).</dd></div>
+      <div><dt>Heat ramp</dt><dd>Days 1–5 capped at 20/40/60/80/100% of the shift in heat, and half the table's work minutes on Days 1–4 (“No limit” = 30/30). Resets to Day 1 after fever, vomiting or diarrhea, any heat illness, or 7+ days away from heat work.</dd></div>
+      <div><dt>High-sail load</dt><dd>A wide, flat load that catches wind: wall panels, hull plate, roof sections.</dd></div>
+      <div><dt>Hot work</dt><dd>Welding, cutting, grinding, brazing or torch work. Needs a PTW-HW outside a welding bay.</dd></div>
+      <div><dt>The Hub</dt><dd>Site command, Central Med, Fire &amp; Rescue HQ and the Atmospheric Office.</dd></div>
+      <div><dt>Hub Actual</dt><dd>Call sign of the Colony Construction Director in person. "Actual" means the commander, not the desk.</dd></div>
+      <div><dt>Hub Command</dt><dd>The site command desk at the Hub.</dd></div>
+      <div><dt>Hull void</dt><dd>The space between hab walls and decks. Often purged with inert gas.</dd></div>
+      <div><dt>Incident commander</dt><dd>The first person on scene, until relieved, who hands over command out loud. Fire &amp; Rescue takes fire, rescue and hazmat scenes.</dd></div>
+      <div><dt>Inert gas</dt><dd>Argon or nitrogen. Pushes oxygen out. One breath can drop you.</dd></div>
+      <div><dt>Intrinsically safe</dt><dd>Built so it can't make a spark or get hot enough to ignite flammable gas. Required for lights and radios where flammables are possible.</dd></div>
+      <div><dt>Isocyanates</dt><dd>Chemicals in spray foams, polyurethane coatings and QuickSet C-4X. A leading cause of work-related asthma. They sensitize.</dd></div>
+      <div><dt>Isolation point</dt><dd>A disconnect, valve or blind where energy is shut off and locked.</dd></div>
+      <div><dt>Lanyard</dt><dd>The strap between your harness D-ring and the anchor. A shock-absorbing lanyard tears open to soften the stop.</dd></div>
+      <div><dt>Leading edge</dt><dd>The open edge of a deck or roof that moves as work goes on.</dd></div>
+      <div><dt>Lift Director</dt><dd>The Crane &amp; Lift supervisor (white hat) who approves lift plans and directs critical lifts.</dd></div>
+      <div><dt>Lift lead</dt><dd>A qualified rigger (orange hat) named in the lift briefing who directs a routine lift. The Lift Director directs critical lifts.</dd></div>
+      <div><dt>Lift talkgroup</dt><dd>The radio talkgroup named on each lift plan, for example "Lift C-07". Ch 11 is for coordination only.</dd></div>
+      <div><dt>Location format</dt><dd>Sector-grid, structure, deck, landmark: "Charlie-14, Tower B, Deck 3, east stair."</dd></div>
+      <div><dt>Lockout · tagout</dt><dd>Every energy source isolated and held at zero under your own lock. A tag alone is only a warning.</dd></div>
+      <div><dt>Locks</dt><dd>Red: personal, engraved with your Colonist ID. Yellow: job lock for group lockout. Blue: Electrical &amp; Power isolation. One person, one lock, one key.</dd></div>
+      <div><dt>Lone work</dt><dd>Working out of sight of others. None at Caution or higher, at height, in confined spaces or near wadis and trenches.</dd></div>
+      <div><dt>Magnetic field rig</dt><dd>A lifting magnet or field-forming rig. Lower the load, dump the coils, verify the field is at or below the rig's posted safe level with a gauss meter.</dd></div>
+      <div><dt>Man down</dt><dd>Emergency type for a collapsed or hurt person when no other type fits, including a burn with nothing still burning.</dd></div>
+      <div><dt>Microsleep</dt><dd>A few seconds of sleep, often with the eyes open. A fatigue warning sign.</dd></div>
+      <div><dt>Muster warden</dt><dd>A named crew lead at each muster point who collects headcounts and reports once to the Super.</dd></div>
+      <div><dt>Near miss</dt><dd>An event that could have hurt someone and didn't. Report it on HS-IR.</dd></div>
+      <div><dt>New waker</dt><dd>Slang for a newly revived worker. Every new waker starts on the heat ramp.</dd></div>
+      <div><dt>One lay</dt><dd>The length of wire rope in which one strand makes one full turn. Used to count broken wires.</dd></div>
+      <div><dt>Permit board</dt><dd>The board at every structure where every live permit is posted.</dd></div>
+      <div><dt>Permit-required confined space</dt><dd>A confined space with a dangerous atmosphere, engulfment, a trapping shape or another serious hazard. On this site every confined space counts as one (site rule) until the entry supervisor signs a written certificate at the hatch that every hazard has been removed (HS-SA).</dd></div>
+      <div><dt>Power cell</dt><dd>Site battery. Always live. It can't be drained.</dd></div>
+      <div><dt>Purge tag</dt><dd>A tag on a hatch meaning inert gas has been used inside.</dd></div>
+      <div><dt>Qualified electrical worker</dt><dd>Electrical &amp; Power worker (blue hat). The only workers who test for voltage or work on power-cell terminals.</dd></div>
+      <div><dt>Qualified person</dt><dd>Old Earth term (OSHA 1926.32): someone who has proven, by degree, certificate or long experience, that they can solve problems in that subject. Qualified rigger, qualified signal person and qualified electrical worker are badge endorsements here.</dd></div>
+      <div><dt>QuickSet C-4X</dt><dd>Epoxy-isocyanate fast-cure resin. A sensitizer. A big mixed batch can run away and ignite.</dd></div>
+      <div><dt>RAMP band</dt><dd>Black-and-yellow chevron band reading "RAMP", with a reflective strip, worn front and back of the helmet on heat-ramp Days 1–5. RAMP isn't an acronym. It's "ramp" in capitals so it reads from a distance.</dd></div>
+      <div><dt>Revival Med Bay</dt><dd>The SRU's clearance bay: clearance, weigh-in, badge, radio, RAMP band, and re-clearance after illness or injury. Not for injuries.</dd></div>
+      <div><dt>Rhabdo</dt><dd>Rhabdomyolysis. Muscle breakdown after hard work in heat. Dark urine. It can wreck your kidneys.</dd></div>
+      <div><dt>Safety-critical role</dt><dd>A role where one slow reaction can kill someone else. Hour limits on HS-SD.</dd></div>
+      <div><dt>Sector</dt><dd>One of 8 site areas, Alpha to Hotel.</dd></div>
+      <div><dt>Sensitized</dt><dd>Your body has become allergic to a chemical such as an isocyanate or epoxy. Even a trace can set off asthma or a rash. It's permanent.</dd></div>
+      <div><dt>Shelter</dt><dd>Sealed, cooled shelter with a two-door airlock, in every grid block. Call sign "Shelter [Sector]-[grid]".</dd></div>
+      <div><dt>Shift weigh station</dt><dd>The scale at the cooling station. Weigh in and out. Pull off at 2% body weight lost.</dd></div>
+      <div><dt>Site rule</dt><dd>A DCW rule stricter than, or extra to, the Old Earth standards. Always labeled "(site rule)".</dd></div>
+      <div><dt>Sleep inertia</dt><dd>Grogginess after waking. Wait 15 minutes after a nap before safety-critical work.</dd></div>
+      <div><dt>Spotter</dt><dd>A trained worker who guides moving equipment from where the operator can see them.</dd></div>
+      <div><dt>Spray permit (PTW-SP)</dt><dd>Permit for spraying isocyanates or VeilCoat. Industrial Hygiene sets the respirator and spray zone; the area foreman signs (site rule). One location, one shift. See REF-PTW.</dd></div>
+      <div><dt>Stop-work authority</dt><dd>Anyone can stop unsafe work, with no penalty. Restart only when the crew lead confirms the fix with the person who stopped it.</dd></div>
+      <div><dt>Structure printer</dt><dd>Gantry machine that prints structures. Ch 12, call sign "Printer [Sector] n".</dd></div>
+      <div><dt>Suspension trauma</dt><dd>Blood pooling in the legs while you hang in a harness. Can make a conscious worker pass out in minutes.</dd></div>
+      <div><dt>Swing radius</dt><dd>The area a crane's turning body and counterweight sweep. Barricaded.</dd></div>
+      <div><dt>Tagline</dt><dd>A rope used to steer a load from outside its fall zone.</dd></div>
+      <div><dt>Talkgroup</dt><dd>A radio group for one team: a foreman talkgroup or a lift talkgroup.</dd></div>
+      <div><dt>Toe board</dt><dd>The board at the foot of a guardrail that stops tools being kicked off. 3.5 in minimum.</dd></div>
+      <div><dt>Triage colors</dt><dd>Green minor, yellow delayed, red immediate, black expectant (START). Never used for heat levels.</dd></div>
+      <div><dt>Type C soil</dt><dd>The least stable soil class. All site sand counts as Type C. Max slope 1.5:1 (34°).</dd></div>
+      <div><dt>VeilCoat</dt><dd>Nano-ceramic heat-shield spray with a flammable solvent.</dd></div>
+      <div><dt>Wadi</dt><dd>A dry stream channel that floods in minutes. Leave wadis, trenches and low cuts at a flood warning.</dd></div>
+      <div><dt>Watch · warning</dt><dd>Sandstorm watch: possible within 2 hours. Sandstorm warning: expected within 30 minutes. Land loads, get down, go to shelter.</dd></div>
+      <div><dt>Work face</dt><dd>The place where your crew is working.</dd></div>
+      <div><dt>Zero energy</dt><dd>Every energy source isolated, released and tested at zero before any part of you goes into a machine.</dd></div>
+    </dl>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p>Every role on this sheet carries it. <b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: OSHA 1926.32 definitions (competent and qualified person), OSHA 1926.1427 crane operator certification, OSHA 1910.178(l) powered industrial truck training, OSHA 1910.134 respiratory protection, OSHA 1910.147 control of hazardous energy, OSHA 1910.157(g) extinguisher training, NFPA 70E, ANSI Z89.1, ANSI/ISEA 107, AHA CPR, FEMA ICS. Refresher intervals marked "(site rule)" are DCW rules.</span>
+    <span>REF-GL · Dunewright Colony Works · One word for each thing</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

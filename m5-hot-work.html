@@ -9,11 +9,17 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: 35-ft radius diagram and shade-number pills */
+/* page-local: key-number strip, 35-ft radius diagram, shade-number pills, two-column lists */
+.keys div{padding:12px 6px;min-width:0}
+.keys b{font-size:clamp(26px,4.6vw,48px)}
+.keys span{display:block;margin-top:4px}
 .radius{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:20px;align-items:center}
 .radius svg{width:100%;height:auto;max-width:220px}
 .shade{display:inline-block;min-width:28px;text-align:center;font:700 12px/1 var(--mono);padding:4px 5px;background:var(--black);color:var(--hiviz)}
 td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercase;letter-spacing:.04em}
+.twocol{columns:2 300px;column-gap:28px}
+.twocol li{break-inside:avoid}
+.box p + p{margin-top:8px}
 @media (max-width:600px){.radius{grid-template-columns:minmax(0,1fr)}.radius svg{margin:0 auto}}
 </style>
 </head>
@@ -22,10 +28,10 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
 <article class="poster">
 
   <header class="head black">
-    <div class="meta"><span>Form HS-05 · Rev. 4</span><span>Post-stasis refresher · Module 5 of 9</span><span>Post in every fab yard and welding bay</span></div>
+    <div class="meta"><span>Form HS-05 · Rev. 5</span><span>Post-stasis refresher · Module 5 of 9</span><span>Post in every Fabrication Yard and welding bay</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#141414"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Sparks travel.</h1>
     <p class="sub">Welding and cutting: the permit, the fire watch, your eyes, your lungs and your cylinders.</p>
@@ -36,23 +42,38 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
     <div class="lbl">No permit?</div>
     <div class="in">
       <h2>No arc. No flame. No exceptions.</h2>
-      <p>Any welding, cutting, grinding, brazing or torch work outside a designated welding bay needs a <b>hot work permit</b>. The permit is signed by your foreman (white hat) and posted at the work spot. It is good for <b>one location and one shift</b>. Brown hats do the work. A red hat stands fire watch.</p>
+      <p>Any welding, cutting, gouging, grinding, brazing or torch work outside a designated welding bay in the Fabrication Yards needs a <b>hot work permit (PTW-HW)</b>. The foreman responsible for the <b>work area</b> (white hat) signs it, never the person doing the hot work. It covers <b>one location and one shift</b>. It is posted at the job and on the permit board, and opened and closed on <b>Ch 13 Hot Work &amp; Fire Watch</b>.</p>
+      <p>Brown hats do the work. A trained fire watch in a <b>red FIRE WATCH vest</b> watches the sparks.</p>
+      <p class="small">PTW-HW is not the heat entry permit (PTW-HE) from <a href="m3-heat.html">HS-03</a>. Hot work at 140–159°F needs both. All permits: <a href="permits.html">REF-PTW</a>. Hot-work crews scan Ch 1, Ch 16, their sector channel and Ch 13 (<a href="radio.html">REF-RAD</a>).</p>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Hot work permit</h2><span class="tag">In this order, every time</span></div>
+    <div class="big3 keys">
+      <div><b>35 ft</b><span>Clear or cover combustibles</span></div>
+      <div><b>60 min</b><span>Fire watch after hot work ends</span></div>
+      <div><b>1% LEL</b><span>Hot work stops (site rule)</span></div>
+      <div><b>20 mph</b><span>No outdoor hot work (site rule)</span></div>
+      <div><b>125°F</b><span>Cylinder max</span></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Hot work permit (PTW-HW)</h2><span class="tag">In this order, every time</span></div>
+    <p class="small" style="margin-bottom:10px">The foreman who signs walks the spot first and checks steps 2–7 in person. Only foremen with the hot-work permit endorsement on their badge sign.</p>
     <ol class="steps">
-      <li><div><b>Look for a way to avoid hot work.</b> Can the part be bolted, cut cold or moved to a fab yard bay? If yes, do that.</div></li>
-      <li><div><b>Clear 35 feet.</b> Move every combustible at least 35 ft away. If it can't move, cover it with fire blankets or metal shields.</div></li>
-      <li><div><b>Seal openings.</b> Cover floor gaps, wall holes and deck seams within 35 ft. Sparks fall through and start fires on the deck below.</div></li>
-      <li><div><b>Check the other side.</b> Heat moves through walls, pipes and hull plate. Look and clear the far side of whatever you weld.</div></li>
-      <li><div><b>Test the air</b> in enclosed modules or near tanks. No hot work if flammable gas is above 10% of the lower explosive limit (LEL).</div></li>
-      <li><div><b>Post the fire watch.</b> Red hat, charged extinguisher in hand, on Ch 13, eyes on the sparks. Fire watch does no other job.</div></li>
-      <li><div><b>Foreman signs and posts</b> the permit at the spot. Call it in on Ch 13: "Hot work starting, Echo-22, Deck 4."</div></li>
-      <li><div><b>After the last arc: fire watch stays 60 minutes.</b> Then a final walk of the area, and the permit is closed out on Ch 13.</div></li>
+      <li><div><b>Avoid hot work if you can.</b> Bolt it, cut it cold, or move the part to a welding bay in the Fabrication Yards.</div></li>
+      <li><div><b>Clear 35 feet.</b> Move every combustible at least 35 ft away. Can't move it? Cover it with listed welding blankets or pads rated for slag, or with metal shields.</div></li>
+      <li><div><b>Seal openings and protect every level below.</b> Cover floor gaps, wall holes and deck seams within 35 ft. Above Deck 0, sparks fall: clear or cover every level below where they can land.</div></li>
+      <li><div><b>Check the other side.</b> Heat moves through walls, pipes and hull plate. Look at and clear the far side of whatever you weld, cut or heat.</div></li>
+      <li><div><b>Test the air</b> at the work, in low spots, and in any enclosed module, tank or trench within 35 ft. Start only below 1% LEL (lower explosive limit, site rule). Where gas can build up, keep a meter running the whole job.</div></li>
+      <li><div><b>Check wind and heat.</b> Outdoor hot work only below 20 mph and with no blowing-dust advisory (site rule). Check the heat level and WBGT in the table below.</div></li>
+      <li><div><b>Post the fire watch.</b> Red FIRE WATCH vest, charged extinguisher at hand, on Ch 13, no other job. Post a second fire watch on any level below that the first can't see.</div></li>
+      <li><div><b>Foreman signs and posts</b> the permit at the job and on the permit board, then opens it on Ch 13: "Echo Foreman 7, hot work open, Echo-22, Tower A, Deck 4, north face. Fire Watch Echo 3 posted."</div></li>
+      <li><div><b>After hot work ends (last arc, flame or spark), the fire watch stays 60 minutes.</b> Then they report "watch complete" on Ch 13. The signing foreman walks the area and closes the permit on Ch 13.</div></li>
     </ol>
-    <p class="note">Old Earth rule (OSHA 1910.252, NFPA 51B) is a fire watch during work and at least 30 minutes after. DCW site rule is 60 minutes, because dry sand-sealed insulation and polymer panels smolder before they flame.</p>
+    <p class="small" style="margin-top:10px"><b>Stop and re-permit</b> for a new location, a new shift or crew, wind or heat past a limit, new combustibles delivered, or a gas reading of 1% LEL or more.</p>
+    <p class="note">Old Earth rules: OSHA 1910.252 sets a fire watch of at least 30 minutes after hot work. NFPA 51B (2019 edition onward) sets at least 60 minutes, plus up to 3 more hours of fire monitoring if the permit signer decides. DCW uses the NFPA 51B 60 minutes. Polymer panels, insulation or sand-sealed seams within 35 ft? The signing foreman adds walk-through checks for up to 3 hours, logged on the permit (site rule).</p>
   </section>
 
   <section class="sec">
@@ -70,22 +91,44 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
           </svg>
           <ul class="small">
             <li>Sparks and slag fly <b>more than 35 ft</b>, farther from a height and in wind.</li>
-            <li>Work from Deck 3 or above? Clear the area below too, or catch the slag with a fire blanket.</li>
-            <li>Wind over 20 mph or a blowing-dust advisory on Ch 16: <b>outdoor hot work stops.</b></li>
+            <li>Above Deck 0, at any height, sparks fall to every level below. Clear or cover them, and post a second fire watch where the first can't see.</li>
+            <li>Cover what can't move with <b>listed welding blankets or pads</b>. Fire blankets are for clothing fires.</li>
+            <li>No refueling within 35 ft of hot work.</li>
           </ul>
         </div>
       </div>
       <div class="box">
         <h3>Fire watch duties</h3>
         <ul>
-          <li><b>Red hard hat.</b> Charged extinguisher in reach. Know where the next one is.</li>
-          <li><b>Watch the sparks,</b> not the weld. Look where they land, including below and behind.</li>
-          <li><b>Stop the work</b> the moment anything smokes or catches. You have the authority.</li>
-          <li><b>Fire you can't put out in 10 seconds:</b> Ch 1, "Emergency, emergency, emergency. Fire," with sector-grid and deck. Get everyone out.</li>
-          <li>Stay <b>60 minutes</b> after the last arc. Feel walls and panels near the work for heat before you leave.</li>
+          <li><b>Red FIRE WATCH vest</b> over your normal PPE, fire-watch endorsement on your badge. You have no rescue or command authority. Red hats (Fire &amp; Rescue) do.</li>
+          <li><b>Charged extinguisher at hand,</b> the right type for what can burn. Know where the next one is.</li>
+          <li><b>Watch the sparks,</b> not the weld. Look where they land, including below, behind and through openings.</li>
+          <li><b>Protect your eyes:</b> safety glasses with side shields plus the filter lens on the permit, or watch from behind a welding screen. Never look at the arc.</li>
+          <li><b>Stop the work</b> the moment anything smokes or catches. You have the authority. Fire? Follow <a href="#fire">Fighting a fire</a>.</li>
+          <li>Stay <b>60 minutes</b> after hot work ends (last arc, flame or spark). Feel walls and panels near the work for heat. Then report <b>"watch complete"</b> on Ch 13.</li>
         </ul>
       </div>
     </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>When hot work stops</h2><span class="tag">Check before you start and all shift</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Condition</th><th>Hot work</th></tr></thead>
+      <tbody>
+        <tr><td>Wind 20+ mph, sustained or gust</td><td>No outdoor hot work (site rule).</td></tr>
+        <tr><td>Blowing-dust advisory (visibility 1 mile or less)</td><td>No outdoor hot work (site rule).</td></tr>
+        <tr><td>Gas at 1% LEL or more at the work</td><td>Hot work stops. Shut the gas, find the source, re-permit (site rule). At 10% LEL or more in a space, everyone gets out (<a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>).</td></tr>
+        <tr><td>Oxygen below 19.5% or above 23.5% in a space</td><td>Everyone out.</td></tr>
+        <tr><td>ALL STOP (on any channel, or 3 short siren blasts)</td><td>Arc off, torch out, hold position.</td></tr>
+        <tr><td>Take-shelter or evacuate siren, sandstorm warning, lightning alert</td><td>Arc off, torch out, cylinder valves shut if it takes seconds, then go (<a href="m9-emergencies.html">HS-09</a>). Restart only after the Ch 1 voice all clear or your crew lead, and after the foreman and fire watch recheck the area.</td></tr>
+        <tr><td>Heat level Normal to Danger (up to 124°F)</td><td>Work/rest by the DCW table (<a href="m3-heat.html">HS-03</a>). Welding is moderate work. FR leathers add 20° to the WBGT first. Example: measured 72 + 20 = 92, moderate work 10/50 with a cooling vest. No vest, no work (site rule). At a measured 75 or more (95+ after the adjustment), welding in leathers outside a cooled space is essential work only (site rule). Cooling vest under leathers at Danger.</td></tr>
+        <tr><td>Extreme (125–139°F)</td><td>Site rules: essential hot work only, under the HS-03 Extreme rules. No oxy-fuel cylinders on open decks.</td></tr>
+        <tr><td>Extreme heat entry (140–159°F)</td><td>Site rule: only with PTW-HE as well as PTW-HW.</td></tr>
+        <tr><td>Site closed (160–180°F)</td><td>Site rule: no hot work.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Wind is the higher of the local anemometer and the Ch 16 posting. Gust = 3-second gust. Outdoor means anywhere open to the wind, including open decks. Follow whichever of heat level and WBGT is more restrictive.</p>
   </section>
 
   <section class="sec">
@@ -107,6 +150,9 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
         <tr><td>TIG</td><td class="m">Under 50 A</td><td><span class="shade">8</span></td><td><span class="shade">10</span></td></tr>
         <tr><td>TIG</td><td class="m">50–150 A</td><td><span class="shade">8</span></td><td><span class="shade">12</span></td></tr>
         <tr><td>TIG</td><td class="m">150–500 A</td><td><span class="shade">10</span></td><td><span class="shade">14</span></td></tr>
+        <tr><td class="grp" colspan="4">Arc gouging (air carbon arc cutting)</td></tr>
+        <tr><td>Gouging</td><td class="m">Under 500 A</td><td><span class="shade">10</span></td><td><span class="shade">12</span></td></tr>
+        <tr><td>Gouging</td><td class="m">500–1000 A</td><td><span class="shade">11</span></td><td><span class="shade">14</span></td></tr>
         <tr><td class="grp" colspan="4">Plasma arc cutting</td></tr>
         <tr><td>Plasma cut</td><td class="m">Under 300 A</td><td><span class="shade">8</span></td><td><span class="shade">9</span></td></tr>
         <tr><td>Plasma cut</td><td class="m">300–400 A</td><td><span class="shade">9</span></td><td><span class="shade">12</span></td></tr>
@@ -115,44 +161,118 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
         <tr><td>Torch cutting</td><td class="m">Plate under 1 in</td><td><span class="shade">3</span></td><td class="m">3–4</td></tr>
         <tr><td>Torch cutting</td><td class="m">Plate 1–6 in</td><td><span class="shade">4</span></td><td class="m">4–5</td></tr>
         <tr><td>Torch cutting</td><td class="m">Plate over 6 in</td><td><span class="shade">5</span></td><td class="m">5–6</td></tr>
-        <tr><td>Gas welding</td><td class="m">Under ⅛ in</td><td class="m">–</td><td class="m">4–5</td></tr>
-        <tr><td>Gas welding</td><td class="m">⅛–½ in</td><td class="m">–</td><td class="m">5–6</td></tr>
-        <tr><td>Gas welding</td><td class="m">Over ½ in</td><td class="m">–</td><td class="m">6–8</td></tr>
+        <tr><td>Gas welding</td><td class="m">Under ⅛ in</td><td><span class="shade">4</span></td><td class="m">4–5</td></tr>
+        <tr><td>Gas welding</td><td class="m">⅛–½ in</td><td><span class="shade">5</span></td><td class="m">5–6</td></tr>
+        <tr><td>Gas welding</td><td class="m">Over ½ in</td><td><span class="shade">6</span></td><td class="m">6–8</td></tr>
+        <tr><td>Torch brazing</td><td class="m">Any</td><td><span class="shade">3</span></td><td class="m">3–4</td></tr>
       </tbody>
     </table></div>
-    <p class="note">Start darker than you think you need, then go lighter until you can see the weld zone. Never go below the minimum. Source: OSHA 1910.252 / ANSI Z49.1 lens shade guide.</p>
+    <p class="note">Start darker than you think you need, then go lighter until you can see the weld zone. Never go below the minimum. Grinding: safety glasses with side shields under a face shield. Sources: OSHA 1910.133(a)(5) and 1926.102(b)(1) (minimum shades); ANSI Z49.1 and AWS F2.2 (suggested shades).</p>
   </section>
 
   <section class="sec">
-    <div class="signs">
-      <div class="sg" style="--c:var(--z4)"><h3>Arc eye</h3><p>Ultraviolet from the arc burns the surface of the eye. You feel nothing at first. <b>Hours later</b>: gritty, burning, watering eyes, light hurts.</p><p><span class="k">Do:</span> report to the Forward Aid Station. Don't rub. Bystanders get it too, so put up welding screens.</p></div>
-      <div class="sg" style="--c:var(--z5)"><h3>Fumes</h3><p><b>Stainless steel</b> gives off hexavalent chromium, a carcinogen. Old Earth limit: 5 µg/m³ over a shift. <b>Manganese</b> damages nerves.</p><p><span class="k">Do:</span> keep your head out of the plume. Use the fume extractor every time. Respirator when the permit says so.</p></div>
-      <div class="sg" style="--c:var(--z3)"><h3>Metal fume fever</h3><p>Welding <b>galvanized</b> (zinc-coated) steel. Flu-like chills, fever, metal taste, aches, 4–12 hours after work.</p><p><span class="k">Do:</span> grind the coating off first, ventilate, respirator. Report it. It is a sign your exposure is too high.</p></div>
+    <div class="signs four">
+      <div class="sg" style="--c:var(--z4)"><h3>Arc eye</h3><p>Ultraviolet from the arc burns the surface of the eye. You feel nothing at first. <b>Hours later</b>: gritty, burning, watering eyes, light hurts.</p><p><span class="k">Do:</span> report to the Forward Aid Station (FAS). Don't rub. Bystanders get it too: put up welding screens, and helpers and the fire watch protect their eyes.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Chromium &amp; manganese</h3><p><b>Stainless steel</b> and chrome coatings give off hexavalent chromium, a carcinogen. Old Earth limit: 5 µg/m³ averaged over 8 hours (action level 2.5). <b>Manganese</b> damages nerves.</p><p><span class="k">Do:</span> head out of the plume, fume extractor every time. Industrial Hygiene measures exposure on stainless and chrome jobs, and the permit lists the respirator. Respirators only after your medical evaluation and fit test.</p></div>
+      <div class="sg" style="--c:var(--z3)"><h3>Metal fume fever</h3><p>Welding <b>galvanized</b> (zinc-coated) steel. Flu-like chills, fever, metal taste, aches, 4–12 hours after work.</p><p><span class="k">Do:</span> grind the coating off first, extract the fumes, wear the respirator. Report it to the FAS. It means your exposure is too high.</p></div>
+      <div class="sg" style="--c:var(--z6)"><h3>Polymers &amp; solvents</h3><p>Cutting or heating <b>FerroLattice-7</b> or composite panels gives off toxic gas. Arc UV turns <b>chlorinated degreaser</b> vapor into phosgene.</p><p><span class="k">Do:</span> treat it as hot work, with extraction and the respirator on the permit (<a href="m8-materials.html">HS-08</a>). Degreasers away from the arc. No hot work within 35 ft of resin or VeilCoat spraying (spray permit PTW-SP). Restart only after a gas test below 1% LEL and a re-signed permit.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box fill">
+        <h3>Cylinders in the heat</h3>
+        <ul>
+          <li><b>Cylinders stay under 125°F.</b> Store them only in DCW cooled cylinder shelters. Stage them on the deck only on insulated, shaded cylinder carts.</li>
+          <li><b>On the deck:</b> insulated, shaded cylinder carts. Bring only what today's job needs. Back to the shelter at shift end.</li>
+          <li><b>Temperature strip</b> on every cylinder. Over 125°F: don't use it, tag it, call Ch 13.</li>
+          <li><b>Extreme heat level (125°F and up):</b> no oxy-fuel cylinders on open decks (site rule).</li>
+          <li><b>Cylinder hissing at the valve, top or base?</b> A relief device or fusible plug has let go. Acetylene plugs melt at about 212°F. Don't touch it. Clear everyone out to at least 330 ft (100 m), upwind (Old Earth ERG Guide 116). Call Ch 1 "Gas". If it lights, leave it: never fight a gas-fed fire.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Handling cylinders</h3>
+        <ul class="small">
+          <li><b>Upright and secured:</b> chained, or in a cylinder cart. Valve cap on whenever the regulator is off.</li>
+          <li><b>Away from the work,</b> so sparks, slag and flame can't reach them.</li>
+          <li><b>In storage</b> (any cylinder not hooked up for today's job): oxygen at least 20 ft from fuel gas, oil and grease, or behind a noncombustible wall at least 5 ft high with a half-hour fire rating.</li>
+          <li><b>Hoisting:</b> only in a rated cylinder cage or cradle, or on a pallet with the cylinders secured and caps on. Never with a lifting magnet or field rig, a choker sling, or by the valve cap.</li>
+          <li><b>Valves:</b> open slowly, standing to the side of the regulator. Acetylene valve no more than 1½ turns, wrench left on it. <b>Acetylene never above 15 psig.</b></li>
+          <li><b>Flashback arrestors</b> on both hoses at the regulator. Leak test with leak-test solution, never a flame.</li>
+          <li><b>No oil or grease</b> on oxygen fittings, regulators or gloves. Never blow off clothes or dust with oxygen, and never ventilate with it.</li>
+          <li><b>Breaks and shift end:</b> close the cylinder valves and bleed the hoses.</li>
+          <li><b>Flashback</b> (squeal or hiss inside the torch): close the torch oxygen valve, then the fuel valve, then both cylinder valves. Find the cause before you relight.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="box fill">
+      <h3>Hot work in tanks, modules and confined spaces</h3>
+      <ul class="twocol">
+        <li><b>Two permits:</b> PTW-CS (the entry supervisor signs) and PTW-HW (the area foreman signs). Attendant at the opening. Follow <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>.</li>
+        <li><b>Meter running at the work the whole job:</b> oxygen, LEL and toxic gas. Hot work stops at 1% LEL (site rule). Everyone out at 10% LEL, or oxygen below 19.5% or above 23.5%.</li>
+        <li><b>Too much oxygen burns you.</b> A leaking torch or hose makes the air oxygen-rich, and clothing then burns explosively.</li>
+        <li><b>Too little oxygen kills you.</b> Shielding gas (argon, CO₂) pushes oxygen out and pools in low spots.</li>
+        <li><b>Cylinders and welding machines stay outside</b> the space.</li>
+        <li><b>Every break:</b> close the torch valves, shut the gas off at the cylinders outside, and pull the torch and hoses out of the space (site rule; Old Earth requires removal at shift end).</li>
+        <li><b>Forced ventilation</b> with fresh air, plus local fume extraction, running the whole job. Never ventilate with oxygen. Can't keep the fumes down? The permit lists an air-line respirator.</li>
+        <li><b>Drums, tanks and pipes</b> that held fuel, resin or solvent: no welding, cutting or heating until cleaned (or filled with water), vented and gas-tested below 1% LEL. Hollow part? Vent it before you heat it.</li>
+      </ul>
     </div>
   </section>
 
   <section class="sec">
     <div class="cols">
       <div class="box">
-        <h3>Gas cylinders</h3>
-        <ul>
-          <li><b>Upright and chained</b> or on a cart. Valve cap on whenever it isn't hooked up.</li>
-          <li><b>Oxygen stored at least 20 ft from fuel gas</b>, or separated by a wall at least 5 ft high with a half-hour fire rating.</li>
-          <li><b>Acetylene never above 15 psig.</b> Above that it can decompose and explode on its own.</li>
-          <li><b>Flashback arrestors</b> on both hoses at the regulator.</li>
-          <li><b>Leak test with soapy water.</b> Never with a flame.</li>
-          <li><b>Never blow off clothes or dust with oxygen.</b> Oxygen-soaked cloth burns like a torch from one spark.</li>
-          <li>Keep cylinders out of direct sun on the deck. Shade racks only.</li>
+        <h3>Shock &amp; welding power</h3>
+        <ul class="small">
+          <li><b>Wet skin and damp leathers</b> let current through you. Desert sweat counts.</li>
+          <li><b>Change to dry gloves</b> when they get damp. Carry spares. Never change electrodes with bare or wet hands.</li>
+          <li><b>Insulate yourself from the work:</b> dry rubber mat or dry boards. Never sit or kneel on wet plate.</li>
+          <li><b>Inspect leads and holders</b> before every shift. Cracked insulation: hang a yellow OUT OF SERVICE tag (<a href="m7-lockout.html">HS-07</a>).</li>
+          <li><b>Clamp the work (ground) lead on the piece</b>, as close to the weld as you can. Never let welding current run through a crane hook, wire rope, chain, sling or harness. Gas or fuel pipes and conduit are never the return path.</li>
+          <li>Never wrap leads around your body. Leaving the job or moving the machine? Switch it off at the supply.</li>
+          <li>Machine power, grounding, cords and GFCI: <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</li>
+          <li><b>Someone shocked:</b> kill the power first. Never touch them while they're on it. Ch 1 "Electrical".</li>
         </ul>
       </div>
       <div class="box">
-        <h3>Shock</h3>
+        <h3>Radiography &amp; survey lasers</h3>
+        <ul class="small">
+          <li><b>Weld radiography</b> (QA/QC, grey hats) checks welds with X-ray or gamma sources. The radiographers rope off the area and post yellow-and-magenta radiation signs.</li>
+          <li><b>Never cross a radiation rope or sign,</b> even if the area looks empty. Inside the rope when it goes up? Walk out at once and tell the radiographer and your crew lead.</li>
+          <li><b>Survey and alignment lasers</b> (grey hats): only trained operators, carrying proof of qualification. Laser warning signs posted.</li>
+          <li><b>Never stare into the beam</b> or aim it at a person. Shutter closed or laser off when not in use. Survey lasers are usually Class 2 or 3R. Class 3B or 4 needs a controlled area and laser eyewear.</li>
+          <li><b>Blowing dust</b> scatters the beam. Stop laser work where you can, and keep people out of the beam path.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="fire">
+    <div class="cols">
+      <div class="box dark">
+        <h3>Fighting a fire</h3>
         <ul>
-          <li>Desert sweat is your enemy here. <b>Wet skin and damp leathers</b> let current through you.</li>
-          <li><b>Change to dry gloves</b> when they get damp. Carry spares.</li>
-          <li><b>Insulate yourself from the work:</b> dry rubber mat, dry boards. Never sit or kneel on wet plate.</li>
-          <li>Inspect leads before every shift. Cracked insulation gets tagged out (see HS-07).</li>
-          <li>Never wrap leads around your body. Never change electrodes with bare hands.</li>
+          <li>Fight it only if it's <b>waste-bin size</b>, your <b>exit is behind you</b>, and you have the <b>right extinguisher</b>.</li>
+          <li>Not out in about <b>10 seconds</b>? Leave and call Ch 1: "Emergency, emergency, emergency. Fire," location, number hurt, hazards, your call sign. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+          <li><b>Never fight a polymer, power-cell or gas-fed fire.</b> Hose or regulator burning? Shut the cylinder valves only if you can reach them safely, then leave.</li>
+          <li><b>Polymer fire:</b> a fire in bulk feedstock, a curing resin mass, a printed structure or panel stack, or a spray zone. A waste-bin-size fire in rags or scrap may be fought. Smother a rag can with its lid.</li>
+          <li><b>A fire that's out:</b> tell your foreman, who logs it on Ch 13.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Fire prevention</h3>
+        <ul class="small">
+          <li><b>Extinguisher classes:</b> A = wood, paper, cloth, packing. B = fuel, solvent, resin, gas. C = live electrical. D = burning metal. Every hot-work job has a charged ABC dry-chemical extinguisher (at least 2A:10B:C, site rule). Burning metal fines: Class D only, because water or ABC can make them flare.</li>
+          <li><b>Where:</b> at least one on every deck, by a stair, no more than a 100 ft walk from any point. A B-rated one (10B or more) within 50 ft of fuel or gas in use. Every machine cab carries one (site rule).</li>
+          <li><b>Monthly check</b>, initialed on the tag: in place, pin and seal intact, gauge in the green, no damage, nozzle clear of sand. Serviced yearly. Used even a little? Out of service until recharged.</li>
+          <li><b>Refueling:</b> engine off. Bond the nozzle or can to the tank before fuel flows, because dry air builds static fast. Fill cans on the ground, never in a truck bed.</li>
+          <li><b>Housekeeping:</b> rubbish, packing and offcuts out every shift. Oily and solvent rags in a closed metal can, emptied every shift. Fuel, gas and solvent on the deck only in the amount the job needs, in approved containers. Exits and stairs clear.</li>
+          <li><b>Sealed habs and modules</b> fill with smoke fast. Know both ways out before you start. Power cells charge only in marked charging areas (<a href="sb-electrical.html">HS-SB</a>).</li>
         </ul>
       </div>
     </div>
@@ -160,15 +280,16 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
 
   <section class="emerg">
     <div>
-      <h2>Burns &amp; fire</h2>
-      <p class="cf">Stop. Drop.<br>Roll. Cool.</p>
+      <h2>Burns</h2>
+      <p class="cf">Cool it.<br>20 minutes.</p>
       <p class="sm">Leathers save you from sparks. Synthetic clothing under them melts into skin. Wear cotton or flame-resistant base layers only.</p>
     </div>
     <ul>
       <li><b>Clothing on fire:</b> stop, drop and roll. Crew smother it with a fire blanket.</li>
-      <li><b>Burns:</b> cool with clean running water for <b>20 minutes</b>. No ice, butter or ointment.</li>
-      <li><b>Remove</b> rings, watches and gear near the burn before it swells. Leave stuck cloth in place.</li>
-      <li><b>Large, deep or face burns:</b> Ch 1, "Emergency, emergency, emergency. Fire," then Ch 14 for the medic.</li>
+      <li><b>Cool every burn</b> under cool running water for <b>20 minutes</b>. No ice, butter or ointment. Don't burst blisters.</li>
+      <li><b>Remove</b> rings, watches and gear near the burn before it swells. Leave stuck cloth in place. Cover loosely with cling film or a clean non-stick dressing.</li>
+      <li><b>Bigger than their palm, deep, on the face, hands, feet, groin or a joint, or any trouble breathing:</b> Ch 1, "Emergency, emergency, emergency. Man down, burn," then location, number hurt, hazards, your call sign. Say "Fire" only if something is still burning, and "Electrical" for an electrical burn. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Smaller burns:</b> cool, cover, and someone walks them to the FAS. Chemical burn: flush 15 minutes (<a href="m8-materials.html">HS-08</a>).</li>
     </ul>
   </section>
 
@@ -177,10 +298,10 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
       <div class="do">
         <h3>Heat stack: do</h3>
         <ul>
-          <li>Welding leathers plus desert heat doubles your heat load. Read <a href="m3-heat.html">HS-03 Heat</a>.</li>
+          <li>Welding leathers plus desert heat stack up your heat load. Read <a href="m3-heat.html">HS-03 Heat</a>.</li>
           <li>Schedule welding for the <b>night shift</b> whenever you can.</li>
-          <li>Treat welding in leathers as <b>heavy work</b> on the WBGT table.</li>
-          <li>Wear a cooling vest under leathers when the heat level is Danger or higher.</li>
+          <li>Wear a <b>cooling vest</b> under leathers when the heat level is Danger or higher.</li>
+          <li>Drink 8 oz every 15–20 minutes, even under the hood.</li>
         </ul>
       </div>
       <div class="dont">
@@ -194,14 +315,34 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
     </div>
   </section>
 
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Qualified hands only</h3>
+        <ul class="small">
+          <li>Only welders with the hot-work endorsement on their badge strike an arc or light a torch.</li>
+          <li>Structural welds need a current DCW welder qualification to AWS D1.1.</li>
+          <li>Pre-stasis qualifications count only after a practical retest. Every welder passes a test plate in the Fabrication Yards before field work.</li>
+          <li>Fire watch: fire-watch endorsement, trained on extinguishers and on raising the alarm.</li>
+          <li>Permit signers: foremen with the hot-work permit endorsement. Endorsements are listed in <a href="roles-glossary.html">REF-GL</a>.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Report it</h3>
+        <p class="small">Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form HS-IR with your Colonist ID. Don't move anything except to rescue. Safety &amp; Health investigates with the crew, and findings are shared at muster. No retaliation.</p>
+        <p class="small">Every burn goes to the FAS. A fire that's out: tell your foreman, who logs it on Ch 13.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="saw">
     <h2>Anyone can stop hot work</h2>
-    <p>Smoke, smell, sparks landing where they shouldn't, no fire watch, or no permit posted: say <b>"stop"</b> and call Ch 13. The welder stops. No penalty, no questions.</p>
+    <p>Smoke, smell, sparks landing where they shouldn't, no fire watch, no posted permit: say <b>"stop"</b> and the welder stops. Anyone can stop unsafe work. No penalty, no questions. Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I have read this poster. I know where the nearest extinguisher, fire blanket and eyewash are, and I will not start hot work without a posted permit and fire watch.</p>
+    <p class="small">I have read this poster. I know where the nearest extinguisher, fire blanket and eyewash are, and I will not start hot work without a posted permit and a fire watch.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -212,8 +353,8 @@ td.grp{background:var(--hiviz);font:800 12px var(--body);text-transform:uppercas
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.252 &amp; 1926 Subpart J (welding and cutting), NFPA 51B (fire prevention during hot work), ANSI Z49.1 (safety in welding, cutting and allied processes), OSHA 1910.1026 (hexavalent chromium), AWS safety and health fact sheets.</span>
-    <span>HS-05 · Dunewright Colony Works · Replace when faded</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.252 and 1926 Subpart J (1926.350–354, welding and cutting), NFPA 51B (2019 edition, fire prevention during hot work), ANSI Z49.1 (safety in welding, cutting and allied processes), OSHA 1910.133(a)(5) and 1926.102(b)(1) (filter lenses), AWS F2.2 (lens shade selector), AWS D1.1 (structural welding), OSHA 1926.1126 and 1910.1026 (hexavalent chromium), CGA P-1 (compressed gas cylinders), CGA S-1.1 (pressure relief devices), OSHA 1910.146 and 1926 Subpart AA (confined spaces), OSHA 1926.150–152 and 1910.157 with NFPA 10 (fire protection, extinguishers, flammable liquids), OSHA 1926.54 and ANSI Z136.1 (lasers), US NRC 10 CFR Part 34 (industrial radiography), AHA/Red Cross and ERC first aid guidelines (burns).</span>
+    <span>HS-05 · Rev. 5 · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>
 </div>

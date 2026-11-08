@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Desert Weather</title>
+<title>TOOL-WX Site Weather Office · Dunewright Colony Works</title>
 <style>
 :root{--bg:#1a120b;--card:#2a1d12;--card2:#33241a;--line:#4a3420;--text:#f3e6d3;--dim:#b89c7c;--sun:#ffb347;--hot:#ff5a36;--cool:#6fb7ff;--ok:#8fd16a;--warn:#ffd23f}
 *{box-sizing:border-box}
@@ -45,7 +45,15 @@ tr:hover td{background:#3a2716}
 #hours div{border-radius:3px 3px 0 0;cursor:pointer}
 #hours div.now{outline:2px solid #fff}
 .hl{display:grid;grid-template-columns:repeat(24,1fr);gap:2px;font-size:10px;color:var(--dim);text-align:center}
-.flag{display:inline-block;padding:3px 10px;border-radius:4px;font-weight:800;color:#111}
+.pill{display:inline-block;padding:3px 10px;border-radius:4px;font-weight:800;color:#111;margin:0 6px 4px 0}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;font:700 12px/1.3 ui-monospace,Consolas,monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-bottom:6px}
+.nav{margin:0 0 8px;font-size:13px}
+.nav a{color:var(--sun)}
+h3{margin:0 0 6px;font-size:14px;color:var(--text)}
+#stress .s{margin-top:4px}
+.gm{border:2px dashed #b08be0;background:#22192b;margin-bottom:12px}
+.gmtag{display:inline-block;background:#b08be0;color:#111;font-weight:800;padding:2px 8px;border-radius:4px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.gm .two{margin-bottom:0}
 ul{margin:6px 0 0;padding-left:20px}
 li{margin-bottom:5px}
 li.key{color:var(--text)}
@@ -57,13 +65,14 @@ li.minor{color:var(--dim)}
 </style>
 </head>
 <body>
-<p style="margin:0 0 8px;font-size:13px"><a href="../index.html" style="color:var(--sun)">← DCW Refresher</a></p><h1>☀ Settlement Site 4 · Atmospheric Office</h1>
-<div class="sub">NOAA-style forecast for your desert · Range 75°F – 180°F</div>
+<p class="nav"><a href="../index.html">← DCW Refresher</a> · <a href="../m3-heat.html">HS-03 Heat</a> · <a href="heat-field-card.html">TOOL-HFC Heat Field Card</a></p>
+<div class="meta"><span>Form TOOL-WX · Rev. 5</span><span>Site tool · Atmospheric Office (Atmos)</span></div>
+<h1>☀ Site Weather Office</h1>
+<div class="sub">Dunewright Colony Works · Settlement Site 4 · Construction Division · Safety &amp; Health · Practice forecasts for training and roleplay, 75–180°F. On shift, the Ch 16 posting and your crew lead's local readings are what count.</div>
 
 <div class="row">
-  <button id="roll">🎲 Roll New Forecast</button>
-  <button class="alt" id="next">Next Day →</button>
-  <button class="alt" id="event-btn">⚡ Random Event</button>
+  <button id="roll">New forecast</button>
+  <button class="alt" id="next">Next day →</button>
   <label>Season
     <select id="season">
       <option value="cool">Cool season</option>
@@ -79,10 +88,12 @@ li.minor{color:var(--dim)}
 </div>
 
 <div id="alerts"></div>
+<p class="note" style="margin:0 0 12px">Atmos posts heat, wind and storm alerts on Ch 16. Hub Command repeats every siren and every sandstorm, flood and lightning warning on Ch 1. Wind = the higher of the local meter and the Ch 16 posting; gust = 3-second gust.</p>
 
 <div class="grid">
   <div class="card"><div class="k">Temperature</div><div class="v big" id="temp"></div><div class="s" id="tempd"></div></div>
   <div class="card"><div class="k">Feels Like (in sun)</div><div class="v" id="feel"></div><div class="s" id="feeld"></div></div>
+  <div class="card"><div class="k">Heat Level (HS-03)</div><div class="v" id="hlv"></div><div class="s" id="hlvd"></div></div>
   <div class="card"><div class="k">Heat Index (shade)</div><div class="v" id="hi"></div><div class="s" id="hid"></div></div>
   <div class="card"><div class="k">Wet Bulb</div><div class="v" id="wb"></div><div class="s" id="wbd"></div></div>
   <div class="card"><div class="k">WBGT (heat stress)</div><div class="v" id="wbgt"></div><div class="s" id="wbgtd"></div></div>
@@ -101,8 +112,8 @@ li.minor{color:var(--dim)}
 
 <div class="two">
   <div class="card">
-    <h2>Heat Stress — What To Do Right Now</h2>
-    <div id="flag"></div>
+    <h2>Heat stress: what to do right now</h2>
+    <div id="stress"></div>
     <ul id="tips"></ul>
   </div>
   <div class="card fc">
@@ -122,16 +133,21 @@ li.minor{color:var(--dim)}
   <div class="tblwrap"><table id="tbl"></table></div>
 </div>
 
-<div class="two">
-  <div class="card">
-    <h2>RP Effects</h2>
-    <div id="danger"></div>
+<section class="card gm" aria-label="GM only">
+  <div class="gmtag">GM only</div>
+  <h2>Roleplay effects, travel and events · not site guidance</h2>
+  <div class="two">
+    <div>
+      <h3>RP effects and travel</h3>
+      <div id="danger" class="s"></div>
+    </div>
+    <div>
+      <h3>Random event</h3>
+      <div class="row" style="margin-bottom:6px"><button class="alt" id="event-btn">⚡ Random event</button></div>
+      <div id="event" class="s">Hit ⚡ for something to happen.</div>
+    </div>
   </div>
-  <div class="card">
-    <h2>Event</h2>
-    <div id="event" class="s">Hit ⚡ for something to happen.</div>
-  </div>
-</div>
+</section>
 
 <div class="card">
   <h2>Log</h2>
@@ -170,23 +186,24 @@ const WEATHER={
 };
 const WX_WEIGHTS=[["clear",30],["haze",18],["windy",14],["devils",10],["storm",8],["overcast",10],["heatwave",7],["rain",3]];
 
+// GM-only roleplay events (shown in the GM panel, never as site guidance)
 const EVENTS=[
-  "A sandstorm appears on the horizon — arrives in {n} minutes.",
+  "A sandstorm appears on the horizon. It arrives in {n} minutes.",
   "Mirage: travelers see an oasis that isn't there.",
   "A dust devil crosses the party's path. DEX check or lose an item.",
   "Distant thunder. Flash flood risk in nearby canyons.",
-  "Vultures circling ahead — something died out there.",
+  "A survey drone circles ahead. Something is down out there.",
   "The wind shifts and uncovers old ruins half-buried in sand.",
-  "A scorpion swarm stirs under the rocks as the ground heats.",
-  "Water skin springs a leak — lose half its contents.",
+  "Sand stingers stir under the rocks as the ground heats.",
+  "Water skin springs a leak. Lose half its contents.",
   "Heat sickness: the weakest member feels dizzy and nauseous.",
-  "Tracks in the sand — fresh, heading the same way.",
+  "Tracks in the sand: fresh, heading the same way.",
   "Sudden calm. No wind at all. The heat becomes crushing.",
-  "A caravan's dust plume is visible miles away.",
+  "A haul convoy's dust plume is visible miles away.",
   "Quicksand patch hidden under a crust of salt.",
-  "A cool breeze from the dunes — brief relief.",
-  "Sand-blasted bones of a large creature jut from the dune.",
-  "A shaded rock overhang — the only shade for miles.",
+  "A cool breeze from the dunes. Brief relief.",
+  "The sand-blasted wreck of an early survey lander juts from the dune.",
+  "A shaded rock overhang: the only shade for miles.",
 ];
 
 // ---------- physics ----------
@@ -267,7 +284,10 @@ function derive(d,t){
   const g=wbgtF(T,Tw,sun,H.cloud,H.wind);
   const uv=Math.round(sun*13*(1-H.cloud/100*0.6)*(H.key==="storm"?0.3:1));
   const sand=Math.round(Math.min(230,T+(night?-8:sun*55*(1-H.cloud/100*0.6))));
-  return {h,H,w,T,Td,RH,Tw:Math.round(Tw),HI:heatIndex(T,RH),AT:apparent(T,Td,H.wind,sunW),
+  const HI=heatIndex(T,RH);
+  // HS-03 heat level value: NWS heat index in shade up to 124; air temperature from 125 (heatIndex() is null above 120)
+  const LV=HI==null?T:HI;
+  return {h,H,w,T,Td,RH,Tw:Math.round(Tw),HI,LV,AT:apparent(T,Td,H.wind,sunW),
     wbgt:Math.round(g.out),wbgtShade:Math.round(g.shade),night,sun,uv,sand,dirC:card(H.dir)};
 }
 
@@ -281,21 +301,66 @@ const weekday=n=>DAYS[(n+2)%7];
 function moon(n){const p=((n%29.5)+29.5)%29.5/29.5;const names=["🌑 New","🌒 Waxing crescent","🌓 First quarter","🌔 Waxing gibbous","🌕 Full","🌖 Waning gibbous","🌗 Last quarter","🌘 Waning crescent"];return names[Math.round(p*8)%8]}
 const visStr=v=>v<0.25?(v<0.1?`${Math.round(v*5280)} ft`:"1/4 mi"):v<1?`${v.toFixed(1)} mi`:`${Math.round(v)} mi`;
 
-// ---------- alerts (thresholds follow NWS criteria) ----------
+// ---------- DCW heat levels and work/rest table (HS-03, WORLD §7) ----------
+// Level value: NWS heat index in shade up to 124; air temperature from 125. No "flag" color names.
+const LEVELS=[ // [from, name, background, text color, rule]
+  [160,"Site closed","#2a0710","#fff","All crews to shelter. Entry only for rescue."],
+  [140,"Extreme heat entry","#7a0f1e","#fff","Work only under a Heat Entry Permit (PTW-HE), signed by the area general foreman and countersigned by a Safety officer (site rule)."],
+  [125,"Extreme","#c4161c","#fff","Essential work only, approved by the Sector Superintendent. Cooling vest, buddies in sight, 30 min out then at least 30 min in a cooled shelter (site rule)."],
+  [103,"Danger","#ec5b13","#111","Heavy and very heavy work moves to the night shift. Work/rest by the DCW table."],
+  [90,"Extreme caution","#f6a623","#111","At least a 15-min break in shade or a cooling station every 2 hours. Buddies stay within sight of each other."],
+  [80,"Caution","#f5d000","#111","Heat plan active. Cool water and shade within reach. Ramp rules apply. No lone work (site rule)."],
+  [-999,"Normal","#8cc0a6","#111","Buddy pairs. Water on your belt. Watch anyone wearing a RAMP band."],
+];
+function heatLevel(v){const L=LEVELS.find(l=>v>=l[0]);return {n:L[1],c:L[2],fg:L[3],r:L[4]}}
+// DCW table = the stricter of TB MED 507 (2003 and 2022) in every cell. [from, below, row label, bg, fg, [light, moderate, heavy, very heavy]]
+const DCW_TABLE=[
+  [78,82,"78–81.9","#8cc0a6","#111",["No limit · ½ qt","No limit · ¾ qt","40/20 · ¾ qt","20/40 · 1 qt"]],
+  [82,85,"82–84.9","#f5d000","#111",["No limit · ½ qt","50/10 · ¾ qt","30/30 · 1 qt","15/45 · 1 qt"]],
+  [85,88,"85–87.9","#f6a623","#111",["No limit · ¾ qt","40/20 · ¾ qt","30/30 · 1 qt","10/50 · 1 qt"]],
+  [88,90,"88–89.9","#ec5b13","#111",["No limit · ¾ qt","30/30 · ¾ qt","20/40 · 1 qt","10/50 · 1 qt"]],
+  [90,92,"90–91.9","#c4161c","#fff",["50/10 · 1 qt","20/40 · 1 qt","10/50 · 1 qt","10/50 · 1 qt"]],
+  [92,95,"92–94.9 (site rule)","#7a0f1e","#fff",["50/10 · 1 qt","10/50 with cooling vest (no vest, no work) · 1 qt","Not outside cooled spaces","Not outside cooled spaces"]],
+];
+const WORK=["Light","Moderate","Heavy","Very heavy"];
+function dcwRow(wbgt){
+  if(wbgt<78) return {row:"below 78",c:"#4a3420",fg:"#f3e6d3",txt:"Below the table: no work/rest limit. Drink 8 oz every 15–20 min. Heat-level rules still apply."};
+  if(wbgt>=95) return {row:"95+ (site rule)",c:"#2a0710",fg:"#fff",txt:"Essential work only, under Extreme-level rules."};
+  const r=DCW_TABLE.find(r=>wbgt>=r[0]&&wbgt<r[1])||DCW_TABLE[DCW_TABLE.length-1];
+  return {row:r[2],c:r[3],fg:r[4],txt:WORK.map((w,i)=>`${w} ${r[5][i]}`).join(" · ")};
+}
+
+// ---------- alerts (DCW heat levels, wind table and staged warnings: WORLD §5–7) ----------
 function alertsFor(d){
   const out=[], hrs=d.hours.map((H,h)=>({...derive(d,h+0.5),h}));
   const span=f=>{const m=hrs.filter(f);return m.length>=24?"all day":m.length?`${shortH(m[0].h)}–${shortH((m[m.length-1].h+1)%24)}`:null};
   let s;
-  if(d.peak>=150) out.push(["a-red",`EXTREME HEAT EMERGENCY — highs to ${d.peak}°F. Exposure without shelter is fatal.`]);
-  else if(d.peak>=115) out.push(["a-red",`EXTREME HEAT WARNING — highs to ${d.peak}°F.`]);
-  else if(d.peak>=105) out.push(["a-org",`HEAT ADVISORY — highs to ${d.peak}°F.`]);
-  if(s=span(x=>x.H.vis<=0.25&&x.H.wind>=25)) out.push(["a-red",`DUST STORM WARNING ${s} — visibility near zero. Pull aside, stay alive.`]);
-  else if(s=span(x=>x.H.vis<=1)) out.push(["a-org",`BLOWING DUST ADVISORY ${s} — visibility 1 mile or less.`]);
-  if(s=span(x=>x.H.wind>=40||x.H.gust>=58)) out.push(["a-red",`HIGH WIND WARNING ${s} — sustained 40+ mph or gusts 58+ mph.`]);
-  else if(s=span(x=>x.H.wind>=31||x.H.gust>=46)) out.push(["a-yel",`WIND ADVISORY ${s} — sustained 31+ mph or gusts 46+ mph.`]);
-  if(s=span(x=>x.H.key==="rain")) out.push(["a-blu",`FLASH FLOOD WARNING ${s} — wadis and slot canyons will flood fast.`]);
-  if(s=span(x=>x.RH<=15&&x.H.wind>=20)) out.push(["a-yel",`RED FLAG WARNING ${s} — humidity ≤15% with 20+ mph wind. Any spark spreads.`]);
-  if(s=span(x=>x.Tw>=95)) out.push(["a-red",`WET BULB ABOVE 95°F ${s} — sweating can no longer cool the body.`]);
+  // heat: the highest HS-03 level reached today (Danger and up)
+  for(const L of LEVELS.slice(0,4)){
+    if(s=span(x=>x.LV>=L[0])){out.push([L[0]>=125?"a-red":"a-org",`HEAT LEVEL ${L[1].toUpperCase()} ${s}: ${L[4]}${L[0]>=160?" Ch 16 calls the move when the forecast will reach 160°F within the hour. Don't wait for the reading.":""}`]);break}
+  }
+  // sandstorm: staged watch and warning
+  const st=hrs.filter(x=>x.H.key==="storm").map(x=>x.h);
+  if(st.length){
+    const h0=st[0], when=span(x=>x.H.key==="storm");
+    if(h0>=1) out.push(["a-yel",`SANDSTORM WATCH from ${shortH(Math.max(0,h0-2))}: a storm is possible within 2 hours. Secure loose material, plan how loads come down, stage crews near shelter.`]);
+    out.push(["a-red",`SANDSTORM WARNING ${h0>=1?"from "+fmtH(h0-0.5):"in effect"} (storm ${when}): land all loads, booms down (tower cranes to free-slew per maker), climbers and MEWPs down, move to shelter. The take-shelter siren sounds ${h0>=1?"by "+fmtH(h0-0.25):"now"}.`]);
+  }
+  // flash storm: flood warning and lightning alert
+  if(s=span(x=>x.H.key==="rain")){
+    out.push(["a-blu",`FLOOD WARNING ${s}: leave wadis, trenches and low cuts at once. Atmos calls it by grid on Ch 1 and Ch 16.`]);
+    out.push(["a-yel",`LIGHTNING ALERT likely ${s}: when strikes are within 10 miles, booms down, off steel, out of MEWPs, into sealed shelters or closed vehicles (never under steel). Resume 30 minutes after the last strike within 10 miles.`]);
+  }
+  // wind table (WORLD §6)
+  const WIND=[
+    [x=>x.H.wind>=30||x.H.gust>=30,"a-red","WIND 30+ MPH SUSTAINED OR GUST","All crane loads landed. Booms secured per maker."],
+    [x=>x.H.wind>=25||x.H.gust>=30,"a-red","WIND 25+ MPH SUSTAINED OR 30+ GUST","Off open steel, roofs, leading edges, swing stages and outdoor scaffolds above Deck 1. MEWPs down (or the maker's limit if lower)."],
+    [x=>x.H.wind>=20||x.H.gust>=20,"a-org","WIND 20+ MPH SUSTAINED OR GUST","No outdoor hot work. No crane personnel platforms. High-sail loads need Lift Director approval."],
+    [x=>x.H.wind>=15,"a-yel","WIND 15+ MPH","Goggles outside cabs. Secure sheet goods and loose material."],
+  ];
+  WIND.forEach(([f,c,t,r])=>{if(s=span(f))out.push([c,`${t} ${s}: ${r}`])});
+  if(s=span(x=>x.H.vis<=1)) out.push(["a-org",`BLOWING-DUST ADVISORY ${s} (visibility 1 mile or less): no outdoor hot work. Lifts stop whenever the operator loses sight of the load or signal person.`]);
+  if(s=span(x=>x.Tw>=95)) out.push(["a-red",`WET BULB 95°F+ ${s}: sweat can no longer cool the body, even at rest. WBGT is past 95: essential work only (site rule).`]);
   return out;
 }
 
@@ -331,35 +396,26 @@ function forecastText(){
   return html;
 }
 
-// ---------- heat stress ----------
-function stressFlag(wbgt){
-  if(wbgt<78) return {c:"#e8e8e8",n:"WHITE (below 78°F)",wr:"No work limit",q:"½ qt/hr"};
-  if(wbgt<82) return {c:"#f2f2f2",n:"CAT 1 (78–81.9°F)",wr:"Moderate work: no limit · Hard work: 40 min work / 20 min rest",q:"¾ qt/hr"};
-  if(wbgt<85) return {c:"#5fbf4a",n:"GREEN (82–84.9°F)",wr:"Moderate work: 50/10 · Hard work: 30/30",q:"¾–1 qt/hr"};
-  if(wbgt<88) return {c:"#f2d43a",n:"YELLOW (85–87.9°F)",wr:"Moderate work: 40/20 · Hard work: 30/30",q:"¾–1 qt/hr"};
-  if(wbgt<90) return {c:"#e8442e",n:"RED (88–89.9°F)",wr:"Moderate work: 30/30 · Hard work: 20/40",q:"¾–1 qt/hr"};
-  if(wbgt<100) return {c:"#111;color:#fff",n:"BLACK (90°F+)",wr:"Moderate work: 20/40 · Hard work: 10/50 — stop non-essential work",q:"1 qt/hr max (more can't be absorbed)"};
-  return {c:"#111;color:#ff5a36",n:"BEYOND BLACK (100°F+)",wr:"No work. Shelter only. Every minute exposed adds core heat.",q:"1 qt/hr max — drinking alone won't keep up"};
-}
+// ---------- heat stress: worker guidance (matches HS-03) ----------
 function tips(x){
   const L=[], k=s=>L.push(["key",s]), m=s=>L.push(["minor",s]);
-  if(x.Tw>=95) k("<b>Wet bulb ≥95°F: sweat can't cool you anymore.</b> Even resting in shade, the body heats up. Get into cooled or underground shelter. Survival is measured in hours.");
-  else if(x.Tw>=88) k("<b>Wet bulb ≥88°F:</b> evaporative cooling is failing. Limit any exertion to minutes; rest in the deepest shade available.");
-  if(x.T>=98.6) k("<b>Air is hotter than your body.</b> Cover all skin with loose, light-colored cloth. Bare skin absorbs heat from the air, and wind makes it worse.");
-  if(!x.night&&x.T>=100) k("<b>Stay out of the sun from 10 AM to 4 PM.</b> Shade cuts the heat load by about "+Math.max(0,x.wbgt-x.wbgtShade)+"°F of WBGT right now. Move at night or at dawn.");
-  if(x.night&&x.T<100) k("<b>Travel now.</b> Night is the coolest window. Push distance before sunrise.");
-  k(`<b>Drink small amounts often:</b> about a cup every 15–20 min. Don't go over ~1 qt per hour. Ration sweat, not water: cut exertion before you cut drinking.`);
-  if(x.T>=95) k("<b>Replace salt:</b> eat salty food or take electrolytes with water. Plain water alone over many hours causes hyponatremia (dizziness, confusion).");
-  if(x.RH<25&&x.Tw<88) k("<b>Evaporative cooling works:</b> the air is dry ("+x.RH+"% RH). Wet a cloth and put it on your neck, head and wrists, and wet your shirt. It works best in moving air.");
+  if(x.Tw>=95) k("<b>Wet bulb 95°F+: sweat can't cool anyone, even at rest.</b> Stay in sealed, cooled shelters. Essential work only (site rule).");
+  else if(x.Tw>=88) k("<b>Wet bulb 88°F+:</b> past the limit measured in healthy adults (Penn State, 2022). Keep any exertion to minutes. Rest in a cooled shelter.");
+  if(x.T>=98.6) k("<b>Air is hotter than your body.</b> Cover all skin with loose, light-colored cloth. Bare skin absorbs heat from the air, and wind makes it worse. Fans on dry skin don't help.");
+  if(!x.night&&x.T>=100) k("<b>Shade cuts about "+Math.max(0,x.wbgt-x.wbgtShade)+"°F of WBGT right now.</b> Heavy work, pours, welding and lifts go to the night shift (HS-03).");
+  k("<b>Water:</b> 8 oz every 15–20 min. Max 48 oz (1½ qt) an hour and 12 qt a day. Use the electrolyte drink mix or eat your rations with it. <b>No salt tablets</b> unless a medic gives them.");
+  if(x.RH<25&&x.Tw<88) k("<b>Evaporative cooling works:</b> the air is dry ("+x.RH+"% RH). A soaked neck wrap and a wet shirt cool you, best in moving air.");
   if(x.RH>=40) k("<b>Humid air ("+x.RH+"%):</b> sweat evaporates slowly. Wet cloths help less. Rest more often.");
-  if(x.sand>=130) k("<b>Ground is "+x.sand+"°F:</b> wear thick-soled boots. Don't sit or lie on sand; use a mat, pack or cot. Digging 1–2 ft down reaches cooler sand for a rest pit.");
-  if(x.H.wind>=20||x.H.vis<3) k("<b>Blowing sand:</b> wrap a cloth over nose and mouth, wear goggles, and keep a hand on a companion or a rope line.");
-  if(x.uv>=8) k(`<b>UV ${x.uv}:</b> sunburn in under 15 min. Wear a brimmed hat, sunglasses and covered skin. Burned skin sweats poorly.`);
-  m("<b>Buddy checks every 30 min.</b> Heat exhaustion: heavy sweat, cramps, nausea, headache, weakness. Move them to shade, loosen clothing, sip water.");
-  m("<b>Heat stroke is an emergency:</b> confusion, slurred speech, hot skin, may stop sweating, fainting. Cool them immediately with water, wet cloths, fanning and shade, especially the neck, armpits and groin. Don't force drinks if they're confused.");
-  m("Pale yellow urine = OK. Dark urine or no urge to go = dehydrated.");
-  m("Avoid alcohol and heavy meals. Eat small, salty, watery food.");
-  m("Acclimatization takes 7–14 days of gradual exposure. Newcomers suffer far worse.");
+  if(x.sand>=130) k("<b>Ground is "+x.sand+"°F:</b> thick-soled boots. Never sit on bare sand or deck plate. Gloves on for any metal.");
+  if(x.H.wind>=15) k("<b>Wind "+x.H.wind+" mph:</b> goggles outside cabs. Check the wind alerts above.");
+  if(x.H.vis<=1) k("<b>Blowing dust:</b> no outdoor hot work. Wear the respirator the dust control plan assigns (Industrial Hygiene, HS-02). A cloth over your face is no respirator.");
+  if(x.uv>=8) k(`<b>UV ${x.uv}:</b> sunburn in under 15 min. Brimmed hard-hat shade, tinted UV-rated safety glasses, covered skin, sunscreen on anything bare. Burned skin sweats poorly.`);
+  m("<b>Buddies</b> watch each other all shift. Your crew lead sees you at least every 30 min.");
+  m("<b>Heat exhaustion</b> (heavy sweat, clammy skin, headache, nausea, weakness): pull them off, cool them, give sips of water. Someone walks them to the FAS now, never alone.");
+  m("<b>Heat stroke:</b> anyone who collapses or isn't fully alert is a heat-stroke case until a medic says otherwise. Ch 1 “Emergency, emergency, emergency. Heat casualty”. Cool first (ice trough to the neck), transport second. No drinks if confused.");
+  m("Pale yellow urine = OK. Dark urine or no urge to go = drink now. Tea- or cola-colored = FAS now.");
+  m("No alcohol within 24 hrs of a shift. Eat small, salty, watery food.");
+  m("<b>Heat ramp:</b> Days 1–5 at 20/40/60/80/100% of the shift, and half the table's work minutes on Days 1–4 (No limit = 30/30). Reset to Day 1 after illness or 7+ days away from heat work.");
   return L;
 }
 function waterLoss(x){ // sweat L/hr approx, resting in shade vs walking in sun
@@ -367,9 +423,11 @@ function waterLoss(x){ // sweat L/hr approx, resting in shade vs walking in sun
   return [rest.toFixed(1),walk.toFixed(1)];
 }
 
-// ---------- RP effects ----------
+// ---------- GM only: RP effects and travel (not site guidance) ----------
 function dangerText(x){
   const out=[], T=x.T;
+  if(x.night&&T<100) out.push(`<b>Travel now:</b> night is the coolest window. Push distance before sunrise.`);
+  else if(!x.night&&T>=100) out.push(`<b>Travel:</b> stay out of the sun from 10 AM to 4 PM. Move at night or at dawn.`);
   if(T>=160||x.Tw>=95) out.push(`<span class="warn">LETHAL:</span> unprotected creatures collapse within minutes. CON save every 10 min.`);
   else if(T>=140) out.push(`<span class="warn">Extreme heat:</span> CON save every 30 min or gain exhaustion.`);
   else if(T>=115) out.push(`<b>Severe heat:</b> CON save every hour without shade/water.`);
@@ -380,7 +438,9 @@ function dangerText(x){
   if(x.H.key==="heatwave") out.push(`<b>Heatwave:</b> metal gear deals 1d4 fire if touched barehanded.`);
   if(x.H.key==="devils") out.push(`<b>Dust devils:</b> small items may be snatched away.`);
   if(x.sand>=150) out.push(`<b>Ground:</b> walking barefoot causes burns.`);
+  if(x.sand>=130) out.push(`<b>Rest pit:</b> digging 1–2 ft down reaches cooler sand.`);
   if(x.H.vis<1) out.push(`<b>Low visibility:</b> navigation checks at disadvantage.`);
+  if(x.H.wind>=20||x.H.vis<3) out.push(`<b>Blowing sand:</b> travelers keep a hand on a companion or a rope line.`);
   return out.join("<br>");
 }
 
@@ -392,12 +452,14 @@ function render(){
   $("tempd").textContent=`${Math.round(F2C(x.T))}°C · ${hotWord(x.T)} · H ${d.peak} / L ${d.low}`;
   $("feel").textContent=x.AT+"°F"; $("feel").style.color=color(x.AT);
   $("feeld").textContent=x.night?"No sun. Air and wind only.":"Includes sun, wind and humidity";
+  const lvl=heatLevel(x.LV), row=dcwRow(x.wbgt);
+  $("hlv").textContent=lvl.n;
+  $("hlvd").textContent=(x.HI==null?`Set by air temperature, ${x.T}°F`:`Set by heat index, ${x.HI}°F`)+" · follow the stricter of level and WBGT";
   $("hi").textContent=x.HI==null?"Off scale":x.HI+"°F";
-  $("hid").textContent=x.HI==null?"NWS heat index isn't defined above 120°F":x.HI>=125?"Extreme danger":x.HI>=103?"Danger":x.HI>=90?"Extreme caution":"Caution";
+  $("hid").textContent=x.HI==null?"NWS heat index isn't defined above 120°F":"In shade · sets the heat level up to 124°F";
   $("wb").textContent=x.Tw+"°F"; $("wb").style.color=x.Tw>=95?"var(--hot)":x.Tw>=88?"var(--warn)":"var(--text)";
-  $("wbd").textContent=`${Math.round(F2C(x.Tw))}°C · `+(x.Tw>=95?"Above human survival limit":x.Tw>=88?"Near survival limit":x.Tw>=80?"Sweat cooling impaired":"Sweat cools effectively");
-  const fl=stressFlag(x.wbgt);
-  $("wbgt").textContent=x.wbgt+"°F"; $("wbgtd").textContent=`Shade: ${x.wbgtShade}°F · ${fl.n.split(" (")[0]} flag`;
+  $("wbd").textContent=`${Math.round(F2C(x.Tw))}°C · `+(x.Tw>=95?"Above the theoretical survival limit":x.Tw>=88?"Above the measured limit (Penn State, 2022)":x.Tw>=77?"Near the measured limit in hot, dry air":"Sweat can still cool you");
+  $("wbgt").textContent=x.wbgt+"°F"; $("wbgtd").textContent=`Shade: ${x.wbgtShade}°F · DCW table row ${row.row}`;
   $("rh").textContent=x.RH+"%"; $("rhd").textContent=x.RH<8?"Lips crack, eyes sting":x.RH<20?"Very dry":x.RH<40?"Dry":"Humid for a desert";
   $("dew").textContent=x.Td+"°F"; $("dewd").textContent=x.Td<30?"Bone dry air":x.Td<50?"Dry":x.Td<60?"Some moisture":"Sticky";
   $("warrow").style.transform=`rotate(${x.H.dir}deg)`;
@@ -407,16 +469,19 @@ function render(){
   $("sky").textContent=`${x.H.cloud}%`; $("skyd").textContent=`${skyWord(x.H.cloud,x.night)} · Precip chance ${x.H.pop}%`;
   $("vis").textContent=visStr(x.H.vis); $("visd").textContent=x.H.vis<0.1?"Can't see your own hand":x.H.vis<1?"Lose sight of companions":x.H.vis<5?"Landmarks fade":"Clear sight lines";
   const prev=d.hours[Math.max(0,x.h-3)].p, trend=x.H.p-prev;
-  $("pres").textContent=`${x.H.p.toFixed(2)} in`; $("presd").textContent=`${Math.round(x.H.p*33.8639)} mb · `+(trend<-0.06?"Falling fast — weather coming":trend<-0.02?"Falling":trend>0.02?"Rising":"Steady");
+  $("pres").textContent=`${x.H.p.toFixed(2)} in`; $("presd").textContent=`${Math.round(x.H.p*33.8639)} mb · `+(trend<-0.06?"Falling fast: weather coming":trend<-0.02?"Falling":trend>0.02?"Rising":"Steady");
   $("uv").textContent=x.uv; $("uvd").textContent=x.uv>=11?"Extreme":x.uv>=8?"Very high":x.uv>=6?"High":x.uv>=3?"Moderate":"Low";
   $("sand").textContent=x.sand+"°F"; $("sand").style.color=color(x.sand);
   $("sandd").textContent=x.sand>=160?"Burns bare skin instantly":x.sand>=130?"Burns through thin soles":x.sand>=110?"Painful to touch":"Bearable";
   $("sunm").textContent=x.night?"🌙 Night":x.sun>0.85?"☀ Overhead":x.sun>0.4?"🌤 High":"🌅 Low";
   $("sunmd").textContent=`Rise ${fmtH(d.S.rise)} · Set ${fmtH(d.S.set)} · ${moon(d.n)}`;
   const [wr,ww]=waterLoss(x);
-  $("water").textContent=`${ww} L/hr`; $("waterd").textContent=`Sweat walking in the open · ${wr} L/hr resting in shade`+(+ww>1.2?" · more than you can absorb":"");
+  $("water").textContent=`${ww} L/hr`; $("waterd").textContent=`Sweat walking in the open · ${wr} L/hr resting in shade`+(+ww>1.4?" · more than the 48 oz (1.4 L) an hour you can safely drink":"");
 
-  $("flag").innerHTML=`<span class="flag" style="background:${fl.c}">${fl.n}</span><div class="s" style="margin-top:6px">WBGT ${x.wbgt}°F · Work/rest: ${fl.wr} · Water: ${fl.q}</div>`;
+  $("stress").innerHTML=`<span class="pill" style="background:${lvl.c};color:${lvl.fg}">Heat level: ${lvl.n}</span><span class="pill" style="background:${row.c};color:${row.fg}">WBGT ${x.wbgt}°F · row ${row.row}</span>`+
+    `<div class="s"><b>Level rule:</b> ${lvl.r}</div>`+
+    `<div class="s"><b>DCW work/rest table</b> (minutes work/rest per hour · water per hour): ${row.txt}</div>`+
+    `<div class="s"><b>Follow whichever is more restrictive.</b> Heavy or non-breathable gear: add 10° to the WBGT for light work, 20° for harder work. Ramp Days 1–4: half the work minutes (No limit = 30/30).</div>`;
   $("tips").innerHTML=tips(x).map(([c,s])=>`<li class="${c}">${s}</li>`).join("");
   $("danger").innerHTML=dangerText(x);
 
@@ -425,7 +490,7 @@ function render(){
   for(let i=0;i<24;i++){
     const Ti=tempAt(d,i+0.5), el=document.createElement("div");
     el.style.height=(12+88*(Ti-MIN)/(MAX-MIN))+"%"; el.style.background=color(Ti);
-    el.title=`${fmtH(i)} — ${Ti}°F, ${WEATHER[d.hours[i].key].name}`;
+    el.title=`${fmtH(i)} · ${Ti}°F, ${WEATHER[d.hours[i].key].name}`;
     if(i===x.h) el.className="now";
     el.onclick=()=>{$("time").value=i+0.5;render()};
     box.appendChild(el);
@@ -445,7 +510,7 @@ function renderDay(){
   $("hlab").innerHTML=Array.from({length:24},(_,i)=>`<span>${i%3===0?shortH(i):""}</span>`).join("");
   render();
 }
-function logDay(){const d=days[0];log(`Day ${d.n} (${weekday(d.n)}): ${WEATHER[d.wxKey].name}, H ${d.peak}°F / L ${d.low}°F`+(d.shift?` — ${WEATHER[d.shift.key].name} ~${shortH(d.shift.at)}`:""))}
+function logDay(){const d=days[0];log(`Day ${d.n} (${weekday(d.n)}): ${WEATHER[d.wxKey].name}, H ${d.peak}°F / L ${d.low}°F`+(d.shift?` · ${WEATHER[d.shift.key].name} ~${shortH(d.shift.at)}`:""))}
 function log(s){const el=document.createElement("div");el.textContent=s;$("log").prepend(el)}
 
 $("roll").onclick=()=>{days=[0,1,2,3,4].map(i=>makeDay(dayNum+i));logDay();renderDay()};

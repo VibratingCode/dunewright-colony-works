@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="assets/poster.css">
 <style>
 /* page-local: training board tiles with completion state */
-.mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:3px solid var(--black)}
-.mod{display:grid;grid-template-columns:86px minmax(0,1fr) auto;align-items:center;text-decoration:none;color:var(--ink);border-bottom:2px solid var(--black);border-right:2px solid var(--black);min-height:84px;background:var(--paper)}
-.mod:nth-child(2n){border-right:0}
-.mod:nth-last-child(-n+2){border-bottom:0}
-.mod .num{font:400 40px/1 var(--display);height:100%;display:flex;align-items:center;justify-content:center;background:var(--c,var(--hiviz));border-right:2px solid var(--black);color:var(--fg,var(--ink))}
+.mods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;background:var(--black);border:3px solid var(--black)}
+.mod{display:grid;grid-template-columns:86px minmax(0,1fr) auto;align-items:center;text-decoration:none;color:var(--ink);min-height:84px;background:var(--paper);min-width:0}
+.mod:last-child:nth-child(odd){grid-column:1/-1}
+.mod .num{font:400 40px/1 var(--display);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--c,var(--hiviz));border-right:2px solid var(--black);color:var(--fg,var(--ink))}
+.mod .num small{font:700 10px/1 var(--mono);letter-spacing:.04em}
 .mod .tx{padding:10px 14px;min-width:0}
 .mod .tx b{display:block;font:400 24px/1.05 var(--display);text-transform:uppercase}
 .mod .tx span{font-size:13px;color:var(--muted)}
@@ -25,16 +25,21 @@
 .prog{display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap}
 .bar{flex:1;min-width:200px;height:20px;border:3px solid var(--black);background:var(--paper)}
 .bar i{display:block;height:100%;background:repeating-linear-gradient(-45deg,var(--orange) 0 10px,#d94f0e 10px 20px);width:0;transition:width .3s}
-.refs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.refs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .ref{border:3px solid var(--black);padding:14px;text-decoration:none;color:var(--ink);display:grid;gap:6px;align-content:start;min-width:0;background:var(--paper)}
 .ref b{font:400 24px/1.05 var(--display);text-transform:uppercase}
 .ref span{font-size:13px;color:var(--muted)}
 .ref .f{font:700 11px var(--mono);color:var(--muted)}
 .ref:hover{background:var(--hiviz)}
+.rule{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--black);margin-top:4px}
+.rule div{padding:10px 12px;border-right:2px solid var(--black);min-width:0}
+.rule div:last-child{border-right:0}
+.rule b{display:block;font:400 22px/1.05 var(--display);text-transform:uppercase;margin-bottom:4px}
 .dl{columns:2;column-gap:28px;font-size:13px}
 .dl li{break-inside:avoid}
-@media (max-width:820px){.mods{grid-template-columns:minmax(0,1fr)}.mod{border-right:0!important}.mod:nth-last-child(2){border-bottom:2px solid var(--black)}.refs{grid-template-columns:repeat(2,minmax(0,1fr))}.dl{columns:1}}
-@media (max-width:480px){.refs{grid-template-columns:minmax(0,1fr)}.mod{grid-template-columns:64px minmax(0,1fr)}.mod .st{grid-column:2;padding:0 14px 10px}}
+@media (max-width:820px){.mods{grid-template-columns:minmax(0,1fr)}.refs{grid-template-columns:repeat(2,minmax(0,1fr))}.dl{columns:1}
+  .rule{grid-template-columns:minmax(0,1fr)}.rule div{border-right:0;border-bottom:2px solid var(--black)}.rule div:last-child{border-bottom:0}}
+@media (max-width:480px){.refs{grid-template-columns:minmax(0,1fr)}.mod{grid-template-columns:64px minmax(0,1fr)}.mod .num{grid-row:span 2}.mod .st{grid-column:2;padding:0 14px 10px}}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
 </head>
@@ -43,10 +48,10 @@
 <article class="poster">
 
   <header class="head">
-    <div class="meta"><span>Training board · Rev. 4</span><span>Settlement Site 4 · Stasis Revival Unit</span><span>Complete before first full shift</span></div>
+    <div class="meta"><span>Training board · Rev. 5</span><span>Post-stasis refresher</span><span>Settlement Site 4 · Stasis Revival Unit</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Welcome back.</h1>
     <p class="sub">You've been asleep a long time. Before you build a city, relearn how to stay alive building it.</p>
@@ -57,32 +62,45 @@
     <div class="lbl">Read first</div>
     <div class="in">
       <h2>Post-stasis refresher program</h2>
-      <p>All 15,210 revived workers complete nine modules and one supplement before their first full shift. Your crew lead checks your sign-offs. Work through them in order. Module 1 tells you where everything is. Module 3 starts your heat ramp.</p>
-      <p class="small">Each module ends with a sign-off. Fill in your name, colonist ID, crew and date to stamp it complete. Your progress saves in this browser only.</p>
+      <p>All 15,210 revived workers complete <b>nine modules and four supplements</b>. Work through them in order. <a href="m1-orientation.html">Module 1 (HS-01)</a> tells you where everything is. Day 1 of your heat ramp is your first shift with any heat exposure after Revival Med Bay clears you (<a href="m3-heat.html">Module 3, HS-03</a>).</p>
+      <div class="rule">
+        <div><b>Before Day 1</b><span class="small">Finish HS-01, HS-02, HS-03 and HS-09 before Day 1 at any work face.</span></div>
+        <div><b>Before 100%</b><span class="small">Finish all nine modules and all four supplements before your first 100% shift.</span></div>
+        <div><b>Before the task</b><span class="small">That task's module or supplement, and the badge endorsement, before you do the task. No badge entry, no task.</span></div>
+      </div>
+      <p class="small">Each module and supplement ends with a sign-off. Fill in your name, Colonist ID, crew and date to stamp it. That stamp is your own copy and saves only in this browser. Your crew lead records your completion on your badge record at the sector office, and the badge record is the one that counts.</p>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Modules</h2><span class="tag">HS-01 to HS-09 · Supplement A</span></div>
-    <div class="prog"><span class="k" id="progtxt">0 of 10 complete</span><div class="bar" aria-hidden="true"><i id="progbar"></i></div></div>
+    <div class="sh"><h2>Modules</h2><span class="tag">HS-01 to HS-09</span></div>
+    <div class="prog"><span class="k" id="progtxt">0 of 13 complete</span><div class="bar" aria-hidden="true"><i id="progbar"></i></div></div>
     <div class="mods" id="mods"></div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Supplements</h2><span class="tag">Supplement A (HS-SA) to Supplement D (HS-SD)</span></div>
+    <div class="mods" id="sups"></div>
   </section>
 
   <section class="sec">
     <div class="sh"><h2>Reference sheets</h2><span class="tag">Keep these handy</span></div>
     <div class="refs">
       <a class="ref" href="pocket-card.html"><span class="f">REF-PC</span><b>Pocket card</b><span>Fold-out card with your details, emergency steps, channels and key numbers.</span></a>
-      <a class="ref" href="radio.html"><span class="f">REF-RAD</span><b>Radio</b><span>Channels, call signs, prowords, the phonetic alphabet and the emergency call.</span></a>
-      <a class="ref" href="org-chart.html"><span class="f">REF-ORG</span><b>Org chart</b><span>Every station from crew member to Director, and who to go to.</span></a>
-      <a class="ref" href="hand-signals.html"><span class="f">REF-HS</span><b>Hand signals</b><span>Crane signals, site emergency signals and spotter signals.</span></a>
+      <a class="ref" href="radio.html"><span class="f">REF-RAD</span><b>Radio</b><span>Channels, scan rule, call signs, check-ins, prowords and the emergency call.</span></a>
+      <a class="ref" href="org-chart.html"><span class="f">REF-ORG</span><b>Org chart</b><span>Every station from crew member to Director, hard hats, and who to go to.</span></a>
+      <a class="ref" href="hand-signals.html"><span class="f">REF-HS</span><b>Hand signals</b><span>Crane signals, spotter signals and site emergency signals.</span></a>
+      <a class="ref" href="permits.html"><span class="f">REF-PTW</span><b>Permits at a glance</b><span>Every permit and lift plan: who signs, who closes it, how long it lasts, where it's posted.</span></a>
+      <a class="ref" href="roles-glossary.html"><span class="f">REF-GL</span><b>Roles, glossary &amp; badge endorsements</b><span>One term for each role, the words used on site, and what each badge endorsement lets you do.</span></a>
+      <a class="ref" href="review-record.html"><span class="f">REF-DOC</span><b>Review record</b><span>What Rev. 5 was checked against, every site rule next to its Old Earth baseline, and the safety officer sign-off.</span></a>
     </div>
   </section>
 
   <section class="sec">
     <div class="sh"><h2>Site tools</h2><span class="tag">From the Atmospheric Office</span></div>
-    <div class="refs" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-      <a class="ref" href="tools/weather.html"><span class="f">ATMOS</span><b>Site weather office</b><span>Today's forecast: temperature, wet bulb, WBGT, wind, alerts and heat-stress guidance.</span></a>
-      <a class="ref" href="tools/heat-field-card.html"><span class="f">ATMOS</span><b>Heat field card</b><span>The Old Earth heat data behind Module 3, from 70°F to 180°F.</span></a>
+    <div class="refs" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))">
+      <a class="ref" href="tools/weather.html"><span class="f">TOOL-WX</span><b>Site weather office</b><span>Today's forecast: temperature, wet bulb, WBGT, wind, alerts and heat-stress guidance.</span></a>
+      <a class="ref" href="tools/heat-field-card.html"><span class="f">TOOL-HFC</span><b>Heat field card</b><span>The Old Earth heat data behind Module 3 (70–124°F), plus guidance based on heat physiology up to 180°F.</span></a>
     </div>
   </section>
 
@@ -93,30 +111,46 @@
 
   <section class="saw">
     <h2>Stop-work authority</h2>
-    <p><b>Every worker on this site can stop unsafe work.</b> No penalty, no questions. That's the first rule and the last one.</p>
+    <p><b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
   </section>
 
   <footer class="foot">
-    <span>Dunewright Colony Works is a fictional employer for a roleplay setting. Safety content is adapted from real Old Earth standards (OSHA, NIOSH, ANSI, ASME, NFPA, CDC, US Army) but this site is not real-world training or medical advice.</span>
-    <span>Training board · Settlement Site 4</span>
+    <span>Dunewright Colony Works is a fictional employer for a roleplay setting. Safety content is adapted from real Old Earth standards (OSHA, NIOSH, ANSI/ASME, NFPA, CGA, CDC, AHA, US Army) but this site is not real-world training or medical advice.</span>
+    <span>Training board · Rev. 5 · Settlement Site 4</span>
   </footer>
 </article>
 </div>
 <script src="assets/site.js"></script>
 <script>
-const P=window.DCW_PAGES;
-const COLORS={m1:["var(--hiviz)"],m2:["#8cc0a6"],m3:["var(--orange)"],m4:["var(--hiviz)"],m5:["#7a4a24","#fff"],m6:["var(--orange)"],m7:["var(--blue)","#fff"],m8:["#8cc0a6"],m9:["var(--red)","#fff"],cs:["var(--black)","var(--hiviz)"]};
-const DESC={m1:"Revival clearance, site map, hard hats, sirens, first shift",m2:"Silica dust, respirators, eyes, hearing, sandstorms",m3:"Heat ramp, heat stroke, water, work/rest",m4:"Fall protection, anchors, ladders, holes, dropped objects",m5:"Permits, fire watch, filter shades, fumes, gas cylinders",m6:"Lifts, rigging, power lines, blind spots, trenching",m7:"Lockout steps, stored energy, machine guarding",m8:"Hazard symbols, SDS, polymers, resins, composites",m9:"Sirens, emergency calls, triage, bleeding, fire, floods",cs:"Air testing, entry roles, rescue"};
+const P=window.DCW_PAGES, R=window.DCW_REFS;
+const COLORS={m1:["var(--hiviz)"],m2:["#8cc0a6"],m3:["var(--orange)"],m4:["var(--hiviz)"],m5:["#7a4a24","#fff"],m6:["var(--orange)"],m7:["var(--blue)","#fff"],m8:["#8cc0a6"],m9:["var(--red)","#fff"],
+  cs:["var(--black)","var(--hiviz)"],sb:["var(--blue)","#fff"],sc:["var(--hiviz)"],sd:["#2a2f4a","#fff"]};
+const DESC={
+  m1:"Revival clearance, site map, sirens, hard hats, radio, reporting, first shift",
+  m2:"Silica dust, respirators, eyes, hearing, PPE care, wind, sandstorms",
+  m3:"Heat ramp and RAMP band, heat levels, WBGT work/rest, water, heat stroke",
+  m4:"Fall protection, anchors, clearance, ladders, holes, dropped objects",
+  m5:"Hot-work permits, fire watch, filter shades, fumes, gas cylinders",
+  m6:"Lifts and lift plans, rigging, wind, power lines, blind spots, trenching",
+  m7:"Lockout steps and locks, stored energy, machine guarding",
+  m8:"Hazard symbols, SDS, polymers, resins, composites, spills",
+  m9:"Sirens, emergency calls, triage, bleeding, fire, floods, lightning",
+  cs:"Air testing, entry permits, entry roles, rescue",
+  sb:"Qualified electrical work, arc flash, GFCI, cords, generators, power cells",
+  sc:"Scaffold tags and inspection, planking, swing stages, MEWPs, rescue",
+  sd:"Night work and lighting, fatigue, shift limits, fitness for duty, lone work"};
 let done=0;
-document.getElementById("mods").innerHTML=P.map(p=>{
+const tile=p=>{
   let d=false;try{d=localStorage.getItem(`dcw-${p.id}-done`)==="1"}catch(e){}
   if(d)done++;
   const c=COLORS[p.id]||["var(--hiviz)"];
-  return `<a class="mod" href="${p.file}" style="--c:${c[0]};--fg:${c[1]||"var(--ink)"}"><span class="num">${p.n}</span><span class="tx"><b>${p.t}</b><span>${DESC[p.id]||""}</span></span><span class="st${d?" done":""}">${d?"✓ Signed off":"Not started"}</span></a>`;
-}).join("");
-document.getElementById("progtxt").textContent=`${done} of ${P.length} complete`;
+  return `<a class="mod" href="${p.file}" style="--c:${c[0]};--fg:${c[1]||"var(--ink)"}"><span class="num">${p.n}<small>${p.code}</small></span><span class="tx"><b>${p.t}</b><span>${p.label} · ${DESC[p.id]||""}</span></span><span class="st${d?" done":""}">${d?"✓ Signed off":"Not started"}</span></a>`;
+};
+document.getElementById("mods").innerHTML=P.filter(p=>p.kind==="module").map(tile).join("");
+document.getElementById("sups").innerHTML=P.filter(p=>p.kind==="supplement").map(tile).join("");
+document.getElementById("progtxt").textContent=`${done} of ${P.length} complete (nine modules and four supplements)`;
 document.getElementById("progbar").style.width=(done/P.length*100)+"%";
-const ALL=[...P.map(p=>[p.file.replace(".html",""),`${p.n === "S-A" ? "Supplement A" : "Module "+p.n}: ${p.t}`]),["pocket-card","Pocket card"],["radio","Radio reference"],["org-chart","Org chart"],["hand-signals","Hand signals"]];
+const ALL=[...P.map(p=>[p.file.replace(".html",""),`${p.label} (${p.code}): ${p.t}`]),...R.map(r=>[r.file.replace(".html",""),`${r.code}: ${r.t}`])];
 document.getElementById("dl").innerHTML=ALL.map(([f,t])=>`<li>${t} · <a href="exports/${f}.pdf">PDF</a> · <a href="exports/${f}.png">PNG</a></li>`).join("");
 </script>
 </body>

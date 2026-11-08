@@ -9,12 +9,20 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: blind-spot diagram */
+/* page-local: blind-spot diagram, horn strip, wind table, utility colors, link button */
 .blind{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+.blind > *{min-width:0}
 .blind svg{width:100%;height:auto;display:block;border:3px solid var(--black);background:#efe9d3}
 .horn b{font-size:44px}
 .link-hs{display:inline-block;margin-top:10px;font:700 13px var(--mono);text-transform:uppercase;letter-spacing:.05em;background:var(--black);color:var(--hiviz);padding:8px 12px;text-decoration:none}
+.wind th:first-child{width:34%}
+.wind td{font-size:13px}
+.roles td:nth-child(2){white-space:nowrap}
+.codes{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;font-size:13px}
+.codes li{margin:0;min-width:0}
+.stack{display:grid;gap:14px;min-width:0}
 @media (max-width:820px){.blind{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:480px){.codes{grid-template-columns:minmax(0,1fr)}.roles td:nth-child(2){white-space:normal}}
 </style>
 </head>
 <body data-page="m6">
@@ -22,13 +30,13 @@
 <article class="poster">
 
   <header class="head orange">
-    <div class="meta"><span>Form HS-06 · Rev. 4</span><span>Post-stasis refresher · Module 6 of 9</span><span>Post in every crane cab, equipment yard and lift muster</span></div>
+    <div class="meta"><span>Form HS-06 · Rev. 5</span><span>Post-stasis refresher · Module 6 of 9</span><span>Post in every crane cab, equipment yard and lift muster</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Crane &amp; Lift / Heavy Equipment Pool</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Never under the load.</h1>
-    <p class="sub">Cranes, rigging, heavy equipment and trenches. Crush and struck-by deaths happen in a second.</p>
+    <p class="sub">Cranes, rigging, heavy equipment, traffic and trenches. Crush and struck-by deaths happen in a second.</p>
   </header>
   <div class="stripe"></div>
 
@@ -36,76 +44,232 @@
     <div class="lbl">Rule zero</div>
     <div class="in">
       <h2>Never stand, walk or work under a suspended load.</h2>
-      <p>Slings snap, hooks fail, and loads swing in gusts. If a load is in the air, you are outside its fall zone. If the load has to pass over you, you leave. Operators: <b>never swing a load over people.</b> Stop and wait for the area to clear.</p>
+      <p>Slings snap, hooks fail, and loads swing in gusts. If a load is in the air, you stay outside its <b>fall zone</b>: the area under the load and anywhere it could land if it drops or swings. If the load has to pass over you, you leave. Operators: <b>never swing a load over people.</b> Stop and wait for the area to clear.</p>
       <div class="big3">
         <div><b>20 ft</b><span>Power line clearance (≤350 kV)</span></div>
-        <div><b>30 mph</b><span>All loads down (site rule)</span></div>
+        <div><b>30 mph</b><span>All crane loads landed (site rule)</span></div>
         <div><b>75%</b><span>Of chart = critical lift</span></div>
       </div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Every lift, in order</h2><span class="tag">Crane &amp; Lift runs on Ch 11</span></div>
+    <div class="sh"><h2>Who runs a lift</h2><span class="tag">No badge entry, no task</span></div>
+    <div class="tw"><table class="roles">
+      <thead><tr><th>Role</th><th>Hat</th><th>What they do</th></tr></thead>
+      <tbody>
+        <tr><td>Lift Director</td><td class="m"><span class="sw" style="background:#fff"></span>White</td><td>Crane &amp; Lift supervisor. Approves lift plans prepared by Design &amp; Structures and directs critical lifts. Can stop any lift. Call sign "Lift Director [Sector]".</td></tr>
+        <tr><td>Crane operator</td><td class="m"><span class="sw" style="background:var(--hiviz)"></span>Yellow</td><td>Certified for that crane type and capacity, plus a DCW hands-on evaluation on that model. Call sign "Crane [Sector] [n]".</td></tr>
+        <tr><td>Qualified signal person</td><td class="m"><span class="sw" style="background:var(--orange)"></span>Orange</td><td>Badge endorsement. The only person who signals the operator during a lift. Anyone can give STOP. Call sign "Signal [Sector] [n]".</td></tr>
+        <tr><td>Qualified rigger</td><td class="m"><span class="sw" style="background:var(--orange)"></span>Orange</td><td>Badge endorsement. Rigs any load where people are in the fall zone while it's hooked or unhooked, and every crane assembly and disassembly.</td></tr>
+        <tr><td>Lift lead</td><td class="m"><span class="sw" style="background:var(--orange)"></span>Orange</td><td>A qualified rigger named in the lift briefing. Directs routine lifts. The Lift Director directs critical lifts.</td></tr>
+        <tr><td>Spotter</td><td class="m">By trade</td><td>A trained worker guiding equipment movement, in the operator's view. Near power lines: a dedicated spotter with no other job.</td></tr>
+        <tr><td>Competent person (excavation)</td><td class="m">By trade</td><td>Named by the foreman. Badge endorsement. Inspects trenches, spots hazards, and can pull everyone out and stop work.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Post-stasis: every operator, rigger and signal person passes a hands-on re-test from Crane &amp; Lift before their first lift here. Pre-stasis cards don't count until then. Terms: <a href="roles-glossary.html">REF-GL roles &amp; glossary</a>.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Every lift, in order</h2><span class="tag">Each lift on its own talkgroup · Ch 11 = coordination only</span></div>
     <ol class="steps">
-      <li><div><b>Plan the lift.</b> Load weight, rigging weight, radius, boom length, crane capacity at that radius. Is it a critical lift? Then it needs an engineered plan signed by the Lift Director (see below).</div></li>
-      <li><div><b>Inspect.</b> The operator does the daily crane inspection. Riggers inspect every sling, shackle and hook before use. Damaged gear gets tagged out and removed.</div></li>
-      <li><div><b>Set up on solid ground.</b> Loose sand won't hold an outrigger. Full outrigger extension on <b>crane mats</b>. Check for buried conduit, voids and fresh backfill.</div></li>
+      <li><div><b>Plan the lift.</b> Every lift has a lift plan that names its lift talkgroup. Load weight = load + hook block + slings, shackles and spreader bars + anything hanging + the chart's deductions (for example a stowed jib). Check radius, boom length and capacity at that radius. Critical lift? It needs a critical lift plan (LP-) prepared by Design &amp; Structures and approved by the Lift Director.</div></li>
+      <li><div><b>Inspect.</b> The operator, or another competent person, inspects the crane before every shift it runs. Crane &amp; Lift does and logs the monthly and annual inspections: check the cab log. No current annual = no lift. Riggers inspect every sling, shackle and hook before use. Damaged gear gets tagged out and removed.</div></li>
+      <li><div><b>Set up on solid ground.</b> Loose sand won't hold an outrigger. A qualified person checks the ground and sizes the <b>crane mats</b> for the outrigger loads; loose sand usually needs engineered mats. Full outrigger extension. Level within the maker's limit (usually 1%). Check for buried services (<a href="#dig">PTW-DG</a>), voids and fresh backfill.</div></li>
       <li><div><b>Barricade the swing radius.</b> Hard barricade around the rotating counterweight so no one gets crushed between it and anything else.</div></li>
-      <li><div><b>Assign one signal person</b> in an orange hard hat, in view of the operator or on Ch 11. Brief the crew: load path, landing zone, who signals.</div></li>
+      <li><div><b>Set up radios and signals.</b> Test radios on the lift talkgroup. The operator's radio is hands-free and does not scan. Assign one qualified signal person, in the operator's view or on the talkgroup. Brief the crew: the lift lead, load path, landing zone, who signals, and who keeps Ch 1 and Ch 16 (named on the lift plan, never the operator).</div></li>
+      <li><div><b>Check wind and load heat.</b> Wind against the table below. IR-check the load temperature before you rig (sling heat limits below).</div></li>
       <li><div><b>Test lift.</b> Lift a few inches, hold, check brakes, balance and rigging. Set it down and fix anything that moves.</div></li>
-      <li><div><b>Lift with taglines.</b> Control the load from outside the fall zone with taglines. Never hold a load with your hands, and never ride the hook.</div></li>
+      <li><div><b>Lift with taglines.</b> Dry, nonconductive taglines, long enough to keep you outside the fall zone. Never wrap one around your hand or body; let go if the load pulls. Never hold a load with your hands, and never ride the hook. Connectors take steel only once it's lowered to working height and steady: hands on the member, body never under it.</div></li>
     </ol>
   </section>
 
   <section class="sec">
-    <div class="cols">
+    <div class="cols three">
       <div class="box">
-        <h3>Critical lifts</h3>
-        <p class="small" style="margin-bottom:8px">Site definition. Any of these makes a lift critical, and it needs an engineered lift plan, a pre-lift meeting and the Lift Director on site:</p>
-        <ul>
-          <li>Load is <b>more than 75% of the crane's chart capacity</b> at that radius</li>
-          <li>Two or more cranes on one load</li>
-          <li>Lifting personnel in a platform</li>
-          <li>Load passes over occupied structures, habs or live systems</li>
-          <li>Unusual loads: high sail area panels, unknown weight, odd center of gravity</li>
+        <h3>Lift radio</h3>
+        <ul class="small">
+          <li>Every lift gets its own <b>lift talkgroup</b>, named on the lift plan (for example "Lift C-07").</li>
+          <li><b>Ch 11 is coordination only</b>, never for moving loads.</li>
+          <li>During a lift the operator's radio is <b>hands-free, tested before the lift, and does not scan.</b></li>
+          <li>Every signal starts with the crane's call sign: "Crane Charlie 7, hoist, ten feet, slow ... five ... two ... stop."</li>
+          <li>The lift plan names who keeps Ch 1 and Ch 16 on scan for the lift crew and passes warnings on the talkgroup. Never the operator (site rule). Sirens and cab strobes still reach the operator.</li>
         </ul>
       </div>
       <div class="box">
-        <h3>Power lines and site grids</h3>
-        <p class="small" style="margin-bottom:8px">Minimum distance between any part of the crane, load or rigging and an energized line. Site power grids, bus bars and overhead conduits count.</p>
+        <h3>Radio lost mid-lift</h3>
+        <ul class="small">
+          <li><b>The operator stops all motion and holds the load.</b></li>
+          <li>Resume only when the radio is back and tested, or when the signal person is in the operator's full, continuous view and the operator, signal person and whoever directs the lift (the Lift Director, or the lift lead on a routine lift) agree to switch to hand signals.</li>
+          <li><b>Blind lifts stay stopped.</b></li>
+          <li>At night, hand signals need lighted wands or gloves.</li>
+          <li>Site hand signals (evacuate, take shelter) are for people, never for operators. Signal person: give EMERGENCY STOP first, then the site signal once the load is held.</li>
+        </ul>
+        <a class="link-hs" href="hand-signals.html">Hand signals (REF-HS) →</a>
+      </div>
+      <div class="box fill">
+        <h3>ALL STOP</h3>
+        <ul class="small">
+          <li><b>"ALL STOP, ALL STOP"</b> on any channel, or <b>3 short siren blasts</b>: stop all motion, hot work and machine operation.</li>
+          <li><b>Hold position.</b> A suspended load is landed only on the signal person's direction.</li>
+          <li>Cleared on the same channel by whoever called it, or by command.</li>
+          <li><b>Emergency stop by hand:</b> both arms out, palms down, swing them back and forth level with your shoulders. Every operator obeys it, whoever gives it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols three">
+      <div class="box">
+        <h3>Critical lifts</h3>
+        <p class="small" style="margin-bottom:8px">Any of these makes a lift critical. It needs a critical lift plan (LP-) prepared by Design &amp; Structures and approved by the Lift Director, a pre-lift meeting, and the Lift Director directing the lift.</p>
+        <ul class="small">
+          <li><b>75% or more of chart capacity</b> at that radius</li>
+          <li>Two or more cranes on one load</li>
+          <li>Personnel lifts</li>
+          <li>Over occupied structures (habs count)</li>
+          <li>Unusual loads: high sail area, unknown weight, odd center of gravity</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Personnel lifts</h3>
+        <ul class="small">
+          <li>People ride a crane only when stairs, ladders, a MEWP or a scaffold would be more dangerous or impossible.</li>
+          <li>Rated personnel platform, proof-tested to 125% of its rating at each site.</li>
+          <li>Trial lift with the empty, weighted platform before every shift that lifts people.</li>
+          <li>Pre-lift meeting. Everyone harnessed and clipped to the platform's anchor. Operator at the controls the whole time.</li>
+          <li>Old Earth lets a qualified person decide above 20 mph. Here: no crane personnel platforms at 20+ mph (site rule).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Tower &amp; overlapping cranes</h3>
+        <ul class="small">
+          <li>Tower cranes follow their maker's manual and ASME B30.3. Out of service, the jib is set to free-slew (weathervane) per the maker.</li>
+          <li>Cranes whose swing areas overlap work to a written plan with zones or an anti-collision system. Operators coordinate on Ch 11.</li>
+          <li>Telehandlers lifting suspended loads follow the crane rules on this page.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Power lines &amp; site grids</h2><span class="tag">Site power grids, bus bars and overhead conduits count</span></div>
+    <div class="cols">
+      <div class="box">
+        <h3>Lifting near lines</h3>
+        <p class="small" style="margin-bottom:8px">Minimum distance between any part of the crane, load or rigging and an energized line.</p>
         <div class="tw"><table>
           <thead><tr><th>Voltage</th><th>Minimum clearance</th></tr></thead>
           <tbody>
             <tr><td class="m">Up to 350 kV</td><td class="m">20 ft</td></tr>
             <tr><td class="m">350 – 1,000 kV</td><td class="m">50 ft</td></tr>
-            <tr><td class="m">Over 1,000 kV</td><td class="m">Set by Electrical &amp; Power + engineer</td></tr>
+            <tr><td class="m">Over 1,000 kV</td><td class="m">Set by Electrical &amp; Power and a registered engineer (Old Earth rule)</td></tr>
           </tbody>
         </table></div>
-        <p class="small" style="margin-top:8px">Closer than that? The line gets de-energized and locked out by Electrical &amp; Power, or you don't lift. Use a dedicated spotter whenever you work near the limit.</p>
+        <ul class="small" style="margin-top:8px">
+          <li>Electrical &amp; Power marks every line's voltage before the lift. Voltage not marked? No lift (site rule).</li>
+          <li>Could any part of the crane, load or rigging get inside that distance at full working radius? Set a raised warning line or barricade at that distance, plus a dedicated spotter or a proximity alarm or range limiter. Use dry, nonconductive taglines.</li>
+          <li>Can't stay out? Electrical &amp; Power de-energizes the line, locks it out and visibly grounds it at the work spot, then confirms to the operator. Otherwise, no lift.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Traveling under lines</h3>
+        <p class="small" style="margin-bottom:8px">Boom lowered, no load.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Voltage</th><th>Minimum clearance</th></tr></thead>
+          <tbody>
+            <tr><td class="m">Up to 50 kV</td><td class="m">6 ft</td></tr>
+            <tr><td class="m">50 – 345 kV</td><td class="m">10 ft</td></tr>
+            <tr><td class="m">345 – 750 kV</td><td class="m">16 ft</td></tr>
+            <tr><td class="m">750 – 1,000 kV</td><td class="m">20 ft</td></tr>
+            <tr><td class="m">Over 1,000 kV</td><td class="m">Set by Electrical &amp; Power and a registered engineer</td></tr>
+          </tbody>
+        </table></div>
+        <ul class="small" style="margin-top:8px">
+          <li>Any part closer than 20 ft while traveling? A dedicated spotter in constant contact with the operator.</li>
+          <li><b>Non-crane machines</b> (dump beds, excavator booms, drill masts): at least 10 ft from lines up to 50 kV, plus 0.4 in for every kV over 50. More in <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Wind limits</h2><span class="tag">Ch 16 broadcasts gusts · read the cab anemometer</span></div>
-    <div class="scale">
-      <div class="zr" style="background:var(--z1)"><div class="t">0–19</div><div class="n">Normal<small>mph sustained or gusts</small></div><div class="r">Lift per the manufacturer's chart. Many cranes are limited at about 20 mph. <b>The crane's own limit always wins.</b></div></div>
-      <div class="zr" style="background:var(--z3)"><div class="t">20–29</div><div class="n">Restricted<small>Site rule</small></div><div class="r"><b>No personnel lifts.</b> High-sail loads (wall panels, hull plate, roof sections) only with Lift Director approval. Extra taglines.</div></div>
-      <div class="zr dk" style="background:var(--z5)"><div class="t">30+</div><div class="n">All loads down<small>Site rule</small></div><div class="r">Land every suspended load at 30 mph sustained <b>or</b> gusts. Secure the crane per the manufacturer. Sandstorm siren (continuous tone) = booms down, crews to shelter.</div></div>
+    <div class="sh"><h2>Wind &amp; weather</h2><span class="tag">Crews scan Ch 1 + Ch 16 + sector + trade channel<br>Hub Command repeats every warning on Ch 1</span></div>
+    <h3 style="font-size:26px;margin-bottom:6px">Wind table (site rule)</h3>
+    <p class="small" style="margin-bottom:8px"><b>Wind</b> = the higher of the local anemometer (crane, MEWP or crew meter) and the Ch 16 posting. <b>Gust</b> = 3-second gust.</p>
+    <div class="tw"><table class="wind">
+      <thead><tr><th>Wind</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td class="m" style="background:var(--z2)">15+ mph</td><td>Goggles outside cabs. Secure sheet goods and loose material.</td></tr>
+        <tr><td class="m" style="background:var(--z3)">20+ mph sustained or gust</td><td>No outdoor hot work. No crane personnel platforms. High-sail loads need Lift Director approval.</td></tr>
+        <tr><td class="m" style="background:var(--z4)">25 mph sustained or 30 mph gust</td><td>Off open steel, roofs, leading edges, swing stages and outdoor scaffolds above Deck 1. MEWPs down (or the maker's limit if lower).</td></tr>
+        <tr><td class="m" style="background:var(--z5);color:#fff">30 mph sustained or gust</td><td>All crane loads landed; booms secured per maker.</td></tr>
+        <tr><td class="m" style="background:#cfc8ae">Blowing-dust advisory (visibility 1 mile or less)</td><td>No outdoor hot work. Lifts stop whenever the operator loses sight of the load or signal person.</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="small" style="margin-top:10px">
+      <li><b>Crane wind is boom-tip wind.</b> Maker limits apply at the highest point of the boom or jib, as a 3-second gust. The cab reads low. Use the boom-tip anemometer.</li>
+      <li>No working boom-tip anemometer? That crane doesn't lift at 20 mph or more on the Ch 16 posting (site rule).</li>
+      <li><b>The crane maker's limit is lower than this table? The maker's limit wins.</b></li>
+    </ul>
+    <div class="cols" style="margin-top:20px">
+      <div class="box">
+        <h3>Staged warnings</h3>
+        <p class="small" style="margin-bottom:8px">Atmos calls them on Ch 16. Hub Command repeats them on Ch 1.</p>
+        <div class="tw"><table>
+          <thead><tr><th>Warning</th><th>Means</th><th>Do</th></tr></thead>
+          <tbody>
+            <tr><td>Sandstorm watch</td><td>Storm possible within 2 hours</td><td>Secure loose material, plan how loads come down, stage crews near shelter.</td></tr>
+            <tr><td>Sandstorm warning</td><td>Arrival expected within 30 minutes</td><td>Land all loads, booms down (tower cranes to free-slew per maker), climbers and MEWPs down, move to shelter. Take-shelter siren no later than 15 minutes before arrival.</td></tr>
+            <tr><td>Flood warning</td><td>Called by grid on Ch 1 and Ch 16</td><td>Leave wadis, trenches and low cuts at once.</td></tr>
+            <tr><td>Lightning alert</td><td>Strikes within 10 miles</td><td>Booms down, off steel, out of MEWPs, into sealed shelters or closed vehicles (never under steel). Resume 30 minutes after the last strike within 10 miles.</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="box">
+        <h3>Sirens &amp; horns</h3>
+        <ul class="small">
+          <li><b>Site sirens</b> come from the tower speakers, are repeated on Ch 1, and flash strobes in sealed cabs.</li>
+          <li><b>Take shelter:</b> steady tone for 3 minutes, repeated every 5. Red strobes. <b>Evacuate:</b> alternating high-low tone for 3 minutes, repeated. Amber strobes.</li>
+          <li><b>All stop:</b> 3 short siren blasts (1 second each).</li>
+          <li><b>All clear:</b> one 15-second tone, then Hub Command by voice on Ch 1. Never restart work on a tone alone.</li>
+        </ul>
+        <div class="big3 horn" style="margin-top:10px">
+          <div><b>1</b><span>Stopping</span></div>
+          <div><b>2</b><span>Moving forward</span></div>
+          <div><b>3</b><span>Backing up</span></div>
+        </div>
+        <p class="small" style="margin-top:8px"><b>Machine horns are about that machine only.</b> They are never site signals. Operators sound the horn before moving. Hear 3 horn blasts from a machine near you? Get out of its path. Don't freeze.</p>
+      </div>
     </div>
   </section>
 
   <section class="sec">
+    <div class="sh"><h2>Rigging</h2><span class="tag">No tag, no lift</span></div>
     <div class="cols">
       <div class="box">
-        <h3>Rigging: reject it if…</h3>
-        <ul>
-          <li><b>No tag or unreadable capacity tag.</b> No tag, no lift.</li>
-          <li><b>Wire rope:</b> broken wires (running rope: 6 random broken wires in one lay, or 3 in one strand in one lay), kinks, crushing, birdcaging, core sticking out, heavy corrosion, heat or weld-spatter damage.</li>
-          <li><b>Synthetic slings:</b> cuts, burns, melted or charred spots, exposed red core yarns, UV-faded and stiff. This sun eats synthetics. Store them out of the light.</li>
-          <li><b>Hooks:</b> missing or broken safety latch, throat opened up, twisted or cracked.</li>
+        <h3>Reject it if…</h3>
+        <ul class="small">
+          <li><b>No tag or unreadable capacity tag.</b></li>
+          <li><b>Crane wire rope:</b> 6-strand running rope with 6 broken wires in one lay, or 3 in one strand in one lay. Rotation-resistant rope (most hoist lines): 2 broken wires in 6 rope diameters, or 4 in 30. Standing ropes and pendants: more than 2 broken wires in one lay, or more than 1 at an end fitting.</li>
+          <li><b>Any rope:</b> worn more than 5% under nominal diameter, a broken strand, core sticking out, kinks, birdcaging, crushing, heavy corrosion, heat or arc damage, or any power-line contact.</li>
+          <li><b>Wire rope slings:</b> 10 broken wires in one lay, or 5 in one strand in one lay.</li>
+          <li><b>Chain slings:</b> alloy (grade 80 or 100) only, with a tag. Out for stretched, nicked, gouged or cracked links, or heat discoloration.</li>
+          <li><b>Synthetic slings:</b> cuts, burns, melted or charred spots, exposed red core yarns, UV-faded and stiff. This sun eats synthetics.</li>
+          <li><b>Hooks:</b> throat opened more than 5% (¼ in max), any visible bend or twist, worn 10% or more, any crack, latch missing or broken.</li>
           <li><b>Shackles:</b> wrong pin, bent body, pin not fully seated.</li>
+        </ul>
+      </div>
+      <div class="box fill">
+        <h3>Heat &amp; sharp edges</h3>
+        <ul class="small">
+          <li><b>IR-check the load before you rig.</b> Riggers carry an IR thermometer (site rule). Sun-baked steel passes 158°F, and dark loads at Extreme heat level go well past 194°F.</li>
+          <li><b>Synthetic slings</b> (nylon, polyester): never on a load or in air over <b>194°F</b>, lower if the tag says. HMPE slings: the tag's limit.</li>
+          <li><b>Fiber-core wire rope:</b> never over <b>180°F</b>.</li>
+          <li>Hotter than that? Use alloy chain or IWRC wire rope slings.</li>
+          <li>Store slings in cooled or shaded racks. Never on hot steel.</li>
+          <li><b>Sharp edges</b> (beam flange, plate, hull plate, printed corner): rated edge protectors every time. A synthetic sling on a bare steel edge can cut through mid-lift.</li>
         </ul>
       </div>
       <div class="box">
@@ -121,6 +285,17 @@
           </tbody>
         </table></div>
         <p class="small" style="margin-top:8px">Example: a 10,000 lb panel on two legs at 30°. Each leg carries 5,000 × 2 = <b>10,000 lb</b>. Don't rig flatter than 30°.</p>
+        <p class="small" style="margin-top:6px"><b>Three- or four-leg bridle?</b> Count only 2 legs as carrying the whole load, unless a qualified rigger or engineer works it out. Load off center? The legs nearer the center of gravity carry more. Get the rigger to calculate it.</p>
+      </div>
+      <div class="box">
+        <h3>Lifting magnets &amp; field rigs</h3>
+        <ul class="small">
+          <li><b>Nobody in the fall zone, ever.</b> Never over people.</li>
+          <li>Before every lift: the power-loss alarm and backup power work.</li>
+          <li>Clean contact face. Sand, rust, paint and thin or curved plate cut holding power. Check the magnet's chart and test-lift a few inches.</li>
+          <li>Steel only. Never gas cylinders, bundles or loose stacks.</li>
+          <li>Shutting down: land the load first, then dump the coils and verify the field is at or below the rig's posted safe level (<a href="m7-lockout.html">HS-07</a>).</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -130,7 +305,7 @@
       <div class="do">
         <h3>Do</h3>
         <ul>
-          <li>Know who the signal person is before the load moves.</li>
+          <li>Know who the signal person is, and the lift talkgroup, before the load moves.</li>
           <li>Give <b>STOP</b> the moment you see danger. Anyone can give it. The operator obeys it every time.</li>
           <li>Stay outside barricades and the counterweight swing.</li>
           <li>Use taglines and stand clear of pinch points when landing.</li>
@@ -145,6 +320,7 @@
           <li>Take signals from more than one person (except STOP).</li>
           <li>Side-load or drag a load with the crane.</li>
           <li>Climb on a crane that's running or about to swing.</li>
+          <li>Move a load on Ch 11.</li>
         </ul>
       </div>
     </div>
@@ -180,7 +356,7 @@
         </svg>
         <figcaption class="note">Haul truck, top view, cab on the left. Shaded areas are where the operator can't see you from the seat. Bigger machines have bigger blind spots.</figcaption>
       </figure>
-      <div style="display:grid;gap:14px">
+      <div class="stack">
         <div class="box fill"><h3>If you can't see the operator's eyes, they can't see you.</h3><p class="small">Make eye contact and get a wave before you walk near any machine. Approach from the cab side, in their view.</p></div>
         <ul>
           <li><b>Walk-around inspection</b> before every shift: tires, tracks, leaks, lights, alarm, mirrors, cameras, fire extinguisher.</li>
@@ -189,6 +365,7 @@
           <li><b>Backup alarm working</b>, and a spotter whenever you back up somewhere you can't see.</li>
           <li><b>Loose sand gives way.</b> Stay off soft edges, dune faces and fresh fill. Drive straight up and down slopes, never across.</li>
           <li><b>Lower the bucket or blade</b>, set the brake and shut down before you leave the seat.</li>
+          <li>Never stand between a machine and a fixed object, or between two machines. Stay out of an excavator's swing.</li>
         </ul>
       </div>
     </div>
@@ -197,22 +374,65 @@
   <section class="sec">
     <div class="cols">
       <div class="box">
-        <h3>Horn signals</h3>
-        <div class="big3 horn">
-          <div><b>1</b><span>Stopping</span></div>
-          <div><b>2</b><span>Moving forward</span></div>
-          <div><b>3</b><span>Backing up</span></div>
-        </div>
-        <p class="small" style="margin-top:10px">Operators sound the horn before moving. Hear 2 or 3 blasts and you're near the machine? Get clear and make eye contact.</p>
+        <h3>Traffic management</h3>
+        <ul class="small">
+          <li><b>Traffic plan:</b> each sector posts its haul loops, pedestrian routes, crossings, parking and fuel points. Follow the signs. Haul loops run one way where they can.</li>
+          <li><b>Speed:</b> the posted limit. Nothing posted: 15 mph on haul loops, 5 mph in yards, laydown and near people (site rule).</li>
+          <li><b>Pedestrians</b> walk only on marked, barricaded routes. At a crossing: stop, make eye contact with the operator, wait for the wave.</li>
+          <li><b>Hi-vis on</b> outside any cab or shelter: Class 2 by day, Class 3 at night, or a hi-vis cooling vest.</li>
+          <li><b>Haze:</b> lights and beacon on whenever a blowing-dust advisory is posted. Can't see 300 ft? 5 mph. Can't see the road edge or the vehicle ahead? Pull off at a pull-out or the road edge, hazards on, stay in the cab unless told to move to shelter, call Ch 12 (site rule).</li>
+          <li><b>Reversing:</b> plan routes so you drive through. Backing where you can't see? Use a spotter. Backup alarm and camera working. Nobody walks behind a machine.</li>
+          <li><b>Crew shuttles:</b> seat belts on. No riders in truck beds, on running boards or on equipment. Drivers carry the badge endorsement.</li>
+          <li><b>Refueling or recharging:</b> at marked fuel or charge points only. Engine off. Bond the hose (dry air builds static). Extinguisher in reach. No hot work within 35 ft.</li>
+        </ul>
       </div>
       <div class="box">
-        <h3>Struck-by zones</h3>
-        <ul>
-          <li><b>Hi-vis vest on</b> outside any cab or shelter, day and night. Sand haze kills visibility.</li>
-          <li>Haul roads and loading zones are <b>exclusion zones</b>. Walk only on marked crossings.</li>
-          <li>Never stand between a machine and a fixed object, or between two machines.</li>
-          <li>Stay out of the swing of excavators. If it rotates, assume it will hit you.</li>
-          <li>Spotters stand where the operator can see them, never behind the machine.</li>
+        <h3>Forklifts &amp; telehandlers</h3>
+        <ul class="small">
+          <li>Only operators with the badge endorsement for that machine, trained and evaluated on it.</li>
+          <li>Read the load chart for the boom angle, extension and attachment. Over the chart = no lift.</li>
+          <li><b>No riders.</b> Never lift people on forks or in a bucket.</li>
+          <li>Travel with the load low and tilted back. Seat belt on. Look where you're going.</li>
+          <li>Firm, level ground. Stabilizers down on mats where the chart needs them. Loose sand and side slopes tip machines.</li>
+          <li>Parked: forks or boom down, brake set, shut off.</li>
+          <li>Hook or winch lifting a suspended load? It's a crane lift. All crane rules apply, including a qualified rigger and signal person.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols three">
+      <div class="box">
+        <h3>Structure printers</h3>
+        <ul class="small">
+          <li>Printers are heavy equipment on Ch 12, call sign "Printer [Sector] [n]" (Printer Golf 2).</li>
+          <li><b>The gantry and head move without warning</b> on their program. Stay outside the printer barrier while it runs.</li>
+          <li>Barrier gates are interlocked: open one and the printer stops. Never bypass or tape an interlock (site rule). Found one bypassed? Stop work and tell your foreman.</li>
+          <li>Inside the barrier only with the printer locked out, your own lock on (<a href="m7-lockout.html">HS-07</a>).</li>
+          <li>Fresh FerroLattice-7 bead comes out at about 500°F. Burns and fumes: <a href="m8-materials.html">HS-08</a>.</li>
+          <li>Gantry rails are trip and crush points. Never stand between the gantry and the structure.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Manual handling</h3>
+        <ul class="small">
+          <li>Over 50 lb, or too long to control alone? Two people or a lifting aid (site rule).</li>
+          <li>Post-stasis muscles are weaker. Ramp days, light duty or a failed grip check: 25 lb one-person limit (site rule). Anything heavier is a team lift or a lifting aid.</li>
+          <li><b>Panels are sails.</b> At 15+ mph: two people on any panel bigger than 4 × 4 ft, or move it by machine. At 20+ mph: no hand-carrying panels in the open (site rule).</li>
+          <li>Two-person panel carries count as very heavy work on the DCW work/rest table (<a href="m3-heat.html">HS-03</a>). Heat plus heavy lifting raises the risk of rhabdo.</li>
+          <li>Keep the load close. Turn your feet; don't twist. Kneel pads for floor work. Rotate repetitive jobs like rebar tying.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Night lighting</h3>
+        <ul class="small">
+          <li>Landing zones, rigging areas, haul-road crossings and trench edges are lit before night work starts.</li>
+          <li>Signal persons use lighted wands or gloves at night.</li>
+          <li><b>Lights fail during a lift:</b> the operator stops and holds the load. It's landed only on the signal person's direction once light is back.</li>
+          <li>Operator can't clearly see the load, the landing zone or the signal? The lift stops.</li>
+          <li>Glare in the operator's eyes? Re-aim the light before the lift.</li>
+          <li>Light levels: <a href="sd-night-fatigue-fitness.html">Supplement D (HS-SD)</a>.</li>
         </ul>
       </div>
     </div>
@@ -225,23 +445,55 @@
         <h3>Our soil is Type C</h3>
         <p class="small" style="margin-bottom:8px">Dry, loose sand is the least stable soil class. A cubic yard of it weighs about as much as a car. Walls collapse with no cracks or warning.</p>
         <div class="big3">
-          <div><b>5 ft</b><span>Protective system required</span></div>
-          <div><b>34°</b><span>Max slope (1½ : 1)</span></div>
+          <div><b>5 ft</b><span>Protective system always</span></div>
+          <div><b>34°</b><span>Max slope: 1½ ft back for 1 ft down</span></div>
           <div><b>2 ft</b><span>Spoils back from edge</span></div>
         </div>
-        <p class="small" style="margin-top:10px">Protective system means <b>sloping</b> the walls back to 34° or flatter, <b>shoring</b>, or a <b>trench shield</b> (box). Deeper than 20 ft needs an engineer's design.</p>
+        <p class="small" style="margin-top:10px">Protective system means <b>sloping</b> the walls back 1½ ft for every 1 ft of depth (34° from flat), starting at the trench floor, <b>shoring</b>, or a <b>trench shield</b> (box). No vertical walls in our soil. Deeper than 20 ft needs an engineer's design.</p>
+        <p class="small" style="margin-top:6px"><b>Under 5 ft is not automatically safe.</b> The competent person checks it. In our loose sand, if the walls can move at all, it gets sloped or shored, however shallow. A kneeling worker can be buried in a 4 ft trench.</p>
       </div>
       <div class="box">
         <h3>Trench rules</h3>
-        <ul>
-          <li>A <b>competent person</b> inspects every excavation before each shift, after every sandstorm or rain, and whenever conditions change.</li>
+        <ul class="small">
+          <li>The <b>competent person</b> (excavation) inspects every excavation before each shift, after every sandstorm, flood or rain, and whenever conditions change. They pull everyone out at any sign of movement.</li>
           <li><b>Ladder, ramp or stair within 25 ft</b> of every worker in trenches 4 ft deep or more.</li>
-          <li>Keep spoil piles, tools and equipment <b>at least 2 ft back</b> from the edge.</li>
+          <li>Spoil piles, tools and equipment <b>at least 2 ft back</b> from the edge.</li>
           <li>Never work outside the shield or in an unprotected section, even "just for a minute."</li>
-          <li>Keep heavy equipment back from the edge. Vibration and weight start collapses.</li>
-          <li>Locate and mark buried power, water and data lines before you dig.</li>
-          <li>Test the air in trenches deeper than 4 ft where gas can collect.</li>
+          <li><b>Trench box:</b> dig no more than 2 ft below its bottom. Nobody stays in it while it's moved.</li>
+          <li>Equipment near the edge: barricades, stop logs or a spotter. Vibration and weight start collapses.</li>
+          <li>Nobody under a bucket or a load being dug or lifted.</li>
+          <li>Crossings over trenches 6 ft or deeper have guardrails. Barricade unattended trenches.</li>
+          <li><b>Flood warning or flash-storm water:</b> everyone out at once. Back in only when the competent person clears it.</li>
         </ul>
+      </div>
+      <div class="box" id="dig">
+        <h3>Dig permit &amp; buried services</h3>
+        <ul class="small">
+          <li><b>No dig without a PTW-DG dig permit</b> at the job. Survey and Electrical &amp; Power locate and mark buried services; the area foreman signs.</li>
+          <li>Within 2 ft of a mark: hand dig or vacuum dig (site rule).</li>
+          <li>Sand buries and blows away paint. Marks also get flags or stakes. Re-check them after a sandstorm.</li>
+          <li>Hit a line? Stop, back away, keep people clear, tell your foreman. Power or gas: Ch 1 "Electrical" or "Gas".</li>
+        </ul>
+        <ul class="codes">
+          <li><span class="sw" style="background:#d7261e"></span>Red: power</li>
+          <li><span class="sw" style="background:#ec5b13"></span>Orange: data, comms</li>
+          <li><span class="sw" style="background:#f5d000"></span>Yellow: gas, fuel, steam</li>
+          <li><span class="sw" style="background:#1d5fa8"></span>Blue: drinking water</li>
+          <li><span class="sw" style="background:#7b3fa0"></span>Purple: recycled water</li>
+          <li><span class="sw" style="background:#2f8a57"></span>Green: sewer, drains</li>
+          <li><span class="sw" style="background:#f29bc1"></span>Pink: survey marks</li>
+          <li><span class="sw" style="background:#fff"></span>White: planned dig</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Air in trenches</h3>
+        <ul class="small">
+          <li><b>Open trenches follow HS-06, using the air limits in <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>.</b></li>
+          <li><b>Shafts, tunnels, and any trench with a hazardous atmosphere or an engulfment risk outside the shield are permit-required spaces</b> under <a href="cs-confined-spaces.html">HS-SA</a>, with a PTW-CS signed by the entry supervisor.</li>
+          <li>Test the air before anyone enters a trench over 4 ft deep where gas can collect, and keep testing while people work there. Exhaust, fuel vapor and purge gas sink into low cuts.</li>
+          <li>Limits: O₂ 19.5–23.5%. Flammable gas under 10% LEL. Toxic gas limits on HS-SA. Outside the limits? Everyone out.</li>
+        </ul>
+        <a class="link-hs" href="cs-confined-spaces.html">HS-SA air limits →</a>
       </div>
     </div>
   </section>
@@ -251,24 +503,31 @@
       <h2>Contact or collapse</h2>
       <p style="margin-top:10px;font-size:16px">A crane or machine touches a power line, a load drops, or a trench caves in.</p>
       <p class="cf">ALL STOP first.<br>Then call it in.</p>
-      <p class="sm">Most trench rescue victims are the would-be rescuers. A second collapse often follows the first.</p>
+      <p class="sm">Would-be rescuers often become the next victims. A second collapse often follows the first.</p>
     </div>
     <ul>
-      <li><b>Call "ALL STOP, ALL STOP"</b> on your channel, then <b>Ch 1: "Emergency, emergency, emergency"</b> with the type (Electrical, Struck-by, Caught-in), sector-grid, deck and number hurt.</li>
-      <li><b>Power line contact:</b> operator stays in the cab unless it's on fire. If you must get out, jump clear with feet together, never touching machine and ground at once, then shuffle away in small steps. Everyone else stays back at least 35 ft.</li>
+      <li><b>Call "ALL STOP, ALL STOP"</b> on your channel, then <b>Ch 1: "Emergency, emergency, emergency"</b> + type (Electrical, Struck-by, Caught-in, Structural) + location + number hurt + hazards + your call sign. Location like "Echo-7, trench, north end." Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Power line contact:</b> operator stays in the cab unless it's on fire. If it's safe, try to move the boom away from the line. Assume it's still live even if the sparks stop: lines can re-energize by themselves. If you must get out, jump clear with feet together, never touching machine and ground at once, then shuffle away in small steps. Everyone else stays back at least 35 ft. Nobody touches the machine, load or taglines until Electrical &amp; Power says it's dead.</li>
       <li><b>Trench collapse:</b> don't jump in to dig. Keep everyone out, shut down nearby equipment, and wait for Fire &amp; Rescue with shoring.</li>
       <li><b>Dropped load:</b> don't lift it off a person with a crane unless Fire &amp; Rescue directs it. Keep the area clear.</li>
     </ul>
   </section>
 
   <section class="saw">
-    <h2>Anyone can call STOP</h2>
-    <p><b>Arms out, palms down, wave them back and forth</b>, or say "ALL STOP" on the radio. Every operator stops, every time, whoever gives it. Sort out why after the load is safe.</p>
+    <h2>Stop-work authority</h2>
+    <p><b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged. That includes any lift or machine that puts someone in danger.</p>
+  </section>
+
+  <section class="sec">
+    <div class="box">
+      <h3>Report it</h3>
+      <p class="small">Report every injury, illness, first aid case, near miss, damage and unsafe condition to your crew lead before the end of the shift (immediately for anything serious), on form <b>HS-IR</b> with your Colonist ID. Don't move anything except to rescue. Safety &amp; Health investigates with the crew; findings are shared at muster. No retaliation. Every dropped load, line strike, power-line contact and trench movement counts.</p>
+    </div>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I have read this poster. I will never go under a suspended load, I know who signals my lifts, and I know I can stop any lift or machine that puts someone in danger.</p>
+    <p class="small">I have read this poster. I will never go under a suspended load. I know who signals my lifts and on which talkgroup, I know what happens when the radio drops, and I know I can stop any lift or machine that puts someone in danger.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -279,8 +538,8 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 1926 Subpart CC (Cranes &amp; Derricks in Construction, incl. 1926.1408 power line clearance), OSHA 1926 Subpart P (Excavations), ASME B30.5 (Mobile Cranes) and B30.9 (Slings), OSHA 1926.602 (Earthmoving Equipment).</span>
-    <span>HS-06 · Dunewright Colony Works · Replace when faded</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1926 Subpart CC, Cranes &amp; Derricks in Construction (1926.1401 definitions, 1926.1402 ground conditions, 1926.1404, 1926.1408 and 1926.1411 power lines, 1926.1412 inspections, 1926.1413 wire rope, 1926.1417, 1926.1419–1420 signals and radios, 1926.1424, 1926.1425, 1926.1427–1428 qualification, 1926.1431 personnel platforms, 1926.1432 multiple-crane lifts); 1926.251 rigging; Subpart P Excavations (1926.651, 1926.652 and appendices); 1926.600–602 equipment, earthmoving and material handling, with 1910.178 powered industrial trucks; ASME B30.3 tower cranes, B30.5 mobile cranes, B30.9 slings, B30.10 hooks, B30.20 below-the-hook devices, BTH-1; APWA uniform color code; NIOSH revised lifting equation; NOAA NWS lightning safety.</span>
+    <span>HS-06 · Rev. 5 · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>
 </div>

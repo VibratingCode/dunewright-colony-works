@@ -9,15 +9,20 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="assets/poster.css">
 <style>
-/* page-local: padlock + tag illustration and lock color legend */
+/* page-local: padlock + tag illustration, lock color legend, tag mock-ups, numbered lists in boxes */
 .lockrow{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:20px;align-items:center}
 .lockrow svg{width:100%;max-width:160px;height:auto}
 .locks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.locks div{border:2px solid var(--black);padding:10px;display:grid;gap:4px;min-width:0}
+.locks div{border:2px solid var(--black);padding:10px;display:grid;gap:4px;align-content:start;min-width:0}
 .locks i{display:block;height:14px;border:2px solid var(--black)}
 .locks b{font:800 13px var(--body);text-transform:uppercase}
 .locks span{font-size:12px}
 .phase{font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;background:var(--black);color:var(--hiviz);padding:6px 12px;margin:14px 0 0;display:inline-block}
+.tagmock{display:inline-block;font:400 18px/1.05 var(--display);text-transform:uppercase;letter-spacing:.02em;padding:6px 12px;border:3px solid var(--black);margin-bottom:10px;max-width:100%}
+.tagmock.dg{background:var(--red);color:#fff}
+.tagmock.oos{background:var(--hiviz);color:var(--black)}
+.box ol li,.box ul li{font-size:14px}
+.tagrow{margin-top:14px}
 @media (max-width:600px){.lockrow{grid-template-columns:minmax(0,1fr)}.lockrow svg{margin:0 auto}.locks{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
@@ -26,10 +31,10 @@
 <article class="poster">
 
   <header class="head blue">
-    <div class="meta"><span>Form HS-07 · Rev. 4</span><span>Post-stasis refresher · Module 7 of 9</span><span>Post at every machine shop and isolation point</span></div>
+    <div class="meta"><span>Form HS-07 · Rev. 5</span><span>Post-stasis refresher · Module 7 of 9</span><span>Post at every machine shop and isolation point</span></div>
     <div class="co">
       <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
-      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Health &amp; Safety</span></div>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
     </div>
     <h1>Lock it out.</h1>
     <p class="sub">Before you put any part of your body inside a machine, every source of energy goes to zero, under your own lock.</p>
@@ -48,12 +53,14 @@
           <rect x="40" y="152" width="80" height="24" fill="#f7f4e8" stroke="#141414" stroke-width="3"/>
           <text x="80" y="169" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="15" fill="#c4161c">DANGER · DO NOT OPERATE</text>
         </svg>
-        <div style="display:grid;gap:8px">
-          <p>Every worker who goes into a machine puts on <b>their own lock</b>. You hold the only key. Nobody else's lock protects you. Ten workers on one machine means ten locks.</p>
-          <p>Your tag shows your name, colonist ID, crew, date and the reason. A tag alone is a warning. <b>Only a lock stops the machine.</b></p>
-          <p class="small">Your personal lock is issued by Stasis Revival Unit with your kit and engraved with your colonist ID. Lost it? Report it to your foreman the same shift.</p>
+        <div style="display:grid;gap:8px;min-width:0">
+          <p>Every worker who goes into a machine puts on <b>their own red lock</b>. You hold the only key. Nobody else's lock protects you, and that includes a job lock or a blue lock. Ten workers on one machine means ten red locks.</p>
+          <p><b>More than one isolation point?</b> Put a yellow job lock on every point, drop the keys in the yellow lockbox, and put your red lock on the box. Do this even when you work alone (site rule). Red locks have no master key and no spare key (site rule).</p>
+          <p>Your tag shows your name, Colonist ID, crew, date and the reason. A tag alone is a warning. <b>Only a lock stops the machine.</b></p>
         </div>
       </div>
+      <p class="small">Only <b>authorized employees</b> lock out: workers trained on that machine's lockout card, with the lockout endorsement on their badge. Operators and others nearby never try to start a locked machine and never touch a lock. Safety &amp; Health checks every lockout card, and watches it being used, at least once a year. Card wrong? Stop and report it.</p>
+      <p class="small">The <b>Quartermaster</b> issues your red lock, engraved with your Colonist ID, and your tags with your kit. Lost your lock? Tell your crew lead the same shift and get a new one from the Quartermaster.</p>
     </div>
   </section>
 
@@ -61,37 +68,65 @@
     <div class="sh"><h2>The lockout sequence</h2><span class="tag">OSHA 1910.147 · every time, no shortcuts</span></div>
     <span class="phase">Lock out</span>
     <ol class="steps">
-      <li><div><b>Prepare.</b> Read the machine's lockout procedure card. Know every energy source on it and where each isolation point is.</div></li>
+      <li><div><b>Prepare.</b> Read the machine's lockout card. Know every energy source on it and where each isolation point is.</div></li>
       <li><div><b>Notify.</b> Tell the operator and everyone who works on or near the machine that it is going down and why.</div></li>
-      <li><div><b>Shut down</b> using the normal stop. Never kill it with the emergency stop alone.</div></li>
-      <li><div><b>Isolate every energy source.</b> Open the disconnect, close the valves, unplug, decouple. Pushing a control button is not isolation.</div></li>
-      <li><div><b>Apply your lock and tag</b> to each isolation point. Use a hasp when more than one person locks out.</div></li>
-      <li><div><b>Release or block stored energy.</b> Bleed pressure, drain capacitor banks, block raised parts, let flywheels stop, let hot parts cool.</div></li>
-      <li><div><b>Verify zero energy.</b> Clear everyone away, then try to start it. Test electrical with a meter you have checked on a live source. Return controls to off.</div></li>
+      <li><div><b>Shut down</b> with the normal stop. The emergency stop alone never counts as isolation.</div></li>
+      <li><div><b>Isolate every energy source.</b> Open the disconnect, close the valves, decouple. Pushing a control button isolates nothing. <b>Unplugged?</b> Lock a plug cover on the plug, or keep the plug where only you can reach it.</div></li>
+      <li><div><b>Lock and tag.</b> One isolation point: your red lock and tag go on it. Several workers on one point: use a <b>hasp</b>, a clamp that takes several locks. More than one point: yellow job locks and the lockbox (see Your lock).</div></li>
+      <li><div><b>Release or block stored energy.</b> Bleed pressure, block raised parts, let flywheels stop, let hot parts cool. Capacitor banks are discharged and grounded by a qualified electrical worker. If it can build back up (accumulators, capacitors, pressure lines, hot parts), keep it released: bleed valves open, grounds on, blocks in. After any break, recheck the gauges before your hands go back in.</div></li>
+      <li><div><b>Verify zero energy.</b> Clear everyone away. Try to start it with the machine's own controls, with your crew lead watching. Then return the controls to off. <b>Electrical systems: only a qualified electrical worker (blue hat) tests for voltage.</b> They prove the meter on a known live source, test every conductor, then prove the meter on the live source again. Everyone else does the try-start and watches the test.</div></li>
       <li><div><b>Do the work.</b></div></li>
     </ol>
     <span class="phase">Restore</span>
     <ol class="steps">
       <li><div><b>Tools and parts out.</b> Count them. Nothing left inside the machine.</div></li>
-      <li><div><b>Guards back on</b> and secured.</div></li>
+      <li><div><b>Take off everything you added:</b> blocks, pins, chains, blank plates. A qualified electrical worker removes grounding clamps. Close bleed and drain valves. Check the machine is whole.</div></li>
+      <li><div><b>Guards back on</b> and secured. Interlocks working.</div></li>
       <li><div><b>People clear.</b> Everyone accounted for and out of the danger zone.</div></li>
-      <li><div><b>Notify</b> the operator and affected workers that power is coming back.</div></li>
-      <li><div><b>Remove your own lock.</b> Only yours. Then the machine can be energized.</div></li>
+      <li><div><b>Notify</b> the operator and everyone nearby that power is coming back.</div></li>
+      <li><div><b>Take off your own lock, only yours.</b> When every lock is off, the operator or the group-lockout lead switches it on and checks that it runs right.</div></li>
     </ol>
   </section>
 
   <section class="sec">
     <div class="sh"><h2>Find every energy source</h2><span class="tag">Most machines have more than one</span></div>
     <div class="signs">
-      <div class="sg" style="--c:var(--blue)"><h3>Electrical</h3><p>Mains, generator feeds, control circuits. Isolate at the disconnect. Test before touch.</p></div>
-      <div class="sg" style="--c:var(--z5)"><h3>Power cells &amp; capacitor banks</h3><p>Stored charge stays after disconnect. Discharge through the rated grounding stick and verify zero on the meter. Some banks need minutes to bleed down.</p></div>
+      <div class="sg" style="--c:var(--blue)"><h3>Electrical</h3><p>Mains, generator feeds, control circuits. Isolate at the disconnect. Only a qualified electrical worker tests for zero.</p><p>Live work needs an energized-work permit, <a href="permits.html">PTW-EE</a>. Arc flash, rated gloves, cords and temporary power: <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</p></div>
+      <div class="sg" style="--c:var(--z5)"><h3>Power cells</h3><p>Batteries. <b>A cell is always live and can't be drained.</b> Opening the feed leaves the cell side live. Open and lock the cell's own disconnect, cover the terminals, and treat everything on the cell side as live.</p><p>Only qualified electrical workers (blue hats) touch cell terminals. <b>Never put a grounding stick on a cell.</b> It's a dead short: arc flash and fire. A cell that smokes or hisses: get clear and call Ch 1 "Fire". Never fight a power-cell fire.</p></div>
+      <div class="sg" style="--c:var(--z7)"><h3>Capacitor banks</h3><p>Open and lock the disconnect. Wait the bleed-down time printed on the bank. A qualified electrical worker then discharges it with the rated grounding stick, checks for zero on the meter, and <b>leaves the ground clamped on</b> until the work is done.</p><p>A bank can charge itself back up if the ground comes off.</p></div>
       <div class="sg" style="--c:var(--z3)"><h3>Mechanical</h3><p>Flywheels, springs, belts and gears still moving or under tension. Wait for full stop. Block or release springs.</p></div>
-      <div class="sg" style="--c:var(--z4)"><h3>Hydraulic</h3><p>Pressure stays trapped in lines and accumulators. Bleed to zero. Hydraulic fluid injected under skin is a surgical emergency.</p></div>
+      <div class="sg" style="--c:var(--z4)"><h3>Hydraulic</h3><p>Pressure stays trapped in lines and accumulators. Bleed to zero. <b>Never feel for a leak with your hand.</b> Use a piece of cardboard.</p><p>Fluid injected under the skin needs a surgeon at Central Med, however small it looks. Call it on Ch 1 as "Man down, hydraulic injection".</p></div>
       <div class="sg" style="--c:var(--z2)"><h3>Pneumatic</h3><p>Close the supply, then bleed the line. A charged air line can whip or fire a cylinder.</p></div>
       <div class="sg" style="--c:var(--z6)"><h3>Gravity</h3><p>Raised booms, rams, platforms, loads. Lower them or block them with rated blocks and pins. Never trust hydraulics to hold.</p></div>
-      <div class="sg" style="--c:var(--orange)"><h3>Thermal</h3><p>Ovens, presses, printer heads, pipes. Lock out the heat source and wait for safe touch temperature.</p></div>
-      <div class="sg" style="--c:var(--green)"><h3>Chemical</h3><p>Feed lines for resins, gases, coolants. Close and lock valves, blind or disconnect the line, drain it.</p></div>
-      <div class="sg" style="--c:var(--black)"><h3>Magnetic field rigs</h3><p>Lifting magnets and field-forming rigs. A field rig can hold or fling steel after the switch is off until its coils are dumped. Lower the load first, dump the coils, verify zero field with the gauss meter.</p></div>
+      <div class="sg" style="--c:var(--orange)"><h3>Thermal</h3><p>Ovens, presses, printer heads (about 500°F), pipes. Lock out the heat source, then check the part with an infrared (IR) thermometer.</p><p>Bare skin only below 140°F, or 60°C (site rule). Above that, heat gloves and sleeves. Metal in the sun can stay above 140°F all shift.</p></div>
+      <div class="sg" style="--c:var(--green)"><h3>Chemical</h3><p>Feed lines for resins, gases, coolants. Close and lock valves, blind or disconnect the line, drain it.</p><p>A <b>purge tag</b> on a hatch means inert gas was used inside. No entry without a PTW-CS: <a href="cs-confined-spaces.html">Supplement A (HS-SA)</a>.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="cols">
+      <div class="box">
+        <h3>Magnetic field rigs</h3>
+        <p class="small" style="margin-bottom:8px">Lifting magnets and field-forming rigs. A field rig can hold or fling steel after the switch is off, until its coils are dumped.</p>
+        <ol>
+          <li><b>Lower the load</b> first.</li>
+          <li><b>Dump the coils.</b></li>
+          <li><b>Verify the field</b> is at or below the rig's posted safe level with a gauss meter.</li>
+          <li>Then lock out the rig's power like any machine.</li>
+        </ol>
+        <p class="small" style="margin-top:8px"><b>Permanent-magnet rigs:</b> lock the release in "released" per the maker.</p>
+        <p class="small" style="margin-top:8px"><b>Pacemaker, insulin pump or other implant?</b> Stay out of the rig's marked zone. Lifting with magnets: <a href="m6-cranes-equipment.html">HS-06</a>.</p>
+      </div>
+      <div class="box">
+        <h3>Structure printers</h3>
+        <p class="small" style="margin-bottom:8px">Gantry machines on Ch 12, call sign "Printer [Sector] n". The gantry and head move on their program without warning. Stay outside the printer barrier while it runs.</p>
+        <ul>
+          <li><b>Going inside the barrier?</b> Tell the operator on Ch 12. Park the head. Then lock out every source on the printer's lockout card: drive power, head heaters, material feed pressure, any on-board power cell.</li>
+          <li>Pin or block the gantry if it can roll or drop.</li>
+          <li>The barrier gate interlock, pause button and emergency stop are controls. <b>They never replace your lock.</b></li>
+          <li>The head and fresh bead stay near 500°F after shutdown. IR check before you touch (see Thermal). Print fumes: <a href="m8-materials.html">HS-08</a>.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -100,30 +135,77 @@
       <div class="box">
         <h3>Group lockout &amp; shift change</h3>
         <ul>
-          <li><b>Big jobs use a lockbox.</b> The lead locks every isolation point with job locks, puts the keys in the yellow lockbox, and every worker puts a personal lock on the box.</li>
-          <li>The box can't open until <b>the last worker removes their lock.</b></li>
-          <li><b>Shift change:</b> the incoming worker puts their lock on <b>before</b> the outgoing worker takes theirs off. The machine is never unprotected.</li>
+          <li>The foreman names one authorized employee as the <b>group-lockout lead</b>. Crews under different foremen: the foremen agree on one lead and write the name on the lockbox tag. If they can't agree, the general foreman names the lead.</li>
+          <li>The lead puts a yellow job lock on every isolation point, puts the keys in the yellow lockbox, and <b>checks for zero energy</b> (step 7) before anyone locks on.</li>
+          <li>Any worker can ask to watch the check, or do the try-start themselves, before putting their lock on.</li>
+          <li>Every worker puts a red lock on the box. <b>The lead's red lock goes on first and comes off last.</b></li>
+          <li>The box can't open until the last worker removes their lock. Then the lead opens it, does the Restore steps and removes the job locks.</li>
+          <li><b>Shift change:</b> the incoming worker's lock goes on <b>before</b> the outgoing worker's comes off. The machine is never unprotected. Leads hand over face to face at the box, incoming lead's lock on first.</li>
           <li>Walk the incoming crew through what is isolated and what is still live.</li>
         </ul>
       </div>
       <div class="box fill">
         <h3>Someone else's lock</h3>
-        <p style="margin-bottom:8px">You never cut, open or remove another worker's lock. The only exception is the formal procedure:</p>
-        <ul>
-          <li>The <b>foreman</b> confirms the worker is not at the machine.</li>
-          <li>Every reasonable effort is made to <b>reach the worker</b>: radio, their sector channel, their barracks.</li>
-          <li>The foreman removes it, logs it, and <b>tells the worker before they return to work.</b></li>
-        </ul>
+        <p class="small" style="margin-bottom:8px">You never cut, open or remove another worker's lock. The only exception is this procedure, every step:</p>
+        <ol>
+          <li>The worker is confirmed <b>not on site</b>: check the roster and call them on the sector channel.</li>
+          <li>Every effort is made to <b>reach them</b>.</li>
+          <li>The foreman and a second person (general foreman or Safety officer) <b>walk the whole machine</b>, look into every opening, and confirm nobody is inside. The second person is a site rule.</li>
+          <li>The foreman removes the lock and <b>logs it with both signatures</b>.</li>
+          <li>The worker is <b>told before they return to work</b>.</li>
+        </ol>
       </div>
     </div>
   </section>
 
   <section class="sec">
-    <div class="sh"><h2>Lock colors</h2><span class="tag">DCW site standard</span></div>
-    <div class="locks">
-      <div><i style="background:var(--red)"></i><b>Red · Personal</b><span>Everyone's own lock. Engraved with your colonist ID. Only you hold the key.</span></div>
-      <div><i style="background:var(--hiviz)"></i><b>Yellow · Job lock</b><span>Group lockout. Keys go in the lockbox.</span></div>
-      <div><i style="background:var(--blue)"></i><b>Blue · Power isolation</b><span>Electrical &amp; Power division locks on substations and feeders. Their work, their release.</span></div>
+    <div class="cols">
+      <div class="box dark">
+        <h3>Need to run it to test?</h3>
+        <p class="small" style="margin-bottom:8px">Machinists often have to run a machine mid-job to test or adjust it. Do it this way, every time:</p>
+        <ol>
+          <li>Tools, parts and blocks out.</li>
+          <li>Everyone clear and counted.</li>
+          <li>Each worker takes off their own lock. In a group lockout, the lead removes the job locks after every red lock is off.</li>
+          <li>The operator or the group-lockout lead switches on and tests.</li>
+          <li>Shut down, isolate, lock and verify zero again before anyone goes back in.</li>
+        </ol>
+        <p class="small" style="margin-top:8px"><b>Never jog or test a machine while anyone else's lock is still on, or with any part of your body inside.</b></p>
+      </div>
+      <div class="box">
+        <h3>Lock colors <span class="k">(site rule)</span></h3>
+        <div class="locks" style="grid-template-columns:minmax(0,1fr)">
+          <div><i style="background:var(--red)"></i><b>Red · Personal</b><span>Everyone's own lock, from the Quartermaster. Engraved with your Colonist ID. Only you hold the key.</span></div>
+          <div><i style="background:var(--hiviz)"></i><b>Yellow · Job lock</b><span>Group lockout and machines with several isolation points. Keys go in the yellow lockbox.</span></div>
+          <div><i style="background:var(--blue)"></i><b>Blue · Electrical &amp; Power isolation</b><span>E&amp;P locks on substations and feeders. Their work, their release. <b>A blue lock doesn't protect you.</b> Working on equipment fed from it? Put your own red lock on too, on E&amp;P's lockbox or your machine's own disconnect.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Two different tags</h2><span class="tag">Know which one you are looking at</span></div>
+    <div class="cols">
+      <div class="box">
+        <span class="tagmock dg">Danger · Do not operate</span>
+        <h3>Lockout tag</h3>
+        <ul>
+          <li>Goes on with your lock, at the isolation point or on the lockbox.</li>
+          <li>Shows your name, Colonist ID, crew, date and the reason.</li>
+          <li>It warns. <b>Your lock protects.</b> Only you take it off.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <span class="tagmock oos">Out of service</span>
+        <h3>Out of service tag</h3>
+        <ul>
+          <li>For broken tools, leads, cords and machines: cracked insulation, a missing guard, a damaged plug, a tool that sparks or runs rough.</li>
+          <li>Switch it off or unplug it. Hang a yellow <b>OUT OF SERVICE</b> tag (from the Quartermaster) on the plug or the controls. Hand tools and leads go to your crew lead, out of use.</li>
+          <li>Tell your crew lead and report it on form HS-IR.</li>
+          <li>Only the foreman takes the tag off, after the repair is checked. Electrical repairs are for Electrical &amp; Power only.</li>
+          <li><b>An out of service tag protects nobody working inside a machine.</b> To work on it, lock it out.</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -146,7 +228,7 @@
           <li>Remove rings, watches, chains and lanyards before running lathes, mills and drill presses.</li>
           <li>Clamp the work. Never hold small parts by hand on a drill press.</li>
           <li>Use a brush or hook for chips. Stop the machine first.</li>
-          <li>Report a missing or damaged guard and tag the machine out.</li>
+          <li><b>Missing or damaged guard?</b> Hang an out of service tag on the controls, tell your crew lead, and leave the machine off until the guard is fixed and checked.</li>
         </ul>
       </div>
       <div class="dont">
@@ -157,34 +239,54 @@
           <li>Never reach around, over or under a guard.</li>
           <li>Never bypass, tape over or jumper an interlock or light curtain.</li>
           <li>Never clear a jam with the machine running.</li>
+          <li><b>Don't blow chips off with shop air.</b> If air is the only way: under 30 psi, with a chip guard and a face shield. Never point air at anyone.</li>
         </ul>
       </div>
     </div>
   </section>
 
+  <section class="sec">
+    <div class="sh"><h2>Hand and power tools</h2><span class="tag">Inspect before every use</span></div>
+    <div class="tw"><table>
+      <thead><tr><th>Tool</th><th>Rules</th></tr></thead>
+      <tbody>
+        <tr><td>Grinders</td><td>Guard on. Wheel rated for at least the grinder's RPM. Ring-test wheels before mounting: a cracked wheel sounds dull. Stand to one side at startup. <b>Never grind with the side of a cut-off wheel.</b> Bench grinders: work rest within ⅛ in of the wheel, top guard within ¼ in.</td></tr>
+        <tr><td>Cut-off saws</td><td>Wet cutting on Dunecrete, stone and masonry (silica: <a href="m2-dust-air-ppe.html">HS-02</a>). Guard on, both hands on. Keep the upper front of the blade out of the cut: that is where it kicks back. Stand to the side of the blade line.</td></tr>
+        <tr><td>Powder-actuated tools</td><td>Licensed operators only: trained on that tool, with the endorsement on their badge. Never point it at anyone. Load only just before you fire. Never into brittle or very hard material, or where vapor could ignite.</td></tr>
+        <tr><td>Nail guns</td><td>Full sequential trigger only (site rule). Free hand at least 12 in from the nail. Disconnect the air or battery to clear a jam or before you walk away.</td></tr>
+        <tr><td>Air hoses</td><td>Whip check on every coupling. Excess-flow valve on hoses over ½ in inside diameter. Bleed the line before you uncouple.</td></tr>
+        <tr><td>Cordless batteries</td><td>Charge and store in a cooled space, inside the maker's temperature range. Never leave packs or tools in the sun. Swollen, cracked, hot or hard-dropped pack: tag it out of service and set it on bare sand away from anything that burns. A pack that smokes is a power-cell fire: get clear, call Ch 1 "Fire".</td></tr>
+        <tr><td>Hot handles</td><td>Tools left in the sun burn. Keep them shaded. Gloves on.</td></tr>
+        <tr><td>Vibration</td><td>Breakers, rotary hammers, grinders: share the work and take breaks off the tool. Tingling, numbness or white fingertips: report to the Forward Aid Station (FAS).</td></tr>
+        <tr><td>Cords and power</td><td>Check cords and plugs before use. Temporary power needs GFCI protection: <a href="sb-electrical.html">Supplement B (HS-SB)</a>.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
   <section class="emerg">
     <div>
       <h2>Caught in</h2>
-      <p class="cf">Stop the machine.<br>Then help.</p>
-      <p class="sm">Reaching in to pull someone out of a running machine puts two people in it.</p>
+      <p class="cf">Stop it.<br>Lock it.<br>Then help.</p>
+      <p class="sm">Reaching into a machine that can restart, drop or spring back puts two people in it.</p>
     </div>
     <ol>
       <li><b>Hit the emergency stop</b> or kill the disconnect.</li>
-      <li><b>Ch 1: "Emergency, emergency, emergency. Caught-in,"</b> with sector-grid, deck and number hurt.</li>
-      <li><b>Don't reverse the machine</b> to free them unless the medic or rescue says so. It can cause more injury.</li>
-      <li><b>Control bleeding</b> with direct pressure. Apply a tourniquet above a limb wound that won't stop.</li>
-      <li><b>Amputated part:</b> wrap in clean damp cloth, seal in a bag, keep the bag cool on ice. Don't put the part directly on ice.</li>
+      <li><b>Ch 1: "Emergency, emergency, emergency. Caught-in."</b> Then location, number hurt, hazards, your call sign. Stay on Ch 1 until Hub Command or the medic releases you.</li>
+      <li><b>Before anyone reaches in:</b> lock the disconnect, or put one person on it with orders to keep it off. Block anything that can drop or spring back.</li>
+      <li><b>Control bleeding</b> with direct pressure. A limb bleed that won't stop: tourniquet 2–3 in above the wound, never on a joint.</li>
+      <li><b>Free them only with Rescue in charge.</b> Never run the machine in reverse. Rescue may take it apart or turn it by hand.</li>
+      <li><b>Amputated part:</b> wrap it in clean damp cloth, seal it in a bag, keep the bag cool on ice. Never put the part directly on ice. It goes with the casualty.</li>
     </ol>
   </section>
 
   <section class="saw">
     <h2>Stop-work authority</h2>
-    <p>Missing guard, no lockout procedure, someone working inside a machine without their own lock: <b>stop the work</b> and call your foreman. No penalty, no questions.</p>
+    <p>Missing guard, no lockout card, someone inside a machine without their own lock? <b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
   </section>
 
   <section class="ack">
     <h3>Worker acknowledgement</h3>
-    <p class="small">I have read this poster. I have my personal lock and tags, I know the lockout sequence, and I will never remove another worker's lock.</p>
+    <p class="small">I have read this poster. I have my personal lock and tags, I know the lockout sequence, I will never test for voltage unless I am a qualified electrical worker, and I will never remove another worker's lock.</p>
     <div class="ackrow">
       <label for="a-name">Name<input id="a-name" data-ack="name" autocomplete="off"></label>
       <label for="a-cid">Colonist ID<input id="a-cid" data-ack="cid" autocomplete="off"></label>
@@ -195,7 +297,7 @@
   </section>
 
   <footer class="foot">
-    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.147 (control of hazardous energy), OSHA 1910 Subpart O &amp; 1910.212 (machine guarding), ANSI/ASSP Z244.1 (lockout, tagout and alternative methods), NFPA 70E (electrical safety in the workplace).</span>
+    <span>Adapted from Old Earth standards: OSHA 29 CFR 1910.147 (control of hazardous energy), 1910.212, 1910.215 and 1910.242(b) (machine guarding, abrasive wheels, compressed air), 1926.302 and 1926.303 (power tools, powder-actuated tools, abrasive wheels), 1926.417 (lockout of circuits); ANSI/ASSP Z244.1 (lockout); ANSI B7.1 (abrasive wheels); ANSI A10.3 (powder-actuated tools); NFPA 70E Art. 120, 320 and 360 (electrically safe work, batteries, capacitors); OSHA/NIOSH nail gun safety guide; ASTM C1055 (hot surface burns); ACGIH static magnetic field TLV.</span>
     <span>HS-07 · Dunewright Colony Works · Replace when faded</span>
   </footer>
 </article>

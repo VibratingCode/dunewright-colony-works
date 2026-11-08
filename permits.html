@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>REF-PTW Permits at a Glance · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="assets/poster.css">
+<style>
+/* page-local: hat dots, site-rule labels, permit table that stacks on phones */
+.hat{display:inline-block;width:12px;height:12px;border-radius:50% 50% 2px 2px;border:2px solid var(--black);vertical-align:-1px;margin-right:5px}
+.sr{font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;opacity:.7;white-space:nowrap}
+.ptw td{font-size:12.5px;overflow-wrap:anywhere}
+.ptw td:first-child{background:var(--hiviz);min-width:104px}
+.ptw td:first-child b{display:block;font:400 22px/1 var(--display);letter-spacing:.02em}
+.ptw td:first-child span{display:block;font:700 11px/1.25 var(--mono);text-transform:uppercase;margin-top:3px}
+.box ul + p,.box p + ul{margin-top:8px}
+@media (max-width:760px){
+  table.stack thead{display:none}
+  table.stack,table.stack tbody,table.stack tr,table.stack td{display:block;width:100%}
+  table.stack tr{border:2px solid var(--black);margin-bottom:10px}
+  table.stack td{border:0;border-top:1px solid var(--rule);padding:6px 10px}
+  table.stack td:first-child{border-top:0}
+  table.stack td[data-l]::before{content:attr(data-l);display:block;font:700 10px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+}
+</style>
+</head>
+<body data-page="ref-ptw">
+<div class="wall">
+<article class="poster">
+
+  <header class="head">
+    <div class="meta"><span>Form REF-PTW · Rev. 5</span><span>Post-stasis refresher · Reference sheet</span><span>Post at every permit board</span></div>
+    <div class="co">
+      <svg class="logo" viewBox="0 0 46 46" aria-hidden="true"><rect x="1.5" y="1.5" width="43" height="43" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 34 L23 10 L38 34 Z" fill="currentColor"/><circle cx="23" cy="27" r="4.5" fill="#f5d000"/><rect x="6" y="36" width="34" height="3" fill="currentColor"/></svg>
+      <div><b>Dunewright Colony Works</b><span>Settlement Site 4 · Construction Division · Safety &amp; Health</span></div>
+    </div>
+    <h1>Permits at a glance.</h1>
+    <p class="sub">No permit, no start. Every live permit hangs at the job and on the structure's permit board.</p>
+  </header>
+  <div class="stripe"></div>
+
+  <section class="sec">
+    <div class="sh"><h2>Every permit and plan</h2><span class="tag">Signers by station and hat<br>Roles and terms: <a href="roles-glossary.html">REF-GL</a></span></div>
+    <div class="tw"><table class="ptw stack">
+      <thead><tr><th>Permit</th><th>Needed for</th><th>Signed by</th><th>Closed by</th><th>Lasts</th><th>Posted</th><th>Learn it in</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>PTW-HW</b><span>Hot work</span></td>
+          <td data-l="Needed for">Welding, cutting, grinding, brazing or torch work outside a designated welding bay. Stops in wind 20+ mph or a blowing-dust advisory. No hot work at 1% LEL or above <span class="sr">(site rule)</span>.</td>
+          <td data-l="Signed by"><i class="hat" style="background:#fff"></i>The foreman responsible for the work area. Never the person doing the hot work.</td>
+          <td data-l="Closed by">The signing foreman, after the fire watch reports "watch complete" 60 min after the hot work ends (NFPA 51B; the OSHA 1910.252 minimum is 30), and after any walk-through checks logged on the permit are done <span class="sr">(site rule, HS-05)</span>. Opened and closed on Ch 13.</td>
+          <td data-l="Lasts">One location, one shift.</td>
+          <td data-l="Posted">At the job and on the permit board.</td>
+          <td data-l="Learn it in"><a href="m5-hot-work.html">HS-05</a></td>
+        </tr>
+        <tr>
+          <td><b>PTW-CS</b><span>Confined space</span></td>
+          <td data-l="Needed for">Any entry into a confined space. Every one counts as permit-required <span class="sr">(site rule)</span> until the entry supervisor signs a written certificate at the hatch that every hazard has been removed (<a href="cs-confined-spaces.html">HS-SA</a>). Entry stops at 10% LEL.</td>
+          <td data-l="Signed by"><i class="hat" style="background:#fff"></i>The entry supervisor: a foreman or general foreman with the HS-SA endorsement.</td>
+          <td data-l="Closed by">The entry supervisor, when the job is done, conditions change or the shift ends, with every entrant out and counted.</td>
+          <td data-l="Lasts">The task, never past one shift <span class="sr">(site rule)</span>. A new shift needs a new PTW-CS and fresh air tests. Entry supervisor or attendant changes mid-shift (8 h role limit): the incoming one signs the permit before the outgoing one leaves. Attendants pass the entrant count in person.</td>
+          <td data-l="Posted">At the hatch and on the permit board, with names, air tests, times and the rescue plan.</td>
+          <td data-l="Learn it in"><a href="cs-confined-spaces.html">Supplement A (HS-SA)</a></td>
+        </tr>
+        <tr>
+          <td><b>PTW-HE</b><span>Heat entry</span></td>
+          <td data-l="Needed for">Any work at the Extreme heat entry level, 140–159°F.</td>
+          <td data-l="Signed by"><i class="hat" style="background:#fff"></i>The area general foreman, <i class="hat" style="background:var(--green)"></i>countersigned by a Safety officer.</td>
+          <td data-l="Closed by">The signing general foreman, once every entrant is out and has had a medical check <span class="sr">(site rule)</span>.</td>
+          <td data-l="Lasts">One location, one shift <span class="sr">(site rule)</span>. Each entry: time set on the permit, never over 15 min, then at least 30 min in a cooled space <span class="sr">(site rule)</span>. Entrants must have finished the ramp and Days 6–14 and be cleared for heat entry that shift by Revival Med Bay or the FAS <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">At the job and on the permit board, with every entry logged.</td>
+          <td data-l="Learn it in"><a href="m3-heat.html">HS-03</a></td>
+        </tr>
+        <tr>
+          <td><b>PTW-EE</b><span>Energized electrical</span></td>
+          <td data-l="Needed for">Work on or near exposed live parts, only when de-energizing is infeasible or creates a greater hazard. Qualified electrical workers (blue hats) only. Testing and voltage measuring by a qualified worker need no PTW-EE (HS-SB).</td>
+          <td data-l="Signed by"><i class="hat" style="background:#fff"></i>The Electrical &amp; Power general foreman.</td>
+          <td data-l="Closed by">The Electrical &amp; Power general foreman, when the work is done and the equipment is closed up <span class="sr">(site rule)</span>.</td>
+          <td data-l="Lasts">One task, one shift <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">At the job and on the permit board.</td>
+          <td data-l="Learn it in"><a href="sb-electrical.html">Supplement B (HS-SB)</a></td>
+        </tr>
+        <tr>
+          <td><b>PTW-DG</b><span>Dig permit</span></td>
+          <td data-l="Needed for">Any digging, trenching or drilling into the ground, and driving stakes, pins or anchors.</td>
+          <td data-l="Signed by"><i class="hat" style="background:#fff"></i>The area foreman, after <i class="hat" style="background:#9a9a9a"></i>Survey and <i class="hat" style="background:var(--blue)"></i>Electrical &amp; Power locate and mark buried services.</td>
+          <td data-l="Closed by">The area foreman, when the dig is backfilled or handed over <span class="sr">(site rule)</span>.</td>
+          <td data-l="Lasts">Until the job is done, while the marks last. Marks blown away by sand: locate again before digging <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">At the job and on the permit board.</td>
+          <td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td>
+        </tr>
+        <tr>
+          <td><b>LP-</b><span>Critical lift plan</span></td>
+          <td data-l="Needed for">Any critical lift: 75%+ of chart capacity, two or more cranes, personnel lifts, loads over occupied structures, or unusual loads. Every other lift is still planned (HS-06).</td>
+          <td data-l="Signed by">Prepared by Design &amp; Structures. <i class="hat" style="background:#fff"></i>Approved by the Lift Director, who directs the lift on site.</td>
+          <td data-l="Closed by">The Lift Director, when the load is landed and unrigged <span class="sr">(site rule)</span>.</td>
+          <td data-l="Lasts">That lift, as planned. Any change to load, crane, radius, path or rigging goes back to the Lift Director <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">In the crane cab and on the permit board. Names the lift talkgroup and who scans Ch 1 + Ch 16 for the crew, never the operator.</td>
+          <td data-l="Learn it in"><a href="m6-cranes-equipment.html">HS-06</a></td>
+        </tr>
+        <tr>
+          <td><b>Fall rescue</b><span>Rescue plan</span></td>
+          <td data-l="Needed for">Any work that needs fall protection: 6 ft and up, Deck 1 and above, scaffolds at 10 ft. No rescue plan, no climb.</td>
+          <td data-l="Signed by"><i class="hat" style="background:linear-gradient(var(--hiviz) 0 40%,#fff 40% 70%,var(--hiviz) 70%)"></i>The crew lead names the method and gear before anyone goes up. The fall-protection competent person checks it <span class="sr">(site rule)</span>.</td>
+          <td data-l="Closed by">The crew lead, when everyone is down.</td>
+          <td data-l="Lasts">That task and location, one shift. Re-check whenever the work moves <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">At the work, with the rescue gear, and on the permit board <span class="sr">(site rule)</span>.</td>
+          <td data-l="Learn it in"><a href="m4-heights.html">HS-04</a> · <a href="sc-scaffolds-aerial-lifts.html">Supplement C (HS-SC)</a></td>
+        </tr>
+        <tr>
+          <td><b>PTW-SP</b><span>Spray permit · isocyanates · VeilCoat</span></td>
+          <td data-l="Needed for">Spraying isocyanate coatings or foams, QuickSet C-4X or VeilCoat. Respirator: supplied air for all isocyanate spraying <span class="sr">(site rule)</span>; full-face P100 + organic vapor for VeilCoat. IH may require more, never less. Bystanders out of the spray zone.</td>
+          <td data-l="Signed by"><i class="hat" style="background:var(--green)"></i>Industrial Hygiene sets the respirator and spray zone. <i class="hat" style="background:#fff"></i>The area foreman signs <span class="sr">(site rule)</span>.</td>
+          <td data-l="Closed by">The area foreman, when spraying ends and the solvent has flashed off.</td>
+          <td data-l="Lasts">One location, one shift <span class="sr">(site rule)</span>.</td>
+          <td data-l="Posted">At the spray-zone boundary and on the permit board.</td>
+          <td data-l="Learn it in"><a href="m8-materials.html">HS-08</a></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p class="note">Designated welding bays in the Fabrication Yards need no PTW-HW. Hot work inside a confined space needs both a PTW-CS and a PTW-HW. A confined space at 140°F or hotter needs both a PTW-CS and a PTW-HE.</p>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Rules for every permit</h2><span class="tag">Read it · post it · stop when it changes</span></div>
+    <div class="cols three">
+      <div class="box">
+        <h3>Before work starts</h3>
+        <ul>
+          <li>The signer walks the job and checks the permit board before signing. Never from an office. <span class="sr">(site rule)</span></li>
+          <li>The signer runs the conflict check below.</li>
+          <li>Read the permit before you start. Your name on it means you've been briefed on its hazards and controls.</li>
+          <li>Posted at the job and on the board, or no start.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>While it's live</h3>
+        <p class="small">Something changes: stop. The permit is suspended until the signer re-checks the job. <span class="sr">(site rule)</span></p>
+        <ul>
+          <li>Wind 20+ mph or a blowing-dust advisory (hot work).</li>
+          <li>A meter alarm: 1% LEL for hot work, 10% LEL for entry, or O₂ outside 19.5–23.5%.</li>
+          <li>A sandstorm warning, a flood warning, a lightning alert, a take-shelter or evacuate siren, or ALL STOP. A sandstorm watch or the weekly siren test doesn't suspend permits.</li>
+          <li>A new task, location or crew.</li>
+        </ul>
+        <p class="small">Missing or expired permit at a job: use your stop-work authority.</p>
+      </div>
+      <div class="box">
+        <h3>The permit board</h3>
+        <ul>
+          <li>One at every structure. Work on open ground uses the board at the sector office. <span class="sr">(site rule)</span></li>
+          <li>It holds every live permit, LP- plan and fall-rescue plan, and every group lockout with the group-lockout lead's name. <span class="sr">(site rule)</span></li>
+          <li>Signers check it for conflicting work before they sign.</li>
+          <li>Closed permits come off the board and go to Safety &amp; Health for the record. <span class="sr">(site rule)</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sh"><h2>Conflict checks (SIMOPS)</h2><span class="tag">Simultaneous operations<br>Checked before the second permit is signed</span></div>
+    <p class="small" style="margin-bottom:12px">SIMOPS means two jobs close enough to endanger each other. Before signing, the signer checks the permit board and walks the area. The second job isn't signed until both signers agree how the jobs stay apart, and write it on both permits. <span class="sr">(site rule)</span></p>
+    <div class="signs two">
+      <div class="sg" style="--c:var(--red)">
+        <h3>Hot work near spraying</h3>
+        <p>VeilCoat solvent and spray mist burn. No hot work within 35 ft of VeilCoat or any other solvent spraying (PTW-SP), while it runs or until the solvent flashes off.</p>
+        <p><span class="k">Do:</span> schedule them apart, or put 35 ft and a barrier between them. Test the air below 1% LEL before the torch lights.</p>
+      </div>
+      <div class="sg" style="--c:var(--orange)">
+        <h3>Loads over hot work or entries</h3>
+        <p>No load path over a hot-work zone, an open hatch, an attendant or a trench crew. Slag and sparks cut and melt synthetic slings.</p>
+        <p><span class="k">Do:</span> the Lift Director reroutes the lift, or the other job pauses and clears out while the load passes.</p>
+      </div>
+      <div class="sg" style="--c:var(--blue)">
+        <h3>Inert-gas purges near entries</h3>
+        <p>Argon and nitrogen vent from purged tanks and hull voids and pool in low spots: pits, trenches, the next hatch over.</p>
+        <p><span class="k">Do:</span> route purge vents away from hatches, trenches and air intakes. The entry supervisor checks the board for purges before signing a PTW-CS, and the air is tested at the hatch.</p>
+      </div>
+      <div class="sg" style="--c:var(--hiviz)">
+        <h3>Shared lockouts</h3>
+        <p>Two crews on one machine or circuit share one group lockout: yellow job locks, keys in the yellow lockbox, every worker's red lock on the box, one group-lockout lead. Crews under different foremen: the foremen agree on one lead and write the name on the lockbox tag. If they can't agree, the general foreman names the lead.</p>
+        <p><span class="k">Do:</span> Electrical &amp; Power's blue locks stay on until their own release. Nothing is re-energized until every crew's locks are off (<a href="m7-lockout.html">HS-07</a>).</p>
+      </div>
+    </div>
+    <div class="cols" style="margin-top:20px">
+      <div class="box">
+        <h3>Also check</h3>
+        <ul>
+          <li><b>Digging near a crane:</b> no excavation beside or under outrigger mats unless the Lift Director and the excavation competent person agree.</li>
+          <li><b>Engines and exhaust:</b> keep generators, vehicles and compressors away from confined-space air intakes (HS-SA).</li>
+          <li><b>Energized work:</b> barricade the limited approach boundary of a PTW-EE job. No other crew works inside it (HS-SB).</li>
+          <li><b>Work below work:</b> no crew under overhead work, hot work from above, or a load path.</li>
+        </ul>
+      </div>
+      <div class="box dark">
+        <h3>When signers disagree</h3>
+        <ul>
+          <li>Foremen who can't agree take it to their general foreman, then the Assistant Super on shift. <span class="sr">(site rule)</span></li>
+          <li>Until it's settled, the second job waits.</li>
+          <li>Any green hat can stop both jobs.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="saw">
+    <h2>Stop-work authority</h2>
+    <p>No permit, an expired permit, or a conflict nobody checked: that's unsafe work. <b>Anyone can stop unsafe work. No penalty, no questions.</b> Stop it, make it safe, tell your crew lead (your foreman if there's no crew lead; any green hat if it isn't fixed). Work restarts only when the crew lead confirms the fix with the person who stopped it. Every stop is logged.</p>
+  </section>
+
+  <footer class="foot">
+    <span>Adapted from Old Earth standards: UK HSE HSG250 permit-to-work guidance, OSHA 1910.252 and NFPA 51B (hot work), OSHA 1910.146 (permit-required confined spaces), NFPA 70E (energized electrical work permit), OSHA 1926.651(b) (underground installations), OSHA 1926 Subpart CC and ASME B30.5 (lift planning), OSHA 1926.502(d)(20) (prompt rescue), OSHA 1910.134 (respiratory protection), OSHA 1910.147 (group lockout). The heat entry permit, spray permit (PTW-SP) and permit board rules are DCW site rules.</span>
+    <span>REF-PTW · Dunewright Colony Works · Check the board</span>
+  </footer>
+</article>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>
