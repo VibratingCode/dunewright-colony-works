@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TOOL-MAP Site Atlas · Dunewright Colony Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* Visual identity from assets/poster.css (tokens copied so this app page can use its own full-screen layout). */
+:root{
+  color-scheme:light;
+  --paper:#f7f4e8; --ink:#141414; --muted:#55524a; --rule:#c9c3ad; --sand:#efe6c8;
+  --hiviz:#f5d000; --orange:#ec5b13; --red:#c4161c; --black:#141414; --blue:#1d5fa8; --green:#2f8a57; --grey:#9a978b;
+  --display:"Anton","Impact","Arial Narrow",sans-serif;
+  --body:"Archivo",system-ui,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;height:100%}
+body{margin:0;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:var(--paper);color:var(--ink);font:15px/1.45 var(--body)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1;letter-spacing:.01em}
+p{margin:0}
+
+/* header band */
+.top{background:var(--hiviz);border-bottom:4px solid var(--black);padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px;flex:none}
+.top .back{font:700 12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em;text-decoration:none;background:var(--black);color:var(--hiviz);padding:5px 9px}
+.top .back:hover{color:#fff}
+.top h1{font-size:30px}
+.top .meta{font:700 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;display:flex;flex-wrap:wrap;gap:2px 14px}
+.top .sp{flex:1}
+.top .m1link{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.05em}
+
+main{flex:1;min-height:0;display:flex}
+.mapwrap{position:relative;flex:1;min-width:0;min-height:0;background:var(--sand);overflow:hidden}
+.mapwrap:focus-within{outline:none}
+#map{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#map.dragging{cursor:grabbing}
+#map:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
+
+/* map overlays */
+.searchbar{position:absolute;top:10px;left:10px;right:64px;max-width:440px;display:flex;border:3px solid var(--black);background:var(--paper);z-index:3}
+.searchbar label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.searchbar input{flex:1;min-width:0;border:0;background:transparent;padding:8px 10px;font:600 15px var(--body)}
+.searchbar button{border:0;border-left:3px solid var(--black);background:var(--hiviz);font:700 12px var(--mono);text-transform:uppercase;padding:0 12px;cursor:pointer}
+.searchmsg{position:absolute;top:56px;left:10px;right:64px;max-width:440px;font:700 12px/1.35 var(--mono);background:var(--black);color:var(--hiviz);padding:6px 10px;z-index:3}
+.searchmsg:empty{display:none}
+.zoom{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;border:3px solid var(--black);background:var(--paper);z-index:3}
+.zoom button{width:42px;height:40px;border:0;border-bottom:2px solid var(--black);background:var(--paper);font:400 22px/1 var(--display);cursor:pointer}
+.zoom button:last-child{border-bottom:0;font:700 10px var(--mono);text-transform:uppercase}
+.zoom button:hover{background:var(--hiviz)}
+.mapfoot{position:absolute;left:10px;bottom:10px;display:flex;align-items:flex-end;gap:12px;z-index:2;pointer-events:none}
+.scalebar{font:700 11px var(--mono);text-transform:uppercase;background:rgba(247,244,232,.88);padding:4px 6px;border:2px solid var(--black)}
+.scalebar i{display:block;height:6px;border:2px solid var(--black);border-top:0;margin-top:3px}
+.north{font:700 12px var(--mono);background:rgba(247,244,232,.88);padding:4px 6px;border:2px solid var(--black)}
+
+/* side panel */
+.panel{width:min(410px,42vw);flex:none;border-left:4px solid var(--black);background:var(--paper);display:flex;flex-direction:column;min-height:0}
+.tabs{display:flex;border-bottom:3px solid var(--black);flex:none}
+.tabs button{flex:1;min-width:0;border:0;border-right:2px solid var(--black);background:var(--paper);padding:10px 4px;font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.tabs button:last-child{border-right:0}
+.tabs button[aria-selected="true"]{background:var(--black);color:var(--hiviz)}
+.tabs #sheet-toggle{display:none;flex:0 0 46px;font-size:16px}
+.pbody{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:14px 16px 24px}
+.pbody[hidden]{display:none}
+.pbody h2{font-size:30px;overflow-wrap:anywhere}
+.pbody h3{font-size:21px;margin:18px 0 8px;border-bottom:3px solid var(--black);padding-bottom:4px}
+.isub{font:700 12px/1.35 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-top:4px}
+.say{margin-top:10px;border:3px solid var(--black);padding:8px 10px;font-size:14px}
+.say b{font-family:var(--display);font-weight:400;font-size:20px;text-transform:uppercase;display:block;line-height:1.1}
+.facts{margin:12px 0 0;display:grid;gap:0;border:3px solid var(--black)}
+.facts > div{display:grid;grid-template-columns:118px minmax(0,1fr);border-top:2px solid var(--black)}
+.facts > div:first-child{border-top:0}
+.facts dt{font:700 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.04em;background:#ebe5cf;padding:7px 8px;border-right:2px solid var(--black)}
+.facts dd{margin:0;padding:7px 9px;font-size:14px;min-width:0;overflow-wrap:anywhere}
+.facts .warn dt{background:var(--blue);color:#fff}
+.facts .warn dd{background:#dde7f3}
+.facts .t{font:500 12px var(--mono);color:var(--muted);display:block}
+.linkbtn{border:0;background:none;padding:0;font:inherit;font-weight:800;text-decoration:underline;text-underline-offset:2px;cursor:pointer;text-align:left}
+.linkbtn:hover{background:var(--hiviz)}
+.note{font:500 12px/1.45 var(--mono);color:var(--muted);margin-top:10px}
+.chip{display:inline-block;font:700 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:3px 6px;border:2px solid var(--black);background:var(--paper);vertical-align:2px}
+.chip.ex{background:var(--black);color:var(--hiviz)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{border:3px solid var(--black);background:var(--hiviz);padding:6px 11px;font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.btn.alt{background:var(--paper)}
+.btn.danger{background:var(--red);color:#fff}
+.btn:hover{filter:brightness(.95)}
+.btn.sm{padding:3px 7px;font-size:11px;border-width:2px}
+.intro p{font-size:14px;margin-top:8px}
+.intro ul{margin:8px 0 0;padding-left:20px;font-size:14px}
+
+/* layers + legend */
+.layers{list-style:none;margin:0;padding:0;border:3px solid var(--black)}
+.layers li{border-top:2px solid var(--black)}
+.layers li:first-child{border-top:0}
+.layers label{display:grid;grid-template-columns:22px 30px minmax(0,1fr);align-items:center;gap:8px;padding:7px 10px;cursor:pointer;font-size:14px}
+.layers input{width:18px;height:18px;margin:0;accent-color:var(--black)}
+.layers small{display:block;font:500 11px/1.3 var(--mono);color:var(--muted)}
+.layers svg{display:block}
+.keylist{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13px}
+.keylist li{display:grid;grid-template-columns:30px minmax(0,1fr);align-items:center;gap:8px}
+
+/* forms */
+.form{display:grid;gap:8px;border:3px dashed var(--black);padding:10px}
+.form .row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.form label{display:grid;gap:3px;font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);min-width:0}
+.form input,.form select,.form textarea{border:2px solid var(--black);background:#fff;padding:6px 8px;font:600 14px var(--body);color:var(--ink);min-width:0;width:100%;border-radius:0}
+.form textarea{resize:vertical;min-height:54px;font-weight:400}
+.ferr{font:700 12px var(--mono);color:var(--red)}
+.ferr:empty{display:none}
+textarea.io{width:100%;min-height:120px;border:2px solid var(--black);background:#fff;padding:6px 8px;font:500 12px/1.4 var(--mono);resize:vertical;border-radius:0}
+.status{font:700 12px var(--mono);margin-top:6px}
+.status:empty{display:none}
+
+/* lists */
+.ilist{list-style:none;margin:0;padding:0;border:3px solid var(--black)}
+.ilist li{border-top:2px solid var(--black);padding:8px 10px;display:grid;gap:5px}
+.ilist li:first-child{border-top:0}
+.ilist .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.ilist .hd b{font-size:15px}
+.ilist .loc{font:700 12px var(--mono);color:var(--muted)}
+.ilist .acts{display:flex;flex-wrap:wrap;gap:6px}
+.ilist .empty{color:var(--muted);font-size:14px}
+.bar{height:12px;border:2px solid var(--black);background:#fff;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:var(--hiviz);border-right:2px solid var(--black)}
+.bar i.full{background:var(--green);border-right:0}
+.bigsum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:3px solid var(--black);margin-bottom:10px}
+.bigsum div{padding:8px;text-align:center;border-right:2px solid var(--black)}
+.bigsum div:last-child{border-right:0}
+.bigsum b{display:block;font:400 30px/1 var(--display)}
+.bigsum span{font:700 10px var(--mono);text-transform:uppercase}
+.dot{display:inline-block;width:12px;height:12px;border:2px solid var(--black);border-radius:50%;vertical-align:-1px;margin-right:4px}
+
+/* SVG map styles */
+#map text{pointer-events:none}
+#map .cell{stroke:#141414;stroke-width:.6;vector-effect:non-scaling-stroke;cursor:pointer}
+#map .cell:hover{fill:#fff6c9}
+#map.off-grid .cell{stroke:none}
+#map.off-grid .glabel{display:none}
+#map .glabel{display:none;font:700 11px var(--mono);font-size:calc(var(--px,1px) * 11);fill:#141414;text-anchor:middle;dominant-baseline:middle}
+#map .glabel .pre{display:none}
+#map.z-grid .glabel{display:inline}
+#map.z-gfull .glabel .pre{display:inline}
+#map .slbl{font-family:var(--display);font-size:min(24px,calc(var(--px,1px) * 40));fill:#141414;text-anchor:middle}
+#map .slbl .ch{font:700 10px var(--mono);font-size:.42em;fill:#141414}
+#map .slbl .pw{font:700 10px var(--mono);font-size:.42em;fill:#ec5b13}
+#map.z-grid .slbl{opacity:.28}
+#map .halo{paint-order:stroke;stroke:#f7f4e8;stroke-width:2.6px;stroke-linejoin:round}
+#map .mk{cursor:pointer}
+#map .mk > .sc{transform:scale(var(--ms,1))}
+#map .mlbl{display:none;font:700 9px var(--mono)}
+#map.z-lbl .mlbl{display:inline}
+#map .dlbl{display:none;font:700 8px var(--mono)}
+#map.z-det .dlbl{display:inline}
+#map .slbl2,#map .plbl{display:none;font:700 8px var(--mono)}
+#map.z-small .slbl2{display:inline}
+#map.z-near .plbl{display:inline}
+#map .wlbl{display:none;font:700 11px var(--mono);font-size:calc(var(--px,1px) * 11);fill:#1d5fa8;text-transform:uppercase;letter-spacing:.06em;text-anchor:middle}
+#map.z-lbl .wlbl{display:inline}
+#map .gsm{display:none}
+#map.z-small .gsm{display:inline}
+#map .nopt{pointer-events:none}
+#map.off-mp .L-mp,#map.off-fas .L-fas,#map.off-shl .L-shl,#map.off-shs .L-shs,#map.off-aed .L-aed,#map.off-road .L-road,
+#map.off-wadi .L-wadi,#map.off-fac .L-fac,#map.off-pins .L-pins,#map.off-struct .L-struct{display:none !important}
+#map .hl-cell{fill:rgba(245,208,0,.42);stroke:#141414;stroke-width:5;vector-effect:non-scaling-stroke;pointer-events:none}
+#map .hl-cell2{fill:none;stroke:#f5d000;stroke-width:2.5;vector-effect:non-scaling-stroke;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){#map .pulse{animation:pulse 1.2s ease-out 3}}
+@keyframes pulse{0%{opacity:1}100%{opacity:.25}}
+
+/* phone and narrow: panel becomes a bottom sheet */
+@media (max-width:760px){
+  .top{padding-top:6px;padding-bottom:6px;gap:2px 12px}
+  .top h1{font-size:24px}
+  .top .meta span.opt{display:none}
+  main{flex-direction:column}
+  .panel{width:auto;height:48%;border-left:0;border-top:4px solid var(--black)}
+  .panel.collapsed{height:auto}
+  .panel.collapsed .pbody{display:none}
+  .tabs #sheet-toggle{display:block}
+  .tabs button{font-size:11px;padding:10px 2px}
+  .facts > div{grid-template-columns:96px minmax(0,1fr)}
+  .searchmsg{top:52px}
+}
+@media (max-width:400px){
+  .top .m1link{display:none}
+  .form .row2{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="back" href="../index.html">← DCW Refresher</a>
+  <h1>Site atlas</h1>
+  <div class="meta"><span>Form TOOL-MAP · Rev. 5</span><span class="opt">Settlement Site 4 · Safety &amp; Health</span></div>
+  <span class="sp"></span>
+  <a class="m1link" href="../m1-orientation.html">Same map as HS-01</a>
+</header>
+
+<main>
+  <div class="mapwrap" id="mapwrap">
+    <form class="searchbar" id="search-form" role="search" autocomplete="off">
+      <label for="search-input">Find a grid, muster point, aid station, shelter or structure</label>
+      <input id="search-input" type="search" list="search-list" placeholder="Charlie-14, MP-C1, Charlie Aid…" spellcheck="false">
+      <button type="submit" id="search-go">Find</button>
+      <datalist id="search-list"></datalist>
+    </form>
+    <p class="searchmsg" id="search-msg" role="status" aria-live="polite"></p>
+    <div class="zoom">
+      <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+      <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+      <button type="button" id="zoom-reset" aria-label="Reset view">Reset</button>
+    </div>
+    <svg id="map" tabindex="0" role="application" aria-label="Site atlas map. Drag or use arrow keys to pan, mouse wheel or plus and minus to zoom, 0 to reset. Click a grid for details, or use the search box." xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="dune" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M0 12 Q4 8 8 12 T16 12" fill="none" stroke="#d7c79b" stroke-width="1.5"/></pattern>
+        <pattern id="flood" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="rgba(29,95,168,.16)"/><line x1="0" y1="0" x2="0" y2="5" stroke="rgba(29,95,168,.6)" stroke-width="1.4"/></pattern>
+      </defs>
+      <rect x="-400" y="-400" width="1400" height="1400" fill="url(#dune)" class="nopt"/>
+      <g id="g-cells"></g>
+      <g id="g-flood" class="L-wadi nopt"></g>
+      <g id="g-roads" class="L-road nopt"></g>
+      <g id="g-wadi" class="L-wadi nopt"></g>
+      <g id="g-hub"></g>
+      <g id="g-slbl" class="nopt"></g>
+      <g id="g-glbl" class="nopt"></g>
+      <g id="g-small"></g>
+      <g id="g-marks"></g>
+      <g id="g-gm"></g>
+      <g id="g-hl" class="nopt"></g>
+    </svg>
+    <div class="mapfoot" aria-hidden="true">
+      <div class="north">N ▲</div>
+      <div class="scalebar" id="scalebar">500 ft<i></i></div>
+    </div>
+  </div>
+
+  <aside class="panel" id="panel" aria-label="Atlas panel">
+    <div class="tabs" role="tablist" aria-label="Panel sections">
+      <button type="button" role="tab" id="tab-info" aria-controls="panel-info" aria-selected="true">Info</button>
+      <button type="button" role="tab" id="tab-layers" aria-controls="panel-layers" aria-selected="false" tabindex="-1">Layers</button>
+      <button type="button" role="tab" id="tab-build" aria-controls="panel-build" aria-selected="false" tabindex="-1">Build</button>
+      <button type="button" role="tab" id="tab-gm" aria-controls="panel-gm" aria-selected="false" tabindex="-1">GM</button>
+      <button type="button" id="sheet-toggle" aria-expanded="true" aria-controls="panel-info" aria-label="Collapse panel">▾</button>
+    </div>
+
+    <section class="pbody" id="panel-info" role="tabpanel" aria-labelledby="tab-info" tabindex="0"></section>
+
+    <section class="pbody" id="panel-layers" role="tabpanel" aria-labelledby="tab-layers" tabindex="0" hidden>
+      <h2>Layers and legend</h2>
+      <p class="isub">Symbols match the HS-01 site map</p>
+      <ul class="layers" id="layer-list" style="margin-top:10px"></ul>
+      <h3>Other marks</h3>
+      <ul class="keylist" id="key-list"></ul>
+      <p class="note">Grid numbers appear as you zoom in. Grid-block shelters and their AEDs appear at closer zoom. Hidden layers stay hidden on this device next time.</p>
+    </section>
+
+    <section class="pbody" id="panel-build" role="tabpanel" aria-labelledby="tab-build" tabindex="0" hidden>
+      <h2>Build tracker</h2>
+      <p class="isub">Structures and decks · Stored in this browser</p>
+      <div class="bigsum" id="build-sum" style="margin-top:10px"></div>
+      <ul class="ilist" id="struct-list"></ul>
+      <h3 id="st-form-title">Add a structure</h3>
+      <form class="form" id="st-form" novalidate>
+        <input type="hidden" id="st-id">
+        <label for="st-name">Name<input id="st-name" maxlength="60" placeholder="Tower B"></label>
+        <div class="row2">
+          <label for="st-grid">Grid<input id="st-grid" maxlength="24" placeholder="Charlie-14"></label>
+          <label for="st-status">Status<select id="st-status"></select></label>
+        </div>
+        <div class="row2">
+          <label for="st-planned">Decks planned<input id="st-planned" type="number" min="1" max="200" step="1" inputmode="numeric" value="10"></label>
+          <label for="st-built">Decks built<input id="st-built" type="number" min="0" max="200" step="1" inputmode="numeric" value="0"></label>
+        </div>
+        <label for="st-notes">Notes<textarea id="st-notes" maxlength="1000"></textarea></label>
+        <p class="ferr" id="st-err" role="alert"></p>
+        <div class="btnrow" style="margin-top:0">
+          <button type="submit" class="btn" id="st-save">Add structure</button>
+          <button type="button" class="btn alt" id="st-usesel">Use selected grid</button>
+          <button type="button" class="btn alt" id="st-cancel" hidden>Cancel edit</button>
+        </div>
+      </form>
+      <p class="note">Progress = decks built ÷ decks planned. Deck 0 is the ground. Every structure has a permit board, and each deck of an active structure has a cooling station with an ice trough and an AED.</p>
+    </section>
+
+    <section class="pbody" id="panel-gm" role="tabpanel" aria-labelledby="tab-gm" tabindex="0" hidden>
+      <h2>GM pins and data</h2>
+      <p class="isub">Stored in this browser only · Export to keep or share</p>
+      <h3>Pins</h3>
+      <ul class="ilist" id="pin-list"></ul>
+      <h3 id="pin-form-title">Add a pin</h3>
+      <form class="form" id="pin-form" novalidate>
+        <input type="hidden" id="pin-id">
+        <label for="pin-label">Label<input id="pin-label" maxlength="80" placeholder="Crane lift scene"></label>
+        <div class="row2">
+          <label for="pin-grid">Grid<input id="pin-grid" maxlength="24" placeholder="Charlie-14"></label>
+          <label for="pin-type">Type<select id="pin-type"></select></label>
+        </div>
+        <label for="pin-notes">Notes<textarea id="pin-notes" maxlength="1000"></textarea></label>
+        <p class="ferr" id="pin-err" role="alert"></p>
+        <div class="btnrow" style="margin-top:0">
+          <button type="submit" class="btn" id="pin-save">Add pin</button>
+          <button type="button" class="btn alt" id="pin-usesel">Use selected grid</button>
+          <button type="button" class="btn alt" id="pin-cancel" hidden>Cancel edit</button>
+        </div>
+      </form>
+
+      <h3>Examples</h3>
+      <p style="font-size:14px">Example pins and structures are marked <span class="chip ex">Example</span>. They load only when this browser has no saved atlas data.</p>
+      <div class="btnrow"><button type="button" class="btn alt" id="gm-clear-examples">Clear examples</button></div>
+
+      <h3>Export</h3>
+      <label class="isub" for="gm-export" style="display:block;margin-bottom:4px">Atlas data as JSON</label>
+      <textarea class="io" id="gm-export" readonly></textarea>
+      <div class="btnrow"><button type="button" class="btn" id="gm-copy">Copy JSON</button></div>
+      <p class="status" id="gm-copy-status" role="status" aria-live="polite"></p>
+
+      <h3>Import</h3>
+      <label class="isub" for="gm-import" style="display:block;margin-bottom:4px">Paste exported JSON</label>
+      <textarea class="io" id="gm-import" placeholder='{"format":"dcw-atlas","version":1,"pins":[],"structures":[]}'></textarea>
+      <div class="btnrow">
+        <button type="button" class="btn" id="gm-import-add">Import and add</button>
+        <button type="button" class="btn alt" id="gm-import-replace">Import and replace all</button>
+      </div>
+      <p class="status" id="gm-import-status" role="status" aria-live="polite"></p>
+
+      <h3>Reset</h3>
+      <div class="btnrow"><button type="button" class="btn danger" id="gm-clear-all">Delete all pins and structures</button></div>
+      <p class="note" id="gm-storage-note"></p>
+    </section>
+  </aside>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== constants and geometry =====================
+   Geometry matches the HS-01 site map (m1-orientation.html): 600 x 600 units, center 300,300,
+   sector wedges of 45 degrees between radius 80 (Hub edge) and 250, Alpha centered on north and
+   the rest clockwise. Marker positions use the same polar formulas as m1.                       */
+const NS="http://www.w3.org/2000/svg";
+const CX=300,CY=300,RI=80,RO=250;
+const SECT=["Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel"];
+const FILLS=["#f3e7bf","#ece0b4","#f3e7bf","#ece0b4","#f3e7bf","#ece0b4","#f3e7bf","#ece0b4"];
+const RING_N=[3,4,5,6,7,7,8];          // cells per ring, inner to outer: 40 per sector
+const RING_START=[0,3,7,12,18,25,32];  // grid number before the ring's first cell
+const NRING=RING_N.length, DR=(RO-RI)/NRING;
+const FT_PER_UNIT=20;                  // atlas scale assumption: 1 map unit = 20 ft
+const WALK_FTS=4.4;                    // 3 mph walking pace in PPE
+const FLOOD_HW=9;                      // flood zone half-width in map units (180 ft each side)
+const R_HUBROAD=86,R_MIDLOOP=189,R_OUTLOOP=254;
+const DEG=Math.PI/180;
+const STATUSES=["Planned","Active","On hold","Complete"];
+const PIN_TYPES={scene:{label:"Scene",color:"#6b3fa0",fg:"#fff",ch:"S"},incident:{label:"Incident",color:"#c4161c",fg:"#fff",ch:"!"},
+  hazard:{label:"Hazard",color:"#f5d000",fg:"#141414",ch:"H"},note:{label:"Note",color:"#55524a",fg:"#fff",ch:"N"}};
+const KEY_DATA="dcw-atlas-v1",KEY_LAYERS="dcw-atlas-layers-v1";
+const NUMWORD=["zero","one","two","three","four","five","six","seven","eight","niner"];
+
+const pt=(r,a)=>[CX+r*Math.sin(a),CY-r*Math.cos(a)];
+const ptd=(r,d)=>pt(r,d*DEG);
+const dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
+function polar(x,y){const dx=x-CX,dy=y-CY;let a=Math.atan2(dx,-dy)/DEG;if(a<0)a+=360;return {r:Math.hypot(dx,dy),a:a};}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);if(attrs)for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+const f1=n=>Math.round(n*100)/100;
+function spoken(n){return String(n).split("").map(d=>NUMWORD[+d]).join("-");}
+function fmtFt(ft){return Math.round(ft/10)*10>=1000?(Math.round(ft/10)*10).toLocaleString("en-US")+" ft":Math.round(ft/10)*10+" ft";}
+function walk(units){const ft=units*FT_PER_UNIT,min=ft/WALK_FTS/60;const t=min<1?"under 1 min":"about "+Math.round(min)+" min";return {ft:ft,min:min,text:t+" · "+fmtFt(ft)};}
+
+/* ===================== grids ===================== */
+const GRIDS=[]; // GRIDS[s][num]
+for(let s=0;s<8;s++){
+  GRIDS[s]=[];
+  for(let k=0;k<NRING;k++){
+    const n=RING_N[k];
+    for(let j=0;j<n;j++){
+      const a0=s*45-22.5+j*45/n,a1=a0+45/n,r0=RI+k*DR,r1=r0+DR,am=(a0+a1)/2,rm=(r0+r1)/2;
+      const num=RING_START[k]+j+1;
+      const g={s:s,num:num,k:k,j:j,n:n,a0:a0,a1:a1,r0:r0,r1:r1,am:am,rm:rm,
+        name:SECT[s]+"-"+num,short:SECT[s][0]+"-"+num,id:"g-"+SECT[s][0]+num,c:ptd(rm,am)};
+      const sr=rm-DR*0.2,dA=3.6/sr/DEG;
+      g.shPos=ptd(sr,am-dA); g.aedPos=ptd(sr,am+dA); g.lblPos=ptd(rm+DR*0.2,am);
+      const p=[ptd(r0,a0),ptd(r1,a0),ptd(r1,a1),ptd(r0,a1)];
+      g.d=`M${f1(p[0][0])} ${f1(p[0][1])}L${f1(p[1][0])} ${f1(p[1][1])}A${f1(r1)} ${f1(r1)} 0 0 1 ${f1(p[2][0])} ${f1(p[2][1])}L${f1(p[3][0])} ${f1(p[3][1])}A${f1(r0)} ${f1(r0)} 0 0 0 ${f1(p[0][0])} ${f1(p[0][1])}Z`;
+      GRIDS[s][num]=g;
+    }
+  }
+}
+function gridAt(x,y){
+  const p=polar(x,y); if(p.r<RI||p.r>=RO) return null;
+  const s=Math.floor(((p.a+22.5)%360)/45),k=Math.min(NRING-1,Math.floor((p.r-RI)/DR)),n=RING_N[k];
+  const rel=(p.a-(s*45-22.5)+360)%360,j=Math.min(n-1,Math.floor(rel/(45/n)));
+  return GRIDS[s][RING_START[k]+j+1];
+}
+function sectorAt(x,y){const p=polar(x,y);return Math.floor(((p.a+22.5)%360)/45);}
+const allGrids=()=>{const a=[];for(let s=0;s<8;s++)for(let n=1;n<=40;n++)a.push(GRIDS[s][n]);return a;};
+
+/* ===================== wadis (dry flood channels) ===================== */
+const WADIS=[
+  {id:"w-charlie",name:"Charlie Wadi",pts:[[292,86],[262,92],[232,88],[200,93],[170,89],[142,92]]},
+  {id:"w-deltaecho",name:"Delta-Echo Wadi",pts:[[292,140],[262,146],[240,153],[236,160],[244,168],[268,174],[292,178]]},
+  {id:"w-foxtrot",name:"Foxtrot Wadi",pts:[[292,221],[260,228],[228,223],[196,228],[166,224],[140,227]]},
+  {id:"w-hotelalpha",name:"Hotel-Alpha Wadi",pts:[[292,318],[264,325],[242,333],[238,340],[246,348],[270,354],[292,360]]}
+];
+function catmull(pts,n){
+  const P=pts.map(q=>ptd(q[0],q[1])),out=[];
+  for(let i=0;i<P.length-1;i++){
+    const p0=P[i>0?i-1:i],p1=P[i],p2=P[i+1],p3=P[i+2<P.length?i+2:i+1];
+    for(let k=0;k<n;k++){const t=k/n,t2=t*t,t3=t2*t;
+      out.push([0,1].map(c=>0.5*((2*p1[c])+(-p0[c]+p2[c])*t+(2*p0[c]-5*p1[c]+4*p2[c]-p3[c])*t2+(-p0[c]+3*p1[c]-3*p2[c]+p3[c])*t3)));}
+  }
+  out.push(P[P.length-1]); return out;
+}
+function dSeg(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],L=dx*dx+dy*dy;let t=L?((p[0]-a[0])*dx+(p[1]-a[1])*dy)/L:0;t=Math.max(0,Math.min(1,t));return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy);}
+WADIS.forEach(w=>{w.s=catmull(w.pts,12);w.d="M"+w.s.map(p=>f1(p[0])+" "+f1(p[1])).join("L");w.grids=[];w.xings=[];});
+function wadiDist(p){let best=Infinity,bw=null;for(const w of WADIS){for(let i=0;i<w.s.length-1;i++){const d=dSeg(p,w.s[i],w.s[i+1]);if(d<best){best=d;bw=w;}}}return {d:best,w:bw};}
+// flood level per grid: 2 = grid center inside a flood zone, 1 = part of the grid inside one
+allGrids().forEach(g=>{
+  const c=wadiDist(g.c); g.flood=0; g.wadi=null;
+  if(c.d<FLOOD_HW){g.flood=2;g.wadi=c.w;}
+  else if(c.d<FLOOD_HW+30){
+    const F5=[.02,.26,.5,.74,.98];
+    for(const fr of F5)for(const fa of F5){
+      const q=wadiDist(ptd(g.r0+fr*DR,g.a0+fa*(g.a1-g.a0)));
+      if(q.d<FLOOD_HW&&!g.flood){g.flood=1;g.wadi=q.w;}
+    }
+  }
+  if(g.wadi) g.wadi.grids.push(g);
+});
+// flood crossings where wadis cross haul roads (loops and spokes)
+WADIS.forEach(w=>{
+  for(let i=0;i<w.s.length-1;i++){
+    const a=w.s[i],b=w.s[i+1],pa=polar(a[0],a[1]),pb=polar(b[0],b[1]);
+    [[R_MIDLOOP,"Mid haul loop"],[R_OUTLOOP,"Outer haul loop"]].forEach(([R,nm])=>{
+      if((pa.r-R)*(pb.r-R)<0){const t=(R-pa.r)/(pb.r-pa.r);w.xings.push({road:nm,p:[a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])]});}
+    });
+    for(let s=0;s<8;s++){
+      const B=s*45+22.5; // boundary between sector s and s+1
+      const da=((pa.a-B+540)%360)-180,db=((pb.a-B+540)%360)-180;
+      if(da*db<0&&Math.abs(da-db)<90){
+        const t=da/(da-db),p=[a[0]+t*(b[0]-a[0]),a[1]+t*(b[1]-a[1])],r=polar(p[0],p[1]).r;
+        if(r>=R_HUBROAD&&r<=R_OUTLOOP) w.xings.push({road:SECT[s]+"-"+SECT[(s+1)%8]+" spoke road",p:p});
+      }
+    }
+  }
+});
+
+/* ===================== fixed features ===================== */
+const F={};           // id -> feature
+const AEDS=[];        // fixed AEDs: {id,name,p}
+function addF(f){F[f.id]=f;return f;}
+for(let i=0;i<8;i++){
+  const am=i*45*DEG,S=SECT[i],L=S[0];
+  const fas=addF({id:"fas-"+L,kind:"fas",layer:"fas",name:S+" Aid",s:i,p:pt(122,am+0.22),aliases:["fas "+S,S+" fas","aid "+S,"forward aid station "+S]});
+  const fasAed=addF({id:"aed-fas-"+L,kind:"aed",layer:"aed",name:"AED at "+S+" Aid",s:i,p:pt(101,am+0.26)});
+  const shl=addF({id:"shl-"+L,kind:"shl",layer:"shl",name:"",s:i,p:pt(125,am-0.22)});
+  const shlAed=addF({id:"aed-shl-"+L,kind:"aed",layer:"aed",name:"",s:i,p:pt(102,am-0.27)});
+  [-0.25,0.25].forEach((o,j)=>addF({id:"mp-"+L+(j+1),kind:"mp",layer:"mp",name:"MP-"+L+(j+1),s:i,p:pt(215,am+o),aliases:["muster "+L+(j+1)]}));
+  addF({id:"yard-"+L,kind:i===6?"poly":"fab",layer:"fac",name:i===6?"Polymer Works":S+" Fabrication Yard",s:i,p:pt(268,am),rot:i*45,
+    aliases:i===6?["polymer works","golf polymer works"]:["fab yard "+S,S+" fab yard","fabrication yard "+S]});
+  addF({id:"chem-"+L,kind:"chem",layer:"fac",name:S+" chem store",s:i,p:pt(236,am+0.11),aliases:["chem store "+S,"chem "+S]});
+  addF({id:"office-"+L,kind:"office",layer:"fac",name:S+" sector office",s:i,p:pt(100,am),aliases:["sector office "+S,"permit board "+S]});
+  // the large shelter takes the call sign of the grid it stands in
+  const sg=gridAt(shl.p[0],shl.p[1]);
+  shl.name="Shelter "+sg.name; shl.large=true; shl.aliases=["large shelter "+S,S+" large shelter","shelter "+S+" large"];
+  shlAed.name="AED at Shelter "+sg.name+" (large)";
+  AEDS.push({id:fasAed.id,name:fasAed.name,p:fasAed.p},{id:shlAed.id,name:shlAed.name,p:shlAed.p});
+}
+[["hub-cmd","Hub Command",330,"command post","hub command"],["hub-med","Central Med",30,"","central medical"],
+ ["hub-fire","Fire & Rescue HQ",210,"","fire and rescue"],["hub-atmos","Atmospheric Office",150,"","atmos"]].forEach(h=>{
+  addF({id:h[0],kind:h[0],layer:"fac",name:h[1],s:null,p:ptd(58,h[2]),aliases:[h[3],h[4],"hub"].filter(Boolean)});
+});
+// grid-block shelters and their AEDs
+allGrids().forEach(g=>{
+  const lg=F["shl-"+SECT[g.s][0]],lgGrid=gridAt(lg.p[0],lg.p[1]);
+  if(lgGrid===g){g.shelter=lg;g.aed=F["aed-shl-"+SECT[g.s][0]];return;}
+  g.shelter=addF({id:"shs-"+SECT[g.s][0]+g.num,kind:"shs",layer:"shs",name:"Shelter "+g.name,s:g.s,p:g.shPos,grid:g});
+  g.aed=addF({id:"aed-"+SECT[g.s][0]+g.num,kind:"aed",layer:"aed",name:"AED in Shelter "+g.name,s:g.s,p:g.aedPos,grid:g,small:true});
+  AEDS.push({id:g.aed.id,name:g.aed.name,p:g.aedPos});
+});
+WADIS.forEach(w=>{const m=w.s[Math.floor(w.s.length*0.32)];addF({id:w.id,kind:"wadi",layer:"wadi",name:w.name,s:null,p:m,w:w,aliases:[w.name.replace(" Wadi","")+" wash"]});});
+Object.values(F).forEach(f=>{if(!f.grid&&f.p)f.grid=gridAt(f.p[0],f.p[1]);});
+
+/* ===================== GM data ===================== */
+let storageOk=true;
+function sGet(k){try{return localStorage.getItem(k);}catch(e){storageOk=false;return null;}}
+function sSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){storageOk=false;return false;}}
+let uid=0; const newId=p=>p+Date.now().toString(36)+(uid++).toString(36)+Math.floor(Math.random()*1e6).toString(36);
+function examples(){
+  return {pins:[
+    {id:"ex-p1",grid:"Charlie-14",label:"Crane lift scene at Tower B",type:"scene",notes:"Lift talkgroup Lift C-07. Location format example from HS-01: Charlie-14, Tower B, Deck 3, east stair.",example:true},
+    {id:"ex-p2",grid:"Delta-22",label:"Heat casualty drill",type:"incident",notes:"Open ground: Delta-22, Deck 0, haul road east.",example:true},
+    {id:"ex-p3",grid:"Echo-7",label:"Sand stinger nest in stored gear",type:"hazard",notes:"Echo-7, trench, north end. Report any sting to Echo Aid.",example:true},
+    {id:"ex-p4",grid:"Foxtrot-22",label:"Wadi crossing washed out",type:"hazard",notes:"Foxtrot Wadi crosses the mid haul loop here. Check the crossing after any flood warning.",example:true},
+    {id:"ex-p5",grid:"Golf-40",label:"Feedstock delivery at 1400",type:"note",notes:"Polymer Works receiving bay.",example:true}
+  ],structures:[
+    {id:"ex-s1",name:"Tower B",grid:"Charlie-14",planned:12,built:3,status:"Active",notes:"Matches the HS-01 location-format example.",example:true},
+    {id:"ex-s2",name:"Tower A",grid:"Charlie-13",planned:10,built:10,status:"Complete",notes:"",example:true},
+    {id:"ex-s3",name:"Pump House 2",grid:"Echo-7",planned:2,built:0,status:"Planned",notes:"",example:true},
+    {id:"ex-s4",name:"Feedstock Silo 1",grid:"Golf-38",planned:6,built:4,status:"On hold",notes:"Held for a sandstorm watch.",example:true}
+  ]};
+}
+function normPin(p){
+  if(!p||typeof p!=="object") return null;
+  const g=parseGrid(String(p.grid||"")); if(!g) return null;
+  const label=String(p.label||"").trim().slice(0,80); if(!label) return null;
+  return {id:String(p.id||newId("p")).slice(0,40),grid:g.name,label:label,type:PIN_TYPES[p.type]?p.type:"note",notes:String(p.notes||"").slice(0,1000),example:!!p.example};
+}
+function normStruct(o){
+  if(!o||typeof o!=="object") return null;
+  const g=parseGrid(String(o.grid||"")); if(!g) return null;
+  const name=String(o.name||"").trim().slice(0,60); if(!name) return null;
+  let planned=Math.round(Number(o.planned)); if(!(planned>=1)) planned=1; planned=Math.min(planned,200);
+  let built=Math.round(Number(o.built)); if(!(built>=0)) built=0; built=Math.min(built,planned);
+  return {id:String(o.id||newId("s")).slice(0,40),name:name,grid:g.name,planned:planned,built:built,
+    status:STATUSES.indexOf(o.status)>=0?o.status:"Planned",notes:String(o.notes||"").slice(0,1000),example:!!o.example};
+}
+function normData(o){
+  if(!o||typeof o!=="object"||Array.isArray(o)) throw new Error("The JSON must be an object with pins and structures lists.");
+  const rp=Array.isArray(o.pins)?o.pins:[],rs=Array.isArray(o.structures)?o.structures:[];
+  if(!Array.isArray(o.pins)&&!Array.isArray(o.structures)) throw new Error("No pins or structures lists found.");
+  const pins=rp.map(normPin).filter(Boolean),structures=rs.map(normStruct).filter(Boolean);
+  return {pins:pins,structures:structures,skipped:(rp.length-pins.length)+(rs.length-structures.length)};
+}
+let DATA={pins:[],structures:[]};
+function loadData(){
+  const raw=sGet(KEY_DATA);
+  if(raw==null){DATA=examples();return;}
+  try{const d=normData(JSON.parse(raw));DATA={pins:d.pins,structures:d.structures};}
+  catch(e){DATA=examples();}
+}
+function saveData(){
+  const ok=sSet(KEY_DATA,JSON.stringify({format:"dcw-atlas",version:1,pins:DATA.pins,structures:DATA.structures}));
+  document.getElementById("gm-storage-note").textContent=ok?"Saved in this browser.":"This browser is not saving atlas data (private window or storage blocked). Use Export to keep a copy.";
+}
+const pct=st=>st.planned>0?Math.round(st.built/st.planned*100):0;
+function structAeds(){ // AED at the cooling station of each structure with decks under way
+  const out=[];
+  DATA.structures.forEach(st=>{if(st.status!=="Planned"&&st.built>0){const p=gmPos("s",st);if(p)out.push({id:"aed-st-"+st.id,name:"AED at "+st.name+" cooling station",p:p,st:st});}});
+  return out;
+}
+
+/* ===================== parsing and search ===================== */
+function sectorFrom(w){
+  w=w.toLowerCase();
+  if(w.length===1){const i="abcdefgh".indexOf(w);return i;}
+  for(let i=0;i<8;i++){const n=SECT[i].toLowerCase();if(w===n||(w.length>=3&&n.startsWith(w)))return i;}
+  return -1;
+}
+function norm(q){return String(q||"").toLowerCase().replace(/[‐-―−]/g,"-").replace(/["'`]/g,"").replace(/\s+/g," ").trim();}
+function parseGrid(q){
+  q=norm(q).replace(/^grid\s+/,"");
+  const m=q.match(/^([a-z]+)\s*-?\s*(\d{1,2})$/); if(!m) return null;
+  const s=sectorFrom(m[1]),n=+m[2]; if(s<0||n<1||n>40) return null;
+  return GRIDS[s][n];
+}
+function search(qRaw){
+  let q=norm(qRaw); if(!q) return null;
+  // full location format: take the first part, then try a structure in the second part
+  if(q.indexOf(",")>=0){
+    const parts=q.split(",").map(x=>x.trim()),g=parseGrid(parts[0]);
+    if(g){const st=parts[1]&&DATA.structures.find(x=>x.grid===g.name&&norm(x.name)===parts[1]);return st?{t:"struct",o:st}:{t:"grid",g:g};}
+    q=parts[0];
+  }
+  let m;
+  if((m=q.match(/^shelter\s*(.*)$/))){
+    let rest=m[1].trim();
+    const large=/\blarge\b/.test(rest); rest=rest.replace(/\blarge\b/,"").trim();
+    const g=parseGrid(rest); if(g) return {t:"f",f:g.shelter};
+    const s=sectorFrom(rest); if(s>=0) return {t:"f",f:F["shl-"+SECT[s][0]]};
+    if(large||!rest) return {t:"msg",msg:"Add a sector, for example \"Shelter Charlie-14\" or \"large shelter Charlie\"."};
+  }
+  if((m=q.match(/^(?:muster\s*)?mp\s*-?\s*([a-h])\s*-?\s*([12])$/))) return {t:"f",f:F["mp-"+m[1].toUpperCase()+m[2]]};
+  if((m=q.match(/^(?:muster\s+)?([a-z]+)\s*-?\s*mp\s*-?\s*([12])$/))){const s=sectorFrom(m[1]);if(s>=0)return {t:"f",f:F["mp-"+SECT[s][0]+m[2]]};}
+  if((m=q.match(/^([a-z]+)\s+(?:aid|fas)$/))||(m=q.match(/^(?:fas|aid)\s*-?\s*([a-z]+)$/))){const s=sectorFrom(m[1]);if(s>=0)return {t:"f",f:F["fas-"+SECT[s][0]]};}
+  if((m=q.match(/^(?:large shelter\s+([a-z]+)|([a-z]+)\s+large shelter)$/))){const s=sectorFrom(m[1]||m[2]);if(s>=0)return {t:"f",f:F["shl-"+SECT[s][0]]};}
+  const g=parseGrid(q); if(g) return {t:"grid",g:g};
+  if((m=q.match(/^(?:sector\s+)?([a-z]+)(?:\s+sector)?$/))){const s=sectorFrom(m[1]);if(s>=0&&m[1].length>=3)return {t:"sector",s:s};}
+  if(q==="hub"||q==="the hub") return {t:"hub"};
+  // names: structures, pins, then fixed features
+  const named=[];
+  DATA.structures.forEach(st=>named.push({k:norm(st.name),r:{t:"struct",o:st}}));
+  DATA.pins.forEach(p=>named.push({k:norm(p.label),r:{t:"pin",o:p}}));
+  Object.values(F).forEach(f=>{if(f.kind==="shs"||f.kind==="aed")return;named.push({k:norm(f.name),r:{t:"f",f:f}});(f.aliases||[]).forEach(a=>named.push({k:norm(a),r:{t:"f",f:f}}));});
+  let hit=named.find(n=>n.k===q)||named.find(n=>n.k.startsWith(q))||(q.length>=3&&named.find(n=>n.k.indexOf(q)>=0));
+  if(hit) return hit.r;
+  return {t:"msg",msg:"No match for \""+qRaw.trim()+"\". Try Charlie-14, C-14, MP-C1, Charlie Aid or Shelter Charlie-14."};
+}
+
+/* ===================== map building ===================== */
+const svg=document.getElementById("map");
+const G={cells:gid("g-cells"),flood:gid("g-flood"),roads:gid("g-roads"),wadi:gid("g-wadi"),hub:gid("g-hub"),slbl:gid("g-slbl"),
+  glbl:gid("g-glbl"),small:gid("g-small"),marks:gid("g-marks"),gm:gid("g-gm"),hl:gid("g-hl")};
+function gid(i){return document.getElementById(i);}
+function mk(parent,f,cls,p){
+  const g=el("g",{class:"mk "+(cls||""),transform:`translate(${f1(p[0])} ${f1(p[1])})`},parent);
+  if(f) g.setAttribute("data-f",f);
+  return {g:g,sc:el("g",{class:"sc"},g)};
+}
+function symFas(sc){el("rect",{x:-7,y:-7,width:14,height:14,fill:"#c4161c",stroke:"#141414","stroke-width":2},sc);el("path",{d:"M0 -5v10M-5 0h10",stroke:"#fff","stroke-width":2.5},sc);}
+function symAed(sc,k){k=k||1;const g=k===1?sc:el("g",{transform:`scale(${k})`},sc);
+  el("rect",{x:-6,y:-6,width:12,height:12,rx:2,fill:"#2f8a57",stroke:"#141414","stroke-width":1.5},g);
+  el("path",{d:"M0 4 l-3.2-3.2 a1.9 1.9 0 0 1 3.2-2.3 a1.9 1.9 0 0 1 3.2 2.3 Z",fill:"#fff"},g);}
+function symMp(sc){el("circle",{r:7,fill:"#2f8a57",stroke:"#141414","stroke-width":2},sc);}
+function symShl(sc,k){k=k||1;el("path",{d:`M${-8*k} ${7*k} L0 ${-8*k} L${8*k} ${7*k} Z`,fill:"#1d5fa8",stroke:"#141414","stroke-width":2*Math.max(k,.7)},sc);}
+function symChem(sc){el("path",{d:"M0 -7 L7 0 L0 7 L-7 0Z",fill:"#f5d000",stroke:"#141414","stroke-width":1.8},sc);const t=el("text",{y:2.6,"text-anchor":"middle","font-size":7,"font-weight":700,"font-family":"IBM Plex Mono,monospace",fill:"#141414"},sc);t.textContent="C";}
+function symOffice(sc){el("rect",{x:-6,y:-6,width:12,height:12,fill:"#141414",stroke:"#f5d000","stroke-width":1.5},sc);const t=el("text",{y:2.8,"text-anchor":"middle","font-size":8,"font-weight":700,"font-family":"IBM Plex Mono,monospace",fill:"#f5d000"},sc);t.textContent="P";}
+function symHub(sc,kind){
+  if(kind==="hub-med"){el("rect",{x:-6.5,y:-6.5,width:13,height:13,fill:"#c4161c",stroke:"#f7f4e8","stroke-width":1.6},sc);el("path",{d:"M0 -4.5v9M-4.5 0h9",stroke:"#fff","stroke-width":2.4},sc);return;}
+  const c={"hub-cmd":["#f5d000","#141414","C"],"hub-fire":["#c4161c","#fff","F"],"hub-atmos":["#1d5fa8","#fff","A"]}[kind];
+  el("circle",{r:6.5,fill:c[0],stroke:"#f7f4e8","stroke-width":1.6},sc);
+  const t=el("text",{y:2.8,"text-anchor":"middle","font-size":8,"font-weight":700,"font-family":"IBM Plex Mono,monospace",fill:c[1]},sc);t.textContent=c[2];
+}
+function symXing(sc){el("path",{d:"M0 -5.5 L5.5 0 L0 5.5 L-5.5 0Z",fill:"#1d5fa8",stroke:"#141414","stroke-width":1.5},sc);el("path",{d:"M-3 0.5 q1.5 -2 3 0 t3 0",fill:"none",stroke:"#fff","stroke-width":1.2},sc);}
+function label(sc,txt,y,cls,anchor){const t=el("text",{y:y,"text-anchor":anchor||"middle",class:(cls||"mlbl")+" halo",fill:"#141414"},sc);t.textContent=txt;return t;}
+
+function buildMap(){
+  // wedge cells
+  allGrids().forEach(g=>{el("path",{d:g.d,fill:FILLS[g.s],class:"cell","data-g":g.id},G.cells);});
+  // sector outlines (heavier, like m1)
+  for(let i=0;i<8;i++){
+    const a0=(i*45-22.5)*DEG,a1=(i*45+22.5)*DEG,p0=pt(RI,a0),p1=pt(RO,a0),p2=pt(RO,a1),p3=pt(RI,a1);
+    el("path",{d:`M${f1(p0[0])} ${f1(p0[1])}L${f1(p1[0])} ${f1(p1[1])}A${RO} ${RO} 0 0 1 ${f1(p2[0])} ${f1(p2[1])}L${f1(p3[0])} ${f1(p3[1])}A${RI} ${RI} 0 0 0 ${f1(p0[0])} ${f1(p0[1])}Z`,
+      fill:"none",stroke:"#141414","stroke-width":3,class:"nopt","stroke-linejoin":"round"},G.cells);
+  }
+  // flood zones and wadi channels
+  WADIS.forEach(w=>{
+    el("path",{d:w.d,fill:"none",stroke:"url(#flood)","stroke-width":FLOOD_HW*2,"stroke-linecap":"round","stroke-linejoin":"round"},G.flood);
+    el("path",{d:w.d,fill:"none",stroke:"#1d5fa8","stroke-width":3.4,"stroke-linecap":"round","stroke-linejoin":"round"},G.wadi);
+    el("path",{d:w.d,fill:"none",stroke:"#e9dcb0","stroke-width":1.1,"stroke-dasharray":"2.5 2.5"},G.wadi);
+    const m=w.s[Math.floor(w.s.length*0.32)],t=el("text",{x:f1(m[0]),y:f1(m[1]-7),class:"wlbl halo"},G.wadi);t.textContent=w.name;
+  });
+  // haul roads
+  const road=(d)=>{el("path",{d:d,fill:"none",stroke:"#6b675c","stroke-width":4,"stroke-linecap":"round"},G.roads);el("path",{d:d,fill:"none",stroke:"#f7f4e8","stroke-width":.7,"stroke-dasharray":"4 3"},G.roads);};
+  [R_HUBROAD,R_MIDLOOP,R_OUTLOOP].forEach(R=>road(`M${CX-R} ${CY}a${R} ${R} 0 1 0 ${2*R} 0a${R} ${R} 0 1 0 ${-2*R} 0`));
+  for(let i=0;i<8;i++){const a=(i*45+22.5)*DEG,p0=pt(R_HUBROAD,a),p1=pt(R_OUTLOOP,a);road(`M${f1(p0[0])} ${f1(p0[1])}L${f1(p1[0])} ${f1(p1[1])}`);}
+  // hub (as m1)
+  el("circle",{cx:CX,cy:CY,r:RI,fill:"#141414",stroke:"#141414","stroke-width":3,class:"hubdisc","data-hub":"1",style:"cursor:pointer"},G.hub);
+  el("circle",{cx:CX,cy:CY,r:70,fill:"none",stroke:"#f5d000","stroke-width":3,class:"nopt"},G.hub);
+  const ht=(y,txt,fs,fill,fam,w)=>{const t=el("text",{x:CX,y:y,fill:fill,"font-family":fam,"font-size":fs,"text-anchor":"middle"},G.hub);if(w)t.setAttribute("font-weight",w);t.textContent=txt;};
+  ht(296,"THE HUB",30,"#f5d000","Anton,Impact,sans-serif");
+  ht(318,"COMMAND · CENTRAL MED",10,"#f7f4e8","IBM Plex Mono,monospace",700);
+  ht(331,"FIRE & RESCUE · ATMOS",10,"#f7f4e8","IBM Plex Mono,monospace",700);
+  // sector labels (as m1: r 170 on the sector's center line, channel underneath, Polymer Works in Golf)
+  for(let i=0;i<8;i++){
+    const [tx,ty]=pt(170,i*45*DEG),t=el("text",{x:f1(tx),y:f1(ty+6),class:"slbl"},G.slbl);
+    t.appendChild(document.createTextNode(SECT[i].toUpperCase()));
+    const c=el("tspan",{x:f1(tx),dy:"1.6em",class:"ch"},t);c.textContent="CH "+(i+3);
+    if(i===6){const p=el("tspan",{x:f1(tx),dy:"1.45em",class:"pw"},t);p.textContent="POLYMER WORKS";}
+  }
+  // grid labels
+  allGrids().forEach(g=>{const t=el("text",{x:f1(g.lblPos[0]),y:f1(g.lblPos[1]),class:"glabel halo"},G.glbl);
+    const pre=el("tspan",{class:"pre"},t);pre.textContent=SECT[g.s][0]+"-";t.appendChild(document.createTextNode(String(g.num)));});
+  // grid-block shelters and AEDs (shown at closer zoom)
+  allGrids().forEach(g=>{
+    if(g.shelter.kind==="shs"){const a=mk(G.small,g.shelter.id,"L-shs gsm",g.shelter.p);symShl(a.sc,.55);}
+    if(g.aed.small){const b=mk(G.small,g.aed.id,"L-aed gsm",g.aed.p);symAed(b.sc,.6);}
+  });
+  // facilities
+  Object.values(F).forEach(f=>{
+    if(f.kind==="fab"||f.kind==="poly"){
+      const g=el("g",{class:"mk L-fac","data-f":f.id},G.marks);
+      el("rect",{x:f1(f.p[0]-20),y:f1(f.p[1]-9),width:40,height:18,fill:f.kind==="poly"?"#ec5b13":"#9a978b",stroke:"#141414","stroke-width":2,transform:`rotate(${f.rot} ${f1(f.p[0])} ${f1(f.p[1])})`},g);
+    }else if(f.kind==="chem"){const a=mk(G.marks,f.id,"L-fac",f.p);symChem(a.sc);label(a.sc,f.name,-10,"dlbl");}
+    else if(f.kind==="office"){const a=mk(G.marks,f.id,"L-fac",f.p);symOffice(a.sc);label(a.sc,"Sector office",-9,"dlbl");}
+    else if(f.kind.indexOf("hub-")===0){const a=mk(G.marks,f.id,"L-fac",f.p);symHub(a.sc,f.kind);}
+  });
+  // flood crossings
+  WADIS.forEach(w=>w.xings.forEach((x,i)=>{const a=mk(G.marks,w.id,"L-wadi",x.p);symXing(a.sc);}));
+  // m1 markers: FAS with AED, MPs, large shelter with AED
+  for(let i=0;i<8;i++){
+    const L=SECT[i][0];
+    let a=mk(G.marks,"fas-"+L,"L-fas",F["fas-"+L].p);symFas(a.sc);label(a.sc,SECT[i]+" Aid",17,"dlbl");
+    a=mk(G.marks,"aed-fas-"+L,"L-aed",F["aed-fas-"+L].p);symAed(a.sc);
+    a=mk(G.marks,"shl-"+L,"L-shl",F["shl-"+L].p);symShl(a.sc);label(a.sc,F["shl-"+L].name.replace("Shelter ",""),18,"dlbl");
+    a=mk(G.marks,"aed-shl-"+L,"L-aed",F["aed-shl-"+L].p);symAed(a.sc);
+    for(let j=1;j<=2;j++){a=mk(G.marks,"mp-"+L+j,"L-mp",F["mp-"+L+j].p);symMp(a.sc);label(a.sc,"MP-"+L+j,-11);}
+  }
+}
+
+/* GM marker positions: structures sit on the outer side of the grid center, pins on the inner side */
+function gmPos(kind,o){
+  const g=parseGrid(o.grid); if(!g) return null;
+  const list=kind==="s"?DATA.structures.filter(x=>x.grid===g.name):DATA.pins.filter(x=>x.grid===g.name);
+  const idx=list.indexOf(o),n=list.length,span=(g.a1-g.a0)*0.7,step=n>1?span/(n-1):0;
+  const a=n>1?g.am-span/2+idx*step:g.am;
+  return ptd(kind==="s"?g.rm+DR*0.02:g.rm-DR*0.05,kind==="s"?a+(n>1?0:(g.a1-g.a0)*0.22):a-(n>1?0:(g.a1-g.a0)*0.22));
+}
+function buildGm(){
+  G.gm.textContent="";
+  structAeds().forEach(x=>{const a=mk(G.gm,"st:"+x.st.id,"L-aed",[x.p[0]+5,x.p[1]+5]);symAed(a.sc,.6);});
+  DATA.structures.forEach(st=>{
+    const p=gmPos("s",st); if(!p) return;
+    const a=mk(G.gm,"st:"+st.id,"L-struct",p),P=pct(st)/100;
+    el("rect",{x:-7,y:-7,width:14,height:14,fill:"#f7f4e8",stroke:"#141414","stroke-width":2},a.sc);
+    if(P>0) el("rect",{x:-6,y:f1(6-12*P),width:12,height:f1(12*P),fill:P>=1?"#2f8a57":"#f5d000"},a.sc);
+    el("path",{d:"M-7 -2.5h14M-7 2.5h14",stroke:"#141414","stroke-width":.8},a.sc);
+    label(a.sc,st.name+" "+pct(st)+"%",17,"slbl2");
+  });
+  DATA.pins.forEach(p=>{
+    const q=gmPos("p",p); if(!q) return;
+    const T=PIN_TYPES[p.type],a=mk(G.gm,"pin:"+p.id,"L-pins",q);
+    el("path",{d:"M0 0 C-2 -5 -7 -7 -7 -12 A7 7 0 1 1 7 -12 C7 -7 2 -5 0 0Z",fill:T.color,stroke:"#141414","stroke-width":1.8},a.sc);
+    const t=el("text",{y:-9.2,"text-anchor":"middle","font-size":8,"font-weight":700,"font-family":"IBM Plex Mono,monospace",fill:T.fg},a.sc);t.textContent=T.ch;
+    label(a.sc,p.label.length>26?p.label.slice(0,25)+"…":p.label,-22,"plbl");
+  });
+}
+
+/* ===================== view: pan and zoom ===================== */
+const wrap=gid("mapwrap");
+const view={cx:300,cy:300,ppu:1};
+let fitPpu=1,cw=1,ch=1;
+function measure(){const r=wrap.getBoundingClientRect();cw=Math.max(1,r.width);ch=Math.max(1,r.height);fitPpu=Math.min(cw,ch)/610;}
+const clampPpu=p=>Math.max(fitPpu*0.7,Math.min(40,p));
+function applyView(){
+  view.ppu=clampPpu(view.ppu);
+  view.cx=Math.max(-50,Math.min(650,view.cx)); view.cy=Math.max(-50,Math.min(650,view.cy));
+  const w=cw/view.ppu,h=ch/view.ppu;
+  svg.setAttribute("viewBox",`${f1(view.cx-w/2)} ${f1(view.cy-h/2)} ${f1(w)} ${f1(h)}`);
+  const p=view.ppu;
+  svg.style.setProperty("--px",(1/p)+"px");
+  svg.style.setProperty("--ms",String(Math.max(0.15,Math.min(1.1,1.6/p))));
+  svg.classList.toggle("z-lbl",p>=1.0);
+  svg.classList.toggle("z-det",p>=2.0);
+  svg.classList.toggle("z-grid",p>=2.2);
+  svg.classList.toggle("z-small",p>=3.2);
+  svg.classList.toggle("z-gfull",p>=5);
+  svg.classList.toggle("z-near",p>=7);
+  // scale bar
+  const opts=[100,200,500,1000,2000,5000];let best=opts[0];
+  opts.forEach(ft=>{if(ft/FT_PER_UNIT*p<=140)best=ft;});
+  const sb=gid("scalebar");sb.firstChild.nodeValue=(best>=1000?best.toLocaleString("en-US"):best)+" ft (approx.)";
+  sb.querySelector("i").style.width=Math.round(best/FT_PER_UNIT*p)+"px";
+}
+function resetView(){view.cx=300;view.cy=300;view.ppu=fitPpu;applyView();}
+function zoomAt(px,py,factor){ // px,py relative to the map box
+  const ox=px-cw/2,oy=py-ch/2,ux=view.cx+ox/view.ppu,uy=view.cy+oy/view.ppu;
+  view.ppu=clampPpu(view.ppu*factor); view.cx=ux-ox/view.ppu; view.cy=uy-oy/view.ppu; applyView();
+}
+const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let anim=0;
+function flyTo(x,y,ppu){
+  ppu=clampPpu(Math.max(ppu,view.ppu));
+  cancelAnimationFrame(anim);
+  if(reduceMotion){view.cx=x;view.cy=y;view.ppu=ppu;applyView();return;}
+  const s={cx:view.cx,cy:view.cy,lp:Math.log(view.ppu)},e={cx:x,cy:y,lp:Math.log(ppu)},t0=performance.now();
+  const step=now=>{let t=Math.min(1,(now-t0)/380);t=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    view.cx=s.cx+(e.cx-s.cx)*t;view.cy=s.cy+(e.cy-s.cy)*t;view.ppu=Math.exp(s.lp+(e.lp-s.lp)*t);applyView();if(t<1)anim=requestAnimationFrame(step);};
+  anim=requestAnimationFrame(step);
+}
+// pointer handling: drag to pan, two fingers to pinch, short tap to select
+const ptrs=new Map();let downAt=null,moved=false,pinch=null;
+svg.addEventListener("pointerdown",e=>{
+  if(e.button!==0&&e.pointerType==="mouse") return;
+  cancelAnimationFrame(anim);
+  ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  try{svg.setPointerCapture(e.pointerId);}catch(_){}
+  if(ptrs.size===1){downAt={x:e.clientX,y:e.clientY};moved=false;}
+  else if(ptrs.size===2){moved=true;pinch=pinchState();}
+});
+function pinchState(){const a=[...ptrs.values()];return {d:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1,mx:(a[0].x+a[1].x)/2,my:(a[0].y+a[1].y)/2};}
+svg.addEventListener("pointermove",e=>{
+  if(!ptrs.has(e.pointerId)) return;
+  const prev=ptrs.get(e.pointerId),cur={x:e.clientX,y:e.clientY};ptrs.set(e.pointerId,cur);
+  if(ptrs.size===1){
+    if(!moved&&downAt&&Math.hypot(cur.x-downAt.x,cur.y-downAt.y)>6){moved=true;svg.classList.add("dragging");}
+    if(moved){view.cx-=(cur.x-prev.x)/view.ppu;view.cy-=(cur.y-prev.y)/view.ppu;applyView();}
+  }else if(ptrs.size===2&&pinch){
+    const n=pinchState(),r=wrap.getBoundingClientRect();
+    view.cx-=(n.mx-pinch.mx)/view.ppu;view.cy-=(n.my-pinch.my)/view.ppu;
+    zoomAt(n.mx-r.left,n.my-r.top,n.d/pinch.d);pinch=n;
+  }
+});
+function endPtr(e){
+  if(!ptrs.has(e.pointerId)) return;
+  const wasSingle=ptrs.size===1;ptrs.delete(e.pointerId);
+  if(ptrs.size<2) pinch=null;
+  if(ptrs.size===1){const a=[...ptrs.values()][0];downAt={x:a.x,y:a.y};}
+  if(wasSingle){svg.classList.remove("dragging");if(!moved&&e.type==="pointerup")tap(e.clientX,e.clientY);downAt=null;}
+}
+svg.addEventListener("pointerup",endPtr);svg.addEventListener("pointercancel",endPtr);
+svg.addEventListener("wheel",e=>{
+  e.preventDefault();const r=wrap.getBoundingClientRect();
+  const dy=e.deltaY*(e.deltaMode===1?16:e.deltaMode===2?400:1);
+  zoomAt(e.clientX-r.left,e.clientY-r.top,Math.exp(-dy*0.0015));
+},{passive:false});
+svg.addEventListener("keydown",e=>{
+  const k=e.key,step=70/view.ppu;let used=true;
+  if(k==="ArrowLeft")view.cx-=step;else if(k==="ArrowRight")view.cx+=step;else if(k==="ArrowUp")view.cy-=step;else if(k==="ArrowDown")view.cy+=step;
+  else if(k==="+"||k==="=")view.ppu*=1.3;else if(k==="-"||k==="_")view.ppu/=1.3;else if(k==="0")return resetView();
+  else if(k==="Enter"){const gg=gridAt(view.cx,view.cy);if(gg)selectGrid(gg,false);}
+  else used=false;
+  if(used){e.preventDefault();applyView();}
+});
+gid("zoom-in").addEventListener("click",()=>zoomAt(cw/2,ch/2,1.5));
+gid("zoom-out").addEventListener("click",()=>zoomAt(cw/2,ch/2,1/1.5));
+gid("zoom-reset").addEventListener("click",resetView);
+function tap(x,y){
+  const t=document.elementFromPoint(x,y); if(!t||!svg.contains(t)) return;
+  const m=t.closest("[data-f]");
+  if(m){const id=m.getAttribute("data-f");
+    if(id.indexOf("st:")===0){const st=DATA.structures.find(s=>s.id===id.slice(3));if(st)selectStruct(st,false);return;}
+    if(id.indexOf("pin:")===0){const p=DATA.pins.find(s=>s.id===id.slice(4));if(p)selectPin(p,false);return;}
+    if(F[id]){selectFeature(F[id],false);return;}
+  }
+  const c=t.closest("[data-g]");
+  if(c){const id=c.getAttribute("data-g"),s="ABCDEFGH".indexOf(id[2]),n=+id.slice(3);if(GRIDS[s]&&GRIDS[s][n])selectGrid(GRIDS[s][n],false);return;}
+  if(t.closest("[data-hub]")) showHub(false);
+}
+
+/* ===================== selection and highlight ===================== */
+let selGrid=null;
+function highlightGrid(g){
+  G.hl.textContent="";
+  if(!g) return;
+  el("path",{d:g.d,class:"hl-cell"},G.hl);el("path",{d:g.d,class:"hl-cell2"},G.hl);
+}
+function ringAt(p){const a=mk(G.hl,null,"",p);el("circle",{r:13,fill:"none",stroke:"#141414","stroke-width":5,class:"pulse"},a.sc);el("circle",{r:13,fill:"none",stroke:"#f5d000","stroke-width":2.5,class:"pulse"},a.sc);}
+function setHash(h){try{history.replaceState(null,"",h?"#"+encodeURIComponent(h):location.pathname+location.search);}catch(_){}}
+function selectGrid(g,fly){
+  selGrid=g;highlightGrid(g);setHash(g.name);
+  if(fly) flyTo(g.c[0],g.c[1],Math.max(fitPpu*4,4.5));
+  renderGridInfo(g);showTab("info",true);
+}
+function selectFeature(f,fly){
+  selGrid=f.grid||null;highlightGrid(selGrid);ringAt(f.p);setHash(f.kind==="shs"||f.kind==="shl"||f.kind==="mp"||f.kind==="fas"?f.name:"");
+  if(fly) flyTo(f.p[0],f.p[1],f.kind==="wadi"?Math.max(fitPpu*2.2,2.2):(f.kind==="shs"||f.kind==="aed")?5:3.6);
+  renderFeatureInfo(f);showTab("info",true);
+}
+function selectStruct(st,fly){const g=parseGrid(st.grid),p=gmPos("s",st);selGrid=g;highlightGrid(g);if(p)ringAt(p);if(fly&&p)flyTo(p[0],p[1],4.5);renderStructInfo(st);showTab("info",true);}
+function selectPin(pn,fly){const g=parseGrid(pn.grid),p=gmPos("p",pn);selGrid=g;highlightGrid(g);if(p)ringAt([p[0],p[1]-12*parseFloat(getComputedStyle(svg).getPropertyValue("--ms")||1)]);if(fly&&p)flyTo(p[0],p[1],4.5);renderPinInfo(pn);showTab("info",true);}
+function selectSector(s){selGrid=null;highlightGrid(null);const p=pt(165,s*45*DEG);flyTo(p[0],p[1],fitPpu*2.2);renderSectorInfo(s);showTab("info",true);}
+function showHub(fly){selGrid=null;highlightGrid(null);if(fly)flyTo(CX,CY,fitPpu*2.5);renderHubInfo();showTab("info",true);}
+
+/* ===================== info panel ===================== */
+const info=gid("panel-info");
+const btn=(id,txt)=>`<button type="button" class="linkbtn" data-go="${esc(id)}">${esc(txt)}</button>`;
+const row=(dt,dd,cls)=>`<div${cls?' class="'+cls+'"':""}><dt>${dt}</dt><dd>${dd}</dd></div>`;
+const exChip=o=>o.example?' <span class="chip ex">Example</span>':"";
+function nearestAed(p){
+  let best=null,bd=Infinity;
+  AEDS.concat(structAeds()).forEach(a=>{const d=dist(p,a.p);if(d<bd){bd=d;best=a;}});
+  return {a:best,d:bd};
+}
+function roadsIn(g){
+  const r=[];
+  if(g.r0<=R_HUBROAD&&R_HUBROAD<g.r1) r.push("Hub ring road");
+  if(g.r0<=R_MIDLOOP&&R_MIDLOOP<g.r1) r.push("Mid haul loop");
+  if(g.k===NRING-1) r.push("Outer haul loop (along the outer edge)");
+  if(g.j===0) r.push(SECT[(g.s+7)%8]+"-"+SECT[g.s]+" spoke road");
+  if(g.j===g.n-1) r.push(SECT[g.s]+"-"+SECT[(g.s+1)%8]+" spoke road");
+  return r;
+}
+function floodRow(g){
+  if(!g.flood) return row("Wadi flood zone","No. Not in a mapped wadi flood zone.");
+  const w=g.wadi,what=g.flood===2?"<b>Yes: inside the "+esc(w.name)+" flood zone.</b>":"<b>Partly: part of this grid is in the "+esc(w.name)+" flood zone.</b>";
+  return row("Wadi flood zone",what+" Flood warnings are called by grid on Ch 1 and Ch 16. Leave wadis, trenches and low cuts at once. No lone work near wadis. "+btn(w.id,"About this wadi"),"warn");
+}
+function gmHere(gname){
+  const st=DATA.structures.filter(x=>x.grid===gname),pins=DATA.pins.filter(x=>x.grid===gname);
+  let h="";
+  h+=row("Structures",st.length?st.map(x=>btn("st:"+x.id,x.name)+` · ${x.built}/${x.planned} decks (${pct(x)}%) · ${esc(x.status)}${exChip(x)}`).join("<br>"):"None logged.");
+  h+=row("GM pins",pins.length?pins.map(x=>`<span class="dot" style="background:${PIN_TYPES[x.type].color}"></span>`+btn("pin:"+x.id,x.label)+` · ${PIN_TYPES[x.type].label}${exChip(x)}`).join("<br>"):"None.");
+  return h;
+}
+const walkNote=`<p class="note">Walking times assume 3 mph (4.4 ft/s) in PPE, measured in a straight line from the grid center on the atlas scale (1 map unit = 20 ft, about 460 ft per grid). Real routes are longer. Atlas scale is an assumption for play: the HS-01 map is not to scale.</p>`;
+function renderGridInfo(g){
+  const S=SECT[g.s],L=S[0],ch=g.s+3;
+  const mps=[F["mp-"+L+"1"],F["mp-"+L+"2"]].map(m=>({m:m,d:dist(g.c,m.p)})).sort((a,b)=>a.d-b.d);
+  const fas=F["fas-"+L],lg=F["shl-"+L],sh=g.shelter,ae=nearestAed(g.c),cm=F["hub-med"];
+  const facs=Object.values(F).filter(f=>f.grid===g&&(f.layer==="fac"||f.kind==="fas"||f.kind==="mp"||(f.kind==="shl"))).map(f=>btn(f.id,f.name));
+  const xs=[];WADIS.forEach(w=>w.xings.forEach(x=>{if(gridAt(x.p[0],x.p[1])===g)xs.push(x.road+" crosses "+w.name);}));
+  info.innerHTML=`<h2>${esc(g.name)}</h2>
+  <p class="isub">Sector ${S} · grid ${g.num} · ring ${g.k+1} of ${NRING} out from the Hub</p>
+  <div class="say"><b>${esc(g.name)}, Deck 0, [landmark]</b>Spoken "${S} ${spoken(g.num)}". Grid number is on every grid post.</div>
+  <dl class="facts">
+  ${row("Sector channel",`<b>Ch ${ch}</b> (${S}). Scan Ch 1 + Ch 16 + Ch ${ch}.`)}
+  ${floodRow(g)}
+  ${row("Muster point",`${btn(mps[0].m.id,mps[0].m.name)} <span class="t">${walk(mps[0].d).text}</span>Route blocked: ${btn(mps[1].m.id,mps[1].m.name)} <span class="t">${walk(mps[1].d).text}</span>`)}
+  ${row("Aid station",`${btn(fas.id,fas.name)} (FAS) <span class="t">${walk(dist(g.c,fas.p)).text}</span>FAS medic on scene within 4 min anywhere in the sector (site rule).`)}
+  ${row("Grid-block shelter",`${btn(sh.id,sh.name)}${sh.large?" (the large shelter)":""} <span class="t">${walk(dist(g.c,sh.p)).text}</span>`)}
+  ${row("Large shelter",`${btn(lg.id,lg.name)} <span class="t">${walk(dist(g.c,lg.p)).text}</span>`)}
+  ${row("Nearest AED",`${ae.a.id.indexOf("aed-st-")===0?btn("st:"+ae.a.st.id,ae.a.name):btn(ae.a.id,ae.a.name)} <span class="t">${walk(ae.d).text} · round trip ${walk(ae.d*2).text.replace(/ · .*/,"")}</span>`)}
+  ${row("Central Med",`${btn(cm.id,"Central Med at the Hub")} <span class="t">${walk(dist(g.c,cm.p)).text}</span>Serious cases (reds), surgery, ICU.`)}
+  ${row("Haul roads",roadsIn(g).map(esc).join("<br>")||"None in this grid.")}
+  ${xs.length?row("Flood crossing",xs.map(esc).join("<br>"),"warn"):""}
+  ${facs.length?row("Also here",facs.join("<br>")):""}
+  ${gmHere(g.name)}
+  </dl>
+  <div class="btnrow"><button type="button" class="btn" data-act="addpin" data-grid="${esc(g.name)}">Add pin here</button><button type="button" class="btn alt" data-act="addst" data-grid="${esc(g.name)}">Add structure here</button></div>
+  ${walkNote}`;
+}
+const KIND_TXT={
+  mp:f=>`Muster point for Sector ${SECT[f.s]}. On the evacuate siren (alternating high-low, amber strobes), go to the assigned MP of the sector you are working in today. The muster warden collects crew headcounts and reports once to the ${SECT[f.s]} Super on Ch ${f.s+3}. Route blocked: use ${f.name.endsWith("1")?f.name.slice(0,-1)+"2":f.name.slice(0,-1)+"1"}. Call sign "Muster ${f.name}".`,
+  fas:f=>`Forward Aid Station for Sector ${SECT[f.s]}, call sign "${f.name}". All injuries and illness. Central Med at the Hub takes serious cases. AED on site. Ch 14 is for medics and aid stations; workers use it only when told.`,
+  shl:f=>`Large shelter for Sector ${SECT[f.s]}, call sign "${f.name}". It is also the grid-block shelter for ${f.grid.name}. Sealed, cooled, two-door airlock with filters. Stocked: water, ice, toilets, first aid kit, AED, radio, emergency lighting. The senior person reports the headcount on Ch ${f.s+3}; missing persons on Ch 1. Capacity is painted on the outer door. Never leave on a tone alone: wait for the Ch 1 voice all clear.`,
+  shs:f=>`Grid-block shelter, call sign "${f.name}". Sealed, cooled, two-door airlock with filters. Stocked: water, ice, toilets, first aid kit, AED, radio, emergency lighting. The senior person reports the headcount on Ch ${f.s+3}; missing persons on Ch 1. Shelter full: radio to send people to the next one.`,
+  aed:f=>`Automated external defibrillator in a cooled cabinet. AEDs are at every FAS, shelter, structure cooling station and lift muster. No point on site is more than a 3-minute round trip from one.`,
+  fab:f=>`Fabrication Yard at the outer edge of Sector ${SECT[f.s]}. Designated welding bays: no hot-work permit needed inside a bay. Welders pass a test plate here before field work.`,
+  poly:f=>`Polymer Works in Sector Golf. Feedstock, resins and printed panels. Spill kits at every station. Never fight a polymer fire: bulk feedstock, a curing resin mass, a printed structure or panel stack, or a spray zone.`,
+  chem:f=>`Chem store for Sector ${SECT[f.s]}. Spill kit on hand. SDS also on the site terminal. Waste comes back here (cured-resin bin, metal rag can). Leaking or fuming unknown chemical: everyone out upwind and call Ch 1 "Chemical".`,
+  office:f=>`Sector ${SECT[f.s]} office. Its permit board holds the live permits for open-ground work in the sector. Every structure has its own permit board.`,
+  "hub-cmd":f=>`Command at the Hub: Hub Actual (Director) and the Hub Command desk on Ch 2. Hub Command rebroadcasts every siren and every sandstorm, flood and lightning warning on Ch 1.`,
+  "hub-med":f=>`Central Med at the Hub, call sign "Central Med". Serious cases (reds), surgery and ICU. Critical incident support with SRU counselors.`,
+  "hub-fire":f=>`Fire & Rescue HQ at the Hub. Red hats. Fire & Rescue takes command of fire, rescue and hazmat scenes on arrival. Target: on scene within 10 minutes (site rule).`,
+  "hub-atmos":f=>`Atmospheric Office ("Atmos") at the Hub. Weather, WBGT, wind and warnings on Ch 16, rebroadcast on Ch 1. See the site weather office (TOOL-WX).`
+};
+const KIND_NAME={mp:"Muster point",fas:"Forward Aid Station",shl:"Large shelter",shs:"Grid-block shelter",aed:"AED",fab:"Fabrication Yard",poly:"Polymer Works",chem:"Chem store",office:"Sector office",
+  "hub-cmd":"Hub facility","hub-med":"Hub facility","hub-fire":"Hub facility","hub-atmos":"Hub facility",wadi:"Wadi (dry flood channel)"};
+function where(f){
+  if(f.grid) return btn(f.grid.id,f.grid.name);
+  if(f.kind.indexOf("hub-")===0) return "The Hub";
+  if(f.s!=null) return "Outer edge of Sector "+SECT[f.s]+", beside the outer haul loop";
+  return "";
+}
+function renderFeatureInfo(f){
+  if(f.kind==="wadi") return renderWadiInfo(f);
+  const ch=f.s!=null?row("Sector channel",`<b>Ch ${f.s+3}</b> (${SECT[f.s]})`):"";
+  let fl="";
+  if(f.grid&&f.grid.flood) fl=floodRow(f.grid);
+  info.innerHTML=`<h2>${esc(f.name)}</h2><p class="isub">${esc(KIND_NAME[f.kind]||"")}${f.s!=null?" · Sector "+SECT[f.s]:""}</p>
+  <dl class="facts">${row("Location",where(f))}${ch}${fl}</dl>
+  <p style="font-size:14px;margin-top:10px">${esc(KIND_TXT[f.kind]?KIND_TXT[f.kind](f):"")}</p>
+  ${f.grid?`<div class="btnrow"><button type="button" class="btn alt" data-go="${f.grid.id}">Open grid ${esc(f.grid.name)}</button></div>`:""}`;
+}
+function renderWadiInfo(f){
+  const w=f.w,inG=w.grids.filter(g=>g.flood===2),part=w.grids.filter(g=>g.flood===1);
+  const list=a=>a.length?a.map(g=>btn(g.id,g.name)).join(", "):"None";
+  info.innerHTML=`<h2>${esc(w.name)}</h2><p class="isub">Wadi · dry flood channel · flood-risk low ground</p>
+  <dl class="facts">
+  ${row("Flood zone","Channel plus about 180 ft each side, hatched blue on the map.","warn")}
+  ${row("Grids inside",list(inG))}
+  ${row("Grids partly in",list(part))}
+  ${row("Road crossings",w.xings.length?w.xings.map(x=>{const g=gridAt(x.p[0],x.p[1]);return esc(x.road)+(g?" at "+btn(g.id,g.name):" at the outer edge");}).join("<br>"):"None")}
+  </dl>
+  <p style="font-size:14px;margin-top:10px"><b>Flood warning:</b> called by grid on Ch 1 and Ch 16 (Atmos). Leave wadis, trenches and low cuts at once. Emergency type "Flood" on Ch 1. Rare flash storms can fill a dry channel fast. No lone work near wadis. Utility marks are re-checked after storms.</p>`;
+}
+function renderSectorInfo(s){
+  const S=SECT[s],L=S[0],fl=[];for(let n=1;n<=40;n++)if(GRIDS[s][n].flood)fl.push(GRIDS[s][n]);
+  info.innerHTML=`<h2>Sector ${S}</h2><p class="isub">Grids ${S}-1 to ${S}-40 · ring 1 (grids 1-3) at the Hub, ring 7 (grids 33-40) at the outer edge</p>
+  <dl class="facts">
+  ${row("Sector channel",`<b>Ch ${s+3}</b>`)}
+  ${row("Muster points",btn("mp-"+L+"1","MP-"+L+"1")+" · "+btn("mp-"+L+"2","MP-"+L+"2"))}
+  ${row("Aid station",btn("fas-"+L,S+" Aid"))}
+  ${row("Large shelter",btn("shl-"+L,F["shl-"+L].name))}
+  ${row("Edge facility",btn("yard-"+L,F["yard-"+L].name))}
+  ${row("Chem store",btn("chem-"+L,F["chem-"+L].name))}
+  ${row("Flood-zone grids",fl.length?fl.map(g=>btn(g.id,g.name)).join(", "):"None","" + (fl.length?"warn":""))}
+  </dl>`;
+}
+function renderHubInfo(){
+  info.innerHTML=`<h2>The Hub</h2><p class="isub">Center of Settlement Site 4</p>
+  <dl class="facts">
+  ${row("Command",btn("hub-cmd","Hub Command")+" · Ch 2")}
+  ${row("Medical",btn("hub-med","Central Med"))}
+  ${row("Fire & Rescue",btn("hub-fire","Fire & Rescue HQ"))}
+  ${row("Weather",btn("hub-atmos","Atmospheric Office")+" · Ch 16")}
+  ${row("Roads","Hub ring road, with spoke roads out to the mid and outer haul loops")}
+  </dl>`;
+}
+function renderStructInfo(st){
+  const g=parseGrid(st.grid),P=pct(st);
+  info.innerHTML=`<h2>${esc(st.name)}${exChip(st)}</h2><p class="isub">Structure · ${esc(st.grid)} · ${esc(st.status)}</p>
+  <div class="bar" style="margin-top:10px" aria-hidden="true"><i class="${P>=100?"full":""}" style="width:${P}%"></i></div>
+  <dl class="facts">
+  ${row("Progress",`<b>${P}%</b> · ${st.built} of ${st.planned} decks built`)}
+  ${row("Location",`${btn(g.id,g.name)} · say "${esc(st.grid)}, ${esc(st.name)}, Deck [n], [landmark]"`)}
+  ${row("Sector channel",`<b>Ch ${g.s+3}</b>`)}
+  ${g.flood?floodRow(g):""}
+  ${st.notes?row("Notes",esc(st.notes)):""}
+  </dl>
+  <p class="note">Permit board at the structure. While active, a cooling station with an ice trough (also the shift weigh station) and an AED on every deck.</p>
+  <div class="btnrow"><button type="button" class="btn" data-act="editst" data-id="${esc(st.id)}">Edit</button><button type="button" class="btn alt" data-go="${g.id}">Open grid</button></div>`;
+}
+function renderPinInfo(p){
+  const g=parseGrid(p.grid),T=PIN_TYPES[p.type];
+  info.innerHTML=`<h2>${esc(p.label)}${exChip(p)}</h2><p class="isub"><span class="dot" style="background:${T.color}"></span>GM pin · ${T.label} · ${esc(p.grid)}</p>
+  <dl class="facts">
+  ${row("Location",btn(g.id,g.name))}
+  ${row("Sector channel",`<b>Ch ${g.s+3}</b>`)}
+  ${g.flood?floodRow(g):""}
+  ${p.notes?row("Notes",esc(p.notes)):""}
+  </dl>
+  <div class="btnrow"><button type="button" class="btn" data-act="editpin" data-id="${esc(p.id)}">Edit</button><button type="button" class="btn alt" data-go="${g.id}">Open grid</button></div>`;
+}
+function renderIntro(){
+  info.innerHTML=`<div class="intro"><h2>Settlement Site 4</h2><p class="isub">Eight sectors around the Hub · 40 grids each</p>
+  <p>Click any grid for its sector channel, muster point, aid station, shelters, nearest AED, flood risk and walking times. Or search: <b>Charlie-14</b>, <b>C-14</b>, <b>charlie 14</b>, <b>MP-C1</b>, <b>Charlie Aid</b>, <b>Shelter Charlie-14</b>.</p>
+  <ul>
+    <li>Same layout as the HS-01 site map: Alpha at north, then clockwise to Hotel. Channel = Ch 3 (Alpha) to Ch 10 (Hotel).</li>
+    <li>Grid 1 is next to the Hub. Numbers run clockwise around each ring, ring by ring outward, to grid 40 at the outer edge.</li>
+    <li>Hatched blue bands are wadi flood zones. Flood warnings are called by grid on Ch 1 and Ch 16.</li>
+    <li>Location format: "Sector-grid, structure, deck, landmark".</li>
+  </ul>
+  <div class="btnrow"><button type="button" class="btn alt" data-act="hub">The Hub</button><button type="button" class="btn alt" data-go="w-charlie">Charlie Wadi</button></div>
+  ${walkNote}</div>`;
+}
+// delegated actions inside the panel
+gid("panel").addEventListener("click",e=>{
+  const b=e.target.closest("[data-go],[data-act]"); if(!b) return;
+  const go=b.getAttribute("data-go"),act=b.getAttribute("data-act");
+  if(go){
+    if(go.indexOf("st:")===0){const st=DATA.structures.find(s=>s.id===go.slice(3));if(st)selectStruct(st,true);return;}
+    if(go.indexOf("pin:")===0){const p=DATA.pins.find(s=>s.id===go.slice(4));if(p)selectPin(p,true);return;}
+    if(go.indexOf("g-")===0){const s="ABCDEFGH".indexOf(go[2]),n=+go.slice(3);if(GRIDS[s]&&GRIDS[s][n])selectGrid(GRIDS[s][n],true);return;}
+    if(F[go]) selectFeature(F[go],true);
+    return;
+  }
+  if(act==="hub") showHub(true);
+  else if(act==="addpin"){startPin(null,b.getAttribute("data-grid"));}
+  else if(act==="addst"){startStruct(null,b.getAttribute("data-grid"));}
+  else if(act==="editpin"){const p=DATA.pins.find(x=>x.id===b.getAttribute("data-id"));if(p)startPin(p);}
+  else if(act==="editst"){const s=DATA.structures.find(x=>x.id===b.getAttribute("data-id"));if(s)startStruct(s);}
+  else if(act==="delpin"){const p=DATA.pins.find(x=>x.id===b.getAttribute("data-id"));if(p&&confirm("Remove pin \""+p.label+"\"?")){DATA.pins=DATA.pins.filter(x=>x!==p);changed();}}
+  else if(act==="delst"){const s=DATA.structures.find(x=>x.id===b.getAttribute("data-id"));if(s&&confirm("Remove structure \""+s.name+"\"?")){DATA.structures=DATA.structures.filter(x=>x!==s);changed();}}
+  else if(act==="showpin"){const p=DATA.pins.find(x=>x.id===b.getAttribute("data-id"));if(p)selectPin(p,true);}
+  else if(act==="showst"){const s=DATA.structures.find(x=>x.id===b.getAttribute("data-id"));if(s)selectStruct(s,true);}
+});
+
+/* ===================== tabs and bottom sheet ===================== */
+const TABS=["info","layers","build","gm"],panel=gid("panel"),sheetBtn=gid("sheet-toggle");
+function setCollapsed(c){panel.classList.toggle("collapsed",c);sheetBtn.setAttribute("aria-expanded",String(!c));sheetBtn.textContent=c?"▴":"▾";sheetBtn.setAttribute("aria-label",c?"Expand panel":"Collapse panel");}
+function showTab(name,expand){
+  TABS.forEach(t=>{const b=gid("tab-"+t),p=gid("panel-"+t),on=t===name;b.setAttribute("aria-selected",String(on));b.tabIndex=on?0:-1;p.hidden=!on;});
+  sheetBtn.setAttribute("aria-controls","panel-"+name);
+  if(expand) setCollapsed(false);
+}
+TABS.forEach((t,i)=>{
+  const b=gid("tab-"+t);
+  b.addEventListener("click",()=>{const was=b.getAttribute("aria-selected")==="true";if(was&&panel.classList.contains("collapsed")){setCollapsed(false);return;}showTab(t,true);});
+  b.addEventListener("keydown",e=>{let n=-1;if(e.key==="ArrowRight")n=(i+1)%TABS.length;else if(e.key==="ArrowLeft")n=(i+TABS.length-1)%TABS.length;else if(e.key==="Home")n=0;else if(e.key==="End")n=TABS.length-1;
+    if(n>=0){e.preventDefault();showTab(TABS[n],true);gid("tab-"+TABS[n]).focus();}});
+});
+sheetBtn.addEventListener("click",()=>setCollapsed(!panel.classList.contains("collapsed")));
+
+/* ===================== layers ===================== */
+const LAYERS=[
+  {k:"grid",t:"Grid lines and numbers",s:'<svg width="26" height="18" viewBox="0 0 26 18"><rect x="1" y="1" width="24" height="16" fill="#f3e7bf" stroke="#141414"/><path d="M9 1v16M17 1v16" stroke="#141414" stroke-width=".8"/><text x="13" y="12.5" font-size="8" font-family="IBM Plex Mono,monospace" font-weight="700" text-anchor="middle">14</text></svg>',n:"Numbers show as you zoom in"},
+  {k:"mp",t:"Muster points (MP-A1 … MP-H2)",s:'<svg width="16" height="16"><circle cx="8" cy="8" r="6.5" fill="#2f8a57" stroke="#141414" stroke-width="2"/></svg>'},
+  {k:"fas",t:"Forward Aid Stations (FAS)",s:'<svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="#c4161c" stroke="#141414" stroke-width="2"/><path d="M8 3v10M3 8h10" stroke="#fff" stroke-width="2.5"/></svg>'},
+  {k:"shl",t:"Large shelters",s:'<svg width="16" height="16"><path d="M1 15 L8 2 L15 15 Z" fill="#1d5fa8" stroke="#141414" stroke-width="2"/></svg>'},
+  {k:"shs",t:"Grid-block shelters",s:'<svg width="16" height="16"><path d="M4 12 L8 4.5 L12 12 Z" fill="#1d5fa8" stroke="#141414" stroke-width="1.5"/></svg>',n:"Shown when zoomed in"},
+  {k:"aed",t:"AEDs",s:'<svg width="16" height="16"><rect x="1" y="1" width="14" height="14" rx="2" fill="#2f8a57" stroke="#141414" stroke-width="2"/><path d="M8 12.5 4.6 9.1a2.1 2.1 0 0 1 3.4-2.5 2.1 2.1 0 0 1 3.4 2.5Z" fill="#fff"/></svg>',n:"Grid-block AEDs shown when zoomed in"},
+  {k:"road",t:"Haul roads",s:'<svg width="26" height="12"><path d="M1 6h24" stroke="#6b675c" stroke-width="5"/><path d="M1 6h24" stroke="#f7f4e8" stroke-width="1" stroke-dasharray="4 3"/></svg>',n:"Hub ring road, mid and outer loops, spoke roads"},
+  {k:"wadi",t:"Wadis and flood zones",s:'<svg width="26" height="16"><rect x="1" y="1" width="24" height="14" fill="url(#flood)"/><path d="M1 9 q6 -5 12 0 t12 0" fill="none" stroke="#1d5fa8" stroke-width="2.5"/></svg>',n:"Diamond = flood crossing on a haul road"},
+  {k:"fac",t:"Facilities",s:'<svg width="26" height="14"><rect x="1" y="2" width="11" height="10" fill="#9a978b" stroke="#141414" stroke-width="2"/><rect x="14" y="2" width="11" height="10" fill="#ec5b13" stroke="#141414" stroke-width="2"/></svg>',n:"Hub buildings, Fabrication Yards, Polymer Works, chem stores, sector offices"},
+  {k:"struct",t:"Structures (build tracker)",s:'<svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="#f7f4e8" stroke="#141414" stroke-width="2"/><rect x="2" y="8" width="12" height="6" fill="#f5d000"/></svg>',n:"Fill shows decks built"},
+  {k:"pins",t:"GM pins",s:'<svg width="16" height="18" viewBox="-8 -20 16 21"><path d="M0 0 C-2 -5 -7 -7 -7 -12 A7 7 0 1 1 7 -12 C7 -7 2 -5 0 0Z" fill="#6b3fa0" stroke="#141414" stroke-width="1.8"/></svg>',n:"Scene, incident, hazard, note"}
+];
+let hidden={};
+try{hidden=JSON.parse(sGet(KEY_LAYERS)||"{}")||{};}catch(_){hidden={};}
+function buildLayers(){
+  gid("layer-list").innerHTML=LAYERS.map(l=>`<li><label for="lay-${l.k}"><input type="checkbox" id="lay-${l.k}" data-layer="${l.k}"${hidden[l.k]?"":" checked"}><span aria-hidden="true">${l.s}</span><span>${esc(l.t)}${l.n?`<small>${esc(l.n)}</small>`:""}</span></label></li>`).join("");
+  gid("layer-list").addEventListener("change",e=>{const k=e.target.getAttribute("data-layer");if(!k)return;hidden[k]=!e.target.checked;if(!hidden[k])delete hidden[k];applyLayers();sSet(KEY_LAYERS,JSON.stringify(hidden));});
+  const key=[
+    ['<svg width="26" height="14"><rect x="1" y="2" width="24" height="10" fill="#9a978b" stroke="#141414" stroke-width="2"/></svg>',"Fabrication Yard (sector edge, welding bays)"],
+    ['<svg width="26" height="14"><rect x="1" y="2" width="24" height="10" fill="#ec5b13" stroke="#141414" stroke-width="2"/></svg>',"Polymer Works (Golf)"],
+    ['<svg width="16" height="16"><path d="M8 1 L15 8 L8 15 L1 8Z" fill="#f5d000" stroke="#141414" stroke-width="1.6"/></svg>',"Chem store"],
+    ['<svg width="16" height="16"><rect x="2" y="2" width="12" height="12" fill="#141414" stroke="#f5d000" stroke-width="1.5"/><text x="8" y="11" font-size="8" fill="#f5d000" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700">P</text></svg>',"Sector office and permit board"],
+    ['<svg width="16" height="16"><path d="M8 2 L14 8 L8 14 L2 8Z" fill="#1d5fa8" stroke="#141414" stroke-width="1.5"/></svg>',"Flood crossing (wadi meets haul road)"]
+  ].concat(Object.keys(PIN_TYPES).map(k=>[`<svg width="16" height="18" viewBox="-8 -20 16 21"><path d="M0 0 C-2 -5 -7 -7 -7 -12 A7 7 0 1 1 7 -12 C7 -7 2 -5 0 0Z" fill="${PIN_TYPES[k].color}" stroke="#141414" stroke-width="1.8"/><text y="-9.2" text-anchor="middle" font-size="8" font-weight="700" font-family="IBM Plex Mono,monospace" fill="${PIN_TYPES[k].fg}">${PIN_TYPES[k].ch}</text></svg>`,"GM pin: "+PIN_TYPES[k].label]));
+  gid("key-list").innerHTML=key.map(k=>`<li><span aria-hidden="true">${k[0]}</span><span>${esc(k[1])}</span></li>`).join("");
+}
+function applyLayers(){LAYERS.forEach(l=>svg.classList.toggle("off-"+l.k,!!hidden[l.k]));}
+
+/* ===================== build tracker and pins lists ===================== */
+const gridOrder=name=>{const g=parseGrid(name);return g?g.s*100+g.num:9999;};
+function renderLists(){
+  const S=DATA.structures.slice().sort((a,b)=>gridOrder(a.grid)-gridOrder(b.grid)||a.name.localeCompare(b.name));
+  const tb=S.reduce((a,s)=>a+s.built,0),tp=S.reduce((a,s)=>a+s.planned,0);
+  gid("build-sum").innerHTML=`<div><b>${S.length}</b><span>Structures</span></div><div><b>${tb}/${tp}</b><span>Decks built</span></div><div><b>${tp?Math.round(tb/tp*100):0}%</b><span>Overall</span></div>`;
+  gid("struct-list").innerHTML=S.length?S.map(s=>{const P=pct(s);return `<li><div class="hd"><b>${esc(s.name)}</b><span class="loc">${esc(s.grid)}</span><span class="chip">${esc(s.status)}</span>${exChip(s)}</div>
+    <div class="bar" role="img" aria-label="${P}% built"><i class="${P>=100?"full":""}" style="width:${P}%"></i></div>
+    <div class="loc">${s.built} of ${s.planned} decks · ${P}%</div>
+    <div class="acts"><button type="button" class="btn sm alt" data-act="showst" data-id="${esc(s.id)}">Show</button><button type="button" class="btn sm alt" data-act="editst" data-id="${esc(s.id)}">Edit</button><button type="button" class="btn sm alt" data-act="delst" data-id="${esc(s.id)}">Remove</button></div></li>`;}).join("")
+    :`<li><span class="empty">No structures yet. Add one below.</span></li>`;
+  const P=DATA.pins.slice().sort((a,b)=>gridOrder(a.grid)-gridOrder(b.grid)||a.label.localeCompare(b.label));
+  gid("pin-list").innerHTML=P.length?P.map(p=>`<li><div class="hd"><span class="dot" style="background:${PIN_TYPES[p.type].color}"></span><b>${esc(p.label)}</b><span class="loc">${esc(p.grid)} · ${PIN_TYPES[p.type].label}</span>${exChip(p)}</div>
+    ${p.notes?`<div style="font-size:13px">${esc(p.notes)}</div>`:""}
+    <div class="acts"><button type="button" class="btn sm alt" data-act="showpin" data-id="${esc(p.id)}">Show</button><button type="button" class="btn sm alt" data-act="editpin" data-id="${esc(p.id)}">Edit</button><button type="button" class="btn sm alt" data-act="delpin" data-id="${esc(p.id)}">Remove</button></div></li>`).join("")
+    :`<li><span class="empty">No pins yet. Add one below.</span></li>`;
+  gid("gm-export").value=JSON.stringify({format:"dcw-atlas",version:1,exported:new Date().toISOString(),pins:DATA.pins,structures:DATA.structures},null,2);
+  gid("gm-clear-examples").disabled=!DATA.pins.some(p=>p.example)&&!DATA.structures.some(s=>s.example);
+  // search suggestions
+  const opts=[];
+  for(let i=0;i<8;i++){const L=SECT[i][0];opts.push("MP-"+L+"1","MP-"+L+"2",SECT[i]+" Aid",F["shl-"+L].name);}
+  WADIS.forEach(w=>opts.push(w.name));
+  ["Central Med","Hub Command","Fire & Rescue HQ","Atmospheric Office","Polymer Works"].forEach(x=>opts.push(x));
+  DATA.structures.forEach(s=>opts.push(s.name));
+  gid("search-list").innerHTML=[...new Set(opts)].map(o=>`<option value="${esc(o)}"></option>`).join("");
+}
+function changed(){saveData();buildGm();renderLists();if(selGrid)renderGridInfo(selGrid);else renderIntro();}
+
+// structure form
+const stF={form:gid("st-form"),id:gid("st-id"),name:gid("st-name"),grid:gid("st-grid"),status:gid("st-status"),planned:gid("st-planned"),built:gid("st-built"),notes:gid("st-notes"),err:gid("st-err"),save:gid("st-save"),cancel:gid("st-cancel"),title:gid("st-form-title")};
+stF.status.innerHTML=STATUSES.map(s=>`<option value="${s}">${s}</option>`).join("");
+function startStruct(st,grid){
+  showTab("build",true);stF.err.textContent="";
+  if(st){stF.id.value=st.id;stF.name.value=st.name;stF.grid.value=st.grid;stF.status.value=st.status;stF.planned.value=st.planned;stF.built.value=st.built;stF.notes.value=st.notes;
+    stF.save.textContent="Save changes";stF.cancel.hidden=false;stF.title.textContent="Edit "+st.name;}
+  else{resetStForm();if(grid)stF.grid.value=grid;}
+  stF.name.focus();
+}
+function resetStForm(){stF.form.reset();stF.id.value="";stF.planned.value=10;stF.built.value=0;stF.save.textContent="Add structure";stF.cancel.hidden=true;stF.title.textContent="Add a structure";stF.err.textContent="";}
+stF.form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=stF.name.value.trim(),g=parseGrid(stF.grid.value),pl=Number(stF.planned.value),bu=Number(stF.built.value);
+  let err="";
+  if(!name) err="Enter a name, for example Tower B.";
+  else if(!g) err="Enter a grid like Charlie-14 or C-14.";
+  else if(!Number.isInteger(pl)||pl<1||pl>200) err="Decks planned must be a whole number from 1 to 200.";
+  else if(!Number.isInteger(bu)||bu<0) err="Decks built must be a whole number, 0 or more.";
+  else if(bu>pl) err="Decks built cannot be more than decks planned.";
+  if(err){stF.err.textContent=err;return;}
+  const id=stF.id.value,o=normStruct({id:id||newId("s"),name:name,grid:g.name,planned:pl,built:bu,status:stF.status.value,notes:stF.notes.value});
+  if(id){const i=DATA.structures.findIndex(x=>x.id===id);if(i>=0){o.example=DATA.structures[i].example;DATA.structures[i]=o;}else DATA.structures.push(o);}
+  else DATA.structures.push(o);
+  resetStForm();changed();
+});
+stF.cancel.addEventListener("click",resetStForm);
+gid("st-usesel").addEventListener("click",()=>{if(selGrid)stF.grid.value=selGrid.name;else stF.err.textContent="Select a grid on the map first.";});
+
+// pin form
+const pnF={form:gid("pin-form"),id:gid("pin-id"),label:gid("pin-label"),grid:gid("pin-grid"),type:gid("pin-type"),notes:gid("pin-notes"),err:gid("pin-err"),save:gid("pin-save"),cancel:gid("pin-cancel"),title:gid("pin-form-title")};
+pnF.type.innerHTML=Object.keys(PIN_TYPES).map(k=>`<option value="${k}">${PIN_TYPES[k].label}</option>`).join("");
+function startPin(p,grid){
+  showTab("gm",true);pnF.err.textContent="";
+  if(p){pnF.id.value=p.id;pnF.label.value=p.label;pnF.grid.value=p.grid;pnF.type.value=p.type;pnF.notes.value=p.notes;pnF.save.textContent="Save changes";pnF.cancel.hidden=false;pnF.title.textContent="Edit pin";}
+  else{resetPinForm();if(grid)pnF.grid.value=grid;}
+  pnF.label.focus();
+}
+function resetPinForm(){pnF.form.reset();pnF.id.value="";pnF.save.textContent="Add pin";pnF.cancel.hidden=true;pnF.title.textContent="Add a pin";pnF.err.textContent="";}
+pnF.form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const label=pnF.label.value.trim(),g=parseGrid(pnF.grid.value);
+  if(!label){pnF.err.textContent="Enter a label.";return;}
+  if(!g){pnF.err.textContent="Enter a grid like Charlie-14 or C-14.";return;}
+  const id=pnF.id.value,o=normPin({id:id||newId("p"),label:label,grid:g.name,type:pnF.type.value,notes:pnF.notes.value});
+  if(id){const i=DATA.pins.findIndex(x=>x.id===id);if(i>=0){o.example=DATA.pins[i].example;DATA.pins[i]=o;}else DATA.pins.push(o);}
+  else DATA.pins.push(o);
+  resetPinForm();changed();
+});
+pnF.cancel.addEventListener("click",resetPinForm);
+gid("pin-usesel").addEventListener("click",()=>{if(selGrid)pnF.grid.value=selGrid.name;else pnF.err.textContent="Select a grid on the map first.";});
+
+// data tools
+gid("gm-clear-examples").addEventListener("click",()=>{DATA.pins=DATA.pins.filter(p=>!p.example);DATA.structures=DATA.structures.filter(s=>!s.example);changed();gid("gm-import-status").textContent="Examples cleared.";});
+gid("gm-clear-all").addEventListener("click",()=>{if(confirm("Delete every pin and structure in this browser? Export first if you want a copy. This cannot be undone.")){DATA={pins:[],structures:[]};changed();gid("gm-import-status").textContent="All pins and structures deleted.";}});
+gid("gm-copy").addEventListener("click",()=>{
+  const ta=gid("gm-export"),st=gid("gm-copy-status"),txt=ta.value;
+  const fallback=()=>{ta.focus();ta.select();let ok=false;try{ok=document.execCommand("copy");}catch(_){}st.textContent=ok?"Copied.":"Select the text and copy it by hand.";};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(()=>{st.textContent="Copied.";},fallback);}else fallback();
+});
+function doImport(replace){
+  const st=gid("gm-import-status"),raw=gid("gm-import").value.trim();
+  if(!raw){st.textContent="Paste JSON first.";return;}
+  let d;try{d=normData(JSON.parse(raw));}catch(e){st.textContent="Could not read that JSON: "+e.message;return;}
+  if(replace){if(!confirm("Replace all pins and structures with the imported data?"))return;DATA={pins:d.pins,structures:d.structures};}
+  else{
+    const pid=new Set(DATA.pins.map(p=>p.id)),sid=new Set(DATA.structures.map(s=>s.id));
+    d.pins.forEach(p=>{if(pid.has(p.id))p.id=newId("p");DATA.pins.push(p);});
+    d.structures.forEach(s=>{if(sid.has(s.id))s.id=newId("s");DATA.structures.push(s);});
+  }
+  changed();
+  st.textContent=`Imported ${d.pins.length} pins and ${d.structures.length} structures${d.skipped?`. Skipped ${d.skipped} entries with a missing name or a bad grid`:""}.`;
+  gid("gm-import").value="";
+}
+gid("gm-import-add").addEventListener("click",()=>doImport(false));
+gid("gm-import-replace").addEventListener("click",()=>doImport(true));
+
+/* ===================== search box ===================== */
+const msg=gid("search-msg");
+function runSearch(q,quiet){
+  const r=search(q);msg.textContent="";
+  if(!r) return false;
+  if(r.t==="msg"){if(!quiet)msg.textContent=r.msg;return false;}
+  if(r.t==="grid") selectGrid(r.g,true);
+  else if(r.t==="f") selectFeature(r.f,true);
+  else if(r.t==="struct") selectStruct(r.o,true);
+  else if(r.t==="pin") selectPin(r.o,true);
+  else if(r.t==="sector") selectSector(r.s);
+  else if(r.t==="hub") showHub(true);
+  return true;
+}
+gid("search-form").addEventListener("submit",e=>{e.preventDefault();runSearch(gid("search-input").value);});
+gid("search-input").addEventListener("input",()=>{msg.textContent="";});
+
+/* ===================== start ===================== */
+loadData();
+buildMap();
+buildLayers();applyLayers();
+buildGm();renderLists();
+measure();resetView();
+renderIntro();
+gid("gm-storage-note").textContent=storageOk?"":"This browser is not saving atlas data (private window or storage blocked). Use Export to keep a copy.";
+if(typeof ResizeObserver!=="undefined"){new ResizeObserver(()=>{const old=fitPpu;measure();if(Math.abs(view.ppu-old)<1e-6)view.ppu=fitPpu;applyView();}).observe(wrap);}
+else window.addEventListener("resize",()=>{measure();applyView();});
+if(window.matchMedia&&window.matchMedia("(max-width:760px)").matches) setCollapsed(false);
+if(location.hash.length>1){let h="";try{h=decodeURIComponent(location.hash.slice(1));}catch(_){}if(h)runSearch(h,true);}
+// expose for checks in the console
+window.DCWAtlas={search:search,parseGrid:parseGrid,GRIDS:GRIDS,F:F,WADIS:WADIS,gridAt:gridAt};
+})();
+</script>
+</body>
+</html>

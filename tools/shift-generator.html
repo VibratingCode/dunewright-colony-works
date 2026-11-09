@@ -1,0 +1,1620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TOOL-SG Shift Generator · Dunewright Colony Works</title>
+<meta name="description" content="GM tool for running Dunewright Colony Works shifts: roster, crews, jobs, weather, heat, permits, complications and a muster briefing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* TOOL-SG: a working GM app in the DCW poster identity (paper, hi-viz yellow, black). Single light theme like the posters. */
+:root{
+  color-scheme:light;
+  --wall:#3b3f3c; --paper:#f7f4e8; --paper2:#ebe6d4; --white:#fffdf6; --ink:#141414; --muted:#55524a; --rule:#c9c3ad;
+  --hiviz:#f5d000; --orange:#ec5b13; --red:#c4161c; --blue:#1d5fa8; --green:#2f8a57;
+  --display:"Anton","Impact","Arial Narrow",sans-serif;
+  --body:"Archivo",system-ui,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper2);color:var(--ink);font:14px/1.45 var(--body);overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:1;letter-spacing:.01em}
+p{margin:0}
+[hidden]{display:none!important}
+
+.sitenav{background:var(--ink);color:var(--paper);border-bottom:4px solid var(--hiviz);padding:10px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px))}
+.sitenav .in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:6px 18px;font:700 12px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.sitenav a{text-decoration:none}
+.sitenav a:hover{color:var(--hiviz)}
+.sitenav .home{color:var(--hiviz)}
+
+.app{max-width:1240px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px));display:grid;gap:14px}
+.head{background:var(--hiviz);border:3px solid var(--ink);border-bottom-width:6px;padding:14px 16px 12px;display:grid;gap:6px}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;font:700 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.head h1{font-size:clamp(34px,7vw,64px)}
+.head p{font-size:13px;max-width:80ch}
+.banner{border:3px dashed var(--ink);background:var(--white);padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.banner b{font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:var(--hiviz);padding:3px 7px}
+.banner.view{border-color:var(--blue);border-style:solid}
+.banner.view b{background:var(--blue);color:#fff}
+
+.tabs{display:flex;flex-wrap:wrap;gap:0;border:3px solid var(--ink);background:var(--ink)}
+.tab{flex:1 1 auto;font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;background:var(--paper);color:var(--ink);border:0;border-right:2px solid var(--ink);cursor:pointer;min-width:0}
+.tab:last-child{border-right:0}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--hiviz)}
+.tab:hover:not([aria-selected="true"]){background:var(--hiviz)}
+.tab .n{font-weight:500;opacity:.75}
+
+.card{background:var(--white);border:2px solid var(--ink);padding:12px;min-width:0}
+.card > h2,.sh{font-size:24px;margin-bottom:10px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.sh small,.card > h2 small{font:700 11px var(--mono);letter-spacing:.06em;color:var(--muted)}
+h3{font-size:18px;margin:4px 0 6px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px;align-items:start}
+.cols.even{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stack{display:grid;gap:14px;min-width:0}
+
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px}
+.fgrid .wide{grid-column:1/-1}
+label.f{display:grid;gap:3px;font:700 11px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:0}
+input[type=text],input[type=number],select,textarea{font:500 14px var(--body);color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:0;padding:6px 8px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:70px;font:500 12px/1.45 var(--mono)}
+input[type=checkbox],input[type=radio]{width:16px;height:16px;accent-color:var(--ink);margin:2px 0 0;flex:none}
+input[type=range]{width:100%;accent-color:var(--ink)}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:4px 12px;border:2px solid var(--rule);padding:8px;background:#fff;max-height:260px;overflow:auto}
+.checks label{display:flex;gap:6px;align-items:flex-start;font-size:13px;line-height:1.3;cursor:pointer;min-width:0;overflow-wrap:anywhere}
+.checks.tall{max-height:none}
+fieldset{border:2px solid var(--rule);margin:0;padding:8px;min-width:0}
+legend{font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:0 4px}
+.hint{font:500 11px/1.4 var(--mono);color:var(--muted)}
+.hint.bad{color:var(--red)}
+
+.btns{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn{font:700 12px/1.1 var(--mono);text-transform:uppercase;letter-spacing:.05em;background:var(--ink);color:var(--hiviz);border:2px solid var(--ink);padding:8px 11px;cursor:pointer;border-radius:0}
+.btn:hover{background:#333}
+.btn.alt{background:#fff;color:var(--ink)}
+.btn.alt:hover{background:var(--hiviz)}
+.btn.hv{background:var(--hiviz);color:var(--ink)}
+.btn.hv:hover{background:#ffe23d}
+.btn.red{background:#fff;color:var(--red);border-color:var(--red)}
+.btn.red:hover{background:var(--red);color:#fff}
+.btn.sm{padding:4px 7px;font-size:11px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn[aria-pressed="true"]{background:var(--hiviz);color:var(--ink)}
+.status{font:700 11px var(--mono);color:var(--green);min-height:1em}
+
+.tw{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch;border:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);padding:5px 7px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:var(--paper);font:700 11px var(--mono);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;position:sticky;top:0}
+td.m,.m{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+td.nw{white-space:nowrap}
+tr:hover td{background:#fbf6dc}
+.lvl{display:inline-block;padding:1px 6px;font:700 11px var(--mono);border:1px solid var(--ink);white-space:nowrap}
+
+.chip{display:inline-block;font:700 11px/1.25 var(--mono);padding:3px 6px;border:2px solid var(--ink);background:#fff;margin:0 4px 4px 0;overflow-wrap:anywhere;max-width:100%}
+.chip.warn{background:var(--hiviz)}
+.chip.stop{background:var(--red);border-color:var(--red);color:#fff}
+.chip.info{border-color:var(--rule);color:var(--muted)}
+.chip.ok{border-color:var(--green);color:var(--green)}
+.chip.perm{background:var(--ink);color:var(--hiviz)}
+.hat{display:inline-block;width:13px;height:13px;border-radius:50%;border:2px solid var(--ink);vertical-align:-2px;margin-right:5px;flex:none}
+.tagx{font:700 10px var(--mono);text-transform:uppercase;background:var(--paper2);border:1px solid var(--rule);padding:1px 4px;margin:0 3px 3px 0;display:inline-block}
+
+.timeline{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border:2px solid var(--ink);margin-bottom:10px}
+.timeline div{padding:4px 2px;text-align:center;font:700 10px/1.15 var(--mono);border-right:1px solid var(--ink);min-width:0;overflow:hidden}
+.timeline div:last-child{border-right:0}
+.timeline b{display:block;font-size:11px}
+.alerts{display:grid;gap:4px;margin-bottom:10px}
+.alerts div{border:2px solid var(--ink);padding:5px 8px;font-size:13px}
+.alerts .stop{background:#f9dcd8;border-color:var(--red)}
+.alerts .warn{background:#fff3b0}
+.alerts .info{background:#fff}
+
+.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:10px}
+.job{border:2px solid var(--ink);background:#fff;min-width:0;display:grid}
+.job .jh{background:var(--ink);color:var(--paper);padding:7px 9px}
+.job .jh b{font:400 19px/1.05 var(--display);text-transform:uppercase;display:block;color:var(--hiviz)}
+.job .jh span{font:500 12px var(--mono)}
+.job .jb{padding:8px 9px;display:grid;gap:6px;font-size:13px}
+.job .row2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:8px}
+.kv{display:grid;grid-template-columns:78px minmax(0,1fr);gap:2px 8px}
+.kv dt{font:700 10px/1.6 var(--mono);text-transform:uppercase;color:var(--muted)}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+
+.comp{border:2px solid var(--ink);background:#fff;padding:9px;display:grid;gap:6px;min-width:0}
+.comp.locked{border-color:var(--orange);box-shadow:inset 6px 0 0 var(--orange)}
+.comp h3{margin:0;font-size:18px}
+.comp .rule{font-size:12px;background:var(--paper);border-left:4px solid var(--ink);padding:5px 8px}
+.comp .ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:6px}
+
+.brief{border:3px solid var(--ink);background:var(--white)}
+.brief .bh{background:var(--ink);color:var(--hiviz);padding:10px 12px}
+.brief .bh h2{font-size:28px}
+.brief .bh .m{color:var(--paper)}
+.brief section{padding:10px 12px;border-top:2px solid var(--ink)}
+.brief h3{font-size:17px}
+.brief ul{margin:0;padding-left:18px}
+.brief li{margin-bottom:3px}
+.bcrew{border:2px solid var(--ink);margin-top:8px}
+.bcrew > div{padding:6px 9px}
+.bcrew .ct{background:var(--hiviz);font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--ink)}
+.bjob{border-top:1px solid var(--rule)}
+.bjob:first-of-type{border-top:0}
+.bjob b.t{font:800 14px var(--body)}
+
+.list{display:grid;gap:6px}
+.logitem{border:2px solid var(--ink);background:#fff;padding:8px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between}
+.logitem .m{flex:1 1 220px;min-width:0}
+.empty{font:500 12px var(--mono);color:var(--muted);padding:8px;border:2px dashed var(--rule)}
+.foot{font:500 11px/1.5 var(--mono);color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;padding-top:6px}
+
+@media (max-width:900px){.cols,.cols.even{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){
+  .timeline{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .timeline div:nth-child(6){border-right:0}
+  .timeline div:nth-child(-n+6){border-bottom:1px solid var(--ink)}
+  .job .row2{grid-template-columns:minmax(0,1fr)}
+  .kv{grid-template-columns:minmax(0,1fr)}
+  .tab{flex:1 1 30%;border-bottom:2px solid var(--ink)}
+}
+@media print{.sitenav,.tabs,.noprint{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<nav class="sitenav" aria-label="Site"><div class="in">
+  <a class="home" href="../index.html">&larr; DCW Refresher</a>
+  <a href="weather.html">TOOL-WX Weather</a>
+  <a href="heat-field-card.html">TOOL-HFC Heat card</a>
+  <a href="../permits.html">REF-PTW Permits</a>
+  <a href="../roles-glossary.html">REF-GL Roles</a>
+</div></nav>
+
+<main class="app">
+  <header class="head">
+    <div class="meta"><span>Form TOOL-SG · Rev. 5</span><span>GM tool · Safety &amp; Health · Settlement Site 4</span></div>
+    <h1>Shift Generator</h1>
+    <p>Run a 12-hour Dunewright Colony Works shift for your players. Enter your own people, crews and jobs, roll the weather, check heat, wind and permits against the site rules, draw complications and copy a muster briefing. Everything saves in this browser only.</p>
+  </header>
+
+  <div id="ex-banner" class="banner" hidden>
+    <b>Example data</b>
+    <span>The roster, crews and jobs shown are samples so the tool works at first open. Edit them or clear them and enter your own.</span>
+    <button class="btn sm red" type="button" id="ex-clear">Clear example data</button>
+  </div>
+  <div id="store-banner" class="banner" hidden>
+    <b>Not saving</b><span>This browser blocked local storage. Your changes last until you close the page. Use Data &rarr; Export to keep them.</span>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" id="tab-roll" aria-controls="pane-roll" aria-selected="true">Roll shift</button>
+    <button class="tab" role="tab" id="tab-people" aria-controls="pane-people" aria-selected="false">People <span class="n" id="n-people"></span></button>
+    <button class="tab" role="tab" id="tab-crews" aria-controls="pane-crews" aria-selected="false">Crews <span class="n" id="n-crews"></span></button>
+    <button class="tab" role="tab" id="tab-jobs" aria-controls="pane-jobs" aria-selected="false">Jobs <span class="n" id="n-jobs"></span></button>
+    <button class="tab" role="tab" id="tab-comps" aria-controls="pane-comps" aria-selected="false">Complications</button>
+    <button class="tab" role="tab" id="tab-log" aria-controls="pane-log" aria-selected="false">Shift log <span class="n" id="n-log"></span></button>
+    <button class="tab" role="tab" id="tab-data" aria-controls="pane-data" aria-selected="false">Data</button>
+  </div>
+
+  <!-- ============ ROLL ============ -->
+  <section id="pane-roll" role="tabpanel" aria-labelledby="tab-roll" class="stack">
+    <div id="view-banner" class="banner view" hidden>
+      <b>Logged shift</b><span id="view-label"></span>
+      <button class="btn sm" type="button" id="view-back">Back to current shift</button>
+    </div>
+
+    <div class="card noprint" id="r-inputs">
+      <h2 class="sh">Shift setup <small>changes apply at once; weather rolls only when you ask</small></h2>
+      <div class="fgrid">
+        <label class="f" for="r-type">Shift
+          <select id="r-type"><option value="day">Day shift 0600–1800</option><option value="night">Night shift 1800–0600</option></select></label>
+        <label class="f" for="r-season">Season
+          <select id="r-season"><option value="cool">Cool season</option><option value="mild">Mild season</option><option value="hot">Hot season</option></select></label>
+        <label class="f" for="r-day">Site day number
+          <input type="number" id="r-day" min="1" max="99999" step="1"></label>
+        <label class="f" for="r-date">Date label (optional)
+          <input type="text" id="r-date" maxlength="40" placeholder="e.g. Year 1, Week 31"></label>
+        <label class="f" for="r-sector">Sector focus (optional)
+          <select id="r-sector"></select></label>
+        <label class="f" for="r-count">Complications: <span id="r-count-out">2</span>
+          <input type="range" id="r-count" min="1" max="3" step="1"></label>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <label class="checks" style="display:flex;border:0;padding:0;background:none;max-height:none"><input type="checkbox" id="r-lockwx"> <span>Lock weather</span></label>
+      </div>
+      <div class="cols even" style="margin-top:10px">
+        <fieldset><legend>Crews in play</legend><div class="checks" id="r-crews"></div><p class="hint">Only active crews show here. Sector focus limits the list to that sector.</p></fieldset>
+        <fieldset><legend>Jobs in play</legend><div class="checks" id="r-jobs"></div><p class="hint">Only active jobs show here.</p></fieldset>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn hv" type="button" id="r-roll">Roll shift</button>
+        <button class="btn alt" type="button" id="r-rewx">Reroll weather</button>
+        <button class="btn alt" type="button" id="r-recomp">Reroll complications</button>
+        <button class="btn alt" type="button" id="r-auto">Auto-assign crews</button>
+        <button class="btn alt" type="button" id="r-next">Next day</button>
+        <button class="btn" type="button" id="r-save">Save to shift log</button>
+        <span class="status" id="r-status" role="status"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="sh">Weather and heat <small id="r-wxsub"></small></h2>
+      <div class="timeline" id="r-timeline" aria-label="Heat level by hour"></div>
+      <div class="alerts" id="r-alerts"></div>
+      <div class="tw"><table id="r-wx"></table></div>
+      <p class="hint" style="margin-top:6px">HI/air = NWS heat index in shade up to 124°F, air temperature from 125°F (sets the heat level). WBGT is an estimate: the outdoor value (sun by day) for outdoor jobs, the shade value for jobs under cover. Follow whichever of heat level and WBGT is more restrictive.</p>
+    </div>
+
+    <div class="card">
+      <h2 class="sh">Assignments <small>crew, start hour, permits, work/rest and flags per job</small></h2>
+      <div class="jobs" id="r-assign"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sh">Complications <small>lock the ones you like, reroll the rest</small></h2>
+      <div class="list" id="r-comps"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="sh">Muster briefing</h2>
+      <div class="btns noprint" style="margin-bottom:10px">
+        <button class="btn hv" type="button" id="b-copy">Copy briefing</button>
+        <button class="btn alt" type="button" id="b-show" aria-pressed="false">Show plain text</button>
+        <label class="checks" style="display:flex;border:0;padding:0;background:none;max-height:none"><input type="checkbox" id="b-compact"> <span>Compact (no info lines, no hourly work/rest)</span></label>
+        <span class="status" id="b-status" role="status"></span>
+      </div>
+      <label class="f noprint" for="b-text" id="b-text-wrap" hidden>Plain text (select all and copy if the button is blocked)
+        <textarea id="b-text" rows="16" readonly></textarea></label>
+      <div class="brief" id="b-card"></div>
+    </div>
+  </section>
+
+  <!-- ============ PEOPLE ============ -->
+  <section id="pane-people" role="tabpanel" aria-labelledby="tab-people" class="cols" hidden>
+    <form class="card" id="p-form" autocomplete="off">
+      <h2 class="sh" id="p-form-title">Add person</h2>
+      <input type="hidden" id="p-id">
+      <div class="fgrid">
+        <label class="f wide" for="p-name">Name<input type="text" id="p-name" maxlength="60" required></label>
+        <label class="f" for="p-station">Trade / station<select id="p-station"></select></label>
+        <label class="f" for="p-ramp">Heat ramp<select id="p-ramp"></select></label>
+        <label class="f wide" for="p-call">Crew call sign<input type="text" id="p-call" maxlength="60" placeholder="Charlie Crew 14-3"></label>
+        <p class="hint wide" id="p-call-hint">Format: [Sector] Crew [foreman n]-[crew n], e.g. Charlie Crew 14-3. A member number may follow (Charlie Crew 14-3 Seven).</p>
+        <p class="wide" id="p-hat"></p>
+        <fieldset class="wide"><legend>Badge endorsements</legend><div class="checks tall" id="p-ends"></div></fieldset>
+        <label class="f wide" for="p-notes">Notes<textarea id="p-notes" rows="2" maxlength="500"></textarea></label>
+        <label class="checks wide" style="display:flex;border:0;padding:0;background:none"><input type="checkbox" id="p-pc"> <span>Player character</span></label>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn hv" type="submit" id="p-save">Save person</button>
+        <button class="btn alt" type="button" id="p-cancel">Clear form</button>
+      </div>
+    </form>
+    <div class="card">
+      <h2 class="sh">People <small id="p-count"></small></h2>
+      <label class="f" for="p-filter" style="margin-bottom:8px">Filter<input type="text" id="p-filter" placeholder="Name, station, call sign, endorsement"></label>
+      <div class="tw"><table id="p-list"></table></div>
+    </div>
+  </section>
+
+  <!-- ============ CREWS ============ -->
+  <section id="pane-crews" role="tabpanel" aria-labelledby="tab-crews" class="cols" hidden>
+    <form class="card" id="c-form" autocomplete="off">
+      <h2 class="sh" id="c-form-title">Add crew</h2>
+      <input type="hidden" id="c-id">
+      <div class="fgrid">
+        <label class="f wide" for="c-call">Call sign<input type="text" id="c-call" maxlength="60" required placeholder="Charlie Crew 14-3"></label>
+        <p class="hint wide" id="c-call-hint">Format: [Sector] Crew [foreman n]-[crew n]. Fixed when the crew is formed.</p>
+        <label class="f" for="c-sector">Sector<select id="c-sector"></select></label>
+        <label class="f" for="c-tg">Foreman talkgroup<input type="text" id="c-tg" maxlength="20" placeholder="C-F14"></label>
+        <label class="checks wide" style="display:flex;border:0;padding:0;background:none"><input type="checkbox" id="c-active" checked> <span>Active (in play by default)</span></label>
+        <fieldset class="wide"><legend>Members</legend>
+          <label class="f" for="c-mfilter" style="margin-bottom:6px">Filter people<input type="text" id="c-mfilter"></label>
+          <div class="checks" id="c-members"></div>
+          <p class="hint">Members with no call sign get this crew's call sign when you save.</p></fieldset>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn hv" type="submit" id="c-save">Save crew</button>
+        <button class="btn alt" type="button" id="c-cancel">Clear form</button>
+      </div>
+    </form>
+    <div class="card">
+      <h2 class="sh">Crews <small id="c-count"></small></h2>
+      <div class="tw"><table id="c-list"></table></div>
+    </div>
+  </section>
+
+  <!-- ============ JOBS ============ -->
+  <section id="pane-jobs" role="tabpanel" aria-labelledby="tab-jobs" class="cols" hidden>
+    <form class="card" id="j-form" autocomplete="off">
+      <h2 class="sh" id="j-form-title">Add job</h2>
+      <input type="hidden" id="j-id">
+      <div class="fgrid">
+        <label class="f wide" for="j-title">Title<input type="text" id="j-title" maxlength="80" required></label>
+        <label class="f" for="j-sector">Sector<select id="j-sector"></select></label>
+        <label class="f" for="j-grid">Grid (1–40)<input type="number" id="j-grid" min="1" max="40" step="1" value="1"></label>
+        <label class="f" for="j-structure">Structure<input type="text" id="j-structure" maxlength="40" placeholder="Tower B, trench, haul road"></label>
+        <label class="f" for="j-deck">Deck (blank = none, -1 = below grade)<input type="number" id="j-deck" min="-9" max="200" step="1"></label>
+        <label class="f wide" for="j-landmark">Landmark<input type="text" id="j-landmark" maxlength="40" placeholder="east stair"></label>
+        <p class="hint wide">Location: <b id="j-loc"></b></p>
+        <label class="f" for="j-work">Work type<select id="j-work"></select></label>
+        <label class="f" for="j-hours">Estimated hours<input type="number" id="j-hours" min="1" max="12" step="0.5" value="4"></label>
+        <label class="f" for="j-lift">Crane lift<select id="j-lift"><option value="none">No crane lift</option><option value="routine">Routine lift</option><option value="critical">Critical lift (LP-)</option></select></label>
+        <fieldset class="wide"><legend>Flags</legend><div class="checks tall" id="j-flags"></div></fieldset>
+        <fieldset class="wide"><legend>Required endorsements (on top of what the flags need)</legend><div class="checks tall" id="j-req"></div></fieldset>
+        <label class="f wide" for="j-notes">Notes<textarea id="j-notes" rows="2" maxlength="500"></textarea></label>
+        <label class="checks wide" style="display:flex;border:0;padding:0;background:none"><input type="checkbox" id="j-active" checked> <span>Active (in play by default)</span></label>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn hv" type="submit" id="j-save">Save job</button>
+        <button class="btn alt" type="button" id="j-cancel">Clear form</button>
+      </div>
+    </form>
+    <div class="card">
+      <h2 class="sh">Jobs <small id="j-count"></small></h2>
+      <div class="tw"><table id="j-list"></table></div>
+      <p class="hint" style="margin-top:6px">Flags add their own needs: hot work = hot-work + fire watch; confined space = attendant + entrant; crane lift = crane operator + signal person + rigger; excavation and at height = competent person; energized electrical = qualified electrical worker. Every crew needs a first aider. Deck 1 and above always counts as at height.</p>
+    </div>
+  </section>
+
+  <!-- ============ COMPLICATIONS ============ -->
+  <section id="pane-comps" role="tabpanel" aria-labelledby="tab-comps" class="cols" hidden>
+    <form class="card" id="k-form" autocomplete="off">
+      <h2 class="sh" id="k-form-title">Add custom complication</h2>
+      <input type="hidden" id="k-id">
+      <div class="fgrid">
+        <label class="f wide" for="k-title">Title<input type="text" id="k-title" maxlength="80" required></label>
+        <label class="f wide" for="k-text">What happens<textarea id="k-text" rows="3" maxlength="600" placeholder="{person} at {loc} ..."></textarea></label>
+        <label class="f wide" for="k-rule">What the rules say<textarea id="k-rule" rows="3" maxlength="600" placeholder="Ch 1: Emergency x3, ..."></textarea></label>
+        <label class="f" for="k-weight">Weight (1–10)<input type="number" id="k-weight" min="1" max="10" step="1" value="3"></label>
+        <label class="f" for="k-inv">Involves<select id="k-inv"><option value="person">A person</option><option value="crew">A crew</option><option value="none">Nobody in particular</option></select></label>
+        <fieldset class="wide"><legend>Tags</legend><div class="checks tall" id="k-tags"></div>
+          <p class="hint">A complication with no condition tags (medical, equipment, people only) can always come up. Otherwise at least one tag must fit the shift: heat when it is hot, wind when it is windy, lift when a job has a crane lift, and so on.</p></fieldset>
+        <p class="hint wide">Placeholders: {person} {crew} {loc} {job} {sector} {grid} {deck} {ch} {aid} {mp} {tg} {lift} {temp} {wbgt} {wind} {gust} {time}</p>
+      </div>
+      <div class="btns" style="margin-top:10px">
+        <button class="btn hv" type="submit" id="k-save">Save complication</button>
+        <button class="btn alt" type="button" id="k-cancel">Clear form</button>
+      </div>
+    </form>
+    <div class="card">
+      <h2 class="sh">Complication deck <small id="k-count"></small></h2>
+      <label class="f" for="k-filter" style="margin-bottom:8px">Filter<input type="text" id="k-filter" placeholder="Title or tag"></label>
+      <div class="tw"><table id="k-list"></table></div>
+    </div>
+  </section>
+
+  <!-- ============ LOG ============ -->
+  <section id="pane-log" role="tabpanel" aria-labelledby="tab-log" class="card" hidden>
+    <h2 class="sh">Shift log <small>last 20 saved shifts, kept with a copy of the roster as it was</small></h2>
+    <div class="list" id="l-list"></div>
+  </section>
+
+  <!-- ============ DATA ============ -->
+  <section id="pane-data" role="tabpanel" aria-labelledby="tab-data" class="cols even" hidden>
+    <div class="card">
+      <h2 class="sh">Export</h2>
+      <p class="hint" style="margin-bottom:8px">Copies everything (people, crews, jobs, custom complications, deck settings, current shift and log) as JSON. Paste it into a text file to keep it. No file download needed.</p>
+      <div class="btns" style="margin-bottom:8px">
+        <button class="btn hv" type="button" id="x-export">Export and copy JSON</button>
+        <span class="status" id="x-status" role="status"></span>
+      </div>
+      <label class="f" for="x-out">Exported JSON<textarea id="x-out" rows="12" readonly></textarea></label>
+    </div>
+    <div class="card">
+      <h2 class="sh">Import</h2>
+      <p class="hint" style="margin-bottom:8px">Paste JSON from Export. This replaces everything stored in this browser.</p>
+      <label class="f" for="x-in">JSON to import<textarea id="x-in" rows="12"></textarea></label>
+      <div class="btns" style="margin-top:8px">
+        <button class="btn hv" type="button" id="x-import">Import (replace all)</button>
+        <span class="status" id="x-istatus" role="status"></span>
+      </div>
+      <h3 style="margin-top:16px">Start over</h3>
+      <div class="btns">
+        <button class="btn alt" type="button" id="x-example">Load example data</button>
+        <button class="btn red" type="button" id="x-clear">Clear all data</button>
+      </div>
+      <p class="hint" id="x-store" style="margin-top:8px"></p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Dunewright Colony Works · Settlement Site 4 · Construction Division · Safety &amp; Health · Form TOOL-SG · Rev. 5</span>
+    <span>GM practice tool for roleplay. Rules follow the Post-Stasis Refresher. On shift, the Ch 16 posting and your crew lead's readings are what count.</span>
+  </footer>
+</main>
+
+<script>
+'use strict';
+/* ================= helpers ================= */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-4);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const wpick=l=>{let t=l.reduce((s,x)=>s+x[1],0),r=Math.random()*t;for(const x of l){if((r-=x[1])<=0)return x[0]}return l[0][0]};
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const clone=o=>JSON.parse(JSON.stringify(o));
+const hhmm=(h,m=0)=>String(((h%24)+24)%24).padStart(2,'0')+String(m).padStart(2,'0');
+
+/* ================= world constants (WORLD.md) ================= */
+const SECTORS=['Alpha','Bravo','Charlie','Delta','Echo','Foxtrot','Golf','Hotel'];
+const SECTOR_CH={Alpha:3,Bravo:4,Charlie:5,Delta:6,Echo:7,Foxtrot:8,Golf:9,Hotel:10};
+const HATS={white:['#ffffff','White'],yellow:['#f5d000','Yellow'],lead:['lead','Yellow with white LEAD band'],orange:['#ec5b13','Orange'],blue:['#1d5fa8','Blue'],brown:['#7a4a22','Brown'],green:['#2f8a57','Green'],red:['#c4161c','Red'],medic:['medic','Red with white cross'],grey:['#8d8d86','Grey'],black:['#141414','Black'],purple:['#6b3fa0','Purple']};
+const STATIONS=[
+ ['super','Sector Superintendent','white'],['asst','Assistant Superintendent','white'],['gf','General Foreman','white'],['foreman','Foreman','white'],
+ ['eng','Engineer (Design & Structures)','white'],['mgr','Manager','white'],['ld','Lift Director','white'],
+ ['lead','Crew Lead','lead'],['crew','Crew member / laborer','yellow'],['trade','Other trade (ironworker, carpenter, finisher)','yellow'],
+ ['equip','Equipment operator','yellow'],['crane','Crane operator','yellow'],['machinist','Machinist','yellow'],['polymer','Polymer tech','yellow'],
+ ['rigger','Rigger','orange'],['signal','Qualified signal person','orange'],['liftcrew','Lift crew','orange'],
+ ['elec','Electrician / power tech','blue'],['weld','Welder / cutter / hot-work crew','brown'],
+ ['safety','Safety & Health officer','green'],['ih','Industrial Hygiene','green'],['atmos','Atmospheric Office field staff','green'],
+ ['fire','Fire & Rescue','red'],['medic','Medic','medic'],['sru','Stasis Revival Unit staff','medic'],
+ ['qa','Survey / QA/QC / inspector','grey'],['security','Security','black'],['visitor','Visitor / non-construction (escorted)','purple']];
+const STATION=Object.fromEntries(STATIONS.map(s=>[s[0],{n:s[1],hat:s[2]}]));
+const ENDS=[
+ ['crane','Crane operator'],['rigger','Qualified rigger'],['signal','Qualified signal person'],['competent','Competent person (excavation/scaffold/fall)'],
+ ['entrysup','Entry supervisor'],['attendant','Attendant'],['entrant','Entrant'],['firewatch','Fire watch'],['hotwork','Hot work'],
+ ['hwsigner','PTW-HW signer'],['lockout','Lockout-authorized'],['qew','Qualified electrical worker'],['mewp','MEWP operator'],
+ ['scaffold','Scaffold erector'],['forklift','Forklift/telehandler'],['equip','Equipment/printer operator'],['firstaid','First aid/CPR'],
+ ['shuttle','Shuttle driver'],['pat','Powder-actuated tools']];
+const END=Object.fromEntries(ENDS);
+const RAMPS=[['d1','Day 1 (RAMP)'],['d2','Day 2 (RAMP)'],['d3','Day 3 (RAMP)'],['d4','Day 4 (RAMP)'],['d5','Day 5 (RAMP)'],['acc','Days 6–14 acclimatizing'],['done','Ramp done']];
+const RAMP=Object.fromEntries(RAMPS);
+const RAMP_PCT={d1:.2,d2:.4,d3:.6,d4:.8,d5:1};
+const isRamp=r=>r in RAMP_PCT;
+const rampDay=p=>RAMP[p.ramp].replace(' (RAMP)','');
+const WORKS=[['light','Light'],['moderate','Moderate'],['heavy','Heavy'],['vheavy','Very heavy']];
+const WORK=Object.fromEntries(WORKS);
+const WI={light:0,moderate:1,heavy:2,vheavy:3};
+const FLAGS=[['outdoor','Outdoor'],['height','At height'],['hot','Hot work'],['cs','Confined space'],['ee','Energized electrical'],['exc','Excavation'],['chem','Chemical / spray']];
+const FLAG=Object.fromEntries(FLAGS);
+const TAGS=['heat','wind','weather','lift','hot work','confined','electrical','height','excavation','chemical','night','medical','equipment','people'];
+const CALLRE=/^(Alpha|Bravo|Charlie|Delta|Echo|Foxtrot|Golf|Hotel) Crew (\d{1,2})-(\d{1,2})(\s+\S.*)?$/;
+
+function hatHtml(st){
+  const h=(STATION[st]||STATION.crew).hat, c=HATS[h];
+  let bg=c[0];
+  if(bg==='lead') bg='linear-gradient(var(--hiviz) 0 34%,#fff 34% 66%,var(--hiviz) 66%)';
+  if(bg==='medic') bg='linear-gradient(#fff,#fff) center/3px 70% no-repeat,linear-gradient(#fff,#fff) center/70% 3px no-repeat,#c4161c';
+  return `<span class="hat" style="background:${bg}" title="${esc(c[1])} hard hat" aria-label="${esc(c[1])} hard hat" role="img"></span>`;
+}
+const hatName=st=>HATS[(STATION[st]||STATION.crew).hat][1];
+
+/* ================= weather model (ported from TOOL-WX) ================= */
+const MIN=75, MAX=180;
+const F2C=f=>(f-32)*5/9, C2F=c=>c*9/5+32;
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const weekday=n=>DAYS[(((n+2)%7)+7)%7];
+const COMPASS=['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+const card=d=>COMPASS[Math.round(((d%360)+360)%360/22.5)%16];
+const SEASONS={cool:{sf:0.75,rise:7.1,set:17.6},mild:{sf:0.9,rise:6.25,set:18.8},hot:{sf:1.0,rise:5.6,set:19.8}};
+const WEATHER={
+  clear:   {name:'Clear',       heat:1.0, wind:[3,14], vis:[10,20],  cloud:[0,5],   pop:[0,0],  dp:0},
+  haze:    {name:'Heat haze',   heat:1.03,wind:[2,9],  vis:[3,8],    cloud:[5,15],  pop:[0,0],  dp:0},
+  windy:   {name:'Blowing dust',heat:0.97,wind:[20,34],vis:[0.5,3],  cloud:[10,25], pop:[0,0],  dp:-3},
+  devils:  {name:'Dust devils', heat:1.0, wind:[10,24],vis:[3,9],    cloud:[0,10],  pop:[0,0],  dp:0},
+  storm:   {name:'Sandstorm',   heat:0.88,wind:[40,65],vis:[0.02,0.2],cloud:[70,95],pop:[0,5], dp:4},
+  overcast:{name:'High clouds', heat:0.9, wind:[5,14], vis:[8,15],   cloud:[50,80], pop:[5,15], dp:8},
+  heatwave:{name:'Heatwave',    heat:1.08,wind:[0,6],  vis:[5,10],   cloud:[0,5],   pop:[0,0],  dp:-2},
+  rain:    {name:'Flash storm', heat:0.78,wind:[20,45],vis:[0.5,2],  cloud:[85,100],pop:[70,95],dp:25},
+};
+const WX_WEIGHTS=[['clear',30],['haze',18],['windy',14],['devils',10],['storm',8],['overcast',10],['heatwave',7],['rain',3]];
+const es=c=>6.112*Math.exp(17.67*c/(c+243.5));
+function rhFrom(Tf,Tdf){return clamp(100*es(F2C(Tdf))/es(F2C(Tf)),1,100)}
+function wetBulb(Tf,Tdf,pHpa){const T=F2C(Tf),e=es(F2C(Tdf));let lo=F2C(Tdf),hi=T;
+  for(let i=0;i<40;i++){const m=(lo+hi)/2;const f=es(m)-0.00066*(1+0.00115*m)*pHpa*(T-m)-e;if(f>0)hi=m;else lo=m}return C2F((lo+hi)/2)}
+function heatIndex(T,RH){
+  if(T>120) return null;
+  let hi=0.5*(T+61+(T-68)*1.2+RH*0.094);
+  if((hi+T)/2>=80){
+    hi=-42.379+2.04901523*T+10.14333127*RH-.22475541*T*RH-.00683783*T*T-.05481717*RH*RH+.00122874*T*T*RH+.00085282*T*RH*RH-.00000199*T*T*RH*RH;
+    if(RH<13&&T>=80&&T<=112) hi-=((13-RH)/4)*Math.sqrt((17-Math.abs(T-95))/17);
+    if(RH>85&&T>=80&&T<=87) hi+=((RH-85)/10)*((87-T)/5);
+  }
+  return Math.round(hi);
+}
+function wbgtF(Tf,Twf,sun,cloud,mph){const Ta=F2C(Tf),Tw=F2C(Twf);
+  const Tg=Ta+Math.max(0,sun*(1-cloud/100*0.75)*(16-0.9*Math.min(mph*0.447,12)));
+  return {out:C2F(0.7*Tw+0.2*Tg+0.1*Ta),shade:C2F(0.7*Tw+0.3*Ta)}}
+// One 24-hour day. The weather change window is placed around the chosen shift so it can matter.
+function makeDay(season,start){
+  const S=SEASONS[season]||SEASONS.mild, sf=S.sf;
+  const peak=Math.round(Math.min(MAX,rnd(115,180)*sf+(sf<1?0:rnd(0,8))));
+  const low=Math.round(Math.max(MIN,Math.min(peak-25,rnd(75,105)*(0.85+sf*0.15))));
+  const wxKey=wpick(WX_WEIGHTS);
+  let chg=null;
+  if(Math.random()<0.4){const k=wpick(WX_WEIGHTS);if(k!==wxKey)chg={at:(start+Math.floor(rnd(-2,10))+24)%24,len:Math.floor(rnd(2,6)),key:k}}
+  const inChg=h=>chg&&((h-chg.at+24)%24)<chg.len;
+  const td0=rnd(8,42), dir0=wpick([[225,4],[200,2],[270,2],[315,1],[135,1],[0,1],[90,1]])+rnd(-20,20);
+  const p0=rnd(29.70,29.98), hours=[];
+  for(let h=0;h<24;h++){
+    const key=inChg(h)?chg.key:wxKey, w=WEATHER[key];
+    const aft=Math.max(0,Math.sin(Math.PI*(h-8)/12));
+    const spd=Math.round(w.wind[0]+(w.wind[1]-w.wind[0])*(0.25+0.75*aft)*rnd(0.75,1.15));
+    const nearStorm=chg&&['storm','rain'].includes(chg.key)&&(inChg(h)||((chg.at-h+24)%24)<=3);
+    hours.push({key,wind:Math.max(0,spd),gust:Math.round(Math.max(0,spd)*rnd(1.3,1.75)),
+      dir:dir0+25*Math.sin(h/4)+rnd(-12,12)+(key==='storm'?rnd(-40,40):0),
+      vis:+rnd(...w.vis).toFixed(2),cloud:Math.round(rnd(...w.cloud)),pop:Math.round(rnd(...w.pop)),
+      td:td0+w.dp+4*Math.sin(h/3)+rnd(-2,2),
+      p:+(p0+0.04*Math.cos(Math.PI*(h-10)/6)-(nearStorm?0.12:0)+(wxKey==='rain'?-0.15:0)).toFixed(2)});
+  }
+  return {season,peak,low,wxKey,chg,hours};
+}
+function baseTemp(d,t){const S=SEASONS[d.season]||SEASONS.mild,rise=S.rise,pk=15;let x;
+  if(t>=rise&&t<=pk) x=(1-Math.cos(Math.PI*(t-rise)/(pk-rise)))/2;
+  else{const span=24-(pk-rise),since=t>pk?t-pk:t+24-pk,k=4.2;x=(Math.exp(-since/k)-Math.exp(-span/k))/(1-Math.exp(-span/k))}
+  return d.low+(d.peak-d.low)*x}
+function tempAt(d,t){const w=WEATHER[d.hours[Math.floor(t)%24].key];return Math.round(clamp(d.low+(baseTemp(d,t)-d.low)*w.heat,MIN,MAX))}
+function derive(d,t){
+  t=((t%24)+24)%24;
+  const S=SEASONS[d.season]||SEASONS.mild, h=Math.floor(t)%24, H=d.hours[h], w=WEATHER[H.key];
+  const T=tempAt(d,t), Td=Math.round(Math.min(H.td,T-4)), RH=Math.round(rhFrom(T,Td));
+  const Tw=wetBulb(T,Td,H.p*33.8639);
+  const night=t<S.rise||t>=S.set;
+  const sun=night?0:Math.max(0,Math.sin(Math.PI*(t-S.rise)/(S.set-S.rise)));
+  const g=wbgtF(T,Tw,sun,H.cloud,H.wind);
+  const HI=heatIndex(T,RH), LV=HI==null?T:HI;
+  return {h,H,w,T,Td,RH,Tw:Math.round(Tw),HI,LV,wbgt:Math.round(g.out),wbgtShade:Math.round(g.shade),night,sun,dirC:card(H.dir)};
+}
+const visStr=v=>v<0.25?(v<0.1?`${Math.round(v*5280)} ft`:'1/4 mi'):v<1?`${v.toFixed(1)} mi`:`${Math.round(v)} mi`;
+function skyWord(c,night){return c<10?(night?'Clear':'Sunny'):c<30?(night?'Mostly clear':'Mostly sunny'):c<60?'Partly cloudy':c<85?'Mostly cloudy':'Cloudy'}
+
+/* ================= heat levels and DCW work/rest (WORLD §7, §13) ================= */
+const LEVELS=[[160,'Site closed','#2a0710','#fff'],[140,'Extreme heat entry','#7a0f1e','#fff'],[125,'Extreme','#c4161c','#fff'],[103,'Danger','#ec5b13','#111'],[90,'Extreme caution','#f6a623','#111'],[80,'Caution','#f5d000','#111'],[-999,'Normal','#8cc0a6','#111']];
+function heatLevel(v){const L=LEVELS.find(l=>v>=l[0]);return {n:L[1],c:L[2],fg:L[3],from:L[0]}}
+const SHORTLV={'Site closed':'CLOSED','Extreme heat entry':'HEAT ENTRY','Extreme':'EXTREME','Danger':'DANGER','Extreme caution':'EXT CAUT','Caution':'CAUTION','Normal':'NORMAL'};
+// [from, below, [light, moderate, heavy, very heavy] as [work minutes (60 = no limit), water, note]]
+const TBL=[
+ [78,82,[[60,'½ qt'],[60,'¾ qt'],[40,'¾ qt'],[20,'1 qt']]],
+ [82,85,[[60,'½ qt'],[50,'¾ qt'],[30,'1 qt'],[15,'1 qt']]],
+ [85,88,[[60,'¾ qt'],[40,'¾ qt'],[30,'1 qt'],[10,'1 qt']]],
+ [88,90,[[60,'¾ qt'],[30,'¾ qt'],[20,'1 qt'],[10,'1 qt']]],
+ [90,92,[[50,'1 qt'],[20,'1 qt'],[10,'1 qt'],[10,'1 qt']]],
+ [92,95,[[50,'1 qt'],[10,'1 qt','vest'],[0,'','cooled'],[0,'','cooled']]]];
+// eff = WBGT after clothing adjustment; lv = heat level value. Returns the stricter of table and heat level.
+function wrCell(eff,wi,lv){
+  if(lv>=160) return {w:0,water:'',k:'closed'};
+  let c;
+  if(eff<78) c={w:60,water:'8 oz every 15–20 min',k:'below'};
+  else if(eff>=95){ // essential work only under Extreme rules (30 out / 30 in), never looser than the 92–94.9 row
+    const v=TBL[5][2][wi]; c=v[0]===0?{w:0,water:'',k:'cooled'}:{w:Math.min(v[0],30),water:'1 qt',k:v[2]==='vest'?'vest-ess':'ess95'};
+  }
+  else{const r=TBL.find(r=>eff>=r[0]&&eff<r[1]),v=r[2][wi];c={w:v[0],water:v[1],k:v[2]||'tbl'}}
+  if(lv>=140){ if(c.w!==0) c={w:15,water:'1 qt',k:'he'} }
+  else if(lv>=125){ if(c.w>30) c={w:30,water:'1 qt',k:'extreme'}; else if(c.w>0) c.k=c.k==='vest'?'vest-ess':'ess' }
+  return c;
+}
+// Ramp Days 1–4: "No limit" becomes 30/30, other cells use half the work minutes (rounded down to 5).
+function rampCell(c){
+  if(c.k==='closed'||c.k==='he'||c.w===0) return c;
+  if(c.w===60) return {...c,w:30,water:c.k==='below'?'½ qt':c.water,k:'ramp'};
+  return {...c,w:Math.max(5,Math.floor(c.w/2/5)*5),k:c.k+'-ramp'};
+}
+function cellTxt(c){
+  if(c.k==='closed') return 'Site closed: shelter';
+  if(c.k==='he') return 'PTW-HE entries only: max 15 min, then 30+ min cooled';
+  if(c.w===0) return 'Not outside cooled spaces';
+  let t=c.w===60?'No limit':`${c.w}/${60-c.w}`;
+  if(c.water) t+=` · ${c.water}`;
+  if(String(c.k).startsWith('vest')) t+=' · cooling vest (no vest, no work)';
+  if(['extreme','ess','vest-ess','ess95','ess-ramp','ess95-ramp','extreme-ramp','vest-ess-ramp'].includes(c.k)) t+=' · essential work only';
+  return t;
+}
+
+/* ================= complication deck ================= */
+// need: all items must hold; "a|b" = either. hr: hour pick. inv: person/crew/none. jf: job flag for location. pp: person preference.
+const BUILTIN=[
+ {id:'heatramp',t:'Heat casualty signs in a RAMP worker',tags:['heat','medical','people'],w:5,need:['heat','ramp'],hr:'hot',inv:'person',pp:'ramp',
+  x:'{person} ({ramp}, RAMP band on) at {loc} stops answering clearly and sways at the end of a work cycle. Air {temp}°F, WBGT {wbgt}°F.',
+  r:'Not fully alert on a hot site = heat stroke until a medic says otherwise. Ch 1: "Emergency x3, Heat casualty", location, number hurt, call sign. Cool first (ice trough to the neck), transport second. Ramp resets to Day 1.'},
+ {id:'heatex',t:'Heat exhaustion in a buddy pair',tags:['heat','medical','people'],w:3,need:['heat'],hr:'hot',inv:'person',
+  x:'{person}\'s buddy reports {person} has heavy sweat, clammy skin, a headache and nausea at {loc}.',
+  r:'Pull them off, cool them, sips of water. Someone walks them to {aid} now, never alone. Done for the day; re-clearance at Revival Med Bay before the next shift.'},
+ {id:'weigh',t:'2% weight loss at the weigh station',tags:['heat','people','medical'],w:2,need:['heat'],hr:'mid',inv:'person',
+  x:'{person} weighs in at the mid-shift check 2.3% under this morning\'s weight.',
+  r:'Pull off at 2% body weight lost and check in at the FAS before going back. Drink 16–24 oz for every pound lost, max 48 oz an hour.'},
+ {id:'stormlift',t:'Sandstorm watch turns to warning mid-lift',tags:['weather','wind','lift'],w:5,need:['lift','storm|wind20|dust'],hr:'storm',inv:'crew',jf:'lift',
+  x:'Atmos posts a sandstorm watch on Ch 16 while {crew} has a load in the air at {loc}. Forty minutes later the warning comes: arrival in 30 minutes.',
+  r:'Warning: land all loads, booms down (tower cranes to free-slew per maker), climbers and MEWPs down, move to shelter. Take-shelter siren no later than 15 min before arrival. Leave only on the Ch 1 voice all clear.'},
+ {id:'stormgen',t:'Sandstorm warning with crews spread out',tags:['weather','wind','people'],w:4,need:['storm|dust'],hr:'storm',inv:'crew',
+  x:'Sandstorm warning for {sector}. {crew} at {loc} is 6 minutes from the nearest shelter, with sheet goods still loose on the deck.',
+  r:'Steady tone for 3 min = take shelter. The senior person reports the headcount on that shelter\'s sector channel ({ch}); missing persons on Ch 1. Never leave on a tone alone.'},
+ {id:'radio',t:'Radio drops during a pick',tags:['lift','equipment'],w:4,need:['lift'],hr:'any',inv:'person',jf:'lift',pp:'signal',
+  x:'Mid-pick at {loc}, {person}\'s radio on {lift} goes dead. The load is 30 ft up.',
+  r:'Lost comms: the operator stops all motion and holds the load. Resume only when the radio is back and tested, or the signal person is in full, continuous view and operator, signal person and lift lead (or Lift Director) agree to hand signals. Blind lifts stay stopped.'},
+ {id:'cyl',t:'Leaking fuel-gas cylinder',tags:['hot work','equipment'],w:3,need:['hot'],hr:'any',inv:'crew',jf:'hot',
+  x:'A hiss and a smell at the oxy-fuel cart beside {loc}. The fuel-gas cylinder valve is venting.',
+  r:'Clear at least 330 ft (100 m), upwind (Old Earth ERG Guide 116). Ch 1: "Emergency x3, Gas". No hot work, no ignition sources. Fire & Rescue sets the distance if it lights.'},
+ {id:'gust',t:'Gust over the wind limit',tags:['wind','height','lift'],w:4,need:['wind15','height|lift'],hr:'wind',inv:'crew',jf:'height|lift',
+  x:'The crew meter at {loc} reads a {gust} mph gust. Ch 16 is posting gusts of {post} mph.',
+  r:'Wind = the higher of the local meter and Ch 16. 25 sustained or 30 gust: off open steel, roofs, leading edges and outdoor scaffolds above Deck 1, MEWPs down. 30 sustained or gust: all crane loads landed.'},
+ {id:'light',t:'Lightning alert',tags:['weather','height','lift'],w:4,need:['wet'],hr:'rain',inv:'crew',jf:'height|lift|outdoor',
+  x:'Atmos reports strikes 9 miles out. {crew} is working in the open at {loc}.',
+  r:'Strikes within 10 miles (site rule): booms down, off steel, out of MEWPs, into sealed shelters or closed vehicles, never under steel. Resume 30 min after the last strike within 10 miles (NWS rule).'},
+ {id:'flood',t:'Flood warning near a trench',tags:['weather','excavation'],w:4,need:['wet','exc'],hr:'rain',inv:'crew',jf:'exc',
+  x:'Ch 1 calls a flood warning for {sector} grids including {grid}. {crew} has two people in the trench at {loc}.',
+  r:'Flood warning: leave wadis, trenches and low cuts at once. Utility marks are re-checked after the storm before digging restarts.'},
+ {id:'fwsiren',t:'Fire watch pulled by a siren',tags:['hot work','people'],w:3,need:['hot'],hr:'any',inv:'person',jf:'hot',pp:'firewatch',
+  x:'The evacuate tone sounds 20 minutes after {crew} struck the last arc at {loc}. {person}, on fire watch, heads for {mp} with everyone else.',
+  r:'Evacuate on the alternating tone. Fire watch runs 60 min after the last arc, flame or spark. After an evacuation interrupts a fire watch, the area is rechecked before restart; the signing foreman closes the PTW-HW after "watch complete" on Ch 13.'},
+ {id:'hwwind',t:'Wind rises during hot work',tags:['hot work','wind'],w:4,need:['hot','wind15'],hr:'wind',inv:'person',jf:'hot',pp:'hotwork',
+  x:'{person} is mid-weld at {loc} when the crew meter starts reading 22 mph gusts.',
+  r:'Wind 20+ mph sustained or gust: no outdoor hot work. Stop and make safe. The fire watch stays on and the 60-minute watch still runs.'},
+ {id:'cylhot',t:'Cylinder cart in the sun',tags:['hot work','heat','equipment'],w:3,need:['hot','danger'],hr:'hot',inv:'crew',jf:'hot',
+  x:'The cylinder cart at {loc} was left in full sun. A rigger\'s IR thermometer reads 131°F on the shell.',
+  r:'Gas cylinders stay under 125°F: cooled cylinder shelters, insulated shaded carts. No oxy-fuel cylinders on open decks at Extreme heat.'},
+ {id:'oos',t:'Out-of-service tool',tags:['equipment'],w:3,need:[],hr:'any',inv:'person',
+  x:'{person} finds a cracked guard on the grinder at {loc}, and the cord is nicked.',
+  r:'Yellow OUT OF SERVICE tag from the Quartermaster. It comes off only with the foreman. Report the fault on HS-IR. Lockout tags are separate.'},
+ {id:'nolock',t:'Missing lockout',tags:['electrical','equipment','people'],w:3,need:[],hr:'any',inv:'person',
+  x:'{person} sees a mechanic reach into a conveyor drive at {loc}. The hasp holds one red lock, and it is not the mechanic\'s.',
+  r:'One person, one lock, one key: everyone working on the machine puts on their own red lock. Use stop-work authority. The crew lead watches every try-start.'},
+ {id:'locklft',t:'Someone else\'s lock left on',tags:['equipment','electrical','people'],w:2,need:[],hr:'fixed:0',inv:'crew',
+  x:'A red lock engraved with a Colonist ID is still on the isolator {crew} needs at {loc}. Its owner went off shift.',
+  r:'Confirm they are off site (roster + call on {ch}), try hard to reach them, the foreman and a second person (GF or Safety officer) walk the machine, the foreman removes and logs it with both signatures, the worker is told before they return.'},
+ {id:'trough',t:'Ice trough warm',tags:['heat','equipment'],w:4,need:['danger'],hr:'hot',inv:'crew',
+  x:'The ice trough at the cooling station near {loc} is half water and lukewarm. Air {temp}°F.',
+  r:'No working ice trough at Danger or hotter = no work on that deck. Low or warm: Quartermaster on Ch 15. Troughs are checked at muster and every 2 h.'},
+ {id:'wbgtm',t:'WBGT meter dead',tags:['heat','equipment'],w:3,need:['heat'],hr:'any',inv:'crew',
+  x:'At the hourly posting, the crew lead\'s WBGT meter at {loc} shows a blank screen.',
+  r:'No working WBGT meter: use the Ch 16 value and read the table one row hotter. Follow whichever of heat level and WBGT is more restrictive.'},
+ {id:'insp',t:'Inspector arrives',tags:['people'],w:3,need:[],hr:'any',inv:'crew',
+  x:'A grey-hat QA/QC inspector and a green-hat Safety officer walk up to {crew} at {loc} and ask to see the permits and everyone\'s badge.',
+  r:'Permits posted at the job and the permit board. No badge entry, no task. Any change suspends a permit until the signer re-checks.'},
+ {id:'sting',t:'Sand stinger in a boot',tags:['medical','people'],w:3,need:[],hr:'any',inv:'person',
+  x:'{person} pulls on a boot left by the cooling station and yelps. A sand stinger drops out.',
+  r:'Report every sting to the FAS ({aid}). Shake out boots, gloves and PPE. Trouble breathing or not fully alert: Ch 1 "Man down".'},
+ {id:'printer',t:'Printer jam',tags:['equipment'],w:3,need:[],hr:'any',inv:'crew',
+  x:'Printer {sector} 2 jams near {loc}: a FerroLattice-7 bead has fused across the nozzle guard and the crew is asked to help clear it.',
+  r:'Never bypass the interlocked barrier gates. Lock out before clearing. Extrudate runs about 500°F. Machine traffic on Ch 12.'},
+ {id:'dust',t:'Blowing dust advisory',tags:['weather','wind','lift'],w:4,need:['dust|wind20'],hr:'dust',inv:'crew',jf:'lift|outdoor',
+  x:'Visibility drops to about half a mile at {loc}. The operator loses sight of the signal person for a moment.',
+  r:'Visibility 1 mile or less: no outdoor hot work. Lifts stop whenever the operator loses sight of the load or signal person. Vehicles: lights and beacon on; under 300 ft, 5 mph.'},
+ {id:'road',t:'Can\'t see the road edge',tags:['equipment','wind','weather'],w:3,need:['dust|wind20'],hr:'dust',inv:'crew',
+  x:'A hauler bringing material to {crew} at {loc} drives into a brown wall of dust.',
+  r:'Can\'t see the road edge: pull off, stay in the cab, call Ch 12. Under 300 ft visibility, 5 mph. Lights and beacon on.'},
+ {id:'devil',t:'Dust devil crosses the laydown',tags:['wind','weather'],w:3,need:['outdoor'],hr:'wind',inv:'crew',jf:'outdoor',
+  x:'A dust devil walks across the laydown beside {loc} and lifts a stack of 4 x 8 panels.',
+  r:'15+ mph: goggles, secure sheet goods. Panels over 4 x 4 ft need two people at 15+ mph; no hand-carrying panels in the open at 20+.'},
+ {id:'fatigue',t:'Fatigue on hour 10',tags:['people','night'],w:4,need:[],hr:'fixed:9',inv:'person',
+  x:'{person} has been in a safety-critical role since muster and misses a call on {tg}.',
+  r:'Safety-critical roles: max 8 h in the role, never after hour 10. Swap the role (crane operators only with the load landed; fire watch hands over on Ch 13). Naps up to 20 min, then wait 15.'},
+ {id:'sleep',t:'Short sleep',tags:['people','night'],w:3,need:[],hr:'fixed:0',inv:'person',
+  x:'At muster, {person} tells the crew lead they slept about 4 hours.',
+  r:'No safety-critical role this shift with under 5 h sleep in 24 h or under 12 h in 48 h. The crew lead hears only the work restriction, never the reason.'},
+ {id:'simops',t:'Conflicting permits (SIMOPS)',tags:['people','hot work','confined'],w:3,need:['multi'],hr:'fixed:0',inv:'crew',
+  x:'{crew}\'s work at {loc} turns out to overlap another crew\'s permit in the same area.',
+  r:'A conflicting second permit is not signed until both signers agree and write how on both. Disputes go to the general foreman, then the Assistant Super.'},
+ {id:'outage',t:'Power outage at night',tags:['night','electrical','height'],w:5,need:['night'],hr:'dark',inv:'crew',
+  x:'The light masts on {sector} drop out. {crew} is at {loc} with only helmet lights.',
+  r:'Lighting fails at height: hold until light returns. Outage: crew lead to foreman to "{sector} GF Electrical". No lone work in unlit areas. Battery backup lights on stair towers and exits.'},
+ {id:'fall',t:'Worker suspended after a fall arrest',tags:['height','medical'],w:3,need:['height'],hr:'any',inv:'person',jf:'height',
+  x:'{person} slips at the edge at {loc} and hangs in the harness below the deck.',
+  r:'Ch 1: "Emergency x3, Fall, worker suspended". Run the written rescue plan posted at the job; the fall-rescue kit is beside the cooling station.'},
+ {id:'kit',t:'Broken seal on the fall-rescue kit',tags:['height','equipment'],w:2,need:['height'],hr:'fixed:0',inv:'crew',jf:'height',
+  x:'The seal on the fall-rescue kit by the cooling station near {loc} is broken.',
+  r:'Broken seal = nobody climbs on that deck until the kit is checked and resealed.'},
+ {id:'scaf',t:'Scaffold with no tag',tags:['height','equipment'],w:3,need:['height'],hr:'fixed:0',inv:'crew',jf:'height',
+  x:'The scaffold bay {crew} needs at {loc} has no tag on it this shift.',
+  r:'No tag on a scaffold = red: nobody on it until the scaffold competent person inspects and tags it.'},
+ {id:'mewp',t:'MEWP ground person called away',tags:['height','people'],w:2,need:['height'],hr:'any',inv:'person',jf:'height',
+  x:'{person}, the trained ground person at the base of the MEWP at {loc}, is called to the laydown.',
+  r:'A trained ground person stays at the base of every MEWP. The platform stays put until one is back.'},
+ {id:'air',t:'Air test out of limits',tags:['confined'],w:4,need:['cs'],hr:'any',inv:'crew',jf:'cs',
+  x:'The hourly air test at the hatch at {loc} reads 11% LEL and 19.8% oxygen.',
+  r:'Entry stops at 10% LEL. Oxygen 19.5–23.5%, ventilate to 20.5%+ before entry. First test out of limits = rescue team at the hatch. Readings initialed on the PTW-CS.'},
+ {id:'attend',t:'Attendant called away',tags:['confined','people'],w:3,need:['cs'],hr:'any',inv:'person',jf:'cs',pp:'attendant',
+  x:'{person}, attending at {loc}, is asked by a foreman to fetch a meter from the truck.',
+  r:'The attendant stays at the hatch and checks each entrant at least every 5 minutes. No replacement signed on = entrants come out first.'},
+ {id:'rescue',t:'No free rescue team',tags:['confined'],w:2,need:['cs'],hr:'fixed:0',inv:'crew',jf:'cs',
+  x:'Hub Safety says the confined-space rescue team for {sector} is committed for the next 2 hours.',
+  r:'A team at the hatch is required for inert gas, a first air test out of limits, engulfment risk, hot work inside, inside heat 125°F+ or no non-entry retrieval. No free team = the entry waits.'},
+ {id:'arc',t:'No arc-flash label',tags:['electrical'],w:3,need:['ee'],hr:'any',inv:'crew',jf:'ee',
+  x:'The panel {crew} must open at {loc} has no arc-flash label.',
+  r:'No arc-flash label = not opened. Only blue hats reset breakers or open panels. PTW-EE only when de-energizing is infeasible; standby person outside the boundary.'},
+ {id:'cell',t:'Swollen power cell',tags:['electrical','equipment'],w:3,need:[],hr:'any',inv:'crew',
+  x:'A tool cell in the charging bay near {loc} is bulging and warm.',
+  r:'Swollen batteries go into a sand bucket. Cell fire: everyone 50 ft back and upwind, Ch 1 "Fire". Never fight a power-cell fire.'},
+ {id:'marks',t:'Utility marks blown away',tags:['excavation','wind'],w:3,need:['exc'],hr:'fixed:0',inv:'crew',jf:'exc',
+  x:'Wind has scoured the utility flags at {loc}. Two marks are gone.',
+  r:'PTW-DG holds only while the marks last: Survey and Electrical & Power re-locate before digging. Hand-dig within 2 ft of a mark.'},
+ {id:'slough',t:'Trench wall sloughs',tags:['excavation'],w:3,need:['exc'],hr:'any',inv:'crew',jf:'exc',
+  x:'A section of trench wall slumps at {loc}, burying a shovel to the handle.',
+  r:'Sand = Type C: protective system at 5 ft, max slope 1.5:1, spoils 2 ft back, egress within 25 ft at 4 ft deep. The competent person stops work. Anyone caught: Ch 1 "Caught-in".'},
+ {id:'eye',t:'Chemical in the eye',tags:['chemical','medical'],w:3,need:['chem'],hr:'any',inv:'person',jf:'chem',
+  x:'{person} takes a splash of QuickSet hardener to the face at {loc}.',
+  r:'Keep flushing at the eyewash for the full 15 minutes; the medic comes to you. Eyewash within 10 seconds of the hazard.'},
+ {id:'cure',t:'Runaway cure',tags:['chemical'],w:2,need:['chem'],hr:'hot',inv:'crew',jf:'chem',
+  x:'A bucket of mixed QuickSet C-4X at {loc} starts smoking and heating up.',
+  r:'Cure tray under ½ in deep, in shade, 10 ft from anything that burns. A curing resin mass on fire is a polymer fire: never fight it, leave and call Ch 1 "Fire".'},
+ {id:'sling',t:'Sling too hot',tags:['lift','heat'],w:3,need:['lift','danger'],hr:'hot',inv:'person',jf:'lift',pp:'rigger',
+  x:'{person} checks the next pick at {loc}: the load surface reads 201°F on the IR thermometer.',
+  r:'Synthetic slings never on loads or in air over 194°F (lower if the tag says). Fiber-core wire rope max 180°F. Riggers carry IR thermometers.'},
+ {id:'crit',t:'Routine pick turns critical',tags:['lift'],w:3,need:['lift'],hr:'any',inv:'crew',jf:'lift',
+  x:'The lift lead finds the next pick at {loc} is at 78% of chart capacity.',
+  r:'75%+ of chart capacity = critical lift: LP- prepared by Design & Structures, approved and directed by Lift Director {sector}. Any change goes back to the Lift Director.'},
+ {id:'tone',t:'A tone with no voice',tags:['people','weather'],w:2,need:['storm|dust|extreme'],hr:'any',inv:'crew',
+  x:'A 15-second tone sounds while {crew} is in Shelter {sector}-{grid}. Some of the crew start for the door.',
+  r:'Never leave a shelter or restart work on a tone alone. Wait for the Hub Command voice all clear on Ch 1 or your crew lead.'},
+ {id:'shelter',t:'Shelter cooling fails',tags:['heat','weather'],w:2,need:['storm|extreme'],hr:'hot',inv:'crew',
+  x:'The cooling in Shelter {sector}-{grid} quits with {crew} inside. The CO2 readout is climbing.',
+  r:'Report it on Ch 1 and stay unless Fire & Rescue orders a move. Shelter full or failing: radio to send people to the next one.'},
+ {id:'checkin',t:'Missed check-in',tags:['people'],w:3,need:[],hr:'any',inv:'person',
+  x:'{person} misses the 30-minute check-in at {loc}.',
+  r:'Immediate call-back. No answer within 5 minutes: someone goes in person. Lost comms: send a buddy pair as runners.'},
+ {id:'hydra',t:'Hydraulic injection',tags:['equipment','medical'],w:2,need:[],hr:'any',inv:'person',
+  x:'A pinhole leak on a machine hose at {loc} sprays {person}\'s hand.',
+  r:'Ch 1: "Emergency x3, Man down, hydraulic injection". To Central Med. It looks small; it is not.'},
+ {id:'burn',t:'Burn from deck plate',tags:['heat','medical'],w:2,need:['danger','outdoor'],hr:'hot',inv:'person',jf:'outdoor',
+  x:'{person} kneels on bare deck plate at {loc}. It reads 152°F.',
+  r:'Bare-skin contact only below 140°F surface. Cool a burn 20 min under cool running water. Serious burn with nothing still burning: Ch 1 "Man down".'},
+ {id:'visitor',t:'Unescorted visitor',tags:['people'],w:2,need:[],hr:'any',inv:'crew',
+  x:'A purple-hat visitor wanders onto {loc} looking for the Hub.',
+  r:'Visitors are always escorted. Stop work if they are in a hazard zone and call your foreman.'},
+ {id:'ext',t:'Shift extension request',tags:['people','night'],w:2,need:[],hr:'fixed:11',inv:'crew',
+  x:'With the job at {loc} unfinished, {crew}\'s foreman asks if they can stay two more hours.',
+  r:'12 h max from muster to end of handover. Only Hub Command extends a shift, for a site emergency, never past 16 h.'},
+ {id:'stinger2',t:'Stingers in stored gear',tags:['medical','equipment'],w:2,need:['outdoor'],hr:'fixed:0',inv:'person',jf:'outdoor',
+  x:'{person} opens a gear bin at the laydown by {loc}. Three sand stingers are curled in the gloves.',
+  r:'Shake out boots, gloves and PPE. Report any sting to the FAS. Tell the crew lead so the bin is cleared.'},
+];
+
+/* ================= state & storage ================= */
+const KEY='dcw-tool-sg-v1';
+let storeOK=true;
+function blankShift(){return {id:uid(),type:'day',season:'mild',day:1,date:'',sector:'',count:2,lockWx:false,compact:false,outCrews:[],outJobs:[],wx:null,assign:{},comps:[]}}
+function blank(){return {v:1,people:[],crews:[],jobs:[],compCustom:[],compOff:{},compW:{},shift:blankShift(),log:[],example:false}}
+let S=null, VIEW=null; // VIEW = a log entry being viewed
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(S));storeOK=true}catch(e){storeOK=false}
+  $('store-banner').hidden=storeOK;
+}
+const str=(v,n)=>String(v==null?'':v).slice(0,n);
+function normPerson(p){return {id:str(p.id,40)||uid(),name:str(p.name,60)||'Unnamed',station:STATION[p.station]?p.station:'crew',call:str(p.call,60),
+  end:Array.isArray(p.end)?p.end.filter(k=>END[k]):[],ramp:RAMP[p.ramp]?p.ramp:'done',notes:str(p.notes,500),pc:!!p.pc}}
+function normCrew(c){return {id:str(c.id,40)||uid(),call:str(c.call,60)||'Unnamed crew',sector:SECTORS.includes(c.sector)?c.sector:'Alpha',tg:str(c.tg,20),
+  members:Array.isArray(c.members)?c.members.map(x=>str(x,40)):[],active:c.active!==false}}
+function normJob(j){const f=j.f||{};const d=j.deck===''||j.deck==null||isNaN(+j.deck)?'':Math.round(+j.deck);
+  return {id:str(j.id,40)||uid(),title:str(j.title,80)||'Untitled job',sector:SECTORS.includes(j.sector)?j.sector:'Alpha',grid:clamp(Math.round(+j.grid)||1,1,40),
+  structure:str(j.structure,40),deck:d,landmark:str(j.landmark,40),work:WORK[j.work]?j.work:'moderate',
+  f:Object.fromEntries(FLAGS.map(([k])=>[k,!!f[k]])),lift:['none','routine','critical'].includes(j.lift)?j.lift:'none',
+  req:Array.isArray(j.req)?j.req.filter(k=>END[k]):[],hours:clamp(+j.hours||4,1,12),notes:str(j.notes,500),active:j.active!==false}}
+function normComp(c){return {id:str(c.id,40)||uid(),t:str(c.t,80)||'Untitled',x:str(c.x,600),r:str(c.r,600),tags:Array.isArray(c.tags)?c.tags.filter(t=>TAGS.includes(t)):[],
+  w:clamp(Math.round(+c.w)||3,1,10),inv:['person','crew','none'].includes(c.inv)?c.inv:'person'}}
+function normShift(s){const b=blankShift();s=Object.assign(b,s||{});
+  s.type=s.type==='night'?'night':'day'; s.season=SEASONS[s.season]?s.season:'mild'; s.day=clamp(Math.round(+s.day)||1,1,99999);
+  s.date=str(s.date,40); s.sector=SECTORS.includes(s.sector)?s.sector:''; s.count=clamp(Math.round(+s.count)||2,1,3);
+  s.lockWx=!!s.lockWx; s.compact=!!s.compact; s.outCrews=Array.isArray(s.outCrews)?s.outCrews:[]; s.outJobs=Array.isArray(s.outJobs)?s.outJobs:[];
+  if(!s.wx||!Array.isArray(s.wx.hours)||s.wx.hours.length!==24) s.wx=null;
+  if(typeof s.assign!=='object'||!s.assign) s.assign={}; s.comps=Array.isArray(s.comps)?s.comps.filter(c=>c&&c.cid):[];
+  if(s.snap){s.snap={people:(s.snap.people||[]).map(normPerson),crews:(s.snap.crews||[]).map(normCrew),jobs:(s.snap.jobs||[]).map(normJob),comps:(s.snap.comps||[]).map(normComp)}}
+  return s}
+function normalize(o){
+  if(!o||typeof o!=='object') throw new Error('Not a JSON object');
+  const b=blank();
+  b.people=(Array.isArray(o.people)?o.people:[]).map(normPerson);
+  b.crews=(Array.isArray(o.crews)?o.crews:[]).map(normCrew);
+  b.jobs=(Array.isArray(o.jobs)?o.jobs:[]).map(normJob);
+  b.compCustom=(Array.isArray(o.compCustom)?o.compCustom:[]).map(normComp);
+  b.compOff=o.compOff&&typeof o.compOff==='object'?o.compOff:{};
+  b.compW=o.compW&&typeof o.compW==='object'?o.compW:{};
+  b.shift=normShift(o.shift);
+  b.log=(Array.isArray(o.log)?o.log:[]).slice(0,20).map(e=>({id:str(e.id,40)||uid(),saved:str(e.saved,40),label:str(e.label,200),shift:normShift(e.shift)}));
+  b.example=!!o.example;
+  return b;
+}
+function load(){try{const t=localStorage.getItem(KEY);if(t)return normalize(JSON.parse(t))}catch(e){}return null}
+
+/* ================= example data ================= */
+function exampleData(){
+  const P=(name,station,call,end,ramp,pc,notes='')=>({id:'ex-'+name.toLowerCase().replace(/[^a-z]+/g,''),name,station,call,end,ramp,pc,notes});
+  const people=[
+    P('Rosa Okafor','lead','Charlie Crew 14-3',['firstaid','competent','lockout'],'done',true,'Example. Crew lead, fall-protection competent person.'),
+    P('Dmitri Vale','rigger','Charlie Crew 14-3',['rigger','signal'],'done',true,'Example. Usual lift lead.'),
+    P('Hana Sato','crane','Charlie Crew 14-3',['crane','firstaid'],'done',false),
+    P('Tomas Ibarra','trade','Charlie Crew 14-3',['mewp','pat'],'d2',false,'Example. Ironworker, revived last week.'),
+    P('Lin Abara','signal','Charlie Crew 14-3',['signal','rigger'],'acc',false),
+    P('Kofi Mensah','crew','Charlie Crew 14-3',[],'d1',false,'Example. Cleared by Revival Med Bay yesterday.'),
+    P('Priya Raman','weld','Charlie Crew 14-5',['hotwork','firstaid'],'done',true),
+    P('Ezra Holt','crew','Charlie Crew 14-5',['firewatch'],'done',false),
+    P('Mae Torvald','weld','Charlie Crew 14-5',['hotwork'],'acc',false),
+    P('Gus Oyelaran','lead','Delta Crew 6-2',['competent','firstaid','forklift'],'done',false),
+    P('Ines Duarte','equip','Delta Crew 6-2',['equip','forklift'],'done',true),
+    P('Sol Brenner','crew','Delta Crew 6-2',['shuttle'],'d4',false),
+    P('Amaru Quispe','lead','Golf Crew 3-1',['attendant','firstaid','lockout'],'done',false),
+    P('Noor Haddad','polymer','Golf Crew 3-1',['entrant','firstaid'],'done',true),
+    P('Felix Ndiaye','elec','Golf Crew 3-1',['qew','lockout'],'done',false),
+    P('Yara Kim','polymer','Golf Crew 3-1',['entrant'],'d5',false),
+    P('Ruth Calder','foreman','',['hwsigner','entrysup','competent'],'done',false,'Example. Charlie Foreman 14. Signs PTW-HW.'),
+  ];
+  const ids=c=>people.filter(p=>p.call===c).map(p=>p.id);
+  const crews=[
+    {id:'ex-c143',call:'Charlie Crew 14-3',sector:'Charlie',tg:'C-F14',members:ids('Charlie Crew 14-3'),active:true},
+    {id:'ex-c145',call:'Charlie Crew 14-5',sector:'Charlie',tg:'C-F14',members:ids('Charlie Crew 14-5'),active:true},
+    {id:'ex-d62',call:'Delta Crew 6-2',sector:'Delta',tg:'D-F6',members:ids('Delta Crew 6-2'),active:true},
+    {id:'ex-g31',call:'Golf Crew 3-1',sector:'Golf',tg:'G-F3',members:ids('Golf Crew 3-1'),active:true},
+  ];
+  const J=(id,title,sector,grid,structure,deck,landmark,work,f,lift,req,hours,notes='')=>({id,title,sector,grid,structure,deck,landmark,work,f,lift,req,hours,notes,active:true});
+  const jobs=[
+    J('ex-j1','Set steel columns, east frame','Charlie',14,'Tower B',3,'east stair','heavy',{outdoor:true,height:true},'routine',[],8,'Example. Columns C3-C9.'),
+    J('ex-j2','Weld column splices','Charlie',14,'Tower B',2,'north face','moderate',{outdoor:true,height:true,hot:true},'none',[],6,'Example. FR leathers.'),
+    J('ex-j3','Trench for water main','Delta',22,'trench','','north end','heavy',{outdoor:true,exc:true},'none',['forklift'],10,'Example. Spoils to the east.'),
+    J('ex-j4','Reline resin tank T-3','Golf',9,'Polymer Works',0,'tank T-3','moderate',{cs:true,chem:true},'none',['entrant','attendant'],5,'Example. VeilCoat spray inside.'),
+    J('ex-j5','Terminate feeder at panel TP-4','Golf',11,'Substation 2',0,'panel TP-4','light',{ee:true},'none',['lockout'],3,'Example.'),
+    J('ex-j6','Critical pick: roof truss over Deck 4','Charlie',16,'Tower B',5,'roof','moderate',{outdoor:true,height:true},'critical',[],4,'Example. Load over an occupied deck.'),
+  ];
+  return {people,crews,jobs};
+}
+function loadExample(){
+  const d=exampleData();
+  S.people=d.people.map(normPerson); S.crews=d.crews.map(normCrew); S.jobs=d.jobs.map(normJob);
+  S.example=true; S.shift=normShift({...blankShift(),type:S.shift.type,season:S.shift.season,day:214});
+  S.shift.assign={'ex-j1':{crew:'ex-c143',start:0},'ex-j2':{crew:'ex-c145',start:0},'ex-j3':{crew:'ex-d62',start:0},'ex-j4':{crew:'ex-g31',start:1},'ex-j5':{crew:'ex-g31',start:7},'ex-j6':{crew:'ex-c143',start:8}};
+  rollShift(true);
+}
+
+/* ================= shift data access ================= */
+function dataOf(sh){return sh.snap||{people:S.people,crews:S.crews,jobs:S.jobs}}
+function inCrews(sh,D){return D.crews.filter(c=>c.active&&!sh.outCrews.includes(c.id)&&(!sh.sector||c.sector===sh.sector))}
+function inJobs(sh,D){return D.jobs.filter(j=>j.active&&!sh.outJobs.includes(j.id)&&(!sh.sector||j.sector===sh.sector))}
+function deckStr(d){return d===''||d==null?'':(+d<0?`Deck minus ${-d}`:`Deck ${d}`)}
+function locStr(j){return [`${j.sector}-${j.grid}`,j.structure,deckStr(j.deck),j.landmark].filter(Boolean).join(', ')}
+const letter=s=>s?s[0]:'X';
+const liftTG=j=>`Lift ${letter(j.sector)}-${String(j.grid).padStart(2,'0')}`;
+const mpOf=j=>`MP-${letter(j.sector)}${j.grid<=20?1:2}`;
+const isHeight=j=>j.f.height||(j.deck!==''&&+j.deck>=1);
+function jobHas(j,flag){return String(flag).split('|').some(f=>f==='lift'?j.lift!=='none':f==='height'?isHeight(j):!!j.f[f])}
+const hasE=(p,k)=>p&&p.end.includes(k);
+
+/* ================= compute a shift ================= */
+function compute(sh){
+  const D=dataOf(sh), P=Object.fromEntries(D.people.map(p=>[p.id,p]));
+  const crews=inCrews(sh,D), jobs=inJobs(sh,D), wx=sh.wx;
+  const crewById=Object.fromEntries(crews.map(c=>[c.id,c]));
+  const start=sh.type==='night'?18:6;
+  const key=h=>wx.hours[((h%24)+24)%24].key;
+  const hrs=[...Array(12)].map((_,i)=>{const clock=(start+i)%24,x=derive(wx,clock+0.5);return {i,clock,lab:hhmm(clock),x,lv:x.LV,lvl:heatLevel(x.LV)}});
+  const lvAt=c=>derive(wx,c+0.5).LV;
+  // site-wide alerts per hour
+  hrs.forEach(hr=>{
+    const c=hr.clock,x=hr.x,w=x.H.wind,g=x.H.gust,A=[];
+    if(key(c)==='storm') A.push(['stop','Sandstorm: everyone in shelter']);
+    else if(key(c+1)==='storm') A.push(['stop',`Sandstorm warning from ${hhmm(c,30)}: land loads, booms and MEWPs down, to shelter; siren by ${hhmm(c,45)}`]);
+    else if(key(c+2)==='storm') A.push(['warn','Sandstorm watch: secure loose material, plan how loads come down, stage crews near shelter']);
+    if(key(c)==='rain'){A.push(['stop','Flood warning (by grid, Ch 1 and Ch 16): leave wadis, trenches, low cuts']);A.push(['stop','Lightning alert: booms down, off steel, out of MEWPs, sealed shelter'])}
+    else if(key(c-1)==='rain') A.push(['warn','Lightning: resume 30 min after the last strike within 10 miles']);
+    // one chip per hour for the highest wind tier; each tier text includes the rules below it
+    if(w>=30||g>=30) A.push(['stop',`Wind ${w} g${g}: all crane loads landed; off open steel and edges, MEWPs down; no outdoor hot work`]);
+    else if(w>=25||g>=30) A.push(['stop',`Wind ${w} g${g}: off open steel, roofs, leading edges, MEWPs down; no outdoor hot work`]);
+    else if(w>=20||g>=20) A.push(['warn',`Wind ${w} g${g}: no outdoor hot work, no personnel platforms, high-sail loads need Lift Director approval`]);
+    else if(w>=15) A.push(['info',`Wind ${w}: goggles outside cabs, secure sheet goods`]);
+    if(x.H.vis<=1) A.push(['warn',`Blowing-dust advisory (vis ${visStr(x.H.vis)}): no outdoor hot work; lifts stop on lost sight`]);
+    if(hr.lv>=160) A.push(['stop','Site closed (160°F+): all crews in shelter']);
+    else if(lvAt(c+1)>=160) A.push(['stop','Ch 16 calls the move to shelter: 160°F within the hour']);
+    if(sh.day%7===0&&c===12) A.push(['info','Weekly siren test at 1200, announced on Ch 1 ("This is a test")']);
+    hr.alerts=A;
+  });
+  const range=(s,e)=>`${hrs[s].lab}–${hhmm(hrs[e].clock+1)}`;
+  function runs(vals){const out=[];vals.forEach((v,i)=>{if(v==null)return;const L=out[out.length-1];if(L&&L.v===v&&L.e===i-1)L.e=i;else out.push({v,s:i,e:i})});return out.map(r=>({...r,r:range(r.s,r.e)}))}
+  // assignments
+  const assign=sh.assign||{};
+  const R={sh,hrs,crews,jobs,P,range,runs,key,jobsOut:[]};
+  const memberCount={};
+  crews.forEach(c=>c.members.forEach(m=>{if(P[m])memberCount[m]=(memberCount[m]||0)+1}));
+  jobs.forEach(j=>{
+    const a=assign[j.id]||{};
+    const crew=crewById[a.crew]||null;
+    const s=clamp(Math.round(+a.start)||0,0,11), n=Math.max(1,Math.ceil(j.hours)), e=Math.min(11,s+n-1);
+    const idx=[];for(let i=s;i<=e;i++)idx.push(i);
+    const members=crew?crew.members.map(m=>P[m]).filter(Boolean):[];
+    const height=isHeight(j), out=j.f.outdoor, lift=j.lift!=='none', wi=WI[j.work];
+    const gear=(j.f.hot||j.f.chem)?(j.work==='light'?10:20):0;
+    const per=hrs.map((hr,i)=>{
+      if(i<s||i>e) return null;
+      const x=hr.x, base=out?x.wbgt:x.wbgtShade, eff=base+gear;
+      const cell=wrCell(eff,wi,hr.lv);
+      const rampOn=hr.lv>=80||eff>=78;
+      const rc=rampOn?rampCell(cell):cell;
+      const c=hr.clock,w=x.H.wind,g=x.H.gust,st=[];
+      if(key(c)==='storm'||key(c+1)==='storm') st.push(['stop','Sandstorm: land loads, MEWPs down, to shelter']);
+      if((key(c)==='rain'||key(c-1)==='rain')&&(out||lift||height)) st.push(['stop','Lightning alert: booms down, off steel, out of MEWPs']);
+      if(key(c)==='rain'&&j.f.exc) st.push(['stop','Flood warning: out of the trench']);
+      if(lift&&(w>=30||g>=30)) st.push(['stop','Wind 30+: all crane loads landed']);
+      if(out&&height&&(w>=25||g>=30)) st.push(['stop','Wind 25+ or gust 30+: off open steel and edges, MEWPs down']);
+      if(out&&j.f.hot&&(w>=20||g>=20)) st.push(['stop','Wind 20+: no outdoor hot work']);
+      if(out&&j.f.hot&&x.H.vis<=1) st.push(['stop','Blowing dust: no outdoor hot work']);
+      if(lift&&(w>=20||g>=20)&&!(w>=30||g>=30)) st.push(['warn','Wind 20+: no personnel platforms; high-sail loads need Lift Director approval']);
+      if(lift&&x.H.vis<=1) st.push(['warn','Blowing dust: lifts stop when the operator loses sight of load or signal person']);
+      if(cell.w===0&&cell.k==='cooled') st.push(['stop',`WBGT ${eff}°F${gear?' with gear':''}: ${WORK[j.work].toLowerCase()} work not outside cooled spaces`]);
+      if(out&&w>=15&&w<20&&g<20) st.push(['info','Wind 15+: goggles, secure sheet goods']);
+      return {i,base,eff,cell,rc,rampOn,st};
+    });
+    const win=per.filter(Boolean);
+    const wrRuns=runs(per.map(p=>p?cellTxt(p.cell):null));
+    const rampRuns=runs(per.map(p=>p?cellTxt(p.rc):null));
+    // stops grouped by reason
+    const stopMap={};
+    win.forEach(p=>p.st.forEach(([sev,t])=>{(stopMap[t]=stopMap[t]||{sev,idx:[]}).idx.push(p.i)}));
+    const stops=Object.entries(stopMap).map(([t,o])=>{const v=hrs.map((_,i)=>o.idx.includes(i)?1:null);return {sev:o.sev,t,r:runs(v).map(x=>x.r).join(', ')}});
+    const sevRank={stop:0,warn:1,info:2}; stops.sort((a,b)=>sevRank[a.sev]-sevRank[b.sev]);
+    // permits
+    const permits=[];
+    const inBay=/fabrication yard|welding bay/i.test(j.structure+' '+j.landmark);
+    const heHrs=win.filter(p=>hrs[p.i].lv>=140&&hrs[p.i].lv<160).map(p=>p.i);
+    if(j.f.hot&&!inBay) permits.push(['PTW-HW','Area foreman (PTW-HW signer) signs, never the welder. Opened and closed on Ch 13. Fire watch during the work and 60 min after.']);
+    if(j.f.cs) permits.push(['PTW-CS','Entry supervisor signs. Entry talkgroup on the permit. Air tests before entry and every hour.']);
+    if(heHrs.length) permits.push(['PTW-HE',`Heat entry ${runs(hrs.map((_,i)=>heHrs.includes(i)?1:null)).map(r=>r.r).join(', ')}: area GF signs, Safety officer countersigns. Entries max 15 min.`]);
+    if(j.f.ee) permits.push(['PTW-EE','Electrical & Power GF signs, only when de-energizing is infeasible. Standby person outside the boundary.']);
+    if(j.f.exc) permits.push(['PTW-DG','Survey and Electrical & Power locate and mark; the area foreman signs. Holds while the marks last.']);
+    if(j.f.chem) permits.push(['PTW-SP','Industrial Hygiene sets the respirator and spray zone; the area foreman signs.']);
+    if(j.lift==='critical') permits.push([`LP-${letter(j.sector)}${j.grid}`,`Critical lift plan: Design & Structures prepares, Lift Director ${j.sector} approves and directs. Talkgroup ${liftTG(j)}.`]);
+    if(j.lift==='routine') permits.push(['Lift briefing',`Routine lift: lift lead (qualified rigger) named in the briefing. Talkgroup ${liftTG(j)}.`]);
+    // validation flags
+    const F=[]; const W=(sev,t)=>F.push({sev,t});
+    if(!crew) W('warn','No crew assigned');
+    else{
+      if(!members.length) W('warn','Crew has no members');
+      const crewHas=k=>members.some(p=>hasE(p,k));
+      j.req.forEach(k=>{if(!crewHas(k))W('warn',`Missing endorsement: ${END[k]}`)});
+      const distinct=(a,b)=>members.some(p=>hasE(p,a)&&members.some(q=>q!==p&&hasE(q,b)));
+      if(j.f.hot){
+        if(!crewHas('hotwork')) W('warn','No hot-work endorsement on the crew');
+        if(!crewHas('firewatch')) W('warn','No fire watch available (fire-watch endorsement)');
+        else if(crewHas('hotwork')&&!distinct('hotwork','firewatch')) W('warn','Fire watch would be the person doing the hot work');
+        if(inBay) W('info','Designated welding bay: no PTW-HW needed inside the bay');
+        else W('info','Signer: a foreman with the PTW-HW signer endorsement who is responsible for the work area');
+      }
+      if(j.f.cs){
+        if(!crewHas('attendant')) W('warn','No attendant on the crew');
+        if(!crewHas('entrant')) W('warn','No entrant on the crew');
+        if(crewHas('attendant')&&crewHas('entrant')&&!distinct('attendant','entrant')) W('warn','Attendant and entrant would be the same person');
+        W('info','Entry supervisor (foreman or GF with HS-SA) signs PTW-CS');
+        if(j.f.hot||j.f.chem||win.some(p=>hrs[p.i].lv>=125)) W('info','Book a rescue team at the hatch with Hub Safety (hot work, spray or 125°F+ inside); no free team = the entry waits');
+      }
+      if(lift){
+        if(!crewHas('crane')) W('warn','No crane operator on the crew');
+        if(!crewHas('signal')) W('warn','No qualified signal person available');
+        else if(crewHas('crane')&&!distinct('crane','signal')) W('warn','Signal person would be the crane operator');
+        if(!crewHas('rigger')) W('warn',j.lift==='routine'?'No qualified rigger to be lift lead':'No qualified rigger on the crew');
+        if(j.lift==='critical') W('info',`Lift Director ${j.sector} directs this lift`);
+      }
+      if(j.f.exc&&!crewHas('competent')) W('warn','No competent person for the excavation');
+      if(height&&!crewHas('competent')) W('warn','No fall-protection competent person for the written rescue plan');
+      if(j.f.ee&&!crewHas('qew')) W('warn','No qualified electrical worker (blue hat) on the crew');
+      if(j.f.ee&&members.length<2) W('warn','PTW-EE needs a standby person outside the boundary');
+      if(!crewHas('firstaid')) W('warn','No first aider on the crew (one in every crew)');
+      // ramp
+      const heatHrs=win.filter(p=>p.rampOn&&hrs[p.i].lv<160).length;
+      members.forEach(p=>{
+        if(p.ramp==='d1'&&j.work!=='light') W('warn',`${p.name}: RAMP Day 1, light work only (site rule)`);
+        if(isRamp(p.ramp)&&heatHrs){
+          const cap=Math.round(RAMP_PCT[p.ramp]*12*10)/10;
+          if(heatHrs>cap) W('warn',`${p.name}: ramp ${rampDay(p)} caps heat exposure at ${Math.round(RAMP_PCT[p.ramp]*100)}% of the shift (${cap} h); this job has ${heatHrs} h in the heat`);
+          if(p.ramp!=='d5') W('info',`${p.name}: ramp ${rampDay(p)}, half the work minutes; 25 lb hand-carry limit`);
+        }
+        if(heHrs.length&&p.ramp!=='done') W('warn',`${p.name}: can't enter under PTW-HE (ramp and Days 6–14 not finished)`);
+        if(p.ramp==='acc'&&win.some(x=>x.eff>=85)) W('info',`${p.name}: Days 6–14, crew lead checks every 15 min at WBGT 85+`);
+        if(memberCount[p.id]>1) W('warn',`${p.name} is in more than one crew in play`);
+      });
+      const anyCaution=win.some(p=>hrs[p.i].lv>=80);
+      if(members.length===1&&(anyCaution||height||j.f.cs||j.f.exc||sh.type==='night')) W('warn','Lone work is banned here (Caution or hotter, at height, confined space, trench or unlit night work)');
+      if(crew.sector!==j.sector) W('info',`${crew.call} is a ${crew.sector} crew: muster at ${mpOf(j)} (${j.sector}) today`);
+      const critical=lift||j.f.hot||j.f.cs;
+      if(critical&&e>=10) W('warn','Safety-critical roles (operator, signal, fire watch, attendant) end by hour 10: plan a swap');
+      if(critical&&n>8) W('warn','Safety-critical roles max 8 h in the role: plan a swap');
+      if(j.f.hot&&e>=11) W('warn','Fire watch runs 60 min after the last spark, past the shift end: hand over on Ch 13');
+    }
+    const lvIn=lo=>win.filter(p=>hrs[p.i].lv>=lo).map(p=>p.i);
+    const closed=lvIn(160); if(closed.length) W('stop',`Site closed ${runs(hrs.map((_,i)=>closed.includes(i)?1:null)).map(r=>r.r).join(', ')}: all crews to shelter`);
+    const ext=win.filter(p=>hrs[p.i].lv>=125&&hrs[p.i].lv<140).map(p=>p.i);
+    if(ext.length) W('warn',`Extreme ${runs(hrs.map((_,i)=>ext.includes(i)?1:null)).map(r=>r.r).join(', ')}: essential work only, approved by the Sector Superintendent`);
+    if(heHrs.length) W('warn',`Extreme heat entry ${runs(hrs.map((_,i)=>heHrs.includes(i)?1:null)).map(r=>r.r).join(', ')}: work only under PTW-HE`);
+    const dang=win.filter(p=>hrs[p.i].lv>=103&&hrs[p.i].lv<125).map(p=>p.i);
+    if(sh.type==='day'&&dang.length&&(j.work==='heavy'||j.work==='vheavy')) W('warn','Danger level: heavy and very heavy work moves to the night shift');
+    if(win.some(p=>p.cell.k==='vest'||p.cell.k==='vest-ess')) W('info','WBGT 92–94.9: cooling vest required for moderate work (no vest, no work)');
+    if(j.f.hot&&j.f.chem) W('warn','Hot work with spray or chemicals: VeilCoat solvent is flammable; no hot work at 1% LEL or above');
+    if(j.f.hot&&out&&ext.length) W('info','No oxy-fuel cylinders on open decks at Extreme heat');
+    if(win.some(p=>hrs[p.i].lv>=103)) W('info',`Working ice trough on ${deckStr(j.deck)||'the work level'} or no work there`);
+    if(sh.type==='night'&&height) W('info','Night: 10 fc at edges, stairs and walkways; if lighting fails at height, hold');
+    if(gear) W('info',`Clothing adjustment +${gear}°F WBGT (${j.f.hot?'FR leathers':'chemical suit'}), counted once`);
+    R.jobsOut.push({j,crew,members,s,e,n,per,win,wrRuns,rampRuns,stops,permits,flags:F,gear,height,
+      rampPeople:members.filter(p=>['d1','d2','d3','d4'].includes(p.ramp))});
+  });
+  // crew-level conflicts: double booking, SIMOPS
+  R.jobsOut.forEach((a,ai)=>R.jobsOut.forEach((b,bi)=>{
+    if(bi<=ai) return;
+    const ov=a.s<=b.e&&b.s<=a.e; if(!ov) return;
+    if(a.crew&&b.crew&&a.crew.id===b.crew.id){const t=`Crew double-booked with "${b.j.title}" ${range(Math.max(a.s,b.s),Math.min(a.e,b.e))}`;a.flags.push({sev:'warn',t});b.flags.push({sev:'warn',t:`Crew double-booked with "${a.j.title}" ${range(Math.max(a.s,b.s),Math.min(a.e,b.e))}`})}
+    const same=a.j.sector===b.j.sector&&Math.abs(a.j.grid-b.j.grid)<=1;
+    const clash=(x,y)=>(x.f.hot&&(y.f.chem||y.f.cs||y.f.exc))||(x.lift!=='none'&&(y.f.exc||isHeight(y)));
+    if(same&&(clash(a.j,b.j)||clash(b.j,a.j))){
+      a.flags.push({sev:'warn',t:`SIMOPS with "${b.j.title}": both signers agree and write how on both permits`});
+      b.flags.push({sev:'warn',t:`SIMOPS with "${a.j.title}": both signers agree and write how on both permits`});
+    }
+  }));
+  // context for complications
+  const X=hrs.map(h=>h.x);
+  const multi=jobs.some((a,i)=>jobs.some((b,k)=>k>i&&a.sector===b.sector));
+  R.ctx={night:sh.type==='night',heat:hrs.some(h=>h.lv>=80||h.x.wbgt>=78),danger:hrs.some(h=>h.lv>=103),extreme:hrs.some(h=>h.lv>=125),
+    wind15:X.some(x=>x.H.wind>=15||x.H.gust>=20),wind20:X.some(x=>x.H.wind>=20||x.H.gust>=20),dust:X.some(x=>x.H.vis<=1),
+    storm:hrs.some(h=>key(h.clock)==='storm'||key(h.clock+1)==='storm'||key(h.clock+2)==='storm'),
+    rain:hrs.some(h=>key(h.clock)==='rain'),wet:hrs.some(h=>key(h.clock)==='rain'||(key(h.clock)==='overcast'&&h.x.H.pop>=10)),
+    lift:jobs.some(j=>j.lift!=='none'),hot:jobs.some(j=>j.f.hot),cs:jobs.some(j=>j.f.cs),ee:jobs.some(j=>j.f.ee),exc:jobs.some(j=>j.f.exc),
+    chem:jobs.some(j=>j.f.chem),height:jobs.some(isHeight),outdoor:jobs.some(j=>j.f.outdoor),
+    ramp:crews.some(c=>c.members.some(m=>P[m]&&isRamp(P[m].ramp))),multi};
+  return R;
+}
+
+/* ================= complications: draw ================= */
+const TAGCTX={heat:'heat',wind:'wind15',weather:'storm|rain|dust|wet',lift:'lift','hot work':'hot',confined:'cs',electrical:'ee',height:'height',excavation:'exc',chemical:'chem',night:'night'};
+const ctxTest=(ctx,expr)=>String(expr).split('|').some(k=>!!ctx[k]);
+function allComps(){
+  return BUILTIN.map(c=>({...c,cid:'b:'+c.id,builtin:true,w:+(S.compW[c.id]||c.w),off:!!S.compOff[c.id]}))
+    .concat(S.compCustom.map(c=>({...c,cid:'c:'+c.id,builtin:false,need:[],hr:'any',off:!!S.compOff['c:'+c.id]})));
+}
+function getComp(cid,sh){
+  const all=allComps(); let c=all.find(x=>x.cid===cid);
+  if(!c&&sh&&sh.snap&&sh.snap.comps){const k=sh.snap.comps.find(x=>'c:'+x.id===cid); if(k) c={...k,cid,need:[],hr:'any'}}
+  return c;
+}
+function eligible(R){
+  const ctx=R.ctx, out=[];
+  allComps().forEach(c=>{
+    if(c.off) return;
+    if(c.need&&!c.need.every(n=>ctxTest(ctx,n))) return;
+    const cond=c.tags.filter(t=>TAGCTX[t]);
+    const active=cond.filter(t=>ctxTest(ctx,TAGCTX[t])).length;
+    if(cond.length&&!active) return;
+    out.push([c,c.w*(1+0.5*active)]);
+  });
+  return out;
+}
+function pickHour(c,R,J){
+  const hrs=R.hrs, lo=J?J.s:0, hi=J?J.e:11;
+  const win=hrs.filter(h=>h.i>=lo&&h.i<=hi);
+  const best=(arr,f)=>arr.reduce((a,b)=>f(b)>f(a)?b:a).i;
+  const hr=c.hr||'any';
+  if(hr.startsWith('fixed:')) return clamp(+hr.slice(6),0,11);
+  if(hr==='hot') return best(win,h=>h.lv+h.x.wbgt/100);
+  if(hr==='wind') return best(win,h=>h.x.H.gust);
+  if(hr==='mid') return clamp(5,lo,hi);
+  if(hr==='storm'){const f=hrs.find(h=>R.key(h.clock+1)==='storm'||R.key(h.clock)==='storm');if(f)return Math.max(0,f.i-(R.key(f.clock)==='storm'?1:0));return best(win,h=>h.x.H.gust)}
+  if(hr==='rain'){const f=hrs.find(h=>R.key(h.clock)==='rain');return f?f.i:best(win,h=>h.x.H.cloud)}
+  if(hr==='dust'){const f=hrs.find(h=>h.x.H.vis<=1);return f?f.i:best(win,h=>h.x.H.gust)}
+  if(hr==='dark'){const d=win.filter(h=>h.x.night);return (d.length?pick(d):pick(win)).i}
+  return pick(win).i;
+}
+function drawOne(R,exclude){
+  const el=eligible(R).filter(([c])=>!exclude.includes(c.cid));
+  if(!el.length) return null;
+  const tot=el.reduce((s,x)=>s+x[1],0); let r=Math.random()*tot, c=el[0][0];
+  for(const [cc,w] of el){if((r-=w)<=0){c=cc;break}}
+  let jobsOut=R.jobsOut.filter(o=>o.crew);
+  let cands=c.jf?jobsOut.filter(o=>jobHas(o.j,c.jf)):jobsOut;
+  if(!cands.length) cands=jobsOut;
+  // prefer a job whose crew has the preferred person
+  const prefOK=p=>!c.pp?true:c.pp==='ramp'?isRamp(p.ramp):hasE(p,c.pp);
+  if(c.pp){const withP=cands.filter(o=>o.members.some(prefOK)); if(withP.length) cands=withP}
+  const J=cands.length?pick(cands):null;
+  let crew=J?J.crew:(R.crews.length?pick(R.crews):null);
+  let pid='';
+  if(c.inv==='person'&&crew){
+    const mem=crew.members.map(m=>R.P[m]).filter(Boolean);
+    let pool=mem.filter(prefOK); if(!pool.length) pool=mem;
+    if(!c.pp){const pcs=pool.filter(p=>p.pc); if(pcs.length&&Math.random()<0.5) pool=pcs}
+    if(pool.length) pid=pick(pool).id;
+  }
+  const hi=pickHour(c,R,J);
+  const x=R.hrs[hi].x;
+  const v={post:x.H.gust,gust:Math.max(x.H.gust+Math.round(rnd(3,8)),31)};
+  return {id:uid(),cid:c.cid,hi,min:Math.floor(rnd(0,12))*5,pid,crew:crew?crew.id:'',job:J?J.j.id:'',locked:false,v};
+}
+function fillComps(R,sh,mode){ // mode 'all' rerolls unlocked; 'fill' only tops up
+  let keep=mode==='all'?sh.comps.filter(c=>c.locked):sh.comps.slice();
+  keep=keep.filter(c=>getComp(c.cid,sh));
+  while(keep.length>sh.count){const k=keep.map(c=>c.locked).lastIndexOf(false);if(k<0)break;keep.splice(k,1)}
+  let guard=0;
+  while(keep.length<sh.count&&guard++<20){const d=drawOne(R,keep.map(c=>c.cid));if(!d)break;keep.push(d)}
+  keep.sort((a,b)=>a.hi-b.hi||a.min-b.min);
+  sh.comps=keep;
+}
+function compView(cm,R,sh){
+  const c=getComp(cm.cid,sh); if(!c) return null;
+  const p=R.P[cm.pid], crew=R.crews.find(x=>x.id===cm.crew)||(p&&R.crews.find(x=>x.members.includes(p.id)))||null;
+  const jo=R.jobsOut.find(o=>o.j.id===cm.job)||(crew&&R.jobsOut.find(o=>o.crew&&o.crew.id===crew.id))||null;
+  const j=jo?jo.j:null, hr=R.hrs[clamp(cm.hi,0,11)], x=hr.x;
+  const sector=j?j.sector:(crew?crew.sector:(sh.sector||'Charlie'));
+  const time=hhmm(hr.clock,cm.min||0);
+  const V={person:p?p.name:'a crew member',crew:crew?crew.call:'a nearby crew',loc:j?locStr(j):`${sector} sector`,job:j?j.title:'the job',sector,
+    grid:j?j.grid:'1',deck:j?String(j.deck===''?'0':j.deck):'0',ch:`Ch ${SECTOR_CH[sector]}`,aid:`${sector} Aid`,mp:j?mpOf(j):`MP-${letter(sector)}1`,
+    tg:crew&&crew.tg?crew.tg:'the foreman talkgroup',lift:j?liftTG(j):'the lift talkgroup',temp:x.T,wbgt:x.wbgt,wind:x.H.wind,
+    gust:(cm.v&&cm.v.gust)||x.H.gust,post:(cm.v&&cm.v.post)||x.H.gust,time,ramp:p?RAMP[p.ramp].replace(' (RAMP)',''):'ramp day'};
+  const fill=s=>String(s||'').replace(/\{(\w+)\}/g,(m,k)=>k in V?V[k]:m);
+  return {c,time,text:fill(c.x),rule:fill(c.r),who:[p?p.name:'',crew?crew.call:''].filter(Boolean).join(' · '),where:V.loc};
+}
+
+/* ================= roll actions ================= */
+function autoAssign(sh,onlyMissing){
+  const D=dataOf(sh), crews=inCrews(sh,D), jobs=inJobs(sh,D), P=Object.fromEntries(D.people.map(p=>[p.id,p]));
+  if(!crews.length) return;
+  const load={}; crews.forEach(c=>load[c.id]=0);
+  if(onlyMissing) jobs.forEach(j=>{const a=sh.assign[j.id];if(a&&load[a.crew]!=null)load[a.crew]++});
+  const needs=j=>{const k=[...j.req,'firstaid'];if(j.f.hot)k.push('hotwork','firewatch');if(j.f.cs)k.push('attendant','entrant');
+    if(j.lift!=='none')k.push('crane','signal','rigger');if(j.f.exc||isHeight(j))k.push('competent');if(j.f.ee)k.push('qew');return [...new Set(k)]};
+  const order=jobs.slice().sort((a,b)=>needs(b).length-needs(a).length);
+  order.forEach(j=>{
+    const cur=sh.assign[j.id];
+    if(onlyMissing&&cur&&crews.some(c=>c.id===cur.crew)) return;
+    const nd=needs(j);
+    let best=null,bs=-1e9;
+    crews.forEach(c=>{
+      const mem=c.members.map(m=>P[m]).filter(Boolean);
+      const cov=nd.filter(k=>mem.some(p=>hasE(p,k))).length;
+      const score=cov*10-(nd.length-cov)*4+(c.sector===j.sector?6:0)-load[c.id]*7+(mem.length?0:-30)+Math.random();
+      if(score>bs){bs=score;best=c}
+    });
+    load[best.id]++;
+    sh.assign[j.id]={crew:best.id,start:cur?cur.start||0:0};
+  });
+}
+function rollShift(full){
+  const sh=S.shift;
+  if(!sh.lockWx||!sh.wx||full===true) sh.wx=makeDay(sh.season,sh.type==='night'?18:6);
+  autoAssign(sh,true);
+  const R=compute(sh); fillComps(R,sh,'all');
+  save();
+}
+
+/* ================= briefing ================= */
+function buildBrief(R,sh){
+  const hrs=R.hrs, wx=sh.wx, X=hrs.map(h=>h.x);
+  const maxBy=f=>hrs.reduce((a,b)=>f(b)>f(a)?b:a);
+  const hot=maxBy(h=>h.x.T), lvMax=maxBy(h=>h.lv), wbMax=maxBy(h=>h.x.wbgt);
+  const Ts=X.map(x=>x.T), ws=X.map(x=>x.H.wind), gs=X.map(x=>x.H.gust), vis=Math.min(...X.map(x=>x.H.vis));
+  const dirCount={};X.forEach(x=>dirCount[x.dirC]=(dirCount[x.dirC]||0)+1);
+  const dir=Object.entries(dirCount).sort((a,b)=>b[1]-a[1])[0][0];
+  const kinds=R.runs(hrs.map(h=>WEATHER[h.x.H.key].name));
+  const wxLine=kinds.length===1?kinds[0].v:kinds.map(k=>`${k.v} ${k.r}`).join(', ');
+  const B={};
+  const shiftName=sh.type==='night'?'Night shift':'Day shift';
+  B.title=`Muster briefing · ${shiftName}`;
+  B.sub=[`Site day ${sh.day} (${weekday(sh.day)})`,sh.date,`${hrs[0].lab}–${hhmm(hrs[11].clock+1)}`,`${sh.season[0].toUpperCase()+sh.season.slice(1)} season`,sh.sector?`Focus ${sh.sector} (Ch ${SECTOR_CH[sh.sector]})`:''].filter(Boolean).join(' · ');
+  B.weather=`${wxLine}. Air ${Math.min(...Ts)}–${Math.max(...Ts)}°F, peak ${hot.x.T}°F at ${hot.lab}. Heat level value up to ${lvMax.lv}°F (${lvMax.x.HI==null?'air temperature':'heat index'}). WBGT up to ${wbMax.x.wbgt}°F outdoors, ${Math.max(...X.map(x=>x.wbgtShade))}°F in shade. Wind ${dir} ${Math.min(...ws)}–${Math.max(...ws)} mph, gusts to ${Math.max(...gs)}. Visibility down to ${visStr(vis)}.`;
+  B.levels=R.runs(hrs.map(h=>h.lvl.n)).map(r=>`${r.r} ${r.v}`);
+  // warnings grouped across hours
+  const am={};hrs.forEach(h=>h.alerts.forEach(([sev,t])=>{const k=t.replace(/Wind \d+ g\d+/,'Wind').replace(/Wind \d+:/,'Wind 15+:').replace(/\(vis [^)]*\)/,'(vis 1 mi or less)');(am[k]=am[k]||{sev,idx:[]}).idx.push(h.i)}));
+  const rank={stop:0,warn:1,info:2};
+  B.warnings=Object.entries(am).map(([t,o])=>({sev:o.sev,t,r:R.runs(hrs.map((_,i)=>o.idx.includes(i)?1:null)).map(x=>x.r).join(', '),first:o.idx[0]}))
+    .map(w=>{ // name the wind tiers properly
+      if(w.t.startsWith('Wind: all crane'))w.t='Wind 30+ sustained or gust: '+w.t.slice(6);
+      else if(w.t.startsWith('Wind: off open'))w.t='Wind 25+ sustained or gust 30+: '+w.t.slice(6);
+      else if(w.t.startsWith('Wind: no outdoor'))w.t='Wind 20+ sustained or gust: '+w.t.slice(6);
+      return w})
+    .sort((a,b)=>rank[a.sev]-rank[b.sev]||a.first-b.first);
+  B.notes=['Scan Ch 1 + Ch 16 + your sector channel; crane, equipment and hot-work crews add their trade channel.','Crew leads post WBGT at muster and hourly. Follow whichever of heat level and WBGT is more restrictive.','Buddy pairs always; crew lead sees everyone every 30 min and checks in with the foreman every 30 min.','30-min meal break by hour 6. Weigh in and out at the shift weigh station.'];
+  if(R.ctx.danger) B.notes.push('Ice troughs checked at muster and every 2 h. No working trough at Danger or hotter = no work on that deck.');
+  if(hrs.some(h=>h.lv>=90)) B.notes.push('Extreme caution and up: buddies stay within sight of each other.');
+  if(sh.type==='night') B.notes.push('Night: helmet light for everyone, no lone work in unlit areas, Safety & Health spot-checks light levels.');
+  if(sh.day%7===0&&sh.type==='day') B.notes.push('Day '+sh.day+' is a siren test day: test at 1200, announced on Ch 1 before and after.');
+  // crews
+  B.crews=R.crews.map(c=>{
+    const mine=R.jobsOut.filter(o=>o.crew&&o.crew.id===c.id);
+    const mem=c.members.map(m=>R.P[m]).filter(Boolean);
+    return {c,mem,head:`${c.call} · ${c.tg||'no talkgroup'} · ${mem.length} crew · ${c.sector} Ch ${SECTOR_CH[c.sector]}`,jobs:mine.map(jobBrief)};
+  });
+  B.unassigned=R.jobsOut.filter(o=>!o.crew).map(jobBrief);
+  function jobBrief(o){
+    const j=o.j, flags=FLAGS.filter(([k])=>k==='height'?o.height:j.f[k]).map(f=>f[1].toLowerCase());
+    if(j.lift!=='none') flags.push(`crane lift (${j.lift})`);
+    const radio=[o.crew&&o.crew.tg?`crew ${o.crew.tg}`:'',j.lift!=='none'?`${liftTG(j)}, Ch 11 coordination`:'',j.f.hot?'Ch 13 hot work':'',/printer|equipment|haul/i.test(j.title)?'Ch 12':''].filter(Boolean).join(' · ');
+    return {o,title:j.title,loc:locStr(j),muster:mpOf(j),hours:`${R.range(o.s,o.e)} (${o.e-o.s+1} h) · ${WORK[j.work]} work${flags.length?' · '+flags.join(', '):''}`,
+      permits:o.permits,radio,wr:o.wrRuns.map(r=>`${r.r} ${r.v}`),
+      ramp:o.rampPeople.length&&o.rampRuns.some((r,i)=>r.v!==(o.wrRuns[i]||{}).v)?{who:o.rampPeople.map(p=>`${p.name} (${RAMP[p.ramp].replace(' (RAMP)','')})`).join(', '),wr:o.rampRuns.map(r=>`${r.r} ${r.v}`)}:null,
+      stops:o.stops,flags:o.flags,notes:j.notes};
+  }
+  B.comps=sh.comps.map(cm=>compView(cm,R,sh)).filter(Boolean);
+  return B;
+}
+function briefText(B,compact){
+  const L=[]; const sevTag={stop:'STOP',warn:'WARN',info:'NOTE'};
+  L.push(`DCW ${B.title.toUpperCase()}`); L.push(B.sub); L.push('');
+  L.push('WEATHER'); L.push(B.weather); L.push('');
+  L.push('HEAT LEVEL'); L.push(B.levels.join(' | ')); L.push('');
+  const warns=B.warnings.filter(w=>!compact||w.sev!=='info');
+  if(warns.length){L.push('WIND, WARNINGS, ALERTS');warns.forEach(w=>L.push(`- ${w.r} ${w.t}`));L.push('')}
+  const job=(b)=>{
+    L.push(`  > ${b.title}`);
+    L.push(`    Where: ${b.loc} (muster ${b.muster})`);
+    L.push(`    Hours: ${b.hours}`);
+    L.push(`    Permits: ${b.permits.length?b.permits.map(p=>p[0]).join(', '):'none'}`);
+    if(b.radio) L.push(`    Radio: ${b.radio}`);
+    if(compact){L.push(`    Work/rest: ${b.wr.length>1?'varies, see table; strictest '+strictest(b):b.wr[0]||'n/a'}`)}
+    else{L.push('    Work/rest:');b.wr.forEach(x=>L.push(`      ${x}`))}
+    if(b.ramp){if(compact)L.push(`    RAMP: ${b.ramp.who}: half work minutes`);else{L.push(`    RAMP Days 1–4: ${b.ramp.who}`);b.ramp.wr.forEach(x=>L.push(`      ${x}`))}}
+    b.stops.filter(s=>!compact||s.sev!=='info').forEach(s=>L.push(`    ${sevTag[s.sev]} ${s.r}: ${s.t}`));
+    b.flags.filter(f=>!compact||f.sev!=='info').forEach(f=>L.push(`    ${sevTag[f.sev]} ${f.t}`));
+    if(b.notes&&!compact) L.push(`    Notes: ${b.notes}`);
+  };
+  L.push('ASSIGNMENTS');
+  B.crews.forEach(cr=>{L.push(`* ${cr.head}`);if(!cr.jobs.length)L.push('  > No job assigned (standby)');cr.jobs.forEach(job)});
+  if(B.unassigned.length){L.push('* UNASSIGNED JOBS');B.unassigned.forEach(job)}
+  L.push('');
+  if(B.comps.length){L.push('COMPLICATIONS (GM)');B.comps.forEach(v=>{L.push(`- ${v.time} · ${v.c.t}${v.who?' · '+v.who:''}`);L.push(`  ${v.text}`);L.push(`  Rules: ${v.rule}`)});L.push('')}
+  if(!compact){L.push('STANDING NOTES');B.notes.forEach(n=>L.push(`- ${n}`))}
+  return L.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+}
+function strictest(b){
+  const o=b.o; let w=null;
+  o.win.forEach(p=>{if(!w||p.cell.w<w.cell.w)w=p});
+  return w?cellTxt(w.cell):'n/a';
+}
+
+/* ================= rendering: roll tab ================= */
+let lastR=null, lastB=null;
+function curShift(){return VIEW?VIEW.shift:S.shift}
+function chip(sev,t){return `<span class="chip ${sev}">${esc(t)}</span>`}
+function renderRoll(){
+  const sh=curShift(), viewing=!!VIEW;
+  $('view-banner').hidden=!viewing; $('r-inputs').hidden=viewing;
+  if(viewing) $('view-label').textContent=`${VIEW.label} · saved ${VIEW.saved.replace('T',' ').slice(0,16)}`;
+  if(!viewing){
+    $('r-type').value=sh.type; $('r-season').value=sh.season; $('r-day').value=sh.day; $('r-date').value=sh.date;
+    $('r-sector').value=sh.sector; $('r-count').value=sh.count; $('r-count-out').textContent=sh.count; $('r-lockwx').checked=sh.lockWx;
+    const D=dataOf(sh);
+    const cr=D.crews.filter(c=>c.active&&(!sh.sector||c.sector===sh.sector));
+    $('r-crews').innerHTML=cr.length?cr.map(c=>`<label><input type="checkbox" id="r-crew-${esc(c.id)}" data-crew="${esc(c.id)}" ${sh.outCrews.includes(c.id)?'':'checked'}> <span>${esc(c.call)} <span class="hint">(${c.members.length})</span></span></label>`).join(''):'<span class="hint">No active crews. Add some on the Crews tab.</span>';
+    const jb=D.jobs.filter(j=>j.active&&(!sh.sector||j.sector===sh.sector));
+    $('r-jobs').innerHTML=jb.length?jb.map(j=>`<label><input type="checkbox" id="r-job-${esc(j.id)}" data-job="${esc(j.id)}" ${sh.outJobs.includes(j.id)?'':'checked'}> <span>${esc(j.title)} <span class="hint">${esc(j.sector)}-${j.grid}</span></span></label>`).join(''):'<span class="hint">No active jobs. Add some on the Jobs tab.</span>';
+  }
+  $('b-compact').checked=sh.compact;
+  if(!sh.wx){['r-timeline','r-alerts','r-wx','r-assign','r-comps','b-card'].forEach(id=>$(id).innerHTML='');return}
+  const R=compute(sh); lastR=R;
+  // timeline
+  $('r-timeline').innerHTML=R.hrs.map(h=>`<div style="background:${h.lvl.c};color:${h.lvl.fg}" title="${h.lab} ${esc(h.lvl.n)}, ${h.lv}°F"><b>${h.lab}</b>${SHORTLV[h.lvl.n]}<br>${h.lv}°</div>`).join('');
+  const wx=sh.wx;
+  $('r-wxsub').textContent=`${WEATHER[wx.wxKey].name} day · high ${wx.peak}°F, low ${wx.low}°F${wx.chg?` · ${WEATHER[wx.chg.key].name} from ${hhmm(wx.chg.at)} for ${wx.chg.len} h`:''}${sh.lockWx?' · locked':''}`;
+  const B=buildBrief(R,sh); lastB=B;
+  $('r-alerts').innerHTML=B.warnings.length?B.warnings.map(w=>`<div class="${w.sev}"><b class="m">${esc(w.r)}</b> ${esc(w.t)}</div>`).join(''):'<div class="info">No wind, storm or heat alerts this shift.</div>';
+  // weather table
+  let t='<thead><tr><th>Hour</th><th>Sky</th><th>Air</th><th>HI/air</th><th>Level</th><th>WBGT out</th><th>WBGT shade</th><th>Wind</th><th>Gust</th><th>Vis</th><th>Alerts</th></tr></thead><tbody>';
+  R.hrs.forEach(h=>{const x=h.x;
+    t+=`<tr><td class="m nw">${h.lab}</td><td class="nw">${esc(WEATHER[x.H.key].name)}<br><span class="hint">${skyWord(x.H.cloud,x.night)}</span></td><td class="m">${x.T}°</td><td class="m">${h.lv}° <span class="hint">${x.HI==null?'air':'HI'}</span></td>
+    <td><span class="lvl" style="background:${h.lvl.c};color:${h.lvl.fg}">${esc(h.lvl.n)}</span></td><td class="m">${x.wbgt}°</td><td class="m">${x.wbgtShade}°</td>
+    <td class="m nw">${x.H.wind<3?'Calm':x.dirC+' '+x.H.wind}</td><td class="m">${x.H.gust}</td><td class="m nw">${visStr(x.H.vis)}</td>
+    <td style="min-width:200px">${h.alerts.map(([s,a])=>chip(s,a)).join('')}</td></tr>`});
+  $('r-wx').innerHTML=t+'</tbody>';
+  // assignments
+  const crewOpts=c=>`<option value="">Unassigned</option>`+R.crews.map(x=>`<option value="${esc(x.id)}" ${c&&c.id===x.id?'selected':''}>${esc(x.call)}</option>`).join('');
+  $('r-assign').innerHTML=R.jobsOut.length?R.jobsOut.map(o=>{
+    const j=o.j, id=esc(j.id);
+    const startOpts=R.hrs.map(h=>`<option value="${h.i}" ${h.i===o.s?'selected':''}>${h.lab}</option>`).join('');
+    const flagsTxt=FLAGS.filter(([k])=>k==='height'?o.height:j.f[k]).map(f=>f[1]).concat(j.lift!=='none'?[`Crane lift (${j.lift})`]:[]);
+    return `<article class="job"><div class="jh"><b>${esc(j.title)}</b><span>${esc(locStr(j))}</span></div><div class="jb">
+      <div class="row2">
+        <label class="f" for="a-crew-${id}">Crew<select id="a-crew-${id}" data-acrew="${id}" ${viewing?'disabled':''}>${crewOpts(o.crew)}</select></label>
+        <label class="f" for="a-start-${id}">Start<select id="a-start-${id}" data-astart="${id}" ${viewing?'disabled':''}>${startOpts}</select></label>
+      </div>
+      <dl class="kv">
+        <dt>Hours</dt><dd class="m">${R.range(o.s,o.e)} · ${o.e-o.s+1} h${o.e-o.s+1<o.n?` <span class="chip warn">runs past shift end (${j.hours} h est.)</span>`:''}</dd>
+        <dt>Work</dt><dd>${WORK[j.work]}${flagsTxt.length?' · '+esc(flagsTxt.join(', ')):''}</dd>
+        <dt>Permits</dt><dd>${o.permits.length?o.permits.map(p=>`<span class="chip perm" title="${esc(p[1])}">${esc(p[0])}</span>`).join(''):'<span class="hint">None</span>'}${o.permits.map(p=>`<div class="hint">${esc(p[0])}: ${esc(p[1])}</div>`).join('')}</dd>
+        <dt>Work/rest</dt><dd class="m">${o.wrRuns.map(r=>`<div>${esc(r.r)} ${esc(r.v)}</div>`).join('')}</dd>
+        ${o.rampPeople.length?`<dt>RAMP 1–4</dt><dd class="m">${o.rampRuns.map(r=>`<div>${esc(r.r)} ${esc(r.v)}</div>`).join('')}<div class="hint">${esc(o.rampPeople.map(p=>p.name).join(', '))}</div></dd>`:''}
+        ${o.stops.length?`<dt>Wind/stops</dt><dd>${o.stops.map(s=>chip(s.sev,`${s.r}: ${s.t}`)).join('')}</dd>`:''}
+      </dl>
+      <div>${o.flags.length?o.flags.map(f=>chip(f.sev,f.t)).join(''):chip('ok','No rule flags')}</div>
+      ${j.notes?`<div class="hint">${esc(j.notes)}</div>`:''}
+    </div></article>`}).join(''):'<div class="empty">No jobs in play. Add jobs on the Jobs tab or tick them in Shift setup.</div>';
+  // complications
+  const people=[];R.crews.forEach(c=>c.members.forEach(m=>{const p=R.P[m];if(p&&!people.includes(p))people.push(p)}));
+  $('r-comps').innerHTML=sh.comps.length?sh.comps.map((cm,ix)=>{
+    const v=compView(cm,R,sh); if(!v) return '';
+    const id=esc(cm.id);
+    return `<article class="comp ${cm.locked?'locked':''}">
+      <div class="btns" style="justify-content:space-between"><h3>${esc(v.time)} · ${esc(v.c.t)}</h3>
+        <span>${v.c.tags.map(t=>`<span class="tagx">${esc(t)}</span>`).join('')}</span></div>
+      <p>${esc(v.text)}</p>
+      <p class="rule"><b>What the rules say:</b> ${esc(v.rule)}</p>
+      ${viewing?'':`<div class="ctl">
+        <label class="f" for="cm-hour-${id}">Hour<select id="cm-hour-${id}" data-cmhour="${id}">${R.hrs.map(h=>`<option value="${h.i}" ${h.i===cm.hi?'selected':''}>${h.lab}</option>`).join('')}</select></label>
+        <label class="f" for="cm-person-${id}">Person<select id="cm-person-${id}" data-cmperson="${id}"><option value="">None</option>${people.map(p=>`<option value="${esc(p.id)}" ${p.id===cm.pid?'selected':''}>${esc(p.name)}${p.pc?' (PC)':''}</option>`).join('')}</select></label>
+        <label class="f" for="cm-crew-${id}">Crew / place<select id="cm-crew-${id}" data-cmcrew="${id}"><option value="">Any</option>${R.crews.map(c=>`<option value="${esc(c.id)}" ${c.id===cm.crew?'selected':''}>${esc(c.call)}</option>`).join('')}</select></label>
+      </div>
+      <div class="btns"><button class="btn sm alt" type="button" data-cmlock="${id}" aria-pressed="${cm.locked}">${cm.locked?'Locked':'Lock'}</button>
+        <button class="btn sm alt" type="button" data-cmreroll="${id}" ${cm.locked?'disabled':''}>Reroll this one</button></div>`}
+    </article>`}).join(''):'<div class="empty">No complications fit this shift, or the deck is all disabled.</div>';
+  renderBrief(B,sh);
+}
+function renderBrief(B,sh){
+  const sevTag={stop:'STOP',warn:'WARN',info:'NOTE'};
+  const compact=sh.compact;
+  const job=b=>`<div class="bjob"><b class="t">${esc(b.title)}</b><div class="m">${esc(b.loc)} · muster ${esc(b.muster)}</div>
+    <div class="m">${esc(b.hours)}</div>
+    <div>${b.permits.length?b.permits.map(p=>`<span class="chip perm">${esc(p[0])}</span>`).join(''):'<span class="hint">No permits</span>'}${b.radio?` <span class="hint">Radio: ${esc(b.radio)}</span>`:''}</div>
+    <div class="m">${compact?'Work/rest strictest: '+esc(strictest(b)):b.wr.map(x=>esc(x)).join('<br>')}</div>
+    ${b.ramp?`<div class="m"><b>RAMP Days 1–4:</b> ${esc(b.ramp.who)}<br>${compact?'half work minutes':b.ramp.wr.map(x=>esc(x)).join('<br>')}</div>`:''}
+    <div>${b.stops.filter(s=>!compact||s.sev!=='info').map(s=>chip(s.sev,`${s.r}: ${s.t}`)).join('')}${b.flags.filter(f=>!compact||f.sev!=='info').map(f=>chip(f.sev,f.t)).join('')}</div></div>`;
+  $('b-card').innerHTML=`<div class="bh"><div class="meta"><span>DCW · Settlement Site 4</span><span>Form TOOL-SG · Rev. 5</span></div><h2>${esc(B.title)}</h2><div class="m">${esc(B.sub)}</div></div>
+   <section><h3>Weather</h3><p>${esc(B.weather)}</p></section>
+   <section><h3>Heat level timeline</h3><p class="m">${B.levels.map(esc).join(' | ')}</p></section>
+   <section><h3>Wind, warnings, alerts</h3>${B.warnings.filter(w=>!compact||w.sev!=='info').length?`<ul>${B.warnings.filter(w=>!compact||w.sev!=='info').map(w=>`<li><b class="m">${esc(w.r)}</b> ${esc(w.t)}</li>`).join('')}</ul>`:'<p class="hint">None.</p>'}</section>
+   <section><h3>Assignments</h3>${B.crews.map(cr=>`<div class="bcrew"><div class="ct">${esc(cr.head)}</div><div>${cr.jobs.length?cr.jobs.map(job).join(''):'<span class="hint">No job assigned (standby)</span>'}</div></div>`).join('')}
+     ${B.unassigned.length?`<div class="bcrew"><div class="ct">Unassigned jobs</div><div>${B.unassigned.map(job).join('')}</div></div>`:''}</section>
+   <section><h3>Complications (GM)</h3>${B.comps.length?`<ul>${B.comps.map(v=>`<li><b class="m">${esc(v.time)}</b> <b>${esc(v.c.t)}</b>${v.who?` · ${esc(v.who)}`:''}<br>${esc(v.text)}<br><span class="hint">Rules: ${esc(v.rule)}</span></li>`).join('')}</ul>`:'<p class="hint">None.</p>'}</section>
+   ${compact?'':`<section><h3>Standing notes</h3><ul>${B.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></section>`}`;
+  const txt=briefText(B,compact);
+  $('b-text').value=txt;
+  $('b-status').textContent='';
+  $('b-text-wrap').querySelector('textarea').setAttribute('aria-describedby','b-status');
+  const n=txt.length; $('b-status').style.color=n>2000?'var(--red)':'var(--muted)';
+  $('b-status').textContent=`${n} characters${n>2000?' · over the 2,000 Discord limit: try Compact or paste in parts':''}`;
+}
+
+/* ================= rendering: people / crews / jobs / comps / log ================= */
+function opts(list,sel){return list.map(([v,l])=>`<option value="${esc(v)}" ${v===sel?'selected':''}>${esc(l)}</option>`).join('')}
+function crewOfPerson(pid){return S.crews.filter(c=>c.members.includes(pid)).map(c=>c.call)}
+function renderPeople(){
+  const f=$('p-filter').value.trim().toLowerCase();
+  const list=S.people.filter(p=>!f||[p.name,STATION[p.station].n,p.call,RAMP[p.ramp],...p.end.map(k=>END[k])].join(' ').toLowerCase().includes(f));
+  $('p-count').textContent=`${S.people.length} total${S.example?' · examples':''}`;
+  $('p-list').innerHTML=`<thead><tr><th>Name</th><th>Station</th><th>Call sign</th><th>Ramp</th><th>Endorsements</th><th></th></tr></thead><tbody>`+
+   (list.length?list.map(p=>{const bad=p.call&&!CALLRE.test(p.call);return `<tr><td>${esc(p.name)}${p.pc?' <span class="chip ok">PC</span>':''}</td>
+    <td class="nw">${hatHtml(p.station)}${esc(STATION[p.station].n)}</td><td>${esc(p.call)||'<span class="hint">none</span>'}${bad?' <span class="chip warn">check format</span>':''}</td>
+    <td class="nw">${isRamp(p.ramp)?`<span class="chip warn">${esc(RAMP[p.ramp])}</span>`:esc(RAMP[p.ramp])}</td>
+    <td style="min-width:180px">${p.end.map(k=>`<span class="tagx">${esc(END[k])}</span>`).join('')||'<span class="hint">none</span>'}</td>
+    <td class="nw"><button class="btn sm alt" type="button" data-pedit="${esc(p.id)}">Edit</button> <button class="btn sm red" type="button" data-pdel="${esc(p.id)}">Delete</button></td></tr>`}).join('')
+    :'<tr><td colspan="6" class="hint">No people yet. Add your roster with the form.</td></tr>')+'</tbody>';
+}
+function renderCrews(){
+  $('c-count').textContent=`${S.crews.length} total${S.example?' · examples':''}`;
+  const P=Object.fromEntries(S.people.map(p=>[p.id,p]));
+  $('c-list').innerHTML=`<thead><tr><th>Call sign</th><th>Sector</th><th>Talkgroup</th><th>Members</th><th>Active</th><th></th></tr></thead><tbody>`+
+   (S.crews.length?S.crews.map(c=>{const mem=c.members.map(m=>P[m]).filter(Boolean);const ends=new Set(mem.flatMap(p=>p.end));
+    return `<tr><td>${esc(c.call)}${CALLRE.test(c.call)?'':' <span class="chip warn">check format</span>'}</td><td>${esc(c.sector)} <span class="hint">Ch ${SECTOR_CH[c.sector]}</span></td><td class="m">${esc(c.tg)}</td>
+    <td style="min-width:200px">${mem.map(p=>`<span class="nw">${hatHtml(p.station)}${esc(p.name)}${isRamp(p.ramp)?' <span class="chip warn">RAMP</span>':''}</span>`).join(', ')||'<span class="hint">none</span>'}
+      <div class="hint">${ends.has('firstaid')?'':'No first aider. '}${[...ends].length} endorsement types</div></td>
+    <td>${c.active?'Yes':'No'}</td>
+    <td class="nw"><button class="btn sm alt" type="button" data-cedit="${esc(c.id)}">Edit</button> <button class="btn sm red" type="button" data-cdel="${esc(c.id)}">Delete</button></td></tr>`}).join('')
+    :'<tr><td colspan="6" class="hint">No crews yet.</td></tr>')+'</tbody>';
+  renderCrewMembers();
+}
+function renderCrewMembers(){
+  const id=$('c-id').value, crew=S.crews.find(c=>c.id===id);
+  const checked=new Set([...$('c-members').querySelectorAll('input:checked')].map(i=>i.value));
+  if(crew&&!$('c-members').dataset.loaded){crew.members.forEach(m=>checked.add(m));$('c-members').dataset.loaded='1'}
+  const f=$('c-mfilter').value.trim().toLowerCase();
+  $('c-members').innerHTML=S.people.length?S.people.map(p=>{const vis=!f||(p.name+' '+STATION[p.station].n+' '+p.call).toLowerCase().includes(f)||checked.has(p.id);
+    const other=crewOfPerson(p.id).filter(c=>!crew||c!==crew.call);
+    return `<label ${vis?'':'hidden'}><input type="checkbox" id="c-mem-${esc(p.id)}" value="${esc(p.id)}" ${checked.has(p.id)?'checked':''}> <span>${hatHtml(p.station)}${esc(p.name)}${other.length?` <span class="hint">(also ${esc(other.join(', '))})</span>`:''}</span></label>`}).join('')
+    :'<span class="hint">Add people first.</span>';
+}
+function renderJobs(){
+  $('j-count').textContent=`${S.jobs.length} total${S.example?' · examples':''}`;
+  $('j-list').innerHTML=`<thead><tr><th>Job</th><th>Location</th><th>Work</th><th>Flags</th><th>Hours</th><th></th></tr></thead><tbody>`+
+   (S.jobs.length?S.jobs.map(j=>`<tr><td>${esc(j.title)}${j.active?'':' <span class="chip info">inactive</span>'}</td><td>${esc(locStr(j))}</td><td>${WORK[j.work]}</td>
+    <td style="min-width:160px">${FLAGS.filter(([k])=>k==='height'?isHeight(j):j.f[k]).map(f=>`<span class="tagx">${esc(f[1])}</span>`).join('')}${j.lift!=='none'?`<span class="tagx">lift: ${j.lift}</span>`:''}${j.req.map(k=>`<span class="tagx">needs ${esc(END[k])}</span>`).join('')}</td>
+    <td class="m">${j.hours}</td>
+    <td class="nw"><button class="btn sm alt" type="button" data-jedit="${esc(j.id)}">Edit</button> <button class="btn sm red" type="button" data-jdel="${esc(j.id)}">Delete</button></td></tr>`).join('')
+    :'<tr><td colspan="6" class="hint">No jobs yet.</td></tr>')+'</tbody>';
+}
+function renderComps(){
+  const f=$('k-filter').value.trim().toLowerCase();
+  const all=allComps().filter(c=>!f||(c.t+' '+c.tags.join(' ')).toLowerCase().includes(f));
+  const on=allComps().filter(c=>!c.off).length;
+  $('k-count').textContent=`${BUILTIN.length} built in · ${S.compCustom.length} custom · ${on} enabled`;
+  $('k-list').innerHTML=`<thead><tr><th>On</th><th>Complication</th><th>Tags</th><th>Weight</th><th></th></tr></thead><tbody>`+all.map(c=>{const id=esc(c.cid);
+    return `<tr><td><input type="checkbox" id="k-on-${id}" data-kon="${id}" ${c.off?'':'checked'} aria-label="Enable ${esc(c.t)}"></td>
+    <td><b>${esc(c.t)}</b>${c.builtin?'':' <span class="chip ok">custom</span>'}<div class="hint">${esc(c.x)}</div></td>
+    <td style="min-width:120px">${c.tags.map(t=>`<span class="tagx">${esc(t)}</span>`).join('')}</td>
+    <td><input type="number" id="k-w-${id}" data-kw="${id}" min="1" max="10" step="1" value="${c.w}" style="width:64px" aria-label="Weight for ${esc(c.t)}"></td>
+    <td class="nw">${c.builtin?'':`<button class="btn sm alt" type="button" data-kedit="${esc(c.id)}">Edit</button> <button class="btn sm red" type="button" data-kdel="${esc(c.id)}">Delete</button>`}</td></tr>`}).join('')+'</tbody>';
+}
+function renderLog(){
+  $('l-list').innerHTML=S.log.length?S.log.map(e=>`<div class="logitem"><div class="m"><b>${esc(e.label)}</b><br><span class="hint">Saved ${esc(e.saved.replace('T',' ').slice(0,16))}</span></div>
+    <div class="btns"><button class="btn sm hv" type="button" data-lopen="${esc(e.id)}">Open</button><button class="btn sm red" type="button" data-ldel="${esc(e.id)}">Delete</button></div></div>`).join('')
+    :'<div class="empty">No saved shifts. Use "Save to shift log" on the Roll shift tab.</div>';
+}
+function renderCounts(){
+  $('n-people').textContent=`(${S.people.length})`; $('n-crews').textContent=`(${S.crews.length})`; $('n-jobs').textContent=`(${S.jobs.length})`; $('n-log').textContent=`(${S.log.length})`;
+  $('ex-banner').hidden=!S.example;
+  $('x-store').textContent=storeOK?`Saved in this browser's local storage under "${KEY}". Clearing site data deletes it, so export now and then.`:'Local storage is blocked: nothing is saved between visits. Export to keep your work.';
+}
+function renderAll(){renderCounts();renderRoll();renderPeople();renderCrews();renderJobs();renderComps();renderLog()}
+function changed(){save();renderAll()}
+
+/* ================= forms ================= */
+function fillSelects(){
+  $('p-station').innerHTML=opts(STATIONS.map(s=>[s[0],s[1]]),'crew');
+  $('p-ramp').innerHTML=opts(RAMPS,'done');
+  $('p-ends').innerHTML=ENDS.map(([k,l])=>`<label><input type="checkbox" id="p-end-${k}" value="${k}"> <span>${esc(l)}</span></label>`).join('');
+  const sec=SECTORS.map(s=>[s,`${s} (Ch ${SECTOR_CH[s]})`]);
+  $('c-sector').innerHTML=opts(sec,'Charlie'); $('j-sector').innerHTML=opts(sec,'Charlie');
+  $('r-sector').innerHTML='<option value="">All sectors</option>'+opts(sec,'');
+  $('j-work').innerHTML=opts(WORKS,'moderate');
+  $('j-flags').innerHTML=FLAGS.map(([k,l])=>`<label><input type="checkbox" id="j-f-${k}" value="${k}"> <span>${esc(l)}</span></label>`).join('');
+  $('j-req').innerHTML=ENDS.map(([k,l])=>`<label><input type="checkbox" id="j-req-${k}" value="${k}"> <span>${esc(l)}</span></label>`).join('');
+  $('k-tags').innerHTML=TAGS.map((t,i)=>`<label><input type="checkbox" id="k-tag-${i}" value="${esc(t)}"> <span>${esc(t)}</span></label>`).join('');
+}
+function updHat(){const st=$('p-station').value;$('p-hat').innerHTML=`${hatHtml(st)}<span class="hint">${esc(hatName(st))} hard hat${st==='lead'?'':''}. A RAMP band goes on any helmet for ramp Days 1–5.</span>`}
+function callHint(inp,hint,base){const v=inp.value.trim();const bad=v&&!CALLRE.test(v);hint.classList.toggle('bad',!!bad);hint.textContent=bad?'That does not match "[Sector] Crew [foreman n]-[crew n]", e.g. Charlie Crew 14-3. You can still save it.':base}
+const P_HINT='Format: [Sector] Crew [foreman n]-[crew n], e.g. Charlie Crew 14-3. A member number may follow (Charlie Crew 14-3 Seven).';
+const C_HINT='Format: [Sector] Crew [foreman n]-[crew n]. Fixed when the crew is formed.';
+function resetP(){$('p-form').reset();$('p-id').value='';$('p-station').value='crew';$('p-ramp').value='done';$('p-form-title').textContent='Add person';updHat();callHint($('p-call'),$('p-call-hint'),P_HINT)}
+function editP(id){const p=S.people.find(x=>x.id===id);if(!p)return;resetP();$('p-id').value=p.id;$('p-name').value=p.name;$('p-station').value=p.station;$('p-ramp').value=p.ramp;
+  $('p-call').value=p.call;$('p-notes').value=p.notes;$('p-pc').checked=p.pc;p.end.forEach(k=>{const el=$('p-end-'+k);if(el)el.checked=true});
+  $('p-form-title').textContent='Edit person';updHat();callHint($('p-call'),$('p-call-hint'),P_HINT);$('p-name').focus()}
+function resetC(){$('c-form').reset();$('c-id').value='';$('c-tg').dataset.auto='1';$('c-active').checked=true;$('c-sector').value='Charlie';delete $('c-members').dataset.loaded;$('c-members').querySelectorAll('input').forEach(i=>i.checked=false);$('c-form-title').textContent='Add crew';renderCrewMembers();callHint($('c-call'),$('c-call-hint'),C_HINT)}
+function editC(id){const c=S.crews.find(x=>x.id===id);if(!c)return;resetC();$('c-id').value=c.id;$('c-call').value=c.call;$('c-sector').value=c.sector;$('c-tg').value=c.tg;$('c-tg').dataset.auto='0';$('c-active').checked=c.active;
+  delete $('c-members').dataset.loaded;renderCrewMembers();$('c-form-title').textContent='Edit crew';callHint($('c-call'),$('c-call-hint'),C_HINT);$('c-call').focus()}
+function resetJ(){$('j-form').reset();$('j-id').value='';$('j-sector').value='Charlie';$('j-work').value='moderate';$('j-lift').value='none';$('j-active').checked=true;$('j-form-title').textContent='Add job';updLoc()}
+function editJ(id){const j=S.jobs.find(x=>x.id===id);if(!j)return;resetJ();$('j-id').value=j.id;$('j-title').value=j.title;$('j-sector').value=j.sector;$('j-grid').value=j.grid;
+  $('j-structure').value=j.structure;$('j-deck').value=j.deck;$('j-landmark').value=j.landmark;$('j-work').value=j.work;$('j-hours').value=j.hours;$('j-lift').value=j.lift;
+  $('j-notes').value=j.notes;$('j-active').checked=j.active;FLAGS.forEach(([k])=>$('j-f-'+k).checked=!!j.f[k]);j.req.forEach(k=>$('j-req-'+k).checked=true);
+  $('j-form-title').textContent='Edit job';updLoc();$('j-title').focus()}
+function jobFromForm(){return normJob({id:$('j-id').value||uid(),title:$('j-title').value.trim(),sector:$('j-sector').value,grid:$('j-grid').value,structure:$('j-structure').value.trim(),
+  deck:$('j-deck').value.trim(),landmark:$('j-landmark').value.trim(),work:$('j-work').value,f:Object.fromEntries(FLAGS.map(([k])=>[k,$('j-f-'+k).checked])),
+  lift:$('j-lift').value,req:ENDS.map(e=>e[0]).filter(k=>$('j-req-'+k).checked),hours:$('j-hours').value,notes:$('j-notes').value.trim(),active:$('j-active').checked})}
+function updLoc(){$('j-loc').textContent=locStr(jobFromForm())}
+function resetK(){$('k-form').reset();$('k-id').value='';$('k-weight').value=3;$('k-form-title').textContent='Add custom complication'}
+function editK(id){const c=S.compCustom.find(x=>x.id===id);if(!c)return;resetK();$('k-id').value=c.id;$('k-title').value=c.t;$('k-text').value=c.x;$('k-rule').value=c.r;$('k-weight').value=c.w;$('k-inv').value=c.inv;
+  TAGS.forEach((t,i)=>$('k-tag-'+i).checked=c.tags.includes(t));$('k-form-title').textContent='Edit custom complication';$('k-title').focus()}
+
+/* ================= events ================= */
+function flash(el,msg,ok=true){el.style.color=ok?'var(--green)':'var(--red)';el.textContent=msg;clearTimeout(el._t);el._t=setTimeout(()=>{if(el.textContent===msg)el.textContent=''},4000)}
+async function copyText(text,ta){
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch(e){}
+  try{ta.value=text;ta.focus();ta.select();return document.execCommand('copy')}catch(e){return false}
+}
+function selectTab(name){
+  document.querySelectorAll('.tab').forEach(t=>{const on=t.id==='tab-'+name;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1});
+  document.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='pane-'+name);
+  try{sessionStorage.setItem(KEY+'-tab',name)}catch(e){}
+}
+document.querySelector('.tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)selectTab(t.id.slice(4))});
+document.querySelector('.tabs').addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight'].includes(e.key))return;const tabs=[...document.querySelectorAll('.tab')];const i=tabs.indexOf(document.activeElement);if(i<0)return;
+  const n=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];n.focus();selectTab(n.id.slice(4))});
+
+// shift setup
+const shiftSet=(k,v,reroll)=>{S.shift[k]=v;if(reroll&&!S.shift.lockWx)S.shift.wx=makeDay(S.shift.season,S.shift.type==='night'?18:6);save();renderRoll()};
+$('r-type').onchange=e=>{shiftSet('type',e.target.value,false)};
+$('r-season').onchange=e=>{shiftSet('season',e.target.value,true);if(S.shift.lockWx)flash($('r-status'),'Weather is locked: the new season applies when you unlock and reroll',false)};
+$('r-day').onchange=e=>shiftSet('day',clamp(Math.round(+e.target.value)||1,1,99999));
+$('r-date').oninput=e=>{S.shift.date=e.target.value.slice(0,40);save();if(lastR){renderBrief(buildBrief(lastR,S.shift),S.shift)}};
+$('r-sector').onchange=e=>{S.shift.sector=e.target.value;autoAssign(S.shift,true);save();renderRoll()};
+$('r-count').oninput=e=>{S.shift.count=+e.target.value;$('r-count-out').textContent=S.shift.count;if(S.shift.wx){fillComps(compute(S.shift),S.shift,'fill')}save();renderRoll()};
+$('r-lockwx').onchange=e=>{S.shift.lockWx=e.target.checked;save();renderRoll()};
+$('b-compact').onchange=e=>{const sh=curShift();sh.compact=e.target.checked;if(!VIEW)save();renderBrief(buildBrief(lastR,sh),sh)};
+$('r-crews').addEventListener('change',e=>{const id=e.target.dataset.crew;if(!id)return;const o=S.shift.outCrews;
+  if(e.target.checked)S.shift.outCrews=o.filter(x=>x!==id);else if(!o.includes(id))o.push(id);autoAssign(S.shift,true);save();renderRoll()});
+$('r-jobs').addEventListener('change',e=>{const id=e.target.dataset.job;if(!id)return;const o=S.shift.outJobs;
+  if(e.target.checked)S.shift.outJobs=o.filter(x=>x!==id);else if(!o.includes(id))o.push(id);autoAssign(S.shift,true);save();renderRoll()});
+$('r-roll').onclick=()=>{rollShift();renderRoll();flash($('r-status'),S.shift.lockWx?'Rolled (weather locked)':'New shift rolled')};
+$('r-rewx').onclick=()=>{S.shift.wx=makeDay(S.shift.season,S.shift.type==='night'?18:6);save();renderRoll();flash($('r-status'),S.shift.lockWx?'Weather rerolled (lock kept for next time)':'Weather rerolled')};
+$('r-recomp').onclick=()=>{fillComps(compute(S.shift),S.shift,'all');save();renderRoll();flash($('r-status'),'Unlocked complications rerolled')};
+$('r-auto').onclick=()=>{autoAssign(S.shift,false);save();renderRoll();flash($('r-status'),'Crews auto-assigned by endorsements, sector and load')};
+$('r-next').onclick=()=>{S.shift.day++;S.shift.id=uid();if(!S.shift.lockWx)S.shift.wx=makeDay(S.shift.season,S.shift.type==='night'?18:6);fillComps(compute(S.shift),S.shift,'all');save();renderRoll();flash($('r-status'),`Day ${S.shift.day}`)};
+$('r-save').onclick=()=>{
+  const sh=clone(S.shift), D=dataOf(S.shift), crews=inCrews(S.shift,D), jobs=inJobs(S.shift,D);
+  const pids=new Set(crews.flatMap(c=>c.members));
+  sh.snap={people:clone(D.people.filter(p=>pids.has(p.id))),crews:clone(crews),jobs:clone(jobs),comps:clone(S.compCustom)};
+  const label=`Day ${sh.day} ${sh.type} shift · ${WEATHER[sh.wx.wxKey].name}, high ${sh.wx.peak}°F · ${jobs.length} jobs`+(sh.date?` · ${sh.date}`:'');
+  const i=S.log.findIndex(e=>e.shift.id===sh.id);
+  const entry={id:i>=0?S.log[i].id:uid(),saved:new Date().toISOString(),label,shift:sh};
+  if(i>=0)S.log.splice(i,1);
+  S.log.unshift(entry);S.log=S.log.slice(0,20);changed();flash($('r-status'),i>=0?'Shift log entry updated':'Saved to the shift log');
+};
+$('view-back').onclick=()=>{VIEW=null;renderRoll()};
+// assignments and complication controls (delegated)
+$('r-assign').addEventListener('change',e=>{
+  const t=e.target, sh=S.shift; if(VIEW)return;
+  if(t.dataset.acrew){const a=sh.assign[t.dataset.acrew]||{start:0};a.crew=t.value;sh.assign[t.dataset.acrew]=a}
+  else if(t.dataset.astart){const a=sh.assign[t.dataset.astart]||{crew:''};a.start=+t.value;sh.assign[t.dataset.astart]=a}
+  else return;
+  save();renderRoll();
+  const back=$(t.id); if(back) back.focus();
+});
+$('r-comps').addEventListener('change',e=>{
+  const t=e.target, sh=S.shift; const id=t.dataset.cmhour||t.dataset.cmperson||t.dataset.cmcrew; if(!id||VIEW)return;
+  const cm=sh.comps.find(c=>c.id===id); if(!cm)return;
+  if(t.dataset.cmhour){cm.hi=+t.value}
+  if(t.dataset.cmperson){cm.pid=t.value;const R=compute(sh);const c=R.crews.find(c=>c.members.includes(t.value));if(c){cm.crew=c.id;const jo=R.jobsOut.find(o=>o.crew&&o.crew.id===c.id);cm.job=jo?jo.j.id:''}}
+  if(t.dataset.cmcrew){cm.crew=t.value;const R=compute(sh);const jo=R.jobsOut.find(o=>o.crew&&o.crew.id===t.value);cm.job=jo?jo.j.id:'';const c=R.crews.find(c=>c.id===t.value);if(c&&cm.pid&&!c.members.includes(cm.pid))cm.pid=''}
+  save();renderRoll();const back=$(t.id);if(back)back.focus();
+});
+$('r-comps').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b||VIEW)return; const sh=S.shift;
+  if(b.dataset.cmlock){const cm=sh.comps.find(c=>c.id===b.dataset.cmlock);if(cm){cm.locked=!cm.locked;save();renderRoll();const n=document.querySelector(`[data-cmlock="${cm.id}"]`);if(n)n.focus()}}
+  if(b.dataset.cmreroll){const ix=sh.comps.findIndex(c=>c.id===b.dataset.cmreroll);if(ix<0)return;
+    const R=compute(sh);const d=drawOne(R,sh.comps.map(c=>c.cid));
+    if(d){sh.comps[ix]=d;save();renderRoll();const n=document.querySelector(`[data-cmreroll="${d.id}"]`);if(n)n.focus()}else flash($('r-status'),'No other complication fits this shift',false)}
+});
+$('b-copy').onclick=async()=>{const txt=$('b-text').value;const ok=await copyText(txt,$('b-text'));
+  if(!ok){$('b-text-wrap').hidden=false;$('b-show').setAttribute('aria-pressed','true');$('b-text').select()}
+  flash($('b-status'),ok?'Briefing copied. Paste it into Discord.':'Copy blocked: the text is shown below, select it and copy',ok)};
+$('b-show').onclick=()=>{const on=$('b-text-wrap').hidden;$('b-text-wrap').hidden=!on;$('b-show').setAttribute('aria-pressed',on)};
+
+// people
+$('p-station').onchange=updHat;
+$('p-call').oninput=()=>callHint($('p-call'),$('p-call-hint'),P_HINT);
+$('p-form').onsubmit=e=>{e.preventDefault();const name=$('p-name').value.trim();if(!name){$('p-name').focus();return}
+  const p=normPerson({id:$('p-id').value||uid(),name,station:$('p-station').value,call:$('p-call').value.trim(),end:ENDS.map(x=>x[0]).filter(k=>$('p-end-'+k).checked),
+    ramp:$('p-ramp').value,notes:$('p-notes').value.trim(),pc:$('p-pc').checked});
+  const i=S.people.findIndex(x=>x.id===p.id); if(i>=0)S.people[i]=p; else S.people.push(p);
+  resetP();changed();$('p-name').focus()};
+$('p-cancel').onclick=resetP;
+$('p-filter').oninput=renderPeople;
+$('p-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.pedit)editP(b.dataset.pedit);
+  if(b.dataset.pdel){const p=S.people.find(x=>x.id===b.dataset.pdel);if(p&&confirm(`Delete ${p.name}? They are also removed from any crew.`)){S.people=S.people.filter(x=>x.id!==p.id);S.crews.forEach(c=>c.members=c.members.filter(m=>m!==p.id));if($('p-id').value===p.id)resetP();changed()}}});
+// crews
+$('c-call').oninput=()=>{callHint($('c-call'),$('c-call-hint'),C_HINT);const m=CALLRE.exec($('c-call').value.trim());
+  if(m){$('c-sector').value=m[1];if(!$('c-tg').value.trim()||$('c-tg').dataset.auto==='1'){$('c-tg').value=`${m[1][0]}-F${m[2]}`;$('c-tg').dataset.auto='1'}}};
+$('c-tg').oninput=()=>{$('c-tg').dataset.auto='0'};
+$('c-mfilter').oninput=renderCrewMembers;
+$('c-form').onsubmit=e=>{e.preventDefault();const call=$('c-call').value.trim();if(!call){$('c-call').focus();return}
+  const members=[...$('c-members').querySelectorAll('input:checked')].map(i=>i.value);
+  const c=normCrew({id:$('c-id').value||uid(),call,sector:$('c-sector').value,tg:$('c-tg').value.trim(),members,active:$('c-active').checked});
+  const i=S.crews.findIndex(x=>x.id===c.id); if(i>=0)S.crews[i]=c; else S.crews.push(c);
+  S.people.forEach(p=>{if(members.includes(p.id)&&!p.call)p.call=call});
+  resetC();changed();$('c-call').focus()};
+$('c-cancel').onclick=resetC;
+$('c-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.cedit)editC(b.dataset.cedit);
+  if(b.dataset.cdel){const c=S.crews.find(x=>x.id===b.dataset.cdel);if(c&&confirm(`Delete ${c.call}? People stay on the roster.`)){S.crews=S.crews.filter(x=>x.id!==c.id);Object.keys(S.shift.assign).forEach(k=>{if(S.shift.assign[k].crew===c.id)S.shift.assign[k].crew=''});if($('c-id').value===c.id)resetC();changed()}}});
+// jobs
+['j-title','j-sector','j-grid','j-structure','j-deck','j-landmark'].forEach(id=>$(id).addEventListener('input',updLoc));
+$('j-form').onsubmit=e=>{e.preventDefault();if(!$('j-title').value.trim()){$('j-title').focus();return}
+  const j=jobFromForm();const i=S.jobs.findIndex(x=>x.id===j.id);if(i>=0)S.jobs[i]=j;else S.jobs.push(j);
+  autoAssign(S.shift,true);resetJ();changed();$('j-title').focus()};
+$('j-cancel').onclick=resetJ;
+$('j-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.jedit)editJ(b.dataset.jedit);
+  if(b.dataset.jdel){const j=S.jobs.find(x=>x.id===b.dataset.jdel);if(j&&confirm(`Delete job "${j.title}"?`)){S.jobs=S.jobs.filter(x=>x.id!==j.id);delete S.shift.assign[j.id];if($('j-id').value===j.id)resetJ();changed()}}});
+// complications
+$('k-form').onsubmit=e=>{e.preventDefault();const t=$('k-title').value.trim();if(!t){$('k-title').focus();return}
+  const c=normComp({id:$('k-id').value||uid(),t,x:$('k-text').value.trim(),r:$('k-rule').value.trim(),w:$('k-weight').value,inv:$('k-inv').value,tags:TAGS.filter((x,i)=>$('k-tag-'+i).checked)});
+  const i=S.compCustom.findIndex(x=>x.id===c.id);if(i>=0)S.compCustom[i]=c;else S.compCustom.push(c);resetK();changed()};
+$('k-cancel').onclick=resetK;
+$('k-filter').oninput=renderComps;
+$('k-list').addEventListener('change',e=>{const t=e.target;
+  if(t.dataset.kon){if(t.checked)delete S.compOff[t.dataset.kon.replace(/^b:/,'')],delete S.compOff[t.dataset.kon];else S.compOff[t.dataset.kon.startsWith('b:')?t.dataset.kon.slice(2):t.dataset.kon]=true;save();renderComps()}
+  if(t.dataset.kw){const v=clamp(Math.round(+t.value)||1,1,10),id=t.dataset.kw;
+    if(id.startsWith('b:'))S.compW[id.slice(2)]=v;else{const c=S.compCustom.find(x=>'c:'+x.id===id);if(c)c.w=v}save();renderComps()}});
+$('k-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.kedit)editK(b.dataset.kedit);
+  if(b.dataset.kdel){const c=S.compCustom.find(x=>x.id===b.dataset.kdel);if(c&&confirm(`Delete "${c.t}"?`)){S.compCustom=S.compCustom.filter(x=>x.id!==c.id);S.shift.comps=S.shift.comps.filter(m=>m.cid!=='c:'+c.id);changed()}}});
+// log
+$('l-list').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.lopen){const en=S.log.find(x=>x.id===b.dataset.lopen);if(en){VIEW=clone(en);selectTab('roll');renderRoll();$('view-back').focus()}}
+  if(b.dataset.ldel){const en=S.log.find(x=>x.id===b.dataset.ldel);if(en&&confirm(`Delete log entry "${en.label}"?`)){S.log=S.log.filter(x=>x.id!==en.id);if(VIEW&&VIEW.id===en.id)VIEW=null;changed()}}});
+// data
+$('x-export').onclick=async()=>{const txt=JSON.stringify({app:'DCW TOOL-SG',rev:5,exported:new Date().toISOString(),...S},null,1);$('x-out').value=txt;
+  const ok=await copyText(txt,$('x-out'));flash($('x-status'),ok?`Copied ${txt.length} characters. Paste into a text file to keep.`:'Copy blocked: select the text below and copy it',ok)};
+$('x-import').onclick=()=>{let o;try{o=JSON.parse($('x-in').value)}catch(e){flash($('x-istatus'),'That is not valid JSON',false);return}
+  try{const n=normalize(o);if(!confirm(`Replace everything with ${n.people.length} people, ${n.crews.length} crews, ${n.jobs.length} jobs and ${n.log.length} log entries?`))return;
+    S=n;VIEW=null;if(!S.shift.wx)rollShift(true);changed();resetP();resetC();resetJ();resetK();flash($('x-istatus'),'Imported')}catch(e){flash($('x-istatus'),'Import failed: '+e.message,false)}};
+$('x-example').onclick=()=>{if((S.people.length||S.crews.length||S.jobs.length)&&!confirm('Replace your people, crews and jobs with the example data? Your log and custom complications stay.'))return;
+  VIEW=null;loadExample();changed();resetP();resetC();resetJ()};
+$('x-clear').onclick=()=>{if(!confirm('Delete all people, crews, jobs, custom complications and the shift log from this browser? This cannot be undone. Export first if you want a copy.'))return;
+  S=blank();rollShift(true);VIEW=null;changed();resetP();resetC();resetJ();resetK()};
+$('ex-clear').onclick=()=>{if(!confirm('Clear the example people, crews and jobs? Your custom complications stay.'))return;
+  S.people=[];S.crews=[];S.jobs=[];S.example=false;S.shift.assign={};S.shift.outCrews=[];S.shift.outJobs=[];fillComps(compute(S.shift),S.shift,'all');changed();resetP();resetC();resetJ()};
+
+/* ================= init ================= */
+fillSelects();
+S=load();
+if(!S){S=blank();loadExample()}
+if(!S.shift.wx) rollShift(true);
+save();
+resetP();resetC();resetJ();resetK();
+renderAll();
+try{const t=sessionStorage.getItem(KEY+'-tab');if(t&&$('tab-'+t))selectTab(t)}catch(e){}
+</script>
+</body>
+</html>
